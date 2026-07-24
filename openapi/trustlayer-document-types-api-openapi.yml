@@ -1,0 +1,186 @@
+openapi: 3.0.0
+info:
+  title: TrustLayer Platform Auth Document Types API
+  version: '1.0'
+  contact:
+    name: TrustLayer Support
+    email: support@trustlayer.io
+  termsOfService: https://trustlayer.io/terms-of-service
+  externalDocs:
+    description: OpenAPI specification
+    url: /v1/platform-api.yaml
+  description: '3rd-party API for the TrustLayer platform.
+
+
+    **Deprecated.** Platform API v1 is deprecated as of 01 June 2026 and is
+
+    scheduled for sunset (end-of-life) on 31 March 2027. It remains fully
+
+    available until the sunset date but will not receive new features. Please
+
+    migrate to Platform API v2 for new integrations.
+
+
+    All v1 responses carry the standard deprecation response headers
+
+    ([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)):
+
+
+    ```http
+
+    Deprecation: @1780272000
+
+    Sunset: Wed, 31 Mar 2027 23:59:59 GMT
+
+    Link: <https://developers.trustlayer.io/>; rel="deprecation", <https://developers.trustlayer.io/>; rel="sunset"
+
+    ```
+
+
+    `Deprecation: @1780272000` is the Unix timestamp for 2026-06-01T00:00:00Z;
+
+    sunset (end-of-life) is 2027-03-31T23:59:59 GMT.'
+  x-deprecated: true
+  x-deprecation-date: '2026-06-01'
+  x-sunset: '2027-03-31'
+  license:
+    name: Apache 2.0
+    url: https://apache.org/licenses/LICENSE-2.0
+servers:
+- url: http://localhost:4000/v1
+  description: Local
+- url: https://api.trustlayer.io/v1
+  description: Production
+security:
+- API Key: []
+tags:
+- name: Document Types
+paths:
+  /document-types:
+    get:
+      summary: List Document Types
+      tags:
+      - Document Types
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    x-stoplight:
+                      id: 0c0z0q9yanm9p
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/document-type'
+                  meta:
+                    $ref: '#/components/schemas/collection-meta'
+      operationId: get-document-types
+      deprecated: true
+      description: This endpoint returns the complete list of document types. No pagination, filtering or sorting option is supported at the moment.
+  /document-types/{documentTypeId}:
+    parameters:
+    - schema:
+        type: string
+      name: documentTypeId
+      in: path
+      required: true
+    get:
+      summary: Fetch Document Type
+      tags:
+      - Document Types
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document-type'
+        ? ''
+        : content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document-type'
+      operationId: get-document-types-id
+      deprecated: true
+      description: This endpoint returns a single document type.
+components:
+  schemas:
+    collection-meta:
+      title: collection-meta
+      type: object
+      properties:
+        count:
+          type: number
+          description: The number of documents according to the specified filters
+        pages:
+          type: number
+        totalCount:
+          type: number
+          description: The total number of documents in the collection
+        totalPages:
+          type: number
+      x-internal: true
+    response-status:
+      type: string
+      title: Response Status
+      enum:
+      - success
+      - fail
+      - error
+      readOnly: true
+      x-examples:
+        Success: success
+      description: The possible values are "success", "fail", and "error".
+      x-internal: true
+    document-type:
+      description: ''
+      type: object
+      title: Document Type
+      x-examples:
+        Certificate of insurance:
+          type: document-types
+          id: 60a27c517fd4e152a9642347
+          name: Certificate of Insurance
+          system: true
+          pluralName: Certificates of Insurance
+      properties:
+        type:
+          type: string
+          default: document-types
+          readOnly: true
+        id:
+          type: string
+        name:
+          type: string
+          minLength: 1
+        system:
+          type: boolean
+        pluralName:
+          type: string
+          minLength: 1
+      required:
+      - id
+      - name
+      - system
+      - pluralName
+  securitySchemes:
+    Token:
+      name: Authorization
+      type: apiKey
+      in: header
+      description: ''

@@ -1,0 +1,3550 @@
+openapi: 3.0.0
+info:
+  title: TrustLayer Platform Auth compliance-profiles API
+  version: '1.0'
+  contact:
+    name: TrustLayer Support
+    email: support@trustlayer.io
+  termsOfService: https://trustlayer.io/terms-of-service
+  externalDocs:
+    description: OpenAPI specification
+    url: /v1/platform-api.yaml
+  description: '3rd-party API for the TrustLayer platform.
+
+
+    **Deprecated.** Platform API v1 is deprecated as of 01 June 2026 and is
+
+    scheduled for sunset (end-of-life) on 31 March 2027. It remains fully
+
+    available until the sunset date but will not receive new features. Please
+
+    migrate to Platform API v2 for new integrations.
+
+
+    All v1 responses carry the standard deprecation response headers
+
+    ([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)):
+
+
+    ```http
+
+    Deprecation: @1780272000
+
+    Sunset: Wed, 31 Mar 2027 23:59:59 GMT
+
+    Link: <https://developers.trustlayer.io/>; rel="deprecation", <https://developers.trustlayer.io/>; rel="sunset"
+
+    ```
+
+
+    `Deprecation: @1780272000` is the Unix timestamp for 2026-06-01T00:00:00Z;
+
+    sunset (end-of-life) is 2027-03-31T23:59:59 GMT.'
+  x-deprecated: true
+  x-deprecation-date: '2026-06-01'
+  x-sunset: '2027-03-31'
+  license:
+    name: Apache 2.0
+    url: https://apache.org/licenses/LICENSE-2.0
+servers:
+- url: http://localhost:4000/v1
+  description: Local
+- url: https://api.trustlayer.io/v1
+  description: Production
+security:
+- API Key: []
+tags:
+- name: compliance-profiles
+paths:
+  /compliance-profiles:
+    get:
+      summary: List global compliance profiles
+      tags:
+      - compliance-profiles
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/compliance-profile'
+                  meta:
+                    $ref: '#/components/schemas/collection-meta'
+      operationId: get-compliance-profiles
+      deprecated: true
+      description: 'Available sort options:
+
+        * `name`
+
+        * `createdAt`
+
+        * `updatedAt`
+
+
+        Available filter options:
+
+        * `name`
+
+        * `moduleId`
+
+        * `subjectId`
+
+        * `createdAt`
+
+        * `updatedAt`
+
+
+        Notes:
+
+
+        - `moduleId` and `subjectId` filters only perform an exact match (case-sensitive); they do not support other operator
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/page-number'
+      - $ref: '#/components/parameters/page-size'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/sort'
+    post:
+      tags:
+      - compliance-profiles
+      description: Create a new Global compliance profile in the caller's organization. The owning organization is derived from the access token. Returns the created profile.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  description: Human-readable name of the compliance profile.
+              required:
+              - name
+              additionalProperties: false
+              description: Request body for creating a global compliance profile.
+        description: Request body for creating a global compliance profile.
+      responses:
+        '201':
+          description: A compliance profile with its requirements.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    description: Unique identifier of the compliance profile.
+                    allOf:
+                    - $ref: '#/components/schemas/objectId'
+                  name:
+                    type: string
+                    description: Human-readable name of the compliance profile.
+                  context:
+                    type: string
+                    enum:
+                    - global
+                    - customField
+                    - party
+                    - project
+                    - requestRecord
+                    description: Context scope of the compliance profile.
+                  requirements:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        moduleCode:
+                          type: string
+                          minLength: 1
+                          description: Identifier of the module this requirement belongs to.
+                        moduleLabel:
+                          type: string
+                          minLength: 1
+                          description: Display label of the module.
+                        subjectCode:
+                          type: string
+                          minLength: 1
+                          description: Identifier of the subject this requirement belongs to.
+                        subjectLabel:
+                          type: string
+                          minLength: 1
+                          description: Display label of the subject.
+                        attributeCode:
+                          type: string
+                          minLength: 1
+                          description: Attribute code (maps to attributeId in storage).
+                        attributeLabel:
+                          type: string
+                          minLength: 1
+                          description: Display label of the attribute.
+                        attributeType:
+                          type: string
+                          enum:
+                          - boolean
+                          - number
+                          - fillableForm
+                          - amBestRating
+                          - amBestFinancialStrength
+                          - connected
+                          - list
+                          - ai
+                          description: Data type of the attribute (e.g. boolean, number).
+                        attributeDescription:
+                          description: Optional description of the attribute.
+                          type: string
+                          minLength: 1
+                        matchingCriteria:
+                          type: string
+                          enum:
+                          - matchOnce
+                          - matchRepeatedly
+                          description: Matching criteria for the requirement.
+                        operator:
+                          description: Comparison operator for the requirement.
+                          type: string
+                          enum:
+                          - must be present
+                          - must be greater or equal to
+                          - must be less than or equal to
+                          - must be completed by
+                          - at least one must be present from list
+                        targetValue:
+                          description: Target value for the requirement comparison.
+                          anyOf:
+                          - type: string
+                            minLength: 1
+                          - type: array
+                            items:
+                              type: string
+                              minLength: 1
+                      required:
+                      - moduleCode
+                      - moduleLabel
+                      - subjectCode
+                      - subjectLabel
+                      - attributeCode
+                      - attributeLabel
+                      - attributeType
+                      - matchingCriteria
+                      additionalProperties: false
+                      description: A single requirement within a compliance profile.
+                    description: Requirements that make up the compliance profile.
+                required:
+                - _id
+                - name
+                - context
+                - requirements
+                additionalProperties: false
+                description: A compliance profile with its requirements.
+        '400':
+          description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 400
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+        '401':
+          description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 401
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+        '403':
+          description: The authenticated caller does not have permission to perform this action on the target resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 403
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The authenticated caller does not have permission to perform this action on the target resource.
+        '404':
+          description: The requested resource does not exist or is not visible to the authenticated caller.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 404
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The requested resource does not exist or is not visible to the authenticated caller.
+        '500':
+          description: The server encountered an unexpected failure while processing the request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 500
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The server encountered an unexpected failure while processing the request.
+  /compliance-profiles/{profileId}:
+    parameters:
+    - schema:
+        type: string
+      name: profileId
+      in: path
+      required: true
+      description: Compliance Profile ID
+    get:
+      summary: Fetch a compliance profile
+      tags:
+      - compliance-profiles
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/compliance-profile'
+      operationId: get-compliance-profiles-id
+      deprecated: true
+      description: Note that you can also fetch project, party, and custom field compliance profiles, not just global ones.
+  /projects/{projectId}/compliance-profile:
+    parameters:
+    - schema:
+        type: string
+      name: projectId
+      in: path
+      required: true
+    get:
+      summary: Fetch compliance profile for project
+      tags:
+      - compliance-profiles
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/compliance-profile'
+      operationId: get-projects-projectId-compliance-profile
+      deprecated: true
+      parameters:
+      - $ref: '#/components/parameters/scope-type'
+      - $ref: '#/components/parameters/scope-id'
+      description: 'This will return the project-specific compliance profile relative to the given scope.
+
+
+        NOTE: it is _mandatory_ to specify a `scope`, which can be either a `party` (belonging to a project) or a `complianceProfile`.'
+      x-internal: true
+  /parties/{partyId}/compliance-profile:
+    parameters:
+    - schema:
+        type: string
+      name: partyId
+      in: path
+      required: true
+    get:
+      summary: Fetch a party's compliance profile
+      tags:
+      - compliance-profiles
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/compliance-profile'
+      operationId: get-parties-partyId-compliance-profile
+      deprecated: true
+      description: 'This will return the compliance profile associated to the party. If the party is not tracking compliance you will get a 404 response.
+
+        By specifying a `scope` of type `projects`, the project-specific compliance profile will be returned.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/scope-type'
+      - $ref: '#/components/parameters/scope-id'
+    post:
+      summary: Assign compliance profile to a party
+      operationId: post-parties-partyId-compliance-profile
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+      tags:
+      - compliance-profiles
+      description: This operation will assign an existing compliance profile to a party. Unless the `scope` parameters are specified, the profile will be applied at the global level. To assign at the project level, include `scope[type]=projects` and `scope[id]={projectId}` to the query string.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                complianceProfile:
+                  $ref: '#/components/schemas/reference-input'
+      parameters:
+      - $ref: '#/components/parameters/scope-type'
+      - $ref: '#/components/parameters/scope-id'
+  /parties/{partyId}/relationships/compliance-profile:
+    parameters:
+    - schema:
+        type: string
+      name: partyId
+      in: path
+      required: true
+    post:
+      summary: Assign a compliance profile to a party
+      operationId: post-parties-partyId-relationships-compliance-profile
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/party'
+      tags:
+      - compliance-profiles
+      description: 'This will turn on compliance tracking on the party if it''s currently turned off.
+
+        To assign a compliance profile for a specific project, specify it using the `scope` parameters.'
+      parameters:
+      - $ref: '#/components/parameters/scope-type'
+      - $ref: '#/components/parameters/scope-id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                complianceProfile:
+                  $ref: '#/components/schemas/reference-input'
+      x-internal: true
+    delete:
+      summary: Remove the compliance profile from a party
+      operationId: delete-parties-partyId-relationships-compliance-profile
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/party'
+      tags:
+      - compliance-profiles
+      description: This will turn off compliance tracking both at the global level and in each of the party's projects.
+      x-internal: true
+  /compliance-profiles/{id}:
+    patch:
+      tags:
+      - compliance-profiles
+      description: Rename a Global compliance profile in the caller's organization. Only profiles with context `Global` may be renamed via this endpoint. Returns the updated profile.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  description: New human-readable name for the compliance profile.
+              required:
+              - name
+              additionalProperties: false
+              description: Request body for renaming a global compliance profile.
+        description: Request body for renaming a global compliance profile.
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/objectIdInput'
+        in: path
+        name: id
+        required: true
+        description: Identifier of the compliance profile to update.
+      responses:
+        '200':
+          description: A compliance profile with its requirements.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    description: Unique identifier of the compliance profile.
+                    allOf:
+                    - $ref: '#/components/schemas/objectId'
+                  name:
+                    type: string
+                    description: Human-readable name of the compliance profile.
+                  context:
+                    type: string
+                    enum:
+                    - global
+                    - customField
+                    - party
+                    - project
+                    - requestRecord
+                    description: Context scope of the compliance profile.
+                  requirements:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        moduleCode:
+                          type: string
+                          minLength: 1
+                          description: Identifier of the module this requirement belongs to.
+                        moduleLabel:
+                          type: string
+                          minLength: 1
+                          description: Display label of the module.
+                        subjectCode:
+                          type: string
+                          minLength: 1
+                          description: Identifier of the subject this requirement belongs to.
+                        subjectLabel:
+                          type: string
+                          minLength: 1
+                          description: Display label of the subject.
+                        attributeCode:
+                          type: string
+                          minLength: 1
+                          description: Attribute code (maps to attributeId in storage).
+                        attributeLabel:
+                          type: string
+                          minLength: 1
+                          description: Display label of the attribute.
+                        attributeType:
+                          type: string
+                          enum:
+                          - boolean
+                          - number
+                          - fillableForm
+                          - amBestRating
+                          - amBestFinancialStrength
+                          - connected
+                          - list
+                          - ai
+                          description: Data type of the attribute (e.g. boolean, number).
+                        attributeDescription:
+                          description: Optional description of the attribute.
+                          type: string
+                          minLength: 1
+                        matchingCriteria:
+                          type: string
+                          enum:
+                          - matchOnce
+                          - matchRepeatedly
+                          description: Matching criteria for the requirement.
+                        operator:
+                          description: Comparison operator for the requirement.
+                          type: string
+                          enum:
+                          - must be present
+                          - must be greater or equal to
+                          - must be less than or equal to
+                          - must be completed by
+                          - at least one must be present from list
+                        targetValue:
+                          description: Target value for the requirement comparison.
+                          anyOf:
+                          - type: string
+                            minLength: 1
+                          - type: array
+                            items:
+                              type: string
+                              minLength: 1
+                      required:
+                      - moduleCode
+                      - moduleLabel
+                      - subjectCode
+                      - subjectLabel
+                      - attributeCode
+                      - attributeLabel
+                      - attributeType
+                      - matchingCriteria
+                      additionalProperties: false
+                      description: A single requirement within a compliance profile.
+                    description: Requirements that make up the compliance profile.
+                required:
+                - _id
+                - name
+                - context
+                - requirements
+                additionalProperties: false
+                description: A compliance profile with its requirements.
+        '400':
+          description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 400
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+        '401':
+          description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 401
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+        '403':
+          description: The authenticated caller does not have permission to perform this action on the target resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 403
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The authenticated caller does not have permission to perform this action on the target resource.
+        '404':
+          description: The requested resource does not exist or is not visible to the authenticated caller.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 404
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The requested resource does not exist or is not visible to the authenticated caller.
+        '500':
+          description: The server encountered an unexpected failure while processing the request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 500
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The server encountered an unexpected failure while processing the request.
+  /compliance-profiles/{id}/requirements:
+    post:
+      tags:
+      - compliance-profiles
+      description: Add requirements to a compliance profile. Each item is either a library reference (`libraryRequirementId` or `attributeCode`) or a custom definition (module/subject by code or label, attribute by label). Idempotent on the (moduleLabel, subjectLabel, attributeLabel) tuple. The response contains only the requirements newly added by this call; duplicates of existing rules or earlier items in the batch are omitted, so the array is empty when every input was a duplicate.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                requirements:
+                  minItems: 1
+                  maxItems: 200
+                  type: array
+                  items:
+                    anyOf:
+                    - type: object
+                      properties:
+                        libraryRequirementId:
+                          description: Identifier of the requirement entry in the workspace's requirements library to clone onto this request record.
+                          allOf:
+                          - $ref: '#/components/schemas/objectIdInput'
+                      required:
+                      - libraryRequirementId
+                      additionalProperties: false
+                      description: Reference an existing library requirement by its identifier. The persisted requirement is a verbatim copy (matchingCriteria, operator, targetValue, attributeType, etc.) of the library entry.
+                    - type: object
+                      properties:
+                        attributeCode:
+                          type: string
+                          minLength: 1
+                          description: Stable code of the library requirement to clone (alternative to `libraryRequirementId`). Must match an entry in the workspace requirements library.
+                        matchingCriteria:
+                          type: string
+                          enum:
+                          - matchOnce
+                          - matchRepeatedly
+                          description: How the requirement matches against documents (e.g. `MatchOnce`, `MatchRepeatedly`). Overrides the library entry value.
+                        operator:
+                          type: string
+                          enum:
+                          - must be present
+                          - must be greater or equal to
+                          - must be less than or equal to
+                          - must be completed by
+                          - at least one must be present from list
+                          description: Comparison operator applied between the document data and `targetValue`. Must be valid for the library entry's `attributeType`.
+                        targetValue:
+                          description: Value(s) the document data is compared against. String for scalar attribute types; string array for `list` attribute types. Optional for operators that do not require a target value (e.g. `MustBePresent`).
+                          anyOf:
+                          - type: string
+                            minLength: 1
+                          - type: array
+                            items:
+                              type: string
+                              minLength: 1
+                      required:
+                      - attributeCode
+                      - matchingCriteria
+                      - operator
+                      additionalProperties: false
+                      description: Reference an existing library requirement by its `attributeCode`. The persisted requirement uses the library entry for module/subject/attribute identity but takes `matchingCriteria`, `operator`, and `targetValue` from the input — supports requirement-template entries that may not carry these fields.
+                    - oneOf:
+                      - allOf:
+                        - type: object
+                          properties:
+                            subjectCode:
+                              type: string
+                              minLength: 1
+                              description: Existing subject code on the compliance profile. When provided, the subject (and its parent module) are reused. Mutually exclusive with `subjectLabel`.
+                            moduleCode:
+                              description: Existing module code on the compliance profile. When provided, the requirement is anchored to that module. Mutually exclusive with `moduleLabel`.
+                              type: string
+                              minLength: 1
+                            subjectLabel:
+                              not: {}
+                            moduleLabel:
+                              not: {}
+                            matchingCriteria:
+                              type: string
+                              enum:
+                              - matchOnce
+                              - matchRepeatedly
+                              description: How the requirement matches against documents (e.g. `MatchOnce`, `MatchRepeatedly`).
+                            attributeCode:
+                              not: {}
+                          required:
+                          - subjectCode
+                          - matchingCriteria
+                        - type: object
+                          properties:
+                            attributeCode:
+                              type: string
+                              minLength: 1
+                            attributeLabel:
+                              type: string
+                              minLength: 1
+                            attributeDescription:
+                              type: string
+                              minLength: 1
+                          required:
+                          - attributeLabel
+                        - oneOf:
+                          - type: object
+                            properties:
+                              attributeType:
+                                type: string
+                                enum:
+                                - number
+                                - amBestRating
+                                - amBestFinancialStrength
+                              operator:
+                                type: string
+                                enum:
+                                - must be greater or equal to
+                                - must be less than or equal to
+                              targetValue:
+                                type: string
+                                minLength: 1
+                            required:
+                            - attributeType
+                            - operator
+                            - targetValue
+                          - type: object
+                            properties:
+                              attributeType:
+                                type: string
+                                enum:
+                                - boolean
+                                - connected
+                                - ai
+                              operator:
+                                type: string
+                                enum:
+                                - must be present
+                              targetValue:
+                                not: {}
+                            required:
+                            - attributeType
+                            - operator
+                          - type: object
+                            properties:
+                              attributeType:
+                                type: string
+                                enum:
+                                - fillableForm
+                              operator:
+                                type: string
+                                enum:
+                                - must be completed by
+                              targetValue:
+                                type: string
+                                minLength: 1
+                            required:
+                            - attributeType
+                            - operator
+                            - targetValue
+                          - type: object
+                            properties:
+                              attributeType:
+                                type: string
+                                enum:
+                                - list
+                              operator:
+                                type: string
+                                enum:
+                                - at least one must be present from list
+                              targetValue:
+                                minItems: 1
+                                type: array
+                                items:
+                                  type: string
+                                  minLength: 1
+                            required:
+                            - attributeType
+                            - operator
+                            - targetValue
+                      - allOf:
+                        - type: object
+                          properties:
+                            subjectLabel:
+                              type: string
+                              minLength: 1
+                              description: Human-readable label for a new subject. The subject code is derived from this label. Requires `moduleCode` or `moduleLabel` so the new subject can be attached to a module. Mutually exclusive with `subjectCode`.
+                            moduleCode:
+                              type: string
+                              minLength: 1
+                              description: Existing module code on the compliance profile. When provided, the requirement is anchored to that module. Mutually exclusive with `moduleLabel`.
+                            subjectCode:
+                              not: {}
+                            moduleLabel:
+                              not: {}
+                            matchingCriteria:
+                              type: string
+                              enum:
+                              - matchOnce
+                              - matchRepeatedly
+                              description: How the requirement matches against documents (e.g. `MatchOnce`, `MatchRepeatedly`).
+                            attributeCode:
+                              not: {}
+                          required:
+                          - subjectLabel
+                          - moduleCode
+                          - matchingCriteria
+                        - type: object
+                          properties:
+                            attributeCode:
+                              type: string
+                              minLength: 1
+                            attributeLabel:
+                              type: string
+                              minLength: 1
+                            attributeDescription:
+                              type: string
+                              minLength: 1
+                          required:
+                          - attributeLabel
+                        - oneOf:
+                          - type: object
+                            properties:
+                              attributeType:
+                                type: string
+                                enum:
+                                - number
+                                - amBestRating
+                                - amBestFinancialStrength
+                              operator:
+                                type: string
+                                enum:
+                                - must be greater or equal to
+                                - must be less than or equal to
+                              targetValue:
+                                type: string
+                                minLength: 1
+                            required:
+                            - attributeType
+                            - operator
+                            - targetValue
+                          - type: object
+                            properties:
+                              attributeType:
+                                type: string
+                                enum:
+                                - boolean
+                                - connected
+                                - ai
+                              operator:
+                                type: string
+                                enum:
+                                - must be present
+                              targetValue:
+                                not: {}
+                            required:
+                            - attributeType
+                            - operator
+                          - type: object
+                            properties:
+                              attributeType:
+                                type: string
+                                enum:
+                                - fillableForm
+                              operator:
+                                type: string
+                                enum:
+                                - must be completed by
+                              targetValue:
+                                type: string
+                                minLength: 1
+                            required:
+                            - attributeType
+                            - operator
+                            - targetValue
+                          - type: object
+                            properties:
+                              attributeType:
+                                type: string
+                                enum:
+                                - list
+                              operator:
+                                type: string
+                                enum:
+                                - at least one must be present from list
+                              targetValue:
+                                minItems: 1
+                                type: array
+                                items:
+                                  type: string
+                                  minLength: 1
+                            required:
+                            - attributeType
+                            - operator
+                            - targetValue
+                      - allOf:
+                        - type: object
+                          properties:
+                            subjectLabel:
+                              type: string
+                              minLength: 1
+                              description: Human-readable label for a new subject. The subject code is derived from this label. Requires `moduleCode` or `moduleLabel` so the new subject can be attached to a module. Mutually exclusive with `subjectCode`.
+                            moduleLabel:
+                              type: string
+                              minLength: 1
+                              description: Human-readable label for a new compliance module. The module code is derived from this label. Mutually exclusive with `moduleCode`.
+                            subjectCode:
+                              not: {}
+                            moduleCode:
+                              not: {}
+                            matchingCriteria:
+                              type: string
+                              enum:
+                              - matchOnce
+                              - matchRepeatedly
+                              description: How the requirement matches against documents (e.g. `MatchOnce`, `MatchRepeatedly`).
+                            attributeCode:
+                              not: {}
+                          required:
+                          - subjectLabel
+                          - moduleLabel
+                          - matchingCriteria
+                        - type: object
+                          properties:
+                            attributeCode:
+                              type: string
+                              minLength: 1
+                            attributeLabel:
+                              type: string
+                              minLength: 1
+                            attributeDescription:
+                              type: string
+                              minLength: 1
+                          required:
+                          - attributeLabel
+                        - oneOf:
+                          - type: object
+                            properties:
+                              attributeType:
+                                type: string
+                                enum:
+                                - number
+                                - amBestRating
+                                - amBestFinancialStrength
+                              operator:
+                                type: string
+                                enum:
+                                - must be greater or equal to
+                                - must be less than or equal to
+                              targetValue:
+                                type: string
+                                minLength: 1
+                            required:
+                            - attributeType
+                            - operator
+                            - targetValue
+                          - type: object
+                            properties:
+                              attributeType:
+                                type: string
+                                enum:
+                                - boolean
+                                - connected
+                                - ai
+                              operator:
+                                type: string
+                                enum:
+                                - must be present
+                              targetValue:
+                                not: {}
+                            required:
+                            - attributeType
+                            - operator
+                          - type: object
+                            properties:
+                              attributeType:
+                                type: string
+                                enum:
+                                - fillableForm
+                              operator:
+                                type: string
+                                enum:
+                                - must be completed by
+                              targetValue:
+                                type: string
+                                minLength: 1
+                            required:
+                            - attributeType
+                            - operator
+                            - targetValue
+                          - type: object
+                            properties:
+                              attributeType:
+                                type: string
+                                enum:
+                                - list
+                              operator:
+                                type: string
+                                enum:
+                                - at least one must be present from list
+                              targetValue:
+                                minItems: 1
+                                type: array
+                                items:
+                                  type: string
+                                  minLength: 1
+                            required:
+                            - attributeType
+                            - operator
+                            - targetValue
+                      description: Define a brand-new requirement inline. The module/subject can target an existing slot on the compliance profile (`moduleCode` / `subjectCode`) or create a new one (`moduleLabel` / `subjectLabel`). The attribute side (`attributeType`, `attributeLabel`, `operator`, `targetValue`, …) follows the shared RequirementAttribute discriminated union — invalid `(attributeType, operator, targetValue)` combinations are rejected.
+                    description: 'A single requirement to add to the request record. One of: library reference by id, library reference by attributeCode (with overrides), or a custom definition.'
+                  description: Requirements to add. Items are processed in order; library lookups happen at the workspace scope. Duplicates against existing rules or earlier items in the same batch are silently dropped (idempotent on the (moduleLabel, subjectLabel, attributeLabel) tuple).
+              required:
+              - requirements
+              additionalProperties: false
+              description: Request body for adding requirements to a compliance profile in a single batch.
+        description: Request body for adding requirements to a compliance profile in a single batch.
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/objectIdInput'
+        in: path
+        name: id
+        required: true
+        description: Identifier of the compliance profile to add requirements to.
+      responses:
+        '200':
+          description: An array of compliance profile requirements.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    moduleCode:
+                      type: string
+                      minLength: 1
+                      description: Identifier of the module this requirement belongs to.
+                    moduleLabel:
+                      type: string
+                      minLength: 1
+                      description: Display label of the module.
+                    subjectCode:
+                      type: string
+                      minLength: 1
+                      description: Identifier of the subject this requirement belongs to.
+                    subjectLabel:
+                      type: string
+                      minLength: 1
+                      description: Display label of the subject.
+                    attributeCode:
+                      type: string
+                      minLength: 1
+                      description: Attribute code (maps to attributeId in storage).
+                    attributeLabel:
+                      type: string
+                      minLength: 1
+                      description: Display label of the attribute.
+                    attributeType:
+                      type: string
+                      enum:
+                      - boolean
+                      - number
+                      - fillableForm
+                      - amBestRating
+                      - amBestFinancialStrength
+                      - connected
+                      - list
+                      - ai
+                      description: Data type of the attribute (e.g. boolean, number).
+                    attributeDescription:
+                      description: Optional description of the attribute.
+                      type: string
+                      minLength: 1
+                    matchingCriteria:
+                      type: string
+                      enum:
+                      - matchOnce
+                      - matchRepeatedly
+                      description: Matching criteria for the requirement.
+                    operator:
+                      description: Comparison operator for the requirement.
+                      type: string
+                      enum:
+                      - must be present
+                      - must be greater or equal to
+                      - must be less than or equal to
+                      - must be completed by
+                      - at least one must be present from list
+                    targetValue:
+                      description: Target value for the requirement comparison.
+                      anyOf:
+                      - type: string
+                        minLength: 1
+                      - type: array
+                        items:
+                          type: string
+                          minLength: 1
+                  required:
+                  - moduleCode
+                  - moduleLabel
+                  - subjectCode
+                  - subjectLabel
+                  - attributeCode
+                  - attributeLabel
+                  - attributeType
+                  - matchingCriteria
+                  additionalProperties: false
+                  description: A single requirement within a compliance profile.
+                description: An array of compliance profile requirements.
+        '400':
+          description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 400
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+        '401':
+          description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 401
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+        '403':
+          description: The authenticated caller does not have permission to perform this action on the target resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 403
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The authenticated caller does not have permission to perform this action on the target resource.
+        '404':
+          description: The requested resource does not exist or is not visible to the authenticated caller.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 404
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The requested resource does not exist or is not visible to the authenticated caller.
+        '500':
+          description: The server encountered an unexpected failure while processing the request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 500
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The server encountered an unexpected failure while processing the request.
+    get:
+      tags:
+      - compliance-profiles
+      description: List the requirements of a compliance profile, paginated. Requirements are returned regardless of the profile context. Each rule is serialized as a requirement response alongside pagination metadata. A missing profile or cross-org access returns 404.
+      parameters:
+      - schema:
+          default: 20
+          type: integer
+          minimum: 0
+          exclusiveMinimum: true
+          maximum: 100
+        in: query
+        name: limit
+        required: false
+      - schema:
+          default: 0
+          type: integer
+          minimum: 0
+          maximum: 9007199254740991
+        in: query
+        name: skip
+        required: false
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/objectIdInput'
+        in: path
+        name: id
+        required: true
+        description: Identifier of the compliance profile whose requirements to list.
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        moduleCode:
+                          type: string
+                          minLength: 1
+                          description: Identifier of the module this requirement belongs to.
+                        moduleLabel:
+                          type: string
+                          minLength: 1
+                          description: Display label of the module.
+                        subjectCode:
+                          type: string
+                          minLength: 1
+                          description: Identifier of the subject this requirement belongs to.
+                        subjectLabel:
+                          type: string
+                          minLength: 1
+                          description: Display label of the subject.
+                        attributeCode:
+                          type: string
+                          minLength: 1
+                          description: Attribute code (maps to attributeId in storage).
+                        attributeLabel:
+                          type: string
+                          minLength: 1
+                          description: Display label of the attribute.
+                        attributeType:
+                          type: string
+                          enum:
+                          - boolean
+                          - number
+                          - fillableForm
+                          - amBestRating
+                          - amBestFinancialStrength
+                          - connected
+                          - list
+                          - ai
+                          description: Data type of the attribute (e.g. boolean, number).
+                        attributeDescription:
+                          description: Optional description of the attribute.
+                          type: string
+                          minLength: 1
+                        matchingCriteria:
+                          type: string
+                          enum:
+                          - matchOnce
+                          - matchRepeatedly
+                          description: Matching criteria for the requirement.
+                        operator:
+                          description: Comparison operator for the requirement.
+                          type: string
+                          enum:
+                          - must be present
+                          - must be greater or equal to
+                          - must be less than or equal to
+                          - must be completed by
+                          - at least one must be present from list
+                        targetValue:
+                          description: Target value for the requirement comparison.
+                          anyOf:
+                          - type: string
+                            minLength: 1
+                          - type: array
+                            items:
+                              type: string
+                              minLength: 1
+                      required:
+                      - moduleCode
+                      - moduleLabel
+                      - subjectCode
+                      - subjectLabel
+                      - attributeCode
+                      - attributeLabel
+                      - attributeType
+                      - matchingCriteria
+                      additionalProperties: false
+                      description: A single requirement within a compliance profile.
+                  meta:
+                    type: object
+                    properties:
+                      count:
+                        type: number
+                        description: Total number of records matching the query, across all pages.
+                      next:
+                        description: Relative URL for the next page of results, preserving filters/sort/projection. Omitted on the last page.
+                        type: string
+                      prev:
+                        description: Relative URL for the previous page of results, preserving filters/sort/projection. Omitted on the first page.
+                        type: string
+                    required:
+                    - count
+                    additionalProperties: false
+                required:
+                - data
+                - meta
+                additionalProperties: false
+        '400':
+          description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 400
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+        '401':
+          description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 401
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+        '403':
+          description: The authenticated caller does not have permission to perform this action on the target resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 403
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The authenticated caller does not have permission to perform this action on the target resource.
+        '404':
+          description: The requested resource does not exist or is not visible to the authenticated caller.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 404
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The requested resource does not exist or is not visible to the authenticated caller.
+        '500':
+          description: The server encountered an unexpected failure while processing the request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 500
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The server encountered an unexpected failure while processing the request.
+  /compliance-profiles/{id}/requirements/{attributeCode}:
+    get:
+      tags:
+      - compliance-profiles
+      description: Read a single requirement from a compliance profile by its attributeCode, regardless of the profile context. A missing profile, a missing requirement, or cross-org access returns 404.
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/objectIdInput'
+        in: path
+        name: id
+        required: true
+        description: Identifier of the compliance profile.
+      - schema:
+          type: string
+          minLength: 1
+        in: path
+        name: attributeCode
+        required: true
+        description: Attribute code identifying the requirement to operate on.
+      responses:
+        '200':
+          description: A single requirement within a compliance profile.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  moduleCode:
+                    type: string
+                    minLength: 1
+                    description: Identifier of the module this requirement belongs to.
+                  moduleLabel:
+                    type: string
+                    minLength: 1
+                    description: Display label of the module.
+                  subjectCode:
+                    type: string
+                    minLength: 1
+                    description: Identifier of the subject this requirement belongs to.
+                  subjectLabel:
+                    type: string
+                    minLength: 1
+                    description: Display label of the subject.
+                  attributeCode:
+                    type: string
+                    minLength: 1
+                    description: Attribute code (maps to attributeId in storage).
+                  attributeLabel:
+                    type: string
+                    minLength: 1
+                    description: Display label of the attribute.
+                  attributeType:
+                    type: string
+                    enum:
+                    - boolean
+                    - number
+                    - fillableForm
+                    - amBestRating
+                    - amBestFinancialStrength
+                    - connected
+                    - list
+                    - ai
+                    description: Data type of the attribute (e.g. boolean, number).
+                  attributeDescription:
+                    description: Optional description of the attribute.
+                    type: string
+                    minLength: 1
+                  matchingCriteria:
+                    type: string
+                    enum:
+                    - matchOnce
+                    - matchRepeatedly
+                    description: Matching criteria for the requirement.
+                  operator:
+                    description: Comparison operator for the requirement.
+                    type: string
+                    enum:
+                    - must be present
+                    - must be greater or equal to
+                    - must be less than or equal to
+                    - must be completed by
+                    - at least one must be present from list
+                  targetValue:
+                    description: Target value for the requirement comparison.
+                    anyOf:
+                    - type: string
+                      minLength: 1
+                    - type: array
+                      items:
+                        type: string
+                        minLength: 1
+                required:
+                - moduleCode
+                - moduleLabel
+                - subjectCode
+                - subjectLabel
+                - attributeCode
+                - attributeLabel
+                - attributeType
+                - matchingCriteria
+                additionalProperties: false
+                description: A single requirement within a compliance profile.
+        '400':
+          description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 400
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+        '401':
+          description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 401
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+        '403':
+          description: The authenticated caller does not have permission to perform this action on the target resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 403
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The authenticated caller does not have permission to perform this action on the target resource.
+        '404':
+          description: The requested resource does not exist or is not visible to the authenticated caller.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 404
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The requested resource does not exist or is not visible to the authenticated caller.
+        '500':
+          description: The server encountered an unexpected failure while processing the request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 500
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The server encountered an unexpected failure while processing the request.
+    patch:
+      tags:
+      - compliance-profiles
+      description: 'Partially update a requirement on a compliance profile. Only the supplied fields are changed; omitted fields retain their current values. Updates are accepted on profiles of any context, with context-based limitations: library-sourced requirements and requirements inherited from a custom field cannot be modified. Returns the updated requirement.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                operator:
+                  description: Comparison operator for the rule.
+                  type: string
+                  enum:
+                  - must be present
+                  - must be greater or equal to
+                  - must be less than or equal to
+                  - must be completed by
+                  - at least one must be present from list
+                targetValue:
+                  description: Target value for the rule comparison.
+                  anyOf:
+                  - type: string
+                    minLength: 1
+                  - type: array
+                    items:
+                      type: string
+                      minLength: 1
+                matchingCriteria:
+                  description: Matching criteria for the rule.
+                  type: string
+                  enum:
+                  - matchOnce
+                  - matchRepeatedly
+                attributeDescription:
+                  description: Optional description of the attribute.
+                  type: string
+                  minLength: 1
+              additionalProperties: false
+              description: Request body for partially updating a requirement on a compliance profile. Only the supplied fields are changed; omitted fields retain their current values.
+        description: Request body for partially updating a requirement on a compliance profile. Only the supplied fields are changed; omitted fields retain their current values.
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/objectIdInput'
+        in: path
+        name: id
+        required: true
+        description: Identifier of the compliance profile.
+      - schema:
+          type: string
+          minLength: 1
+        in: path
+        name: attributeCode
+        required: true
+        description: Attribute code identifying the requirement to operate on.
+      responses:
+        '200':
+          description: A single requirement within a compliance profile.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  moduleCode:
+                    type: string
+                    minLength: 1
+                    description: Identifier of the module this requirement belongs to.
+                  moduleLabel:
+                    type: string
+                    minLength: 1
+                    description: Display label of the module.
+                  subjectCode:
+                    type: string
+                    minLength: 1
+                    description: Identifier of the subject this requirement belongs to.
+                  subjectLabel:
+                    type: string
+                    minLength: 1
+                    description: Display label of the subject.
+                  attributeCode:
+                    type: string
+                    minLength: 1
+                    description: Attribute code (maps to attributeId in storage).
+                  attributeLabel:
+                    type: string
+                    minLength: 1
+                    description: Display label of the attribute.
+                  attributeType:
+                    type: string
+                    enum:
+                    - boolean
+                    - number
+                    - fillableForm
+                    - amBestRating
+                    - amBestFinancialStrength
+                    - connected
+                    - list
+                    - ai
+                    description: Data type of the attribute (e.g. boolean, number).
+                  attributeDescription:
+                    description: Optional description of the attribute.
+                    type: string
+                    minLength: 1
+                  matchingCriteria:
+                    type: string
+                    enum:
+                    - matchOnce
+                    - matchRepeatedly
+                    description: Matching criteria for the requirement.
+                  operator:
+                    description: Comparison operator for the requirement.
+                    type: string
+                    enum:
+                    - must be present
+                    - must be greater or equal to
+                    - must be less than or equal to
+                    - must be completed by
+                    - at least one must be present from list
+                  targetValue:
+                    description: Target value for the requirement comparison.
+                    anyOf:
+                    - type: string
+                      minLength: 1
+                    - type: array
+                      items:
+                        type: string
+                        minLength: 1
+                required:
+                - moduleCode
+                - moduleLabel
+                - subjectCode
+                - subjectLabel
+                - attributeCode
+                - attributeLabel
+                - attributeType
+                - matchingCriteria
+                additionalProperties: false
+                description: A single requirement within a compliance profile.
+        '400':
+          description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 400
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+        '401':
+          description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 401
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+        '403':
+          description: The authenticated caller does not have permission to perform this action on the target resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 403
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The authenticated caller does not have permission to perform this action on the target resource.
+        '404':
+          description: The requested resource does not exist or is not visible to the authenticated caller.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 404
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The requested resource does not exist or is not visible to the authenticated caller.
+        '500':
+          description: The server encountered an unexpected failure while processing the request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 500
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The server encountered an unexpected failure while processing the request.
+    delete:
+      tags:
+      - compliance-profiles
+      description: Remove a requirement from a Global compliance profile. Returns 204 with no body on success.
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/objectIdInput'
+        in: path
+        name: id
+        required: true
+        description: Identifier of the compliance profile.
+      - schema:
+          type: string
+          minLength: 1
+        in: path
+        name: attributeCode
+        required: true
+        description: Attribute code identifying the requirement to operate on.
+      responses:
+        '204':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: string
+                nullable: true
+                enum:
+                - null
+        '400':
+          description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 400
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+        '401':
+          description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 401
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+        '403':
+          description: The authenticated caller does not have permission to perform this action on the target resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 403
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The authenticated caller does not have permission to perform this action on the target resource.
+        '404':
+          description: The requested resource does not exist or is not visible to the authenticated caller.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 404
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The requested resource does not exist or is not visible to the authenticated caller.
+        '500':
+          description: The server encountered an unexpected failure while processing the request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 500
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The server encountered an unexpected failure while processing the request.
+components:
+  schemas:
+    project:
+      title: Project
+      type: object
+      x-examples:
+        Example project:
+          type: projects
+          id: 60a3dc67cba60c04739e8e46
+          name: Test Project
+          parties:
+          - id: 60896067dd86e01e90199f42
+            type: parties
+          customData:
+          - value: '123'
+            customField:
+              type: customFields
+              id: 60896067dd86e01e90199f42
+          externalIds:
+            procore:
+            - id: '49843945'
+      properties:
+        type:
+          type: string
+          default: projects
+          readOnly: true
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        startDate:
+          type: string
+          format: date-time
+          nullable: true
+        endDate:
+          type: string
+          format: date-time
+          nullable: true
+        active:
+          type: boolean
+        parties:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/reference'
+            - $ref: '#/components/schemas/party'
+            - type: string
+        customData:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+              customField:
+                oneOf:
+                - $ref: '#/components/schemas/reference'
+                - $ref: '#/components/schemas/custom-field'
+        complianceStatus:
+          type: object
+          properties:
+            status:
+              type: string
+              enum:
+              - compliant
+              - non_compliant
+            compliantPartiesCount:
+              type: number
+            totalPartiesCount:
+              type: number
+            complianceScore:
+              type: number
+        deletedAt:
+          type: string
+          format: date-time
+          nullable: true
+        deletedBy:
+          oneOf:
+          - nullable: true
+          - $ref: '#/components/schemas/reference'
+        externalIds:
+          type: object
+          x-stoplight:
+            id: uw5iuj9nds4en
+    compliance-document:
+      x-internal: true
+      title: Compliance Document
+      type: object
+      properties:
+        id:
+          type: string
+        origin:
+          type: string
+          enum:
+          - upload
+          - makeCompliant
+          - connectedDocument
+          - fillableForm
+          - webForm
+        complianceStatus:
+          type: string
+          enum:
+          - compliant
+          - non_compliant
+    party:
+      title: Party
+      type: object
+      x-examples:
+        Example Party:
+          id: 60896067dd86e01e90199f42
+          name: Test Party
+          address:
+            line1: 123 Main Street
+            line2: ''
+            city: Pleasantville
+            postalCode: '10200'
+            region: NY
+            country: US
+          type: Vendor
+          status: new
+          customData:
+          - value: '123'
+            customField:
+              type: customFields
+              id: 60896067dd86e01e90199f42
+          externalIds:
+            procore:
+            - id: '49843945'
+      properties:
+        type:
+          type: string
+          default: parties
+          readOnly: true
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+        address:
+          $ref: '#/components/schemas/address'
+        status:
+          type: string
+          enum:
+          - new
+          - compliant
+          - non_compliant
+          - inactive
+          readOnly: true
+        contacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/contact'
+        website:
+          type: string
+          nullable: true
+        active:
+          type: boolean
+        notes:
+          type: string
+          nullable: true
+        complianceStatus:
+          $ref: '#/components/schemas/compliance-status'
+        projects:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/reference'
+            - $ref: '#/components/schemas/project'
+        projectStats:
+          type: object
+          properties:
+            compliantProjectsCount:
+              type: number
+            totalProjectsCount:
+              type: number
+        documents:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/reference'
+            - $ref: '#/components/schemas/document'
+        partyType:
+          oneOf:
+          - $ref: '#/components/schemas/reference'
+          - $ref: '#/components/schemas/party-type'
+        tags:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/taggging'
+            - $ref: '#/components/schemas/taggging-full'
+        complianceProfile:
+          oneOf:
+          - $ref: '#/components/schemas/reference'
+          - $ref: '#/components/schemas/compliance-profile'
+          - nullable: true
+        customData:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+              customField:
+                oneOf:
+                - $ref: '#/components/schemas/reference'
+                - $ref: '#/components/schemas/custom-field'
+        deletedAt:
+          type: string
+          format: date-time
+          nullable: true
+        deletedBy:
+          oneOf:
+          - nullable: true
+          - $ref: '#/components/schemas/reference'
+        externalIds:
+          type: object
+          x-stoplight:
+            id: zk87opteuie3w
+    reference-input:
+      title: reference-input
+      type: object
+      properties:
+        id:
+          type: string
+          minLength: 24
+          maxLength: 24
+          pattern: ^[a-z0-9]{24}$
+      required:
+      - id
+      x-internal: true
+      x-tags:
+      - input
+    compliance-status:
+      type: object
+      title: Compliance Status
+      properties:
+        complianceProfile:
+          $ref: '#/components/schemas/reference'
+        nextExpirationDate:
+          type: string
+          format: date-time
+          nullable: true
+        latestExpirationDate:
+          type: string
+          format: date-time
+          nullable: true
+        modules:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              label:
+                type: string
+              status:
+                type: string
+                enum:
+                - compliant
+                - non_compliant
+              documents:
+                type: array
+                items:
+                  $ref: '#/components/schemas/compliance-document'
+              documentsCount:
+                type: number
+                example: 1
+              subjects:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    label:
+                      type: string
+                    status:
+                      type: string
+                      enum:
+                      - compliant
+                      - non_compliant
+                      - waived
+                      - overridden
+                    notes:
+                      type: string
+                    effectiveDate:
+                      type: string
+                      format: date-time
+                      nullable: true
+                    expirationDate:
+                      type: string
+                      format: date-time
+                      nullable: true
+                    latestExpirationDate:
+                      type: string
+                      format: date-time
+                      nullable: true
+                    latestValidEffectiveDate:
+                      type: string
+                      format: date-time
+                      nullable: true
+                    latestValidExpirationDate:
+                      type: string
+                      format: date-time
+                      nullable: true
+                    documents:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/compliance-document'
+                    documentsCount:
+                      type: number
+                    resetOn:
+                      type: string
+                      format: date-time
+                      nullable: true
+                    requirements:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          label:
+                            type: string
+                          moduleId:
+                            type: string
+                          moduleLabel:
+                            type: string
+                          subjectId:
+                            type: string
+                          subjectLabel:
+                            type: string
+                          attributeId:
+                            type: string
+                          attributeLabel:
+                            type: string
+                          attributeDescription:
+                            type: string
+                          matchingCriteria:
+                            type: string
+                            enum:
+                            - matchOnce
+                            - matchRepeatedly
+                          operator:
+                            type: string
+                            enum:
+                            - must be present
+                            - must be greater or equal to
+                            - must be less or equal to
+                            - must be completed by
+                            - at least one must be present from list
+                          targetValue:
+                            type: string
+                          value:
+                            type: string
+                          status:
+                            type: string
+                            enum:
+                            - compliant
+                            - non_compliant
+                            - waived
+                            - overridden
+                            - invalidated
+                          invalidatedBy:
+                            type: array
+                            items:
+                              type: string
+                          notes:
+                            type: string
+                          publicNotes:
+                            type: string
+                          documents:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/compliance-document'
+                          documentsCount:
+                            type: number
+                          resetOn:
+                            type: string
+                            format: date-time
+                            nullable: true
+                          custom:
+                            type: boolean
+                        required:
+                        - id
+                        - label
+                        - moduleId
+                        - moduleLabel
+                        - subjectId
+                        - subjectLabel
+                        - attributeId
+                        - attributeLabel
+                        - matchingCriteria
+                        - operator
+                        - status
+                        - documents
+                        - documentsCount
+                        - custom
+                  required:
+                  - id
+                  - label
+                  - status
+                  - documents
+                  - documentsCount
+                  - requirements
+            required:
+            - id
+            - label
+            - status
+            - documents
+            - documentsCount
+            - subjects
+        subjects:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              effectiveDate:
+                type: string
+                format: date-time
+                nullable: true
+              expirationDate:
+                type: string
+                format: date-time
+                nullable: true
+              latestValidEffectiveDate:
+                type: string
+                format: date-time
+                nullable: true
+              latestValidExpirationDate:
+                type: string
+                format: date-time
+                nullable: true
+              notes:
+                type: string
+              requirementsStatus:
+                type: string
+                enum:
+                - compliant
+                - non_compliant
+                - waived
+                - overridden
+              resetRequirementsOn:
+                type: string
+                format: date-time
+                nullable: true
+        requirements:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              label:
+                type: string
+              operator:
+                type: string
+              targetValue:
+                type: string
+              actualValue:
+                type: string
+              status:
+                type: string
+                enum:
+                - compliant
+                - non_compliant
+                - waived
+                - overridden
+                - invalidated
+              waiverOrOverrideNotes:
+                type: string
+              waiverOrOverrideExpirationDate:
+                type: string
+                format: date-time
+                nullable: true
+        status:
+          type: string
+          enum:
+          - compliant
+          - non_compliant
+        lastChangedAt:
+          type: string
+          format: date-time
+      required:
+      - complianceProfile
+      - modules
+      - subjects
+      - requirements
+      - status
+      x-examples:
+        Example compliance status:
+          complianceProfile:
+            id: 60a27c51fcd891823568ed27
+            type: compliance-profiles
+          nextExpirationDate: '2024-11-14T00:00:00.000Z'
+          latestExpirationDate: '2025-12-19T23:59:59.999Z'
+          modules:
+          - id: evidenceOfInsurance
+            label: Evidence of Insurance
+            status: compliant
+            documents:
+            - id: 6877a0b2d7a1998eeb7f7f2f
+              origin: upload
+              complianceStatus: compliant
+            documentsCount: 1
+            subjects:
+            - id: commercialGeneralLiability
+              label: Commercial General Liability
+              status: compliant
+              notes: lorem ipsum dolor sit amet
+              effectiveDate: '2024-11-14T00:00:00.000Z'
+              expirationDate: '2025-11-14T23:59:59.999Z'
+              latestExpirationDate: '2025-12-19T23:59:59.999Z'
+              latestValidEffectiveDate: '2024-11-14T00:00:00.000Z'
+              latestValidExpirationDate: '2025-11-14T23:59:59.999Z'
+              documents:
+              - id: 6877a0b2d7a1998eeb7f7f2f
+                origin: upload
+                complianceStatus: compliant
+              documentsCount: 1
+              resetOn: '2025-06-02T00:00:00.000Z'
+              requirements:
+              - id: evidenceOfInsurance.commercialGeneralLiability.evidenceOfInsuranceCommercialGeneralLiabilityGeneralAggregate
+                label: 'Evidence of Insurance : Commercial General Liability : General Aggregate'
+                moduleId: evidenceOfInsurance
+                moduleLabel: Evidence of Insurance
+                subjectId: commercialGeneralLiability
+                subjectLabel: Commercial General Liability
+                attributeId: evidenceOfInsuranceCommercialGeneralLiabilityGeneralAggregate
+                attributeLabel: General Aggregate
+                matchingCriteria: matchOnce
+                operator: must be greater or equal to
+                targetValue: '1000000'
+                value: '2000000'
+                status: compliant
+                invalidatedBy:
+                - evidenceOfInsuranceCommercialGeneralLiabilityAMBestRating
+                notes: lorem ipsum dolor sit amet
+                publicNotes: lorem ipsum dolor sit amet
+                documents:
+                - id: 6877a0b2d7a1998eeb7f7f2f
+                  origin: upload
+                  complianceStatus: compliant
+                documentsCount: 1
+                resetOn: '2025-06-02T00:00:00.000Z'
+                custom: false
+          subjects:
+          - id: commercialGeneralLiability
+            effectiveDate: '2024-11-14T00:00:00.000Z'
+            expirationDate: '2025-11-14T23:59:59.999Z'
+            latestValidEffectiveDate: '2024-11-14T00:00:00.000Z'
+            latestValidExpirationDate: '2025-11-14T23:59:59.999Z'
+            latestExpirationDate: '2025-12-19T23:59:59.999Z'
+            notes: lorem ipsum dolor sit amet
+            requirementsStatus: compliant
+            resetRequirementsOn: '2025-06-02T00:00:00.000Z'
+          requirements:
+          - id: evidenceOfInsurance.commercialGeneralLiability.evidenceOfInsuranceCommercialGeneralLiabilityGeneralAggregate
+            label: 'Evidence of Insurance : Commercial General Liability : General Aggregate'
+            operator: must be greater or equal to
+            targetValue: '1000000'
+            actualValue: '2000000'
+            status: compliant
+            waiverOrOverrideNotes: lorem ipsum dolor sit amet
+            waiverOrOverrideExpirationDate: '2025-06-02T00:00:00.000Z'
+          status: compliant
+          lastChangedAt: '2025-07-16T17:55:00.000Z'
+    contact:
+      title: Contact
+      type: object
+      x-examples:
+        Example Contact:
+          type: contacts
+          id: 60896067dd86e01e90199f43
+          name: Jane Smith
+          company: Acme Inc
+          email: jane.smith@example.com
+          phone: (555) 555-5555
+          fax: ''
+          title: Director
+          primary: true
+          defaultRequestRecipient: false
+          avatar: ''
+          party:
+            type: parties
+            id: 60896067dd86e01e90199f43
+      properties:
+        type:
+          type: string
+          default: contacts
+          readOnly: true
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+        company:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        fax:
+          type: string
+        title:
+          type: string
+        primary:
+          type: boolean
+          default: false
+        defaultRequestRecipient:
+          type: boolean
+          default: false
+        avatar:
+          type: string
+        party:
+          oneOf:
+          - $ref: '#/components/schemas/reference'
+          - $ref: '#/components/schemas/party'
+        externalId:
+          type: string
+          x-stoplight:
+            id: 07yyrzkup5tdk
+    user:
+      description: ''
+      type: object
+      properties:
+        id:
+          type: string
+        profile:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 1
+            phone:
+              type: string
+            title:
+              type: string
+            avatar:
+              type: string
+            role:
+              type: string
+            department:
+              type: string
+            timezone:
+              type: string
+        email:
+          type: string
+          minLength: 1
+        isActive:
+          type: boolean
+        type:
+          type: string
+          default: users
+          readOnly: true
+      title: User
+    reference:
+      title: Reference
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+      description: Generic object reference
+      x-internal: false
+      x-examples:
+        Generic reference example:
+          id: 60896067dd86e01e90199f43
+          type: widgets
+    custom-field:
+      title: Custom Field
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          default: custom-fields
+        name:
+          type: string
+          description: Custom field label
+        'description ':
+          type: string
+          description: Optional description
+        color:
+          type: string
+          pattern: ^#[a-f0-9]{6}$
+          description: 'Field color in #rrggbb format'
+        fieldType:
+          type: string
+          default: text
+          enum:
+          - text
+          - number
+          - dropdown
+        options:
+          type: array
+          description: List of options for the dropdown
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+                description: Unique identifier for the option
+              value:
+                type: string
+                description: Option label
+        complianceProfile:
+          oneOf:
+          - $ref: '#/components/schemas/reference'
+          - $ref: '#/components/schemas/compliance-profile'
+        associatedEntities:
+          type: array
+          enum:
+          - party
+          - project
+          description: List of entity types that can use this custom field
+          items:
+            type: string
+    document-type:
+      description: ''
+      type: object
+      title: Document Type
+      x-examples:
+        Certificate of insurance:
+          type: document-types
+          id: 60a27c517fd4e152a9642347
+          name: Certificate of Insurance
+          system: true
+          pluralName: Certificates of Insurance
+      properties:
+        type:
+          type: string
+          default: document-types
+          readOnly: true
+        id:
+          type: string
+        name:
+          type: string
+          minLength: 1
+        system:
+          type: boolean
+        pluralName:
+          type: string
+          minLength: 1
+      required:
+      - id
+      - name
+      - system
+      - pluralName
+    objectIdInput:
+      title: ObjectId
+      type: string
+      format: ObjectId
+      examples:
+      - 507f1f77bcf86cd799439011
+    response-status:
+      type: string
+      title: Response Status
+      enum:
+      - success
+      - fail
+      - error
+      readOnly: true
+      x-examples:
+        Success: success
+      description: The possible values are "success", "fail", and "error".
+      x-internal: true
+    party-type:
+      title: Party Type
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          default: party-types
+        name:
+          type: string
+        pluralName:
+          type: string
+        defaultComplianceProfile:
+          oneOf:
+          - $ref: '#/components/schemas/reference'
+          - $ref: '#/components/schemas/compliance-profile'
+      x-examples:
+        Vendor:
+          id: 60a27c51fcd891823568ed28
+          type: party-types
+          name: Vendor
+          pluralName: Vendors
+          defaultComplianceProfile:
+            id: 60a27c51fcd891823568ed27
+            type: compliance-profiles
+    document:
+      type: object
+      title: Document
+      x-examples:
+        Example document:
+          type: documents
+          id: 60a27c51fcd891823568ed35
+          issuedBy:
+            name: ''
+            address: ''
+            contactName: ''
+            phone: ''
+            email: ''
+          reviewedAt: '2019-08-24T14:15:22Z'
+          archivedAt: '2019-08-24T14:15:22Z'
+          notes: ''
+          status: processed
+          types:
+          - type: document-types
+            id: 60a27c517fd4e152a9642347
+          flag:
+            addedOn: '2019-08-24T14:15:22Z'
+            severityLevel: low
+            affectedSubjects:
+            - string
+            notes: ''
+            user:
+              id: 60a27c51fcd891823568ed24
+              type: users
+          appliesToAllProjects: true
+          expirationDate: '2019-08-24'
+          friendlyName: Acord25.pdf
+          data: {}
+          metadata: {}
+          updatedAt: '2019-08-24T14:15:22Z'
+          createdAt: '2019-08-24T14:15:22Z'
+          archivedBy:
+            id: 60a27c51fcd891823568ed24
+            type: users
+          reviewedBy: null
+          url: https://trustlayer-documents.s3.us-west-1.amazonaws.com/...
+          issueDate: '2019-01-22'
+      properties:
+        type:
+          type: string
+          default: documents
+          readOnly: true
+        id:
+          type: string
+          readOnly: true
+        issuedBy:
+          type: object
+          properties:
+            name:
+              type: string
+            address:
+              type: string
+            contactName:
+              type: string
+            phone:
+              type: string
+            email:
+              type: string
+        reviewedAt:
+          type: string
+          format: date-time
+          readOnly: true
+        archivedAt:
+          type: string
+          format: date-time
+          readOnly: true
+        notes:
+          type: string
+        status:
+          type: string
+          minLength: 1
+          readOnly: true
+        types:
+          type: array
+          uniqueItems: true
+          minItems: 0
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/reference'
+            - $ref: '#/components/schemas/document-type'
+        flag:
+          type: object
+          properties:
+            addedOn:
+              type: string
+              format: date-time
+            severityLevel:
+              type: string
+              minLength: 1
+              enum:
+              - low
+              - medium
+              - high
+            affectedSubjects:
+              type: array
+              uniqueItems: true
+              items:
+                type: string
+            notes:
+              type: string
+            user:
+              oneOf:
+              - $ref: '#/components/schemas/reference'
+              - $ref: '#/components/schemas/user'
+        appliesToAllProjects:
+          type: boolean
+        expirationDate:
+          type: string
+          format: date
+        name:
+          type: string
+          minLength: 1
+        data:
+          type: object
+        metadata:
+          type: object
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        archivedBy:
+          oneOf:
+          - $ref: '#/components/schemas/reference'
+          - $ref: '#/components/schemas/user'
+          - nullable: true
+        reviewedBy:
+          oneOf:
+          - $ref: '#/components/schemas/reference'
+          - $ref: '#/components/schemas/user'
+          - nullable: true
+        url:
+          type: string
+        insurers:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              naic:
+                type: string
+              rating:
+                type: string
+              ratingEffectiveDate:
+                type: string
+                format: date-time
+              financialSizeCategory:
+                type: string
+              ratingModifier:
+                type: string
+              ratingAction:
+                type: string
+              ratingImplication:
+                type: string
+              extractedName:
+                type: string
+              canonicalName:
+                type: string
+            required:
+            - id
+            - naic
+        deletedAt:
+          type: string
+          format: date-time
+        deletedBy:
+          oneOf:
+          - $ref: '#/components/schemas/reference'
+          - $ref: '#/components/schemas/user'
+        issueDate:
+          type: string
+          format: date
+          readOnly: true
+    compliance-profile:
+      title: Compliance Profile
+      type: object
+      x-examples:
+        Example compliance profile:
+          id: 60a27c51fcd891823568ed27
+          type: compliance-profiles
+          name: Default compliance profile
+          rules:
+          - moduleId: evidenceOfInsurance
+            moduleLabel: Evidence of Insurance
+            subjectId: commercialGeneralLiability
+            subjectLabel: Commercial General Liability
+            attributeId: evidenceOfInsuranceCommercialGeneralLiabilityEachOccurrence
+            attributeLabel: Each Occurrence
+            attributeType: number
+            attributeDescription: ''
+            masterDocumentAttributeId: commercialGeneralLiabilityLimitsGeneralAggregate
+            operator: must be greater or equal to
+            targetValue: '2000000'
+          context: global
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          default: compliance-profiles
+        name:
+          type: string
+          example: Default compliance profile
+        rules:
+          type: array
+          items:
+            type: object
+            properties:
+              moduleId:
+                type: string
+                minLength: 1
+                example: evidenceOfInsurance
+              moduleLabel:
+                type: string
+                minLength: 1
+                example: Evidence of Insurance
+              subjectId:
+                type: string
+                minLength: 1
+                example: commercialGeneralLiability
+              subjectLabel:
+                type: string
+                minLength: 1
+                example: Commercial General Liability
+              attributeId:
+                type: string
+                minLength: 1
+                example: evidenceOfInsuranceCommercialGeneralLiabilityEachOccurrence
+              attributeLabel:
+                type: string
+                minLength: 1
+                example: Each Occurrence
+              attributeType:
+                type: string
+                minLength: 1
+                example: number
+              attributeDescription:
+                type: string
+              masterDocumentAttributeId:
+                type: string
+                minLength: 1
+                example: commercialGeneralLiabilityLimitsGeneralAggregate
+              operator:
+                type: string
+                minLength: 1
+                example: must be greater or equal to
+              targetValue:
+                type: string
+                minLength: 1
+                example: '2000000'
+        context:
+          type: string
+          enum:
+          - global
+          - project
+          - custom-field
+        documentChecklists:
+          type: array
+          items:
+            type: object
+            properties:
+              attributeId:
+                type: string
+              attributeLabel:
+                type: string
+              active:
+                type: boolean
+    objectId:
+      title: ObjectId
+      type: string
+      format: ObjectId
+      examples:
+      - 507f1f77bcf86cd799439011
+    taggging-full:
+      title: Tagging (full data)
+      type: object
+      properties:
+        type:
+          type: string
+          default: tags
+        id:
+          type: string
+        name:
+          type: string
+        color:
+          type: string
+        addedAt:
+          type: string
+          format: date
+        addedBy:
+          type: string
+    taggging:
+      title: Tagging
+      type: object
+      properties:
+        type:
+          type: string
+          default: tags
+        id:
+          type: string
+        addedAt:
+          type: string
+          format: date
+        addedBy:
+          type: string
+        expiresAt:
+          type: string
+          x-stoplight:
+            id: 8xpna1blern8o
+          format: date
+    collection-meta:
+      title: collection-meta
+      type: object
+      properties:
+        count:
+          type: number
+          description: The number of documents according to the specified filters
+        pages:
+          type: number
+        totalCount:
+          type: number
+          description: The total number of documents in the collection
+        totalPages:
+          type: number
+      x-internal: true
+  parameters:
+    sort:
+      name: sort
+      in: query
+      required: false
+      schema:
+        type: string
+        example: name,-age
+      description: List of comma-separated keys used to sort. Reversing is done by prepending "-" to the key name.
+      allowReserved: true
+    filter:
+      name: filter
+      in: query
+      required: false
+      schema:
+        type: object
+        example:
+          title: foo
+      style: deepObject
+      description: Key-value pair, e.g. filter[key]=value
+    page-size:
+      name: page[size]
+      in: query
+      required: false
+      schema:
+        type: number
+        minimum: 1
+        maximum: 100
+        example: 20
+        default: 20
+      description: Number of items per page. Defaults to 20. Maximum is 100
+    scope-id:
+      name: scope[id]
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Id of the resource to be used as scope
+    scope-type:
+      name: scope[type]
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Type of the resource to be used as scope
+    page-number:
+      name: page[number]
+      in: query
+      required: false
+      schema:
+        type: number
+        minimum: 1
+        example: 1
+        default: 1
+      description: Page number, starting from 1
+  securitySchemes:
+    Token:
+      name: Authorization
+      type: apiKey
+      in: header
+      description: ''

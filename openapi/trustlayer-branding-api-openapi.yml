@@ -1,0 +1,352 @@
+openapi: 3.0.0
+info:
+  title: TrustLayer Platform Auth branding API
+  version: '1.0'
+  contact:
+    name: TrustLayer Support
+    email: support@trustlayer.io
+  termsOfService: https://trustlayer.io/terms-of-service
+  externalDocs:
+    description: OpenAPI specification
+    url: /v1/platform-api.yaml
+  description: '3rd-party API for the TrustLayer platform.
+
+
+    **Deprecated.** Platform API v1 is deprecated as of 01 June 2026 and is
+
+    scheduled for sunset (end-of-life) on 31 March 2027. It remains fully
+
+    available until the sunset date but will not receive new features. Please
+
+    migrate to Platform API v2 for new integrations.
+
+
+    All v1 responses carry the standard deprecation response headers
+
+    ([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)):
+
+
+    ```http
+
+    Deprecation: @1780272000
+
+    Sunset: Wed, 31 Mar 2027 23:59:59 GMT
+
+    Link: <https://developers.trustlayer.io/>; rel="deprecation", <https://developers.trustlayer.io/>; rel="sunset"
+
+    ```
+
+
+    `Deprecation: @1780272000` is the Unix timestamp for 2026-06-01T00:00:00Z;
+
+    sunset (end-of-life) is 2027-03-31T23:59:59 GMT.'
+  x-deprecated: true
+  x-deprecation-date: '2026-06-01'
+  x-sunset: '2027-03-31'
+  license:
+    name: Apache 2.0
+    url: https://apache.org/licenses/LICENSE-2.0
+servers:
+- url: http://localhost:4000/v1
+  description: Local
+- url: https://api.trustlayer.io/v1
+  description: Production
+security:
+- API Key: []
+tags:
+- name: branding
+paths:
+  /branding:
+    get:
+      summary: List Branding
+      tags:
+      - branding
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/branding'
+                  meta:
+                    $ref: '#/components/schemas/collection-meta'
+      operationId: get-branding
+      deprecated: true
+      description: 'Available sort options:
+
+        * `name`
+
+        * `createdAt`
+
+        * `updatedAt`
+
+
+        Available filter options:
+
+        * `name`
+
+        * `createdAt`
+
+        * `updatedAt`
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/page-number'
+      - $ref: '#/components/parameters/page-size'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/sort'
+    post:
+      summary: Create a new branding
+      operationId: create-branding
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/branding'
+      tags:
+      - branding
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/branding-create'
+      x-internal: false
+  /branding/{brandingId}:
+    parameters:
+    - schema:
+        type: string
+      name: brandingId
+      in: path
+      required: true
+      description: Branding ID
+    get:
+      summary: Fetch a Branding
+      tags:
+      - branding
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/branding'
+      operationId: get-branding-id
+      deprecated: true
+    put:
+      summary: Update branding
+      tags:
+      - branding
+      operationId: update-branding
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  settings:
+                    $ref: '#/components/schemas/branding'
+      description: Update an existing branding.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/branding-update'
+    delete:
+      summary: Delete a branding
+      operationId: delete-branding
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+      x-internal: false
+      tags:
+      - branding
+components:
+  schemas:
+    branding-create:
+      title: branding-create
+      type: object
+      x-internal: true
+      x-tags:
+      - input
+      x-examples: {}
+      properties:
+        name:
+          type: string
+          minLength: 1
+        logo:
+          type: object
+          properties:
+            url:
+              type: string
+              minLength: 1
+            friendlyName:
+              type: string
+              minLength: 1
+          required:
+          - url
+          - friendlyName
+      required:
+      - name
+      - logo
+    branding:
+      title: Branding
+      type: object
+      x-examples:
+        Example Branding:
+          type: branding
+          id: 60896067dd86e01e90199f45
+          name: Acme Inc
+          createdAt: '2023-12-13T14:07:12.950Z'
+          updatedAt: '2023-12-13T14:07:12.950Z'
+          logo:
+            url: https://trustlayer-documents.s3.us-west-1.amazonaws.com/...
+            uploadedAt: '2023-08-24T14:15:22Z'
+            friendlyName: acme-logo.jpeg
+      properties:
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        logo:
+          type: object
+          properties:
+            url:
+              type: string
+            friendlyName:
+              type: string
+            uploadedAt:
+              type: string
+    response-status:
+      type: string
+      title: Response Status
+      enum:
+      - success
+      - fail
+      - error
+      readOnly: true
+      x-examples:
+        Success: success
+      description: The possible values are "success", "fail", and "error".
+      x-internal: true
+    collection-meta:
+      title: collection-meta
+      type: object
+      properties:
+        count:
+          type: number
+          description: The number of documents according to the specified filters
+        pages:
+          type: number
+        totalCount:
+          type: number
+          description: The total number of documents in the collection
+        totalPages:
+          type: number
+      x-internal: true
+    branding-update:
+      title: branding-update
+      type: object
+      x-internal: true
+      x-tags:
+      - input
+      x-examples: {}
+      properties:
+        name:
+          type: string
+        logo:
+          type: object
+          properties:
+            url:
+              type: string
+            friendlyName:
+              type: string
+            uploadedAt:
+              type: string
+  parameters:
+    filter:
+      name: filter
+      in: query
+      required: false
+      schema:
+        type: object
+        example:
+          title: foo
+      style: deepObject
+      description: Key-value pair, e.g. filter[key]=value
+    page-size:
+      name: page[size]
+      in: query
+      required: false
+      schema:
+        type: number
+        minimum: 1
+        maximum: 100
+        example: 20
+        default: 20
+      description: Number of items per page. Defaults to 20. Maximum is 100
+    sort:
+      name: sort
+      in: query
+      required: false
+      schema:
+        type: string
+        example: name,-age
+      description: List of comma-separated keys used to sort. Reversing is done by prepending "-" to the key name.
+      allowReserved: true
+    page-number:
+      name: page[number]
+      in: query
+      required: false
+      schema:
+        type: number
+        minimum: 1
+        example: 1
+        default: 1
+      description: Page number, starting from 1
+  securitySchemes:
+    Token:
+      name: Authorization
+      type: apiKey
+      in: header
+      description: ''

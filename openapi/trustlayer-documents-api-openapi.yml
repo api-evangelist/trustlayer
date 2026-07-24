@@ -1,0 +1,2597 @@
+openapi: 3.0.0
+info:
+  title: TrustLayer Platform Auth documents API
+  version: '1.0'
+  contact:
+    name: TrustLayer Support
+    email: support@trustlayer.io
+  termsOfService: https://trustlayer.io/terms-of-service
+  externalDocs:
+    description: OpenAPI specification
+    url: /v1/platform-api.yaml
+  description: '3rd-party API for the TrustLayer platform.
+
+
+    **Deprecated.** Platform API v1 is deprecated as of 01 June 2026 and is
+
+    scheduled for sunset (end-of-life) on 31 March 2027. It remains fully
+
+    available until the sunset date but will not receive new features. Please
+
+    migrate to Platform API v2 for new integrations.
+
+
+    All v1 responses carry the standard deprecation response headers
+
+    ([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)):
+
+
+    ```http
+
+    Deprecation: @1780272000
+
+    Sunset: Wed, 31 Mar 2027 23:59:59 GMT
+
+    Link: <https://developers.trustlayer.io/>; rel="deprecation", <https://developers.trustlayer.io/>; rel="sunset"
+
+    ```
+
+
+    `Deprecation: @1780272000` is the Unix timestamp for 2026-06-01T00:00:00Z;
+
+    sunset (end-of-life) is 2027-03-31T23:59:59 GMT.'
+  x-deprecated: true
+  x-deprecation-date: '2026-06-01'
+  x-sunset: '2027-03-31'
+  license:
+    name: Apache 2.0
+    url: https://apache.org/licenses/LICENSE-2.0
+servers:
+- url: http://localhost:4000/v1
+  description: Local
+- url: https://api.trustlayer.io/v1
+  description: Production
+security:
+- API Key: []
+tags:
+- name: documents
+paths:
+  /documents:
+    get:
+      summary: List documents
+      tags:
+      - documents
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/document'
+                  meta:
+                    $ref: '#/components/schemas/collection-meta'
+      operationId: get-documents
+      deprecated: true
+      parameters:
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/page-number'
+      - $ref: '#/components/parameters/page-size'
+      - $ref: '#/components/parameters/include'
+      description: 'Available filters:
+
+        * `name`
+
+        * `party`
+
+        * `project`
+
+        * `type`
+
+        * `archived`
+
+        * `reviewed`
+
+        * `createdAt`
+
+        * `updatedAt`
+
+        * `reviewedAt`
+
+        * `archivedAt`
+
+        * `expirationDate`
+
+
+        Available sort keys:
+
+        * `name`
+
+        * `createdAt`
+
+        * `updatedAt`
+
+        * `archivedAt`
+
+        * `reviewedAt`
+
+        * `expirationDate`
+
+
+        Available include options:
+
+        * `party`
+
+        * `projects`
+
+        * `reviewedBy`
+
+        * `archivedBy`
+
+        * `types`
+
+
+        Pagination is enabled.'
+    post:
+      summary: Upload a document
+      operationId: post-documents
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                document:
+                  type: string
+                  format: binary
+                documentType:
+                  type: string
+                  x-stoplight:
+                    id: 5m0jog13c31x8
+                  description: Document type name or ID
+              required:
+              - document
+        description: File data
+      description: 'This endpoint accepts a `multipart/form-data` payload containing a single `document` parameter.
+
+        The returned document will be queued for processing.
+
+        Optionally, a `documentType` parameter can be specified, containing either the exact name of an existing document type, or its ID.'
+      parameters: []
+      tags:
+      - documents
+  /documents/{documentId}:
+    parameters:
+    - schema:
+        type: string
+      name: documentId
+      in: path
+      required: true
+      description: Document ID
+    get:
+      summary: Fetch a document
+      tags:
+      - documents
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document'
+      operationId: get-documents-id
+      deprecated: true
+      description: 'Available include options:
+
+
+        * `party`
+
+        * `projects`
+
+        * `types`
+
+        * `archivedBy`
+
+        * `reviewedBy`
+
+
+        Notes:
+
+
+        - the uploaded file is accessible via the `url` attribute; the URL will expire in 24 hours.
+
+        '
+      parameters:
+      - $ref: '#/components/parameters/include'
+    patch:
+      summary: Update a document
+      operationId: patch-documents-documentId
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document'
+      tags:
+      - documents
+      description: '* Updating a document''s data will trigger a recalc of the compliance status for all affected parties.
+
+        * You can specify a project scope; the party the document is attached to _must_ belong to the project
+
+
+        Requirements: the document _must_ belong to a party.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                document:
+                  $ref: '#/components/schemas/document-input'
+      parameters:
+      - $ref: '#/components/parameters/scope-type'
+      - $ref: '#/components/parameters/scope-id'
+      x-internal: false
+    delete:
+      summary: Delete a document
+      operationId: delete-documents-documentId
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document'
+      description: TBD
+      tags:
+      - documents
+  /documents/{documentId}/review:
+    parameters:
+    - schema:
+        type: string
+      name: documentId
+      in: path
+      required: true
+      description: Document ID
+    delete:
+      summary: Remove the review from a document
+      operationId: delete-documents-id-review
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document'
+      description: 'Mark the document as not reviewed. This will remove all the information about the current review status of the document.
+
+
+        Requirements: the document _must_ belong to a party.'
+      tags:
+      - documents
+      parameters:
+      - $ref: '#/components/parameters/scope-type'
+      - $ref: '#/components/parameters/scope-id'
+    post:
+      summary: Review a document
+      operationId: put-documents-id-review
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document'
+      description: 'Mark the document as reviewed by the given user. If the document has already been reviewed, no change will be made.
+
+
+        Requirements: the document _must_ belong to a party.'
+      tags:
+      - documents
+      parameters:
+      - $ref: '#/components/parameters/scope-type'
+      - $ref: '#/components/parameters/scope-id'
+  /documents/{documentId}/archive:
+    parameters:
+    - schema:
+        type: string
+      name: documentId
+      in: path
+      required: true
+      description: Document ID
+    delete:
+      summary: Un-archive a document
+      operationId: delete-documents-id-archive
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document'
+      description: Mark the document as not archived.
+      tags:
+      - documents
+      parameters:
+      - $ref: '#/components/parameters/scope-type'
+      - $ref: '#/components/parameters/scope-id'
+    post:
+      summary: Archive a document
+      operationId: post-documents-id-archive
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document'
+      description: Mark the document as archived.
+      tags:
+      - documents
+      parameters:
+      - $ref: '#/components/parameters/scope-type'
+      - $ref: '#/components/parameters/scope-id'
+  /documents/{documentId}/reprocess:
+    parameters:
+    - schema:
+        type: string
+      name: documentId
+      in: path
+      required: true
+      description: Document ID
+    post:
+      summary: Reprocess a document
+      operationId: put-documents-id-review
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document'
+      description: 'Send the document to the extraction pipeline. The results will overwite the document''s current data.
+
+        '
+      tags:
+      - documents
+      parameters: []
+  /documents/{documentId}/flag:
+    parameters:
+    - schema:
+        type: string
+      name: documentId
+      in: path
+      required: true
+      description: Document ID
+    delete:
+      summary: Remove the flag from a document
+      operationId: delete-documents-id-flag
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document'
+      description: 'Remove the existing flag data from a document (if any).
+
+
+        If the document belongs to a party, you can specify an additional project `scope` (the party must belong to the project). This will be used to log the event in the activity timeline.
+
+
+        Requirements: the document _must_ belong to a party.'
+      tags:
+      - documents
+      parameters:
+      - $ref: '#/components/parameters/scope-type'
+      - $ref: '#/components/parameters/scope-id'
+    post:
+      summary: Flag a document or update the existing flag info
+      operationId: put-documents-id-flag
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document'
+      description: 'A document can have at most one flag. If a document is already flagged, existing data will be replaced.
+
+
+        * `addedOn` will default to the current time if left blank
+
+        * `severityLevel` and `user.id` are the only required parameters
+
+
+        If the document belongs to a party, you can specify an additional project `scope` (the party must belong to the project). This will be used to log the event in the activity timeline.
+
+
+        Requirements: the document _must_ belong to a party.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                flag:
+                  $ref: '#/components/schemas/document-flag-input'
+      tags:
+      - documents
+      parameters:
+      - $ref: '#/components/parameters/scope-type'
+      - $ref: '#/components/parameters/scope-id'
+  /parties/{partyId}/compliance-certificate:
+    parameters:
+    - schema:
+        type: string
+      name: partyId
+      in: path
+      required: true
+      description: Party ID
+    post:
+      summary: Create a party compliance certificate
+      operationId: post-parties-id-compliance-certificate-create
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                complianceCertificate:
+                  $ref: '#/components/schemas/compliance-certificate-create'
+          multipart/form-data:
+            schema:
+              type: object
+              properties: null
+              effectiveDate:
+                type: string
+                format: date-time
+              expirationDate:
+                type: string
+                format: date-time
+              document:
+                type: string
+                format: binary
+      description: '* if `effectiveDate` is not provided, it will default to the current moment
+
+        * if `expirationDate` is not provided, it will default to the earliest expiration date found in currently active documents; if no document is present, it will default to 1 year from the effective date
+
+        * if `document` is provided (only for multipart/form-data), it will be uploaded to the party and used as the compliance certificate
+
+
+        Available `scope` options:
+
+
+        * `projects`
+
+        '
+      x-internal: false
+      tags:
+      - documents
+    get:
+      summary: Fetch a party's compliance certificate
+      operationId: get-parties-id-compliance-certificate
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document'
+      description: 'Returns the currently valid compliance certificate for a party, if it exists; otherwise it responds with a 404 status.
+
+
+        Available `scope` options:
+
+
+        * `projects`
+
+        '
+      tags:
+      - documents
+  /parties/{partyId}/relationships/documents:
+    parameters:
+    - schema:
+        type: string
+      name: partyId
+      in: path
+      required: true
+      description: Party ID
+    post:
+      summary: Attach documents to a party
+      operationId: post-parties-id-relationships-documents
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/party'
+      description: 'Note that at any given time, a document can only be attached to one party.
+
+        If the document is already attached to another party, it will be ignored.
+
+
+        All documents _must_ exist, otherwise a 404 response will be returned and no document will be attached.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                documents:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/reference-input'
+              required:
+              - documents
+      tags:
+      - documents
+      parameters: []
+    delete:
+      summary: Detach a document from a party
+      operationId: delete-parties-id-relationships-documents
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/party'
+      tags:
+      - documents
+      description: 'Once the document has been detached from its party, it can be reattached to a different party.
+
+
+        All documents _must_ exist, otherwise a 404 response will be returned and no document will be attached.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                documents:
+                  $ref: '#/components/schemas/reference-list-input'
+              required:
+              - documents
+  /projects/{projectId}/relationships/documents:
+    parameters:
+    - schema:
+        type: string
+      name: projectId
+      in: path
+      required: true
+      description: Project ID
+    post:
+      summary: Attach documents to a project
+      operationId: post-projects-id-relationships-documents
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/project'
+      tags:
+      - documents
+      description: 'A document can be attached to any number of projects.
+
+
+        All documents _must_ exist, otherwise a 404 response will be returned and no document will be attached.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                documents:
+                  $ref: '#/components/schemas/reference-list-input'
+              required:
+              - documents
+    delete:
+      summary: Detach documents from a project
+      operationId: delete-projects-id-relationships-documents
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/project'
+      description: All documents _must_ exist, otherwise a 404 response will be returned and no document will be detached.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                documents:
+                  $ref: '#/components/schemas/reference-list-input'
+              required:
+              - documents
+      tags:
+      - documents
+  /parties/{partyId}/documents:
+    parameters:
+    - schema:
+        type: string
+      name: partyId
+      in: path
+      required: true
+      description: Party ID
+    post:
+      summary: Upload a document to a party
+      operationId: post-parties-id-documents
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document'
+      tags:
+      - documents
+      description: This will simultaneusly upload a document and attach it to the party.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                document:
+                  type: string
+                  format: binary
+                documentType:
+                  type: string
+                  x-stoplight:
+                    id: 8w8io4y2eiiha
+                  description: Document type name or ID
+              required:
+              - document
+  /parties/{partyId}/relationships/documents/{documentId}:
+    parameters:
+    - schema:
+        type: string
+      name: partyId
+      in: path
+      required: true
+      description: Party ID
+    - schema:
+        type: string
+      name: documentId
+      in: path
+      required: true
+      description: Document ID
+    delete:
+      summary: Remove a document from a party
+      tags:
+      - documents
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/party'
+      operationId: get-parties-partyId-relationships-documents-documentId
+      deprecated: true
+      description: If you need to remove multiple documents at once you can use the alternative endpoint `DELETE /parties/{partyId}/relationships/documents`
+  /projects/{projectId}/relationships/documents/{documentId}:
+    parameters:
+    - schema:
+        type: string
+      name: projectId
+      in: path
+      required: true
+      description: Project ID
+    - schema:
+        type: string
+      name: documentId
+      in: path
+      required: true
+      description: Document ID
+    delete:
+      summary: Remove a document from a project
+      operationId: delete-projects-projectId-relationships-documents-documentId
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/project'
+      tags:
+      - documents
+      description: If you need to remove multiple documents at once you can use the alternative endpoint `DELETE /projects/{projectId}/relationships/documents`
+  /parties/{partyId}/document-request:
+    parameters:
+    - schema:
+        type: string
+      name: partyId
+      in: path
+      required: true
+      description: Party ID
+    get:
+      summary: Fetch the current document request
+      tags:
+      - documents
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document-request'
+      operationId: get-parties-:id-document-request
+      deprecated: true
+      description: 'This will return the latest document request sent for the party.
+
+
+        Available include options:
+
+        * `party`'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  $ref: '#/components/schemas/response-status'
+                data:
+                  type: object
+      parameters:
+      - $ref: '#/components/parameters/include'
+      x-internal: false
+    post:
+      summary: Send a new document request
+      operationId: post-parties-partyId-document-request
+      deprecated: true
+      tags:
+      - documents
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document-request'
+      description: If a request already exists for this party, this will send a reminder.
+      x-internal: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                request:
+                  $ref: '#/components/schemas/document-request-input'
+  /documents/{documentId}/relationships/projects:
+    parameters:
+    - schema:
+        type: string
+      name: documentId
+      in: path
+      required: true
+    post:
+      summary: Associate a document to multiple projects
+      operationId: post-documents-documentId-relationships-projects
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document'
+      tags:
+      - documents
+      description: TBD
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                projects:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/reference-input'
+  /documents/{id}/amendments:
+    get:
+      tags:
+      - documents
+      description: List amendments (cancellations and reinstatements) attached to a document. Each amendment is either a cancellation that reduces or ends the policy coverage referenced by the document, or a reinstatement that restores it. Supports pagination (`limit`, `skip`). Results are scoped to the caller's organization.
+      parameters:
+      - schema:
+          default: 20
+          type: integer
+          minimum: 0
+          exclusiveMinimum: true
+          maximum: 100
+        in: query
+        name: limit
+        required: false
+      - schema:
+          default: 0
+          type: integer
+          minimum: 0
+          maximum: 9007199254740991
+        in: query
+        name: skip
+        required: false
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/objectIdInput'
+        in: path
+        name: id
+        required: true
+        description: Identifier of the document whose amendments to list.
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          $ref: '#/components/schemas/objectId'
+                        primaryRecordId:
+                          $ref: '#/components/schemas/objectId'
+                        policyNumber:
+                          type: string
+                          minLength: 1
+                        status:
+                          type: string
+                          enum:
+                          - pending
+                          - active
+                          description: 'Lifecycle status of the amendment: Active means it currently affects policy validity; Cancelled means it was revoked.'
+                        type:
+                          type: string
+                          enum:
+                          - cancellation
+                          - reinstatement
+                          description: Whether this amendment is a cancellation (ends or reduces policy coverage) or a reinstatement (restores coverage after a cancellation).
+                        subjects:
+                          default: []
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                                minLength: 1
+                            required:
+                            - code
+                            additionalProperties: false
+                        matchingSubjects:
+                          default: []
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                                minLength: 1
+                              label:
+                                type: string
+                                minLength: 1
+                            required:
+                            - code
+                            - label
+                            additionalProperties: false
+                        effectiveDate:
+                          type: string
+                          format: date-time
+                        issueDate:
+                          type: string
+                          format: date-time
+                        notes:
+                          type: string
+                          minLength: 1
+                        document:
+                          type: object
+                          properties:
+                            id:
+                              $ref: '#/components/schemas/objectId'
+                          required:
+                          - id
+                          additionalProperties: false
+                      required:
+                      - _id
+                      - primaryRecordId
+                      - policyNumber
+                      - status
+                      - type
+                      - subjects
+                      - matchingSubjects
+                      - effectiveDate
+                      - issueDate
+                      - document
+                      additionalProperties: false
+                  meta:
+                    type: object
+                    properties:
+                      count:
+                        type: number
+                        description: Total number of records matching the query, across all pages.
+                      next:
+                        description: Relative URL for the next page of results, preserving filters/sort/projection. Omitted on the last page.
+                        type: string
+                      prev:
+                        description: Relative URL for the previous page of results, preserving filters/sort/projection. Omitted on the first page.
+                        type: string
+                    required:
+                    - count
+                    additionalProperties: false
+                required:
+                - data
+                - meta
+                additionalProperties: false
+        '400':
+          description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 400
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+        '401':
+          description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 401
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+        '403':
+          description: The authenticated caller does not have permission to perform this action on the target resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 403
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The authenticated caller does not have permission to perform this action on the target resource.
+        '404':
+          description: The requested resource does not exist or is not visible to the authenticated caller.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 404
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The requested resource does not exist or is not visible to the authenticated caller.
+        '500':
+          description: The server encountered an unexpected failure while processing the request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 500
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The server encountered an unexpected failure while processing the request.
+components:
+  schemas:
+    project:
+      title: Project
+      type: object
+      x-examples:
+        Example project:
+          type: projects
+          id: 60a3dc67cba60c04739e8e46
+          name: Test Project
+          parties:
+          - id: 60896067dd86e01e90199f42
+            type: parties
+          customData:
+          - value: '123'
+            customField:
+              type: customFields
+              id: 60896067dd86e01e90199f42
+          externalIds:
+            procore:
+            - id: '49843945'
+      properties:
+        type:
+          type: string
+          default: projects
+          readOnly: true
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        startDate:
+          type: string
+          format: date-time
+          nullable: true
+        endDate:
+          type: string
+          format: date-time
+          nullable: true
+        active:
+          type: boolean
+        parties:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/reference'
+            - $ref: '#/components/schemas/party'
+            - type: string
+        customData:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+              customField:
+                oneOf:
+                - $ref: '#/components/schemas/reference'
+                - $ref: '#/components/schemas/custom-field'
+        complianceStatus:
+          type: object
+          properties:
+            status:
+              type: string
+              enum:
+              - compliant
+              - non_compliant
+            compliantPartiesCount:
+              type: number
+            totalPartiesCount:
+              type: number
+            complianceScore:
+              type: number
+        deletedAt:
+          type: string
+          format: date-time
+          nullable: true
+        deletedBy:
+          oneOf:
+          - nullable: true
+          - $ref: '#/components/schemas/reference'
+        externalIds:
+          type: object
+          x-stoplight:
+            id: uw5iuj9nds4en
+    reference-list-input:
+      type: array
+      title: reference-list-input
+      x-tags:
+      - input
+      minItems: 1
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+            pattern: ^[a-z0-9]{24}$
+            minLength: 24
+            maxLength: 24
+        required:
+        - id
+      x-internal: true
+    document-request-input:
+      type: object
+      title: document-request-input
+      x-internal: true
+      additionalProperties: false
+      x-examples: {}
+      x-tags:
+      - input
+      properties:
+        recipients:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/reference-input'
+        dueDate:
+          type: string
+          format: date
+        message:
+          type: string
+        sentBy:
+          $ref: '#/components/schemas/reference-input'
+      required:
+      - recipients
+    compliance-document:
+      x-internal: true
+      title: Compliance Document
+      type: object
+      properties:
+        id:
+          type: string
+        origin:
+          type: string
+          enum:
+          - upload
+          - makeCompliant
+          - connectedDocument
+          - fillableForm
+          - webForm
+        complianceStatus:
+          type: string
+          enum:
+          - compliant
+          - non_compliant
+    document-request:
+      title: Document Request
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          default: document-requests
+        party:
+          $ref: '#/components/schemas/reference'
+        message:
+          type: string
+        sentOn:
+          type: string
+          format: date
+        dueDate:
+          type: string
+          format: date-time
+        forwardedAt:
+          type: string
+          format: date-time
+        forwardedTo:
+          type: string
+    party:
+      title: Party
+      type: object
+      x-examples:
+        Example Party:
+          id: 60896067dd86e01e90199f42
+          name: Test Party
+          address:
+            line1: 123 Main Street
+            line2: ''
+            city: Pleasantville
+            postalCode: '10200'
+            region: NY
+            country: US
+          type: Vendor
+          status: new
+          customData:
+          - value: '123'
+            customField:
+              type: customFields
+              id: 60896067dd86e01e90199f42
+          externalIds:
+            procore:
+            - id: '49843945'
+      properties:
+        type:
+          type: string
+          default: parties
+          readOnly: true
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+        address:
+          $ref: '#/components/schemas/address'
+        status:
+          type: string
+          enum:
+          - new
+          - compliant
+          - non_compliant
+          - inactive
+          readOnly: true
+        contacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/contact'
+        website:
+          type: string
+          nullable: true
+        active:
+          type: boolean
+        notes:
+          type: string
+          nullable: true
+        complianceStatus:
+          $ref: '#/components/schemas/compliance-status'
+        projects:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/reference'
+            - $ref: '#/components/schemas/project'
+        projectStats:
+          type: object
+          properties:
+            compliantProjectsCount:
+              type: number
+            totalProjectsCount:
+              type: number
+        documents:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/reference'
+            - $ref: '#/components/schemas/document'
+        partyType:
+          oneOf:
+          - $ref: '#/components/schemas/reference'
+          - $ref: '#/components/schemas/party-type'
+        tags:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/taggging'
+            - $ref: '#/components/schemas/taggging-full'
+        complianceProfile:
+          oneOf:
+          - $ref: '#/components/schemas/reference'
+          - $ref: '#/components/schemas/compliance-profile'
+          - nullable: true
+        customData:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+              customField:
+                oneOf:
+                - $ref: '#/components/schemas/reference'
+                - $ref: '#/components/schemas/custom-field'
+        deletedAt:
+          type: string
+          format: date-time
+          nullable: true
+        deletedBy:
+          oneOf:
+          - nullable: true
+          - $ref: '#/components/schemas/reference'
+        externalIds:
+          type: object
+          x-stoplight:
+            id: zk87opteuie3w
+    reference-input:
+      title: reference-input
+      type: object
+      properties:
+        id:
+          type: string
+          minLength: 24
+          maxLength: 24
+          pattern: ^[a-z0-9]{24}$
+      required:
+      - id
+      x-internal: true
+      x-tags:
+      - input
+    compliance-certificate-create:
+      title: compliance-certificate-create
+      x-stoplight:
+        id: akhnyhbf79itg
+      type: object
+      x-tags:
+      - input
+      x-internal: true
+      properties:
+        effectiveDate:
+          type: string
+          x-stoplight:
+            id: a6g8zb1lrcvvj
+          format: date-time
+        expirationDate:
+          type: string
+          x-stoplight:
+            id: polry53pghsyk
+          format: date-time
+        subjects:
+          type: array
+          x-stoplight:
+            id: v1n68lhhosu12
+          items:
+            x-stoplight:
+              id: x1h6gr8lsbe8d
+            type: object
+            additionalProperties: false
+            properties:
+              id:
+                type: string
+                x-stoplight:
+                  id: e5p6jmbzqvbjv
+              effectiveDate:
+                type: string
+                x-stoplight:
+                  id: lxs15h7rlftfk
+                format: date-time
+              expirationDate:
+                type: string
+                x-stoplight:
+                  id: 91b3tvftsyosg
+                format: date-time
+            required:
+            - id
+            - expirationDate
+    compliance-status:
+      type: object
+      title: Compliance Status
+      properties:
+        complianceProfile:
+          $ref: '#/components/schemas/reference'
+        nextExpirationDate:
+          type: string
+          format: date-time
+          nullable: true
+        latestExpirationDate:
+          type: string
+          format: date-time
+          nullable: true
+        modules:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              label:
+                type: string
+              status:
+                type: string
+                enum:
+                - compliant
+                - non_compliant
+              documents:
+                type: array
+                items:
+                  $ref: '#/components/schemas/compliance-document'
+              documentsCount:
+                type: number
+                example: 1
+              subjects:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    label:
+                      type: string
+                    status:
+                      type: string
+                      enum:
+                      - compliant
+                      - non_compliant
+                      - waived
+                      - overridden
+                    notes:
+                      type: string
+                    effectiveDate:
+                      type: string
+                      format: date-time
+                      nullable: true
+                    expirationDate:
+                      type: string
+                      format: date-time
+                      nullable: true
+                    latestExpirationDate:
+                      type: string
+                      format: date-time
+                      nullable: true
+                    latestValidEffectiveDate:
+                      type: string
+                      format: date-time
+                      nullable: true
+                    latestValidExpirationDate:
+                      type: string
+                      format: date-time
+                      nullable: true
+                    documents:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/compliance-document'
+                    documentsCount:
+                      type: number
+                    resetOn:
+                      type: string
+                      format: date-time
+                      nullable: true
+                    requirements:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          label:
+                            type: string
+                          moduleId:
+                            type: string
+                          moduleLabel:
+                            type: string
+                          subjectId:
+                            type: string
+                          subjectLabel:
+                            type: string
+                          attributeId:
+                            type: string
+                          attributeLabel:
+                            type: string
+                          attributeDescription:
+                            type: string
+                          matchingCriteria:
+                            type: string
+                            enum:
+                            - matchOnce
+                            - matchRepeatedly
+                          operator:
+                            type: string
+                            enum:
+                            - must be present
+                            - must be greater or equal to
+                            - must be less or equal to
+                            - must be completed by
+                            - at least one must be present from list
+                          targetValue:
+                            type: string
+                          value:
+                            type: string
+                          status:
+                            type: string
+                            enum:
+                            - compliant
+                            - non_compliant
+                            - waived
+                            - overridden
+                            - invalidated
+                          invalidatedBy:
+                            type: array
+                            items:
+                              type: string
+                          notes:
+                            type: string
+                          publicNotes:
+                            type: string
+                          documents:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/compliance-document'
+                          documentsCount:
+                            type: number
+                          resetOn:
+                            type: string
+                            format: date-time
+                            nullable: true
+                          custom:
+                            type: boolean
+                        required:
+                        - id
+                        - label
+                        - moduleId
+                        - moduleLabel
+                        - subjectId
+                        - subjectLabel
+                        - attributeId
+                        - attributeLabel
+                        - matchingCriteria
+                        - operator
+                        - status
+                        - documents
+                        - documentsCount
+                        - custom
+                  required:
+                  - id
+                  - label
+                  - status
+                  - documents
+                  - documentsCount
+                  - requirements
+            required:
+            - id
+            - label
+            - status
+            - documents
+            - documentsCount
+            - subjects
+        subjects:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              effectiveDate:
+                type: string
+                format: date-time
+                nullable: true
+              expirationDate:
+                type: string
+                format: date-time
+                nullable: true
+              latestValidEffectiveDate:
+                type: string
+                format: date-time
+                nullable: true
+              latestValidExpirationDate:
+                type: string
+                format: date-time
+                nullable: true
+              notes:
+                type: string
+              requirementsStatus:
+                type: string
+                enum:
+                - compliant
+                - non_compliant
+                - waived
+                - overridden
+              resetRequirementsOn:
+                type: string
+                format: date-time
+                nullable: true
+        requirements:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              label:
+                type: string
+              operator:
+                type: string
+              targetValue:
+                type: string
+              actualValue:
+                type: string
+              status:
+                type: string
+                enum:
+                - compliant
+                - non_compliant
+                - waived
+                - overridden
+                - invalidated
+              waiverOrOverrideNotes:
+                type: string
+              waiverOrOverrideExpirationDate:
+                type: string
+                format: date-time
+                nullable: true
+        status:
+          type: string
+          enum:
+          - compliant
+          - non_compliant
+        lastChangedAt:
+          type: string
+          format: date-time
+      required:
+      - complianceProfile
+      - modules
+      - subjects
+      - requirements
+      - status
+      x-examples:
+        Example compliance status:
+          complianceProfile:
+            id: 60a27c51fcd891823568ed27
+            type: compliance-profiles
+          nextExpirationDate: '2024-11-14T00:00:00.000Z'
+          latestExpirationDate: '2025-12-19T23:59:59.999Z'
+          modules:
+          - id: evidenceOfInsurance
+            label: Evidence of Insurance
+            status: compliant
+            documents:
+            - id: 6877a0b2d7a1998eeb7f7f2f
+              origin: upload
+              complianceStatus: compliant
+            documentsCount: 1
+            subjects:
+            - id: commercialGeneralLiability
+              label: Commercial General Liability
+              status: compliant
+              notes: lorem ipsum dolor sit amet
+              effectiveDate: '2024-11-14T00:00:00.000Z'
+              expirationDate: '2025-11-14T23:59:59.999Z'
+              latestExpirationDate: '2025-12-19T23:59:59.999Z'
+              latestValidEffectiveDate: '2024-11-14T00:00:00.000Z'
+              latestValidExpirationDate: '2025-11-14T23:59:59.999Z'
+              documents:
+              - id: 6877a0b2d7a1998eeb7f7f2f
+                origin: upload
+                complianceStatus: compliant
+              documentsCount: 1
+              resetOn: '2025-06-02T00:00:00.000Z'
+              requirements:
+              - id: evidenceOfInsurance.commercialGeneralLiability.evidenceOfInsuranceCommercialGeneralLiabilityGeneralAggregate
+                label: 'Evidence of Insurance : Commercial General Liability : General Aggregate'
+                moduleId: evidenceOfInsurance
+                moduleLabel: Evidence of Insurance
+                subjectId: commercialGeneralLiability
+                subjectLabel: Commercial General Liability
+                attributeId: evidenceOfInsuranceCommercialGeneralLiabilityGeneralAggregate
+                attributeLabel: General Aggregate
+                matchingCriteria: matchOnce
+                operator: must be greater or equal to
+                targetValue: '1000000'
+                value: '2000000'
+                status: compliant
+                invalidatedBy:
+                - evidenceOfInsuranceCommercialGeneralLiabilityAMBestRating
+                notes: lorem ipsum dolor sit amet
+                publicNotes: lorem ipsum dolor sit amet
+                documents:
+                - id: 6877a0b2d7a1998eeb7f7f2f
+                  origin: upload
+                  complianceStatus: compliant
+                documentsCount: 1
+                resetOn: '2025-06-02T00:00:00.000Z'
+                custom: false
+          subjects:
+          - id: commercialGeneralLiability
+            effectiveDate: '2024-11-14T00:00:00.000Z'
+            expirationDate: '2025-11-14T23:59:59.999Z'
+            latestValidEffectiveDate: '2024-11-14T00:00:00.000Z'
+            latestValidExpirationDate: '2025-11-14T23:59:59.999Z'
+            latestExpirationDate: '2025-12-19T23:59:59.999Z'
+            notes: lorem ipsum dolor sit amet
+            requirementsStatus: compliant
+            resetRequirementsOn: '2025-06-02T00:00:00.000Z'
+          requirements:
+          - id: evidenceOfInsurance.commercialGeneralLiability.evidenceOfInsuranceCommercialGeneralLiabilityGeneralAggregate
+            label: 'Evidence of Insurance : Commercial General Liability : General Aggregate'
+            operator: must be greater or equal to
+            targetValue: '1000000'
+            actualValue: '2000000'
+            status: compliant
+            waiverOrOverrideNotes: lorem ipsum dolor sit amet
+            waiverOrOverrideExpirationDate: '2025-06-02T00:00:00.000Z'
+          status: compliant
+          lastChangedAt: '2025-07-16T17:55:00.000Z'
+    contact:
+      title: Contact
+      type: object
+      x-examples:
+        Example Contact:
+          type: contacts
+          id: 60896067dd86e01e90199f43
+          name: Jane Smith
+          company: Acme Inc
+          email: jane.smith@example.com
+          phone: (555) 555-5555
+          fax: ''
+          title: Director
+          primary: true
+          defaultRequestRecipient: false
+          avatar: ''
+          party:
+            type: parties
+            id: 60896067dd86e01e90199f43
+      properties:
+        type:
+          type: string
+          default: contacts
+          readOnly: true
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+        company:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        fax:
+          type: string
+        title:
+          type: string
+        primary:
+          type: boolean
+          default: false
+        defaultRequestRecipient:
+          type: boolean
+          default: false
+        avatar:
+          type: string
+        party:
+          oneOf:
+          - $ref: '#/components/schemas/reference'
+          - $ref: '#/components/schemas/party'
+        externalId:
+          type: string
+          x-stoplight:
+            id: 07yyrzkup5tdk
+    reference:
+      title: Reference
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+      description: Generic object reference
+      x-internal: false
+      x-examples:
+        Generic reference example:
+          id: 60896067dd86e01e90199f43
+          type: widgets
+    user:
+      description: ''
+      type: object
+      properties:
+        id:
+          type: string
+        profile:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 1
+            phone:
+              type: string
+            title:
+              type: string
+            avatar:
+              type: string
+            role:
+              type: string
+            department:
+              type: string
+            timezone:
+              type: string
+        email:
+          type: string
+          minLength: 1
+        isActive:
+          type: boolean
+        type:
+          type: string
+          default: users
+          readOnly: true
+      title: User
+    custom-field:
+      title: Custom Field
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          default: custom-fields
+        name:
+          type: string
+          description: Custom field label
+        'description ':
+          type: string
+          description: Optional description
+        color:
+          type: string
+          pattern: ^#[a-f0-9]{6}$
+          description: 'Field color in #rrggbb format'
+        fieldType:
+          type: string
+          default: text
+          enum:
+          - text
+          - number
+          - dropdown
+        options:
+          type: array
+          description: List of options for the dropdown
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+                description: Unique identifier for the option
+              value:
+                type: string
+                description: Option label
+        complianceProfile:
+          oneOf:
+          - $ref: '#/components/schemas/reference'
+          - $ref: '#/components/schemas/compliance-profile'
+        associatedEntities:
+          type: array
+          enum:
+          - party
+          - project
+          description: List of entity types that can use this custom field
+          items:
+            type: string
+    document-type:
+      description: ''
+      type: object
+      title: Document Type
+      x-examples:
+        Certificate of insurance:
+          type: document-types
+          id: 60a27c517fd4e152a9642347
+          name: Certificate of Insurance
+          system: true
+          pluralName: Certificates of Insurance
+      properties:
+        type:
+          type: string
+          default: document-types
+          readOnly: true
+        id:
+          type: string
+        name:
+          type: string
+          minLength: 1
+        system:
+          type: boolean
+        pluralName:
+          type: string
+          minLength: 1
+      required:
+      - id
+      - name
+      - system
+      - pluralName
+    objectIdInput:
+      title: ObjectId
+      type: string
+      format: ObjectId
+      examples:
+      - 507f1f77bcf86cd799439011
+    response-status:
+      type: string
+      title: Response Status
+      enum:
+      - success
+      - fail
+      - error
+      readOnly: true
+      x-examples:
+        Success: success
+      description: The possible values are "success", "fail", and "error".
+      x-internal: true
+    party-type:
+      title: Party Type
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          default: party-types
+        name:
+          type: string
+        pluralName:
+          type: string
+        defaultComplianceProfile:
+          oneOf:
+          - $ref: '#/components/schemas/reference'
+          - $ref: '#/components/schemas/compliance-profile'
+      x-examples:
+        Vendor:
+          id: 60a27c51fcd891823568ed28
+          type: party-types
+          name: Vendor
+          pluralName: Vendors
+          defaultComplianceProfile:
+            id: 60a27c51fcd891823568ed27
+            type: compliance-profiles
+    document:
+      type: object
+      title: Document
+      x-examples:
+        Example document:
+          type: documents
+          id: 60a27c51fcd891823568ed35
+          issuedBy:
+            name: ''
+            address: ''
+            contactName: ''
+            phone: ''
+            email: ''
+          reviewedAt: '2019-08-24T14:15:22Z'
+          archivedAt: '2019-08-24T14:15:22Z'
+          notes: ''
+          status: processed
+          types:
+          - type: document-types
+            id: 60a27c517fd4e152a9642347
+          flag:
+            addedOn: '2019-08-24T14:15:22Z'
+            severityLevel: low
+            affectedSubjects:
+            - string
+            notes: ''
+            user:
+              id: 60a27c51fcd891823568ed24
+              type: users
+          appliesToAllProjects: true
+          expirationDate: '2019-08-24'
+          friendlyName: Acord25.pdf
+          data: {}
+          metadata: {}
+          updatedAt: '2019-08-24T14:15:22Z'
+          createdAt: '2019-08-24T14:15:22Z'
+          archivedBy:
+            id: 60a27c51fcd891823568ed24
+            type: users
+          reviewedBy: null
+          url: https://trustlayer-documents.s3.us-west-1.amazonaws.com/...
+          issueDate: '2019-01-22'
+      properties:
+        type:
+          type: string
+          default: documents
+          readOnly: true
+        id:
+          type: string
+          readOnly: true
+        issuedBy:
+          type: object
+          properties:
+            name:
+              type: string
+            address:
+              type: string
+            contactName:
+              type: string
+            phone:
+              type: string
+            email:
+              type: string
+        reviewedAt:
+          type: string
+          format: date-time
+          readOnly: true
+        archivedAt:
+          type: string
+          format: date-time
+          readOnly: true
+        notes:
+          type: string
+        status:
+          type: string
+          minLength: 1
+          readOnly: true
+        types:
+          type: array
+          uniqueItems: true
+          minItems: 0
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/reference'
+            - $ref: '#/components/schemas/document-type'
+        flag:
+          type: object
+          properties:
+            addedOn:
+              type: string
+              format: date-time
+            severityLevel:
+              type: string
+              minLength: 1
+              enum:
+              - low
+              - medium
+              - high
+            affectedSubjects:
+              type: array
+              uniqueItems: true
+              items:
+                type: string
+            notes:
+              type: string
+            user:
+              oneOf:
+              - $ref: '#/components/schemas/reference'
+              - $ref: '#/components/schemas/user'
+        appliesToAllProjects:
+          type: boolean
+        expirationDate:
+          type: string
+          format: date
+        name:
+          type: string
+          minLength: 1
+        data:
+          type: object
+        metadata:
+          type: object
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        archivedBy:
+          oneOf:
+          - $ref: '#/components/schemas/reference'
+          - $ref: '#/components/schemas/user'
+          - nullable: true
+        reviewedBy:
+          oneOf:
+          - $ref: '#/components/schemas/reference'
+          - $ref: '#/components/schemas/user'
+          - nullable: true
+        url:
+          type: string
+        insurers:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              naic:
+                type: string
+              rating:
+                type: string
+              ratingEffectiveDate:
+                type: string
+                format: date-time
+              financialSizeCategory:
+                type: string
+              ratingModifier:
+                type: string
+              ratingAction:
+                type: string
+              ratingImplication:
+                type: string
+              extractedName:
+                type: string
+              canonicalName:
+                type: string
+            required:
+            - id
+            - naic
+        deletedAt:
+          type: string
+          format: date-time
+        deletedBy:
+          oneOf:
+          - $ref: '#/components/schemas/reference'
+          - $ref: '#/components/schemas/user'
+        issueDate:
+          type: string
+          format: date
+          readOnly: true
+    compliance-profile:
+      title: Compliance Profile
+      type: object
+      x-examples:
+        Example compliance profile:
+          id: 60a27c51fcd891823568ed27
+          type: compliance-profiles
+          name: Default compliance profile
+          rules:
+          - moduleId: evidenceOfInsurance
+            moduleLabel: Evidence of Insurance
+            subjectId: commercialGeneralLiability
+            subjectLabel: Commercial General Liability
+            attributeId: evidenceOfInsuranceCommercialGeneralLiabilityEachOccurrence
+            attributeLabel: Each Occurrence
+            attributeType: number
+            attributeDescription: ''
+            masterDocumentAttributeId: commercialGeneralLiabilityLimitsGeneralAggregate
+            operator: must be greater or equal to
+            targetValue: '2000000'
+          context: global
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          default: compliance-profiles
+        name:
+          type: string
+          example: Default compliance profile
+        rules:
+          type: array
+          items:
+            type: object
+            properties:
+              moduleId:
+                type: string
+                minLength: 1
+                example: evidenceOfInsurance
+              moduleLabel:
+                type: string
+                minLength: 1
+                example: Evidence of Insurance
+              subjectId:
+                type: string
+                minLength: 1
+                example: commercialGeneralLiability
+              subjectLabel:
+                type: string
+                minLength: 1
+                example: Commercial General Liability
+              attributeId:
+                type: string
+                minLength: 1
+                example: evidenceOfInsuranceCommercialGeneralLiabilityEachOccurrence
+              attributeLabel:
+                type: string
+                minLength: 1
+                example: Each Occurrence
+              attributeType:
+                type: string
+                minLength: 1
+                example: number
+              attributeDescription:
+                type: string
+              masterDocumentAttributeId:
+                type: string
+                minLength: 1
+                example: commercialGeneralLiabilityLimitsGeneralAggregate
+              operator:
+                type: string
+                minLength: 1
+                example: must be greater or equal to
+              targetValue:
+                type: string
+                minLength: 1
+                example: '2000000'
+        context:
+          type: string
+          enum:
+          - global
+          - project
+          - custom-field
+        documentChecklists:
+          type: array
+          items:
+            type: object
+            properties:
+              attributeId:
+                type: string
+              attributeLabel:
+                type: string
+              active:
+                type: boolean
+    objectId:
+      title: ObjectId
+      type: string
+      format: ObjectId
+      examples:
+      - 507f1f77bcf86cd799439011
+    document-flag-input:
+      type: object
+      x-examples:
+        Minimal flag:
+          severityLevel: low
+          user:
+            id: 60896067dd86e01e90199f43
+      title: document-flag-input
+      x-internal: true
+      x-tags:
+      - input
+      properties:
+        addedOn:
+          type: string
+          minLength: 1
+        level:
+          type: string
+          minLength: 1
+          enum:
+          - low
+          - medium
+          - high
+        subjects:
+          type: array
+          items:
+            type: string
+        notes:
+          type: string
+          minLength: 1
+      required:
+      - level
+    taggging-full:
+      title: Tagging (full data)
+      type: object
+      properties:
+        type:
+          type: string
+          default: tags
+        id:
+          type: string
+        name:
+          type: string
+        color:
+          type: string
+        addedAt:
+          type: string
+          format: date
+        addedBy:
+          type: string
+    taggging:
+      title: Tagging
+      type: object
+      properties:
+        type:
+          type: string
+          default: tags
+        id:
+          type: string
+        addedAt:
+          type: string
+          format: date
+        addedBy:
+          type: string
+        expiresAt:
+          type: string
+          x-stoplight:
+            id: 8xpna1blern8o
+          format: date
+    document-input:
+      title: document-input
+      type: object
+      x-internal: true
+      properties:
+        name:
+          type: string
+        notes:
+          type: string
+        appliesToAllProjects:
+          type: boolean
+        issuedBy:
+          type: object
+          properties:
+            name:
+              type: string
+            address:
+              type: string
+            contactName:
+              type: string
+            phone:
+              type: string
+            email:
+              type: string
+        data:
+          type: object
+        metadata:
+          type: object
+      x-tags:
+      - input
+    collection-meta:
+      title: collection-meta
+      type: object
+      properties:
+        count:
+          type: number
+          description: The number of documents according to the specified filters
+        pages:
+          type: number
+        totalCount:
+          type: number
+          description: The total number of documents in the collection
+        totalPages:
+          type: number
+      x-internal: true
+  parameters:
+    include:
+      name: include
+      in: query
+      required: false
+      schema:
+        type: string
+        example: parties,projects
+      description: List of comma-separated relationships to include in the result
+      allowReserved: true
+    sort:
+      name: sort
+      in: query
+      required: false
+      schema:
+        type: string
+        example: name,-age
+      description: List of comma-separated keys used to sort. Reversing is done by prepending "-" to the key name.
+      allowReserved: true
+    filter:
+      name: filter
+      in: query
+      required: false
+      schema:
+        type: object
+        example:
+          title: foo
+      style: deepObject
+      description: Key-value pair, e.g. filter[key]=value
+    page-size:
+      name: page[size]
+      in: query
+      required: false
+      schema:
+        type: number
+        minimum: 1
+        maximum: 100
+        example: 20
+        default: 20
+      description: Number of items per page. Defaults to 20. Maximum is 100
+    scope-id:
+      name: scope[id]
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Id of the resource to be used as scope
+    scope-type:
+      name: scope[type]
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Type of the resource to be used as scope
+    page-number:
+      name: page[number]
+      in: query
+      required: false
+      schema:
+        type: number
+        minimum: 1
+        example: 1
+        default: 1
+      description: Page number, starting from 1
+  securitySchemes:
+    Token:
+      name: Authorization
+      type: apiKey
+      in: header
+      description: ''

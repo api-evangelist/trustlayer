@@ -1,0 +1,1170 @@
+openapi: 3.0.0
+info:
+  title: TrustLayer Platform Auth Primary Objects API
+  version: '1.0'
+  contact:
+    name: TrustLayer Support
+    email: support@trustlayer.io
+  termsOfService: https://trustlayer.io/terms-of-service
+  externalDocs:
+    description: OpenAPI specification
+    url: /v1/platform-api.yaml
+  description: '3rd-party API for the TrustLayer platform.
+
+
+    **Deprecated.** Platform API v1 is deprecated as of 01 June 2026 and is
+
+    scheduled for sunset (end-of-life) on 31 March 2027. It remains fully
+
+    available until the sunset date but will not receive new features. Please
+
+    migrate to Platform API v2 for new integrations.
+
+
+    All v1 responses carry the standard deprecation response headers
+
+    ([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)):
+
+
+    ```http
+
+    Deprecation: @1780272000
+
+    Sunset: Wed, 31 Mar 2027 23:59:59 GMT
+
+    Link: <https://developers.trustlayer.io/>; rel="deprecation", <https://developers.trustlayer.io/>; rel="sunset"
+
+    ```
+
+
+    `Deprecation: @1780272000` is the Unix timestamp for 2026-06-01T00:00:00Z;
+
+    sunset (end-of-life) is 2027-03-31T23:59:59 GMT.'
+  x-deprecated: true
+  x-deprecation-date: '2026-06-01'
+  x-sunset: '2027-03-31'
+  license:
+    name: Apache 2.0
+    url: https://apache.org/licenses/LICENSE-2.0
+servers:
+- url: http://localhost:4000/v1
+  description: Local
+- url: https://api.trustlayer.io/v1
+  description: Production
+security:
+- API Key: []
+tags:
+- name: Primary Objects
+  description: ''
+paths:
+  /primary-objects:
+    get:
+      tags:
+      - Primary Objects
+      description: 'List primary objects (entity type definitions) in the caller''s organization. Results are always scoped to the caller''s organization. Supports pagination via `limit` and `skip`.
+
+
+        <!-- qs2mongo:list-summary -->
+
+
+        **Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `icon` (string), `name` (string), `pluralName` (string), `slug` (string). See "List Endpoints" in the API overview for operator syntax and combining rules.
+
+
+        **Sorting**: supported via `sort` (see the parameter''s description for allowed fields). Prefix with `-` for descending.
+
+
+        **Field projection**: supported via `fields` (see the parameter''s description for allowed fields).'
+      parameters:
+      - schema:
+          default: 20
+          type: integer
+          minimum: 0
+          exclusiveMinimum: true
+          maximum: 100
+        in: query
+        name: limit
+        required: false
+      - schema:
+          default: 0
+          type: integer
+          minimum: 0
+          maximum: 9007199254740991
+        in: query
+        name: skip
+        required: false
+      - schema:
+          type: string
+          minLength: 1
+        in: query
+        name: sort
+        required: false
+        description: 'Comma-separated list of fields to sort by. Example: ''_id,-createdAt''. Allowed: icon, name, pluralName, slug, createdAt, updatedAt'
+      - schema:
+          type: string
+          minLength: 1
+        in: query
+        name: fields
+        required: false
+        description: 'Comma-separated list of fields to project. Allowed: _id, organization, icon, name, pluralName, slug, createdAt, updatedAt, defaultRequestRecords'
+      - schema:
+          type: string
+        in: query
+        name: _id
+        required: false
+        description: Filter by _id. 24-character hex ObjectId string (e.g. `_id=507f1f77bcf86cd799439011`). See "List Endpoints" in the API overview for operator syntax.
+      - schema:
+          type: string
+        in: query
+        name: createdAt
+        required: false
+        description: Filter by createdAt. ISO-8601 date or datetime string (e.g. `createdAt=2024-01-15`). See "List Endpoints" in the API overview for operator syntax.
+      - schema:
+          type: string
+        in: query
+        name: updatedAt
+        required: false
+        description: Filter by updatedAt. ISO-8601 date or datetime string (e.g. `updatedAt=2024-01-15`). See "List Endpoints" in the API overview for operator syntax.
+      - schema:
+          type: string
+        in: query
+        name: icon
+        required: false
+        description: Filter by icon. String value (e.g. `icon=example`). See "List Endpoints" in the API overview for operator syntax.
+      - schema:
+          type: string
+        in: query
+        name: name
+        required: false
+        description: Filter by name. String value (e.g. `name=example`). See "List Endpoints" in the API overview for operator syntax.
+      - schema:
+          type: string
+        in: query
+        name: pluralName
+        required: false
+        description: Filter by pluralName. String value (e.g. `pluralName=example`). See "List Endpoints" in the API overview for operator syntax.
+      - schema:
+          type: string
+        in: query
+        name: slug
+        required: false
+        description: Filter by slug. String value (e.g. `slug=example`). See "List Endpoints" in the API overview for operator syntax.
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          description: Unique identifier of the primary object.
+                          allOf:
+                          - $ref: '#/components/schemas/objectId'
+                        organization:
+                          description: Identifier of the organization (workspace) that owns the primary object. Always equal to the caller's organization.
+                          allOf:
+                          - $ref: '#/components/schemas/objectId'
+                        icon:
+                          type: string
+                          minLength: 1
+                          description: Icon identifier shown in the UI for primary records of this type.
+                        name:
+                          type: string
+                          minLength: 1
+                          description: Human-readable singular name of the primary object type.
+                        pluralName:
+                          type: string
+                          minLength: 1
+                          description: Human-readable plural name of the primary object type.
+                        slug:
+                          type: string
+                          minLength: 1
+                          description: URL-safe slug derived from the name; unique within the organization.
+                        createdAt:
+                          description: Timestamp at which the primary object was created.
+                          type: string
+                          format: date-time
+                        updatedAt:
+                          description: Timestamp at which the primary object was last updated.
+                          type: string
+                          format: date-time
+                        defaultRequestRecords:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              _id:
+                                allOf:
+                                - $ref: '#/components/schemas/objectId'
+                              name:
+                                type: string
+                                minLength: 1
+                              enabled:
+                                type: boolean
+                            additionalProperties: false
+                          description: Templates for request records auto-created when a primary record of this type is created.
+                      required:
+                      - _id
+                      additionalProperties: false
+                  meta:
+                    type: object
+                    properties:
+                      count:
+                        type: number
+                        description: Total number of records matching the query, across all pages.
+                      next:
+                        description: Relative URL for the next page of results, preserving filters/sort/projection. Omitted on the last page.
+                        type: string
+                      prev:
+                        description: Relative URL for the previous page of results, preserving filters/sort/projection. Omitted on the first page.
+                        type: string
+                    required:
+                    - count
+                    additionalProperties: false
+                required:
+                - data
+                - meta
+                additionalProperties: false
+        '400':
+          description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 400
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+        '401':
+          description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 401
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+        '403':
+          description: The authenticated caller does not have permission to perform this action on the target resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 403
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The authenticated caller does not have permission to perform this action on the target resource.
+        '404':
+          description: The requested resource does not exist or is not visible to the authenticated caller.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 404
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The requested resource does not exist or is not visible to the authenticated caller.
+        '500':
+          description: The server encountered an unexpected failure while processing the request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 500
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The server encountered an unexpected failure while processing the request.
+    post:
+      tags:
+      - Primary Objects
+      description: Create a new primary object (entity type definition) in the caller's organization. Returns the new primary object's identifier.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  description: Human-readable singular name of the primary object type (e.g. "Vendor").
+                pluralName:
+                  type: string
+                  minLength: 1
+                  description: Human-readable plural name of the primary object type (e.g. "Vendors").
+                icon:
+                  default: shop
+                  description: Icon identifier shown in the UI for primary records of this type. Defaults to `shop`.
+                  type: string
+                  minLength: 1
+                defaultRequestRecords:
+                  default: []
+                  description: Templates for request records auto-created when a primary record of this type is created. Defaults to an empty list.
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      _id:
+                        default: 6a5f7579d3b44b030ef69d2c
+                        allOf:
+                        - $ref: '#/components/schemas/objectIdInput'
+                      name:
+                        type: string
+                        minLength: 1
+                      enabled:
+                        default: true
+                        type: boolean
+                    required:
+                    - name
+              required:
+              - name
+              - pluralName
+              description: Request body for creating a primary object (entity type) in the caller's organization. The owning organization is always derived from the caller's token and cannot be set here.
+        description: Request body for creating a primary object (entity type) in the caller's organization. The owning organization is always derived from the caller's token and cannot be set here.
+      responses:
+        '201':
+          description: Identifier-only response. Returned when an endpoint mutates a primary object but does not need to return the full document.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    description: Unique identifier of the primary object.
+                    allOf:
+                    - $ref: '#/components/schemas/objectId'
+                required:
+                - _id
+                additionalProperties: false
+                description: Identifier-only response. Returned when an endpoint mutates a primary object but does not need to return the full document.
+        '400':
+          description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 400
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+        '401':
+          description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 401
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+        '403':
+          description: The authenticated caller does not have permission to perform this action on the target resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 403
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The authenticated caller does not have permission to perform this action on the target resource.
+        '404':
+          description: The requested resource does not exist or is not visible to the authenticated caller.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 404
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The requested resource does not exist or is not visible to the authenticated caller.
+        '500':
+          description: The server encountered an unexpected failure while processing the request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 500
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The server encountered an unexpected failure while processing the request.
+  /primary-objects/{id}:
+    get:
+      tags:
+      - Primary Objects
+      description: Read a single primary object (entity type definition) by id, scoped to the caller's organization. Use the `fields` query parameter to limit the response to a projection.
+      parameters:
+      - schema:
+          type: string
+          minLength: 1
+        in: query
+        name: fields
+        required: false
+        description: 'Comma-separated list of fields to project. Allowed: _id, organization, icon, name, pluralName, slug, createdAt, updatedAt, defaultRequestRecords'
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/objectIdInput'
+        in: path
+        name: id
+        required: true
+        description: Identifier of the primary object to read.
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    description: Unique identifier of the primary object.
+                    allOf:
+                    - $ref: '#/components/schemas/objectId'
+                  organization:
+                    description: Identifier of the organization (workspace) that owns the primary object. Always equal to the caller's organization.
+                    allOf:
+                    - $ref: '#/components/schemas/objectId'
+                  icon:
+                    type: string
+                    minLength: 1
+                    description: Icon identifier shown in the UI for primary records of this type.
+                  name:
+                    type: string
+                    minLength: 1
+                    description: Human-readable singular name of the primary object type.
+                  pluralName:
+                    type: string
+                    minLength: 1
+                    description: Human-readable plural name of the primary object type.
+                  slug:
+                    type: string
+                    minLength: 1
+                    description: URL-safe slug derived from the name; unique within the organization.
+                  createdAt:
+                    description: Timestamp at which the primary object was created.
+                    type: string
+                    format: date-time
+                  updatedAt:
+                    description: Timestamp at which the primary object was last updated.
+                    type: string
+                    format: date-time
+                  defaultRequestRecords:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          allOf:
+                          - $ref: '#/components/schemas/objectId'
+                        name:
+                          type: string
+                          minLength: 1
+                        enabled:
+                          type: boolean
+                      additionalProperties: false
+                    description: Templates for request records auto-created when a primary record of this type is created.
+                required:
+                - _id
+                additionalProperties: false
+        '400':
+          description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 400
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+        '401':
+          description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 401
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+        '403':
+          description: The authenticated caller does not have permission to perform this action on the target resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 403
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The authenticated caller does not have permission to perform this action on the target resource.
+        '404':
+          description: The requested resource does not exist or is not visible to the authenticated caller.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 404
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The requested resource does not exist or is not visible to the authenticated caller.
+        '500':
+          description: The server encountered an unexpected failure while processing the request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 500
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The server encountered an unexpected failure while processing the request.
+    patch:
+      tags:
+      - Primary Objects
+      description: Partially update a primary object (entity type definition). Any subset of writable fields may be provided; omitted fields are left unchanged. Returns the full updated primary object.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  description: Human-readable singular name of the primary object type (e.g. "Vendor").
+                pluralName:
+                  type: string
+                  minLength: 1
+                  description: Human-readable plural name of the primary object type (e.g. "Vendors").
+                icon:
+                  type: string
+                  minLength: 1
+                  description: Icon identifier shown in the UI for primary records of this type. Defaults to `shop`.
+                defaultRequestRecords:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      _id:
+                        default: 6a5f7579d3b44b030ef69d2e
+                        allOf:
+                        - $ref: '#/components/schemas/objectIdInput'
+                      name:
+                        type: string
+                        minLength: 1
+                      enabled:
+                        default: true
+                        type: boolean
+                    required:
+                    - name
+                  description: Templates for request records auto-created when a primary record of this type is created. Defaults to an empty list.
+              description: Request body for partially updating a primary object. Any subset of the create-body fields may be provided.
+        description: Request body for partially updating a primary object. Any subset of the create-body fields may be provided.
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/objectIdInput'
+        in: path
+        name: id
+        required: true
+        description: Identifier of the primary object to update.
+      responses:
+        '200':
+          description: A primary object — a configurable entity type definition in the workspace (e.g. Vendor, Subcontractor).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    description: Unique identifier of the primary object.
+                    allOf:
+                    - $ref: '#/components/schemas/objectId'
+                  organization:
+                    description: Identifier of the organization (workspace) that owns the primary object. Always equal to the caller's organization.
+                    allOf:
+                    - $ref: '#/components/schemas/objectId'
+                  icon:
+                    type: string
+                    minLength: 1
+                    description: Icon identifier shown in the UI for primary records of this type.
+                  name:
+                    type: string
+                    minLength: 1
+                    description: Human-readable singular name of the primary object type.
+                  pluralName:
+                    type: string
+                    minLength: 1
+                    description: Human-readable plural name of the primary object type.
+                  slug:
+                    type: string
+                    minLength: 1
+                    description: URL-safe slug derived from the name; unique within the organization.
+                  createdAt:
+                    default: 2026-07-21 13:34:49.168000+00:00
+                    description: Timestamp at which the primary object was created.
+                    type: string
+                    format: date-time
+                  updatedAt:
+                    default: 2026-07-21 13:34:49.168000+00:00
+                    description: Timestamp at which the primary object was last updated.
+                    type: string
+                    format: date-time
+                  defaultRequestRecords:
+                    default: []
+                    description: Templates for request records auto-created when a primary record of this type is created.
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          default: 6a5f7579d3b44b030ef69d2f
+                          allOf:
+                          - $ref: '#/components/schemas/objectId'
+                        name:
+                          type: string
+                          minLength: 1
+                        enabled:
+                          default: true
+                          type: boolean
+                      additionalProperties: false
+                required:
+                - _id
+                - organization
+                - icon
+                - name
+                - pluralName
+                - slug
+                - createdAt
+                - updatedAt
+                - defaultRequestRecords
+                additionalProperties: false
+                description: A primary object — a configurable entity type definition in the workspace (e.g. Vendor, Subcontractor).
+        '400':
+          description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 400
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+        '401':
+          description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 401
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+        '403':
+          description: The authenticated caller does not have permission to perform this action on the target resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 403
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The authenticated caller does not have permission to perform this action on the target resource.
+        '404':
+          description: The requested resource does not exist or is not visible to the authenticated caller.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 404
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The requested resource does not exist or is not visible to the authenticated caller.
+        '500':
+          description: The server encountered an unexpected failure while processing the request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 500
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The server encountered an unexpected failure while processing the request.
+    delete:
+      tags:
+      - Primary Objects
+      description: Delete a primary object (entity type definition). Returns the deleted primary object id on success. Deleting an object that does not exist returns 404 with the shared NotFoundError shape.
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/objectIdInput'
+        in: path
+        name: id
+        required: true
+        description: Identifier of the primary object to delete.
+      responses:
+        '200':
+          description: Identifier-only response. Returned when an endpoint mutates a primary object but does not need to return the full document.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    description: Unique identifier of the primary object.
+                    allOf:
+                    - $ref: '#/components/schemas/objectId'
+                required:
+                - _id
+                additionalProperties: false
+                description: Identifier-only response. Returned when an endpoint mutates a primary object but does not need to return the full document.
+        '400':
+          description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 400
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+        '401':
+          description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 401
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+        '403':
+          description: The authenticated caller does not have permission to perform this action on the target resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 403
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The authenticated caller does not have permission to perform this action on the target resource.
+        '404':
+          description: The requested resource does not exist or is not visible to the authenticated caller.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 404
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The requested resource does not exist or is not visible to the authenticated caller.
+        '500':
+          description: The server encountered an unexpected failure while processing the request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 500
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The server encountered an unexpected failure while processing the request.
+components:
+  schemas:
+    objectId:
+      title: ObjectId
+      type: string
+      format: ObjectId
+      examples:
+      - 507f1f77bcf86cd799439011
+    objectIdInput:
+      title: ObjectId
+      type: string
+      format: ObjectId
+      examples:
+      - 507f1f77bcf86cd799439011
+  securitySchemes:
+    Token:
+      name: Authorization
+      type: apiKey
+      in: header
+      description: ''

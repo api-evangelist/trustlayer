@@ -1,0 +1,3147 @@
+openapi: 3.0.0
+info:
+  title: TrustLayer Platform Auth Policies API
+  version: '1.0'
+  contact:
+    name: TrustLayer Support
+    email: support@trustlayer.io
+  termsOfService: https://trustlayer.io/terms-of-service
+  externalDocs:
+    description: OpenAPI specification
+    url: /v1/platform-api.yaml
+  description: '3rd-party API for the TrustLayer platform.
+
+
+    **Deprecated.** Platform API v1 is deprecated as of 01 June 2026 and is
+
+    scheduled for sunset (end-of-life) on 31 March 2027. It remains fully
+
+    available until the sunset date but will not receive new features. Please
+
+    migrate to Platform API v2 for new integrations.
+
+
+    All v1 responses carry the standard deprecation response headers
+
+    ([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)):
+
+
+    ```http
+
+    Deprecation: @1780272000
+
+    Sunset: Wed, 31 Mar 2027 23:59:59 GMT
+
+    Link: <https://developers.trustlayer.io/>; rel="deprecation", <https://developers.trustlayer.io/>; rel="sunset"
+
+    ```
+
+
+    `Deprecation: @1780272000` is the Unix timestamp for 2026-06-01T00:00:00Z;
+
+    sunset (end-of-life) is 2027-03-31T23:59:59 GMT.'
+  x-deprecated: true
+  x-deprecation-date: '2026-06-01'
+  x-sunset: '2027-03-31'
+  license:
+    name: Apache 2.0
+    url: https://apache.org/licenses/LICENSE-2.0
+servers:
+- url: http://localhost:4000/v1
+  description: Local
+- url: https://api.trustlayer.io/v1
+  description: Production
+security:
+- API Key: []
+tags:
+- name: Policies
+paths:
+  /policies/{number}:
+    get:
+      tags:
+      - Policies
+      description: Read a policy by its policy number. A policy aggregates one or more coverage lines (subjects) under a shared number; each subject carries its own effective/expiration dates and computed validity status. Scoped to the caller's organization. Use the policy sub-routes (`/amendments`, `/documents`, `/cancellations`, `/reinstatements`) for related entities.
+      parameters:
+      - schema:
+          type: string
+          minLength: 1
+        in: path
+        name: number
+        required: true
+        description: Policy number that uniquely identifies the policy to read.
+      responses:
+        '200':
+          description: A policy aggregates one or more coverage lines (subjects) under a shared policy number, with computed validity per subject.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  number:
+                    type: string
+                    minLength: 1
+                    description: Policy number that uniquely identifies the policy within the caller's organization.
+                  subjects:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          minLength: 1
+                          description: Stable code identifying the policy subject (coverage line) within the policy.
+                        label:
+                          type: string
+                          minLength: 1
+                          description: Human-readable label for the policy subject.
+                        validityStatus:
+                          type: string
+                          enum:
+                          - active
+                          - expiring
+                          - cancelling
+                          - expired
+                          - cancelled
+                          - inactive
+                          description: Computed validity status of this subject based on its effective/expiration dates and any active cancellations.
+                        effectiveDate:
+                          description: Date on which the subject becomes effective.
+                          type: string
+                          format: date-time
+                        expirationDate:
+                          description: Date on which the subject expires.
+                          type: string
+                          format: date-time
+                        cancellation:
+                          description: If the subject is currently cancelled, the active cancellation record. Absent for active subjects.
+                          type: object
+                          properties:
+                            id:
+                              description: Optional identifier of the cancellation record. Absent on policies that pre-date the modern Cancellations & Reinstatements implementation.
+                              allOf:
+                              - $ref: '#/components/schemas/objectId'
+                            originalValidity:
+                              type: object
+                              properties:
+                                effectiveDate:
+                                  description: Effective date the subject had before the cancellation was applied.
+                                  type: string
+                                  format: date-time
+                                expirationDate:
+                                  description: Expiration date the subject had before the cancellation was applied.
+                                  type: string
+                                  format: date-time
+                              required:
+                              - effectiveDate
+                              - expirationDate
+                              additionalProperties: false
+                              description: Validity window of the subject before the cancellation took effect — useful for showing the original coverage span.
+                            effectiveDate:
+                              description: Date on which the cancellation takes effect.
+                              type: string
+                              format: date-time
+                            issueDate:
+                              description: Date on which the cancellation was issued. Absent on policies that pre-date the modern Cancellations & Reinstatements implementation.
+                              type: string
+                              format: date-time
+                            notes:
+                              description: Free-form notes attached to the cancellation.
+                              type: string
+                              minLength: 1
+                          required:
+                          - originalValidity
+                          - effectiveDate
+                          additionalProperties: false
+                        reinstatement:
+                          description: 'If the subject was previously cancelled and later reinstated, the reinstatement that restored its original validity window. A historical marker: the subject is active again with its dates restored. Cleared when a new cancellation is logged for the subject.'
+                          type: object
+                          properties:
+                            id:
+                              description: Identifier of the reinstatement record that restored the subject.
+                              allOf:
+                              - $ref: '#/components/schemas/objectId'
+                            effectiveDate:
+                              description: Date on which the reinstatement takes effect, as reported on the reinstatement notice. The subject's validity dates are restored to their original window, not from this date forward.
+                              type: string
+                              format: date-time
+                            issueDate:
+                              description: Date on which the reinstatement was issued.
+                              type: string
+                              format: date-time
+                            notes:
+                              description: Free-form notes attached to the reinstatement.
+                              type: string
+                              minLength: 1
+                          required:
+                          - id
+                          - effectiveDate
+                          - issueDate
+                          additionalProperties: false
+                        documents:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              _id:
+                                description: Unique identifier of the document.
+                                allOf:
+                                - $ref: '#/components/schemas/objectId'
+                              name:
+                                description: Display name of the document, if set.
+                                type: string
+                              issueDate:
+                                description: Date the document was issued, if known.
+                                nullable: true
+                                type: string
+                                format: date-time
+                              primaryRecordId:
+                                description: Identifier of the primary record (e.g. vendor or contractor) associated with this document.
+                                allOf:
+                                - $ref: '#/components/schemas/objectId'
+                            required:
+                            - _id
+                            - primaryRecordId
+                            additionalProperties: false
+                          description: Documents that report this subject, each with its associated primary record. More than one entry means the same coverage line appears on multiple documents.
+                      required:
+                      - code
+                      - label
+                      - validityStatus
+                      - effectiveDate
+                      - expirationDate
+                      - documents
+                      additionalProperties: false
+                    description: Coverage lines (subjects) attached to this policy.
+                required:
+                - number
+                - subjects
+                additionalProperties: false
+                description: A policy aggregates one or more coverage lines (subjects) under a shared policy number, with computed validity per subject.
+        '400':
+          description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 400
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+        '401':
+          description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 401
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+        '403':
+          description: The authenticated caller does not have permission to perform this action on the target resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 403
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The authenticated caller does not have permission to perform this action on the target resource.
+        '404':
+          description: The requested resource does not exist or is not visible to the authenticated caller.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 404
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The requested resource does not exist or is not visible to the authenticated caller.
+        '500':
+          description: The server encountered an unexpected failure while processing the request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 500
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The server encountered an unexpected failure while processing the request.
+  /policies/{number}/documents:
+    get:
+      tags:
+      - Policies
+      description: 'List documents that support a policy''s coverage. Each document may carry one or more coverage subjects whose validity is evaluated against the policy. Supports filtering by primary record to retrieve only documents associated with a specific vendor or contractor.
+
+
+        <!-- qs2mongo:list-summary -->
+
+
+        **Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `primaryRecordId` (objectId), `name` (string), `issueDate` (date). See "List Endpoints" in the API overview for operator syntax and combining rules.
+
+
+        **Sorting**: supported via `sort` (see the parameter''s description for allowed fields). Prefix with `-` for descending.
+
+
+        **Field projection**: not supported on this endpoint — full record is returned.'
+      parameters:
+      - schema:
+          default: 20
+          type: integer
+          minimum: 0
+          exclusiveMinimum: true
+          maximum: 100
+        in: query
+        name: limit
+        required: false
+      - schema:
+          default: 0
+          type: integer
+          minimum: 0
+          maximum: 9007199254740991
+        in: query
+        name: skip
+        required: false
+      - schema:
+          type: string
+          minLength: 1
+        in: query
+        name: sort
+        required: false
+        description: 'Comma-separated list of fields to sort by. Example: ''_id,-createdAt''. Allowed: name, issueDate'
+      - schema:
+          type: string
+        in: query
+        name: _id
+        required: false
+        description: Filter by _id. 24-character hex ObjectId string (e.g. `_id=507f1f77bcf86cd799439011`). See "List Endpoints" in the API overview for operator syntax.
+      - schema:
+          type: string
+        in: query
+        name: createdAt
+        required: false
+        description: Filter by createdAt. ISO-8601 date or datetime string (e.g. `createdAt=2024-01-15`). See "List Endpoints" in the API overview for operator syntax.
+      - schema:
+          type: string
+        in: query
+        name: updatedAt
+        required: false
+        description: Filter by updatedAt. ISO-8601 date or datetime string (e.g. `updatedAt=2024-01-15`). See "List Endpoints" in the API overview for operator syntax.
+      - schema:
+          type: string
+        in: query
+        name: primaryRecordId
+        required: false
+        description: Filter by primaryRecordId. 24-character hex ObjectId string (e.g. `primaryRecordId=507f1f77bcf86cd799439011`). See "List Endpoints" in the API overview for operator syntax.
+      - schema:
+          type: string
+        in: query
+        name: name
+        required: false
+        description: Filter by name. String value (e.g. `name=example`). See "List Endpoints" in the API overview for operator syntax.
+      - schema:
+          type: string
+        in: query
+        name: issueDate
+        required: false
+        description: Filter by issueDate. ISO-8601 date or datetime string (e.g. `issueDate=2024-01-15`). See "List Endpoints" in the API overview for operator syntax.
+      - schema:
+          type: string
+          minLength: 1
+        in: path
+        name: number
+        required: true
+        description: The policy number identifying the insurance policy whose documents should be listed.
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          description: Unique identifier of the document.
+                          allOf:
+                          - $ref: '#/components/schemas/objectId'
+                        name:
+                          description: Display name of the document, if set.
+                          type: string
+                        issueDate:
+                          description: Date the document was issued, if known.
+                          nullable: true
+                          type: string
+                          format: date-time
+                        primaryRecordId:
+                          description: Identifier of the primary record (e.g. vendor or contractor) associated with this document.
+                          allOf:
+                          - $ref: '#/components/schemas/objectId'
+                        subjects:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                                minLength: 1
+                                description: Stable code identifying the policy subject (coverage line) within the policy.
+                              label:
+                                type: string
+                                minLength: 1
+                                description: Human-readable label for the policy subject.
+                              validityStatus:
+                                type: string
+                                enum:
+                                - active
+                                - expiring
+                                - cancelling
+                                - expired
+                                - cancelled
+                                - inactive
+                                description: Computed validity status of this subject based on its effective/expiration dates and any active cancellations.
+                              effectiveDate:
+                                description: Date on which the subject becomes effective.
+                                type: string
+                                format: date-time
+                              expirationDate:
+                                description: Date on which the subject expires.
+                                type: string
+                                format: date-time
+                              cancellation:
+                                description: If the subject is currently cancelled, the active cancellation record. Absent for active subjects.
+                                type: object
+                                properties:
+                                  id:
+                                    description: Optional identifier of the cancellation record. Absent on policies that pre-date the modern Cancellations & Reinstatements implementation.
+                                    allOf:
+                                    - $ref: '#/components/schemas/objectId'
+                                  originalValidity:
+                                    type: object
+                                    properties:
+                                      effectiveDate:
+                                        description: Effective date the subject had before the cancellation was applied.
+                                        type: string
+                                        format: date-time
+                                      expirationDate:
+                                        description: Expiration date the subject had before the cancellation was applied.
+                                        type: string
+                                        format: date-time
+                                    required:
+                                    - effectiveDate
+                                    - expirationDate
+                                    additionalProperties: false
+                                    description: Validity window of the subject before the cancellation took effect — useful for showing the original coverage span.
+                                  effectiveDate:
+                                    description: Date on which the cancellation takes effect.
+                                    type: string
+                                    format: date-time
+                                  issueDate:
+                                    description: Date on which the cancellation was issued. Absent on policies that pre-date the modern Cancellations & Reinstatements implementation.
+                                    type: string
+                                    format: date-time
+                                  notes:
+                                    description: Free-form notes attached to the cancellation.
+                                    type: string
+                                    minLength: 1
+                                required:
+                                - originalValidity
+                                - effectiveDate
+                                additionalProperties: false
+                              reinstatement:
+                                description: 'If the subject was previously cancelled and later reinstated, the reinstatement that restored its original validity window. A historical marker: the subject is active again with its dates restored. Cleared when a new cancellation is logged for the subject.'
+                                type: object
+                                properties:
+                                  id:
+                                    description: Identifier of the reinstatement record that restored the subject.
+                                    allOf:
+                                    - $ref: '#/components/schemas/objectId'
+                                  effectiveDate:
+                                    description: Date on which the reinstatement takes effect, as reported on the reinstatement notice. The subject's validity dates are restored to their original window, not from this date forward.
+                                    type: string
+                                    format: date-time
+                                  issueDate:
+                                    description: Date on which the reinstatement was issued.
+                                    type: string
+                                    format: date-time
+                                  notes:
+                                    description: Free-form notes attached to the reinstatement.
+                                    type: string
+                                    minLength: 1
+                                required:
+                                - id
+                                - effectiveDate
+                                - issueDate
+                                additionalProperties: false
+                            required:
+                            - code
+                            - label
+                            - validityStatus
+                            - effectiveDate
+                            - expirationDate
+                            additionalProperties: false
+                            description: A coverage line (subject) on a policy, including its validity window, any active cancellation, and any reinstatement that restored it.
+                          description: Coverage subjects carried by this document for the policy, including their current validity status.
+                      required:
+                      - _id
+                      - primaryRecordId
+                      - subjects
+                      additionalProperties: false
+                  meta:
+                    type: object
+                    properties:
+                      count:
+                        type: number
+                        description: Total number of records matching the query, across all pages.
+                      next:
+                        description: Relative URL for the next page of results, preserving filters/sort/projection. Omitted on the last page.
+                        type: string
+                      prev:
+                        description: Relative URL for the previous page of results, preserving filters/sort/projection. Omitted on the first page.
+                        type: string
+                    required:
+                    - count
+                    additionalProperties: false
+                required:
+                - data
+                - meta
+                additionalProperties: false
+        '400':
+          description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 400
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+        '401':
+          description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 401
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+        '403':
+          description: The authenticated caller does not have permission to perform this action on the target resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 403
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The authenticated caller does not have permission to perform this action on the target resource.
+        '404':
+          description: The requested resource does not exist or is not visible to the authenticated caller.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 404
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The requested resource does not exist or is not visible to the authenticated caller.
+        '500':
+          description: The server encountered an unexpected failure while processing the request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 500
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The server encountered an unexpected failure while processing the request.
+  /policies/{number}/amendments:
+    get:
+      tags:
+      - Policies
+      description: 'List amendments (cancellations and reinstatements) for a policy identified by its number. Each amendment is either a cancellation that reduces or ends coverage, or a reinstatement that restores coverage after a cancellation. Supports pagination via `limit` and `skip`.
+
+
+        <!-- qs2mongo:list-summary -->
+
+
+        **Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `primaryRecordId` (objectId), `type` (string), `effectiveDate` (date), `issueDate` (date), `notes` (string). See "List Endpoints" in the API overview for operator syntax and combining rules.
+
+
+        **Sorting**: not supported on this endpoint.
+
+
+        **Field projection**: supported via `fields` (see the parameter''s description for allowed fields).'
+      parameters:
+      - schema:
+          default: 20
+          type: integer
+          minimum: 0
+          exclusiveMinimum: true
+          maximum: 100
+        in: query
+        name: limit
+        required: false
+      - schema:
+          default: 0
+          type: integer
+          minimum: 0
+          maximum: 9007199254740991
+        in: query
+        name: skip
+        required: false
+      - schema:
+          type: string
+          minLength: 1
+        in: query
+        name: fields
+        required: false
+        description: 'Comma-separated list of fields to project. Allowed: _id, primaryRecordId, policyNumber, status, type, subjects, matchingSubjects, effectiveDate, issueDate, notes, document'
+      - schema:
+          type: string
+        in: query
+        name: _id
+        required: false
+        description: Filter by _id. 24-character hex ObjectId string (e.g. `_id=507f1f77bcf86cd799439011`). See "List Endpoints" in the API overview for operator syntax.
+      - schema:
+          type: string
+        in: query
+        name: createdAt
+        required: false
+        description: Filter by createdAt. ISO-8601 date or datetime string (e.g. `createdAt=2024-01-15`). See "List Endpoints" in the API overview for operator syntax.
+      - schema:
+          type: string
+        in: query
+        name: updatedAt
+        required: false
+        description: Filter by updatedAt. ISO-8601 date or datetime string (e.g. `updatedAt=2024-01-15`). See "List Endpoints" in the API overview for operator syntax.
+      - schema:
+          type: string
+        in: query
+        name: primaryRecordId
+        required: false
+        description: Filter by primaryRecordId. 24-character hex ObjectId string (e.g. `primaryRecordId=507f1f77bcf86cd799439011`). See "List Endpoints" in the API overview for operator syntax.
+      - schema:
+          type: string
+        in: query
+        name: type
+        required: false
+        description: Filter by type. String value (e.g. `type=example`). See "List Endpoints" in the API overview for operator syntax.
+      - schema:
+          type: string
+        in: query
+        name: effectiveDate
+        required: false
+        description: Filter by effectiveDate. ISO-8601 date or datetime string (e.g. `effectiveDate=2024-01-15`). See "List Endpoints" in the API overview for operator syntax.
+      - schema:
+          type: string
+        in: query
+        name: issueDate
+        required: false
+        description: Filter by issueDate. ISO-8601 date or datetime string (e.g. `issueDate=2024-01-15`). See "List Endpoints" in the API overview for operator syntax.
+      - schema:
+          type: string
+        in: query
+        name: notes
+        required: false
+        description: Filter by notes. String value (e.g. `notes=example`). See "List Endpoints" in the API overview for operator syntax.
+      - schema:
+          type: string
+          minLength: 1
+        in: path
+        name: number
+        required: true
+        description: The policy number identifying the policy whose amendments to list.
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          $ref: '#/components/schemas/objectId'
+                        primaryRecordId:
+                          $ref: '#/components/schemas/objectId'
+                        policyNumber:
+                          type: string
+                          minLength: 1
+                        status:
+                          type: string
+                          enum:
+                          - pending
+                          - active
+                          description: 'Lifecycle status of the amendment: Active means it currently affects policy validity; Cancelled means it was revoked.'
+                        type:
+                          type: string
+                          enum:
+                          - cancellation
+                          - reinstatement
+                          description: Whether this amendment is a cancellation (ends or reduces policy coverage) or a reinstatement (restores coverage after a cancellation).
+                        subjects:
+                          default: []
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                                minLength: 1
+                            required:
+                            - code
+                            additionalProperties: false
+                        matchingSubjects:
+                          default: []
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                                minLength: 1
+                              label:
+                                type: string
+                                minLength: 1
+                            required:
+                            - code
+                            - label
+                            additionalProperties: false
+                        effectiveDate:
+                          type: string
+                          format: date-time
+                        issueDate:
+                          type: string
+                          format: date-time
+                        notes:
+                          type: string
+                          minLength: 1
+                        document:
+                          type: object
+                          properties:
+                            id:
+                              $ref: '#/components/schemas/objectId'
+                          required:
+                          - id
+                          additionalProperties: false
+                      required:
+                      - _id
+                      - primaryRecordId
+                      - policyNumber
+                      - status
+                      - type
+                      - subjects
+                      - matchingSubjects
+                      - effectiveDate
+                      - issueDate
+                      - document
+                      additionalProperties: false
+                  meta:
+                    type: object
+                    properties:
+                      count:
+                        type: number
+                        description: Total number of records matching the query, across all pages.
+                      next:
+                        description: Relative URL for the next page of results, preserving filters/sort/projection. Omitted on the last page.
+                        type: string
+                      prev:
+                        description: Relative URL for the previous page of results, preserving filters/sort/projection. Omitted on the first page.
+                        type: string
+                    required:
+                    - count
+                    additionalProperties: false
+                required:
+                - data
+                - meta
+                additionalProperties: false
+        '400':
+          description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 400
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+        '401':
+          description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 401
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+        '403':
+          description: The authenticated caller does not have permission to perform this action on the target resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 403
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The authenticated caller does not have permission to perform this action on the target resource.
+        '404':
+          description: The requested resource does not exist or is not visible to the authenticated caller.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 404
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The requested resource does not exist or is not visible to the authenticated caller.
+        '500':
+          description: The server encountered an unexpected failure while processing the request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 500
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The server encountered an unexpected failure while processing the request.
+  /policies/{number}/cancellations:
+    post:
+      tags:
+      - Policies
+      description: 'Apply a cancellation to a policy, suppressing the validity of the targeted subjects from the effective date forward. This is a state-changing operation: it creates a cancellation modifier and updates subject validity accordingly. To record an externally-issued cancellation without altering platform state, use the `/log` variant instead.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                documentId:
+                  description: Identifier of the cancellation notice document attached to this cancellation.
+                  allOf:
+                  - $ref: '#/components/schemas/objectIdInput'
+                subjectCodes:
+                  description: Subject codes from the cancellation notice. When omitted the cancellation is treated as blanket and applies to all subjects on the policy.
+                  type: array
+                  items:
+                    type: string
+                    minLength: 1
+                effectiveDate:
+                  description: Date on which the cancellation takes effect, as reported on the notice.
+                issueDate:
+                  description: Date the cancellation notice was issued. Optional; include when available from the notice.
+                notes:
+                  description: Free-form notes about the cancellation.
+                  type: string
+                  minLength: 1
+              required:
+              - documentId
+              - effectiveDate
+              description: Request body for creating a policy cancellation. Applying a cancellation updates subject validity statuses immediately.
+        description: Request body for creating a policy cancellation. Applying a cancellation updates subject validity statuses immediately.
+      parameters:
+      - schema:
+          type: string
+          minLength: 1
+        in: path
+        name: number
+        required: true
+        description: Policy number identifying the policy to cancel.
+      responses:
+        '200':
+          description: The newly created cancellation record, including any pre-existing cancellations that cover overlapping subjects.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    description: Unique identifier of the policy cancellation.
+                    allOf:
+                    - $ref: '#/components/schemas/objectId'
+                  primaryRecordId:
+                    description: Identifier of the primary record (insured entity) whose policy this cancellation affects.
+                    allOf:
+                    - $ref: '#/components/schemas/objectId'
+                  policyNumber:
+                    type: string
+                    minLength: 1
+                    description: Policy number of the policy being cancelled.
+                  status:
+                    type: string
+                    enum:
+                    - pending
+                    - active
+                    description: Lifecycle status of the cancellation. Active cancellations suppress subject validity.
+                  type:
+                    type: string
+                    enum:
+                    - cancellation
+                  subjects:
+                    default: []
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          minLength: 1
+                      required:
+                      - code
+                      additionalProperties: false
+                  matchingSubjects:
+                    default: []
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          minLength: 1
+                        label:
+                          type: string
+                          minLength: 1
+                      required:
+                      - code
+                      - label
+                      additionalProperties: false
+                  effectiveDate:
+                    type: string
+                    format: date-time
+                  issueDate:
+                    type: string
+                    format: date-time
+                  notes:
+                    type: string
+                    minLength: 1
+                  document:
+                    type: object
+                    properties:
+                      id:
+                        $ref: '#/components/schemas/objectId'
+                    required:
+                    - id
+                    additionalProperties: false
+                  conflicts:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          description: Unique identifier of the policy cancellation.
+                          allOf:
+                          - $ref: '#/components/schemas/objectId'
+                        status:
+                          type: string
+                          enum:
+                          - pending
+                          - active
+                          description: Lifecycle status of the cancellation. Active cancellations suppress subject validity.
+                        type:
+                          type: string
+                          enum:
+                          - cancellation
+                        subjects:
+                          default: []
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                                minLength: 1
+                            required:
+                            - code
+                            additionalProperties: false
+                        matchingSubjects:
+                          default: []
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                                minLength: 1
+                              label:
+                                type: string
+                                minLength: 1
+                            required:
+                            - code
+                            - label
+                            additionalProperties: false
+                        effectiveDate:
+                          type: string
+                          format: date-time
+                        issueDate:
+                          type: string
+                          format: date-time
+                        notes:
+                          type: string
+                          minLength: 1
+                        document:
+                          type: object
+                          properties:
+                            id:
+                              $ref: '#/components/schemas/objectId'
+                          required:
+                          - id
+                          additionalProperties: false
+                        conflictingSubjects:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                                minLength: 1
+                                description: Stable code identifying the policy subject (coverage line) within the policy.
+                            required:
+                            - code
+                            additionalProperties: false
+                          description: Subject codes from the existing cancellation that overlap with the newly created one.
+                      required:
+                      - _id
+                      - status
+                      - type
+                      - subjects
+                      - matchingSubjects
+                      - effectiveDate
+                      - issueDate
+                      - document
+                      - conflictingSubjects
+                      additionalProperties: false
+                    description: Other cancellations that cover overlapping subjects. Present when a blanket or overlapping cancellation already exists; the new cancellation is still created.
+                required:
+                - _id
+                - primaryRecordId
+                - policyNumber
+                - status
+                - type
+                - subjects
+                - matchingSubjects
+                - effectiveDate
+                - issueDate
+                - document
+                - conflicts
+                additionalProperties: false
+                description: The newly created cancellation record, including any pre-existing cancellations that cover overlapping subjects.
+        '400':
+          description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 400
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+        '401':
+          description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 401
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+        '403':
+          description: The authenticated caller does not have permission to perform this action on the target resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 403
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The authenticated caller does not have permission to perform this action on the target resource.
+        '404':
+          description: The requested resource does not exist or is not visible to the authenticated caller.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 404
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The requested resource does not exist or is not visible to the authenticated caller.
+        '500':
+          description: The server encountered an unexpected failure while processing the request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 500
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The server encountered an unexpected failure while processing the request.
+  /policies/{number}/cancellations/{id}/log:
+    post:
+      tags:
+      - Policies
+      description: 'Record an externally-issued cancellation against an existing cancellation request. This is an audit-only operation: no policy state is changed. Use the non-`/log` POST variant if you need to apply a new cancellation that updates subject validity.'
+      parameters:
+      - schema:
+          type: string
+          minLength: 1
+        in: path
+        name: number
+        required: true
+        description: Policy number identifying the policy whose cancellation is being logged.
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/objectIdInput'
+        in: path
+        name: id
+        required: true
+        description: Identifier of the cancellation request being recorded as logged.
+      responses:
+        '200':
+          description: The audit log entry created by recording an externally-issued cancellation. No policy state is changed; this call only records that a cancellation occurred outside the platform.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    description: Unique identifier of the logged cancellation.
+                    allOf:
+                    - $ref: '#/components/schemas/objectId'
+                  primaryRecordId:
+                    description: Identifier of the primary record (insured party) this cancellation is associated with.
+                    allOf:
+                    - $ref: '#/components/schemas/objectId'
+                  policyNumber:
+                    type: string
+                    minLength: 1
+                    description: Policy number this cancellation was logged against.
+                  subjects:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          minLength: 1
+                          description: Stable code identifying the policy subject (coverage line) within the policy.
+                        label:
+                          type: string
+                          minLength: 1
+                          description: Human-readable label for the policy subject.
+                      required:
+                      - code
+                      - label
+                      additionalProperties: false
+                    description: Subjects affected by the cancellation at log time, identified by code and display label.
+                  documents:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          $ref: '#/components/schemas/objectId'
+                        name:
+                          type: string
+                        issueDate:
+                          nullable: true
+                          type: string
+                          format: date-time
+                        subjects:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                                minLength: 1
+                                description: Stable code identifying the policy subject (coverage line) within the policy.
+                              label:
+                                type: string
+                                minLength: 1
+                                description: Human-readable label for the policy subject.
+                              effectiveDate:
+                                description: Date on which the subject becomes effective.
+                                type: string
+                                format: date-time
+                              expirationDate:
+                                description: Date on which the subject expires.
+                                type: string
+                                format: date-time
+                              cancellation:
+                                description: If the subject is currently cancelled, the active cancellation record. Absent for active subjects.
+                                type: object
+                                properties:
+                                  id:
+                                    description: Optional identifier of the cancellation record. Absent on policies that pre-date the modern Cancellations & Reinstatements implementation.
+                                    allOf:
+                                    - $ref: '#/components/schemas/objectId'
+                                  originalValidity:
+                                    type: object
+                                    properties:
+                                      effectiveDate:
+                                        description: Effective date the subject had before the cancellation was applied.
+                                        type: string
+                                        format: date-time
+                                      expirationDate:
+                                        description: Expiration date the subject had before the cancellation was applied.
+                                        type: string
+                                        format: date-time
+                                    required:
+                                    - effectiveDate
+                                    - expirationDate
+                                    additionalProperties: false
+                                    description: Validity window of the subject before the cancellation took effect — useful for showing the original coverage span.
+                                  effectiveDate:
+                                    description: Date on which the cancellation takes effect.
+                                    type: string
+                                    format: date-time
+                                  issueDate:
+                                    description: Date on which the cancellation was issued. Absent on policies that pre-date the modern Cancellations & Reinstatements implementation.
+                                    type: string
+                                    format: date-time
+                                  notes:
+                                    description: Free-form notes attached to the cancellation.
+                                    type: string
+                                    minLength: 1
+                                required:
+                                - originalValidity
+                                - effectiveDate
+                                additionalProperties: false
+                              reinstatement:
+                                description: 'If the subject was previously cancelled and later reinstated, the reinstatement that restored its original validity window. A historical marker: the subject is active again with its dates restored. Cleared when a new cancellation is logged for the subject.'
+                                type: object
+                                properties:
+                                  id:
+                                    description: Identifier of the reinstatement record that restored the subject.
+                                    allOf:
+                                    - $ref: '#/components/schemas/objectId'
+                                  effectiveDate:
+                                    description: Date on which the reinstatement takes effect, as reported on the reinstatement notice. The subject's validity dates are restored to their original window, not from this date forward.
+                                    type: string
+                                    format: date-time
+                                  issueDate:
+                                    description: Date on which the reinstatement was issued.
+                                    type: string
+                                    format: date-time
+                                  notes:
+                                    description: Free-form notes attached to the reinstatement.
+                                    type: string
+                                    minLength: 1
+                                required:
+                                - id
+                                - effectiveDate
+                                - issueDate
+                                additionalProperties: false
+                            required:
+                            - code
+                            - label
+                            - effectiveDate
+                            - expirationDate
+                            additionalProperties: false
+                      required:
+                      - _id
+                      - subjects
+                      additionalProperties: false
+                    description: Documents associated with the cancellation, including the cancellation notice.
+                  effectiveDate:
+                    description: Date the cancellation takes effect, as recorded on the external document.
+                    type: string
+                    format: date-time
+                  issueDate:
+                    description: Date the cancellation document was issued.
+                    type: string
+                    format: date-time
+                  notes:
+                    description: Optional free-form notes about this cancellation.
+                    type: string
+                    minLength: 1
+                required:
+                - _id
+                - primaryRecordId
+                - policyNumber
+                - subjects
+                - documents
+                - effectiveDate
+                - issueDate
+                additionalProperties: false
+                description: The audit log entry created by recording an externally-issued cancellation. No policy state is changed; this call only records that a cancellation occurred outside the platform.
+        '400':
+          description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 400
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+        '401':
+          description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 401
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+        '403':
+          description: The authenticated caller does not have permission to perform this action on the target resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 403
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The authenticated caller does not have permission to perform this action on the target resource.
+        '404':
+          description: The requested resource does not exist or is not visible to the authenticated caller.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 404
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The requested resource does not exist or is not visible to the authenticated caller.
+        '500':
+          description: The server encountered an unexpected failure while processing the request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 500
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The server encountered an unexpected failure while processing the request.
+  /policies/{number}/cancellations/{id}:
+    delete:
+      tags:
+      - Policies
+      description: Delete a previously-applied policy cancellation. Removing the cancellation reverses its effect on subject validity, so any subjects it was suppressing become valid again subject to the policy's other modifiers.
+      parameters:
+      - schema:
+          type: string
+          minLength: 1
+        in: path
+        name: number
+        required: true
+        description: Policy number identifying the policy from which the cancellation should be removed.
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/objectIdInput'
+        in: path
+        name: id
+        required: true
+        description: Identifier of the cancellation to delete.
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    description: Identifier of the deleted cancellation.
+                    allOf:
+                    - $ref: '#/components/schemas/objectId'
+                required:
+                - _id
+                additionalProperties: false
+        '400':
+          description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 400
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+        '401':
+          description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 401
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+        '403':
+          description: The authenticated caller does not have permission to perform this action on the target resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 403
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The authenticated caller does not have permission to perform this action on the target resource.
+        '404':
+          description: The requested resource does not exist or is not visible to the authenticated caller.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 404
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The requested resource does not exist or is not visible to the authenticated caller.
+        '500':
+          description: The server encountered an unexpected failure while processing the request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 500
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The server encountered an unexpected failure while processing the request.
+  /policies/{number}/reinstatements:
+    post:
+      tags:
+      - Policies
+      description: 'Apply a reinstatement to a policy, reversing an active cancellation and restoring the covered subjects to compliant status. This is a state-changing operation: it creates a reinstatement modifier and updates subject validity accordingly. To record an externally-issued reinstatement without altering platform state, use the `/log` variant instead.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                documentId:
+                  description: Identifier of the insurance document (certificate or policy) that evidences the reinstatement.
+                  allOf:
+                  - $ref: '#/components/schemas/objectIdInput'
+                subjectCodes:
+                  description: Subset of subject codes to reinstate. Omit to reinstate all subjects covered by matching active cancellations (blanket reinstatement).
+                  type: array
+                  items:
+                    type: string
+                    minLength: 1
+                effectiveDate:
+                  description: Date the reinstatement takes effect, as reported on the reinstatement notice. The affected subjects' validity dates are restored to their original window, not from this date forward.
+                issueDate:
+                  description: Date the reinstatement document was issued. Defaults to effectiveDate when omitted.
+                notes:
+                  description: Optional free-form notes about this reinstatement.
+                  type: string
+                  minLength: 1
+              required:
+              - documentId
+              - effectiveDate
+              description: Request body for applying a reinstatement to a policy. A reinstatement reverses an active cancellation, restoring the policy subjects to compliant status.
+        description: Request body for applying a reinstatement to a policy. A reinstatement reverses an active cancellation, restoring the policy subjects to compliant status.
+      parameters:
+      - schema:
+          type: string
+          minLength: 1
+        in: path
+        name: number
+        required: true
+        description: Policy number identifying the policy to reinstate.
+      responses:
+        '200':
+          description: The newly created reinstatement record, including any pre-existing reinstatements that cover overlapping subjects.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    description: Unique identifier of the reinstatement record.
+                    allOf:
+                    - $ref: '#/components/schemas/objectId'
+                  primaryRecordId:
+                    description: Identifier of the primary record (insured party) this reinstatement is associated with.
+                    allOf:
+                    - $ref: '#/components/schemas/objectId'
+                  policyNumber:
+                    type: string
+                    minLength: 1
+                    description: Policy number this reinstatement applies to.
+                  status:
+                    type: string
+                    enum:
+                    - pending
+                    - active
+                    description: Lifecycle status of the reinstatement. Active reinstatements are in effect.
+                  type:
+                    type: string
+                    enum:
+                    - reinstatement
+                  subjects:
+                    default: []
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          minLength: 1
+                      required:
+                      - code
+                      additionalProperties: false
+                  matchingSubjects:
+                    default: []
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          minLength: 1
+                        label:
+                          type: string
+                          minLength: 1
+                      required:
+                      - code
+                      - label
+                      additionalProperties: false
+                  effectiveDate:
+                    type: string
+                    format: date-time
+                  issueDate:
+                    type: string
+                    format: date-time
+                  notes:
+                    type: string
+                    minLength: 1
+                  document:
+                    type: object
+                    properties:
+                      id:
+                        $ref: '#/components/schemas/objectId'
+                    required:
+                    - id
+                    additionalProperties: false
+                  conflicts:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          description: Unique identifier of the reinstatement record.
+                          allOf:
+                          - $ref: '#/components/schemas/objectId'
+                        status:
+                          type: string
+                          enum:
+                          - pending
+                          - active
+                          description: Lifecycle status of the reinstatement. Active reinstatements are in effect.
+                        type:
+                          type: string
+                          enum:
+                          - reinstatement
+                        subjects:
+                          default: []
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                                minLength: 1
+                            required:
+                            - code
+                            additionalProperties: false
+                        matchingSubjects:
+                          default: []
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                                minLength: 1
+                              label:
+                                type: string
+                                minLength: 1
+                            required:
+                            - code
+                            - label
+                            additionalProperties: false
+                        effectiveDate:
+                          type: string
+                          format: date-time
+                        issueDate:
+                          type: string
+                          format: date-time
+                        notes:
+                          type: string
+                          minLength: 1
+                        document:
+                          type: object
+                          properties:
+                            id:
+                              $ref: '#/components/schemas/objectId'
+                          required:
+                          - id
+                          additionalProperties: false
+                        conflictingSubjects:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                                minLength: 1
+                                description: Stable code identifying the policy subject (coverage line) within the policy.
+                            required:
+                            - code
+                            additionalProperties: false
+                          description: Subject codes from the existing reinstatement that overlap with the newly created one.
+                      required:
+                      - _id
+                      - status
+                      - type
+                      - subjects
+                      - matchingSubjects
+                      - effectiveDate
+                      - issueDate
+                      - document
+                      - conflictingSubjects
+                      additionalProperties: false
+                    description: Other reinstatements that cover overlapping subjects. Present when a blanket or overlapping reinstatement already exists; the new reinstatement is still created.
+                required:
+                - _id
+                - primaryRecordId
+                - policyNumber
+                - status
+                - type
+                - subjects
+                - matchingSubjects
+                - effectiveDate
+                - issueDate
+                - document
+                - conflicts
+                additionalProperties: false
+                description: The newly created reinstatement record, including any pre-existing reinstatements that cover overlapping subjects.
+        '400':
+          description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 400
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+        '401':
+          description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 401
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+        '403':
+          description: The authenticated caller does not have permission to perform this action on the target resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 403
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The authenticated caller does not have permission to perform this action on the target resource.
+        '404':
+          description: The requested resource does not exist or is not visible to the authenticated caller.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 404
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The requested resource does not exist or is not visible to the authenticated caller.
+        '500':
+          description: The server encountered an unexpected failure while processing the request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 500
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The server encountered an unexpected failure while processing the request.
+  /policies/{number}/reinstatements/{id}/log:
+    post:
+      tags:
+      - Policies
+      description: 'Record an externally-issued reinstatement against an existing reinstatement request. This is an audit-only operation: no policy state is changed. Use the non-`/log` POST variant if you need to apply a new reinstatement that updates subject validity.'
+      parameters:
+      - schema:
+          type: string
+          minLength: 1
+        in: path
+        name: number
+        required: true
+        description: Policy number identifying the policy whose reinstatement is being logged.
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/objectIdInput'
+        in: path
+        name: id
+        required: true
+        description: Identifier of the reinstatement request being recorded as logged.
+      responses:
+        '200':
+          description: The audit log entry created by recording an externally-issued reinstatement. No policy state is changed; this call only records that a reinstatement occurred outside the platform.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    description: Unique identifier of the logged reinstatement.
+                    allOf:
+                    - $ref: '#/components/schemas/objectId'
+                  primaryRecordId:
+                    description: Identifier of the primary record (insured party) this reinstatement is associated with.
+                    allOf:
+                    - $ref: '#/components/schemas/objectId'
+                  policyNumber:
+                    type: string
+                    minLength: 1
+                    description: Policy number this reinstatement was logged against.
+                  subjects:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          minLength: 1
+                          description: Stable code identifying the policy subject (coverage line) within the policy.
+                        label:
+                          type: string
+                          minLength: 1
+                          description: Human-readable label for the policy subject.
+                      required:
+                      - code
+                      - label
+                      additionalProperties: false
+                    description: Subjects resolved from the matched cancellation(s) at log time, identified by code and display label.
+                  documents:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          $ref: '#/components/schemas/objectId'
+                        name:
+                          type: string
+                        issueDate:
+                          nullable: true
+                          type: string
+                          format: date-time
+                        subjects:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                                minLength: 1
+                                description: Stable code identifying the policy subject (coverage line) within the policy.
+                              label:
+                                type: string
+                                minLength: 1
+                                description: Human-readable label for the policy subject.
+                              effectiveDate:
+                                description: Date on which the subject becomes effective.
+                                type: string
+                                format: date-time
+                              expirationDate:
+                                description: Date on which the subject expires.
+                                type: string
+                                format: date-time
+                              cancellation:
+                                description: If the subject is currently cancelled, the active cancellation record. Absent for active subjects.
+                                type: object
+                                properties:
+                                  id:
+                                    description: Optional identifier of the cancellation record. Absent on policies that pre-date the modern Cancellations & Reinstatements implementation.
+                                    allOf:
+                                    - $ref: '#/components/schemas/objectId'
+                                  originalValidity:
+                                    type: object
+                                    properties:
+                                      effectiveDate:
+                                        description: Effective date the subject had before the cancellation was applied.
+                                        type: string
+                                        format: date-time
+                                      expirationDate:
+                                        description: Expiration date the subject had before the cancellation was applied.
+                                        type: string
+                                        format: date-time
+                                    required:
+                                    - effectiveDate
+                                    - expirationDate
+                                    additionalProperties: false
+                                    description: Validity window of the subject before the cancellation took effect — useful for showing the original coverage span.
+                                  effectiveDate:
+                                    description: Date on which the cancellation takes effect.
+                                    type: string
+                                    format: date-time
+                                  issueDate:
+                                    description: Date on which the cancellation was issued. Absent on policies that pre-date the modern Cancellations & Reinstatements implementation.
+                                    type: string
+                                    format: date-time
+                                  notes:
+                                    description: Free-form notes attached to the cancellation.
+                                    type: string
+                                    minLength: 1
+                                required:
+                                - originalValidity
+                                - effectiveDate
+                                additionalProperties: false
+                              reinstatement:
+                                description: 'If the subject was previously cancelled and later reinstated, the reinstatement that restored its original validity window. A historical marker: the subject is active again with its dates restored. Cleared when a new cancellation is logged for the subject.'
+                                type: object
+                                properties:
+                                  id:
+                                    description: Identifier of the reinstatement record that restored the subject.
+                                    allOf:
+                                    - $ref: '#/components/schemas/objectId'
+                                  effectiveDate:
+                                    description: Date on which the reinstatement takes effect, as reported on the reinstatement notice. The subject's validity dates are restored to their original window, not from this date forward.
+                                    type: string
+                                    format: date-time
+                                  issueDate:
+                                    description: Date on which the reinstatement was issued.
+                                    type: string
+                                    format: date-time
+                                  notes:
+                                    description: Free-form notes attached to the reinstatement.
+                                    type: string
+                                    minLength: 1
+                                required:
+                                - id
+                                - effectiveDate
+                                - issueDate
+                                additionalProperties: false
+                            required:
+                            - code
+                            - label
+                            - effectiveDate
+                            - expirationDate
+                            additionalProperties: false
+                      required:
+                      - _id
+                      - subjects
+                      additionalProperties: false
+                    description: Documents associated with the reinstatement, including the reinstating certificate.
+                  effectiveDate:
+                    description: Date the reinstatement takes effect, as recorded on the external document.
+                    type: string
+                    format: date-time
+                  issueDate:
+                    description: Date the reinstatement document was issued.
+                    type: string
+                    format: date-time
+                  notes:
+                    description: Optional free-form notes about this reinstatement.
+                    type: string
+                    minLength: 1
+                required:
+                - _id
+                - primaryRecordId
+                - policyNumber
+                - subjects
+                - documents
+                - effectiveDate
+                - issueDate
+                additionalProperties: false
+                description: The audit log entry created by recording an externally-issued reinstatement. No policy state is changed; this call only records that a reinstatement occurred outside the platform.
+        '400':
+          description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 400
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+        '401':
+          description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 401
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+        '403':
+          description: The authenticated caller does not have permission to perform this action on the target resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 403
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The authenticated caller does not have permission to perform this action on the target resource.
+        '404':
+          description: The requested resource does not exist or is not visible to the authenticated caller.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 404
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The requested resource does not exist or is not visible to the authenticated caller.
+        '500':
+          description: The server encountered an unexpected failure while processing the request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 500
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The server encountered an unexpected failure while processing the request.
+  /policies/{number}/reinstatements/{id}:
+    delete:
+      tags:
+      - Policies
+      description: Delete a previously-applied policy reinstatement. Removing the reinstatement re-asserts the underlying cancellation, so subjects that were restored by it return to suppressed status (subject to the policy's other modifiers).
+      parameters:
+      - schema:
+          type: string
+          minLength: 1
+        in: path
+        name: number
+        required: true
+        description: Policy number identifying the policy from which the reinstatement should be removed.
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/objectIdInput'
+        in: path
+        name: id
+        required: true
+        description: Identifier of the reinstatement to delete.
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    description: Identifier of the deleted reinstatement.
+                    allOf:
+                    - $ref: '#/components/schemas/objectId'
+                required:
+                - _id
+                additionalProperties: false
+        '400':
+          description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 400
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+        '401':
+          description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 401
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+        '403':
+          description: The authenticated caller does not have permission to perform this action on the target resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 403
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The authenticated caller does not have permission to perform this action on the target resource.
+        '404':
+          description: The requested resource does not exist or is not visible to the authenticated caller.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 404
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The requested resource does not exist or is not visible to the authenticated caller.
+        '500':
+          description: The server encountered an unexpected failure while processing the request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 500
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The server encountered an unexpected failure while processing the request.
+  /policies/{number}/log-cancellation:
+    post:
+      tags:
+      - Policies
+      description: Log a policy cancellation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                primaryRecordIds:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/objectIdInput'
+                subjectCodes:
+                  type: array
+                  items:
+                    type: string
+                    minLength: 1
+                effectiveDate: {}
+                issueDate: {}
+                notes:
+                  type: string
+                  minLength: 1
+              required:
+              - effectiveDate
+      parameters:
+      - schema:
+          type: string
+          minLength: 1
+        in: path
+        name: number
+        required: true
+      deprecated: true
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  policyNumber:
+                    type: string
+                    minLength: 1
+                  primaryRecords:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          $ref: '#/components/schemas/objectId'
+                        documents:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              _id:
+                                $ref: '#/components/schemas/objectId'
+                              subjects:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    code:
+                                      type: string
+                                      minLength: 1
+                                      description: Stable code identifying the policy subject (coverage line) within the policy.
+                                    label:
+                                      type: string
+                                      minLength: 1
+                                      description: Human-readable label for the policy subject.
+                                  required:
+                                  - code
+                                  - label
+                                  additionalProperties: false
+                            required:
+                            - _id
+                            - subjects
+                            additionalProperties: false
+                      required:
+                      - _id
+                      - documents
+                      additionalProperties: false
+                  effectiveDate:
+                    type: string
+                    format: date-time
+                  issueDate:
+                    type: string
+                    format: date-time
+                  notes:
+                    type: string
+                    minLength: 1
+                required:
+                - policyNumber
+                - primaryRecords
+                - effectiveDate
+                additionalProperties: false
+        '400':
+          description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 400
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+        '401':
+          description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 401
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+        '403':
+          description: The authenticated caller does not have permission to perform this action on the target resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 403
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The authenticated caller does not have permission to perform this action on the target resource.
+        '404':
+          description: The requested resource does not exist or is not visible to the authenticated caller.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 404
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The requested resource does not exist or is not visible to the authenticated caller.
+        '500':
+          description: The server encountered an unexpected failure while processing the request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 500
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The server encountered an unexpected failure while processing the request.
+  /policies/{number}/log-reinstatement:
+    post:
+      tags:
+      - Policies
+      description: Log a policy reinstatement
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                primaryRecordIds:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/objectIdInput'
+                subjectCodes:
+                  type: array
+                  items:
+                    type: string
+                    minLength: 1
+                issueDate: {}
+                notes:
+                  type: string
+                  minLength: 1
+      parameters:
+      - schema:
+          type: string
+          minLength: 1
+        in: path
+        name: number
+        required: true
+      deprecated: true
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  policyNumber:
+                    type: string
+                    minLength: 1
+                  primaryRecords:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          $ref: '#/components/schemas/objectId'
+                        documents:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              _id:
+                                $ref: '#/components/schemas/objectId'
+                              subjects:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    code:
+                                      type: string
+                                      minLength: 1
+                                      description: Stable code identifying the policy subject (coverage line) within the policy.
+                                    label:
+                                      type: string
+                                      minLength: 1
+                                      description: Human-readable label for the policy subject.
+                                  required:
+                                  - code
+                                  - label
+                                  additionalProperties: false
+                            required:
+                            - _id
+                            - subjects
+                            additionalProperties: false
+                      required:
+                      - _id
+                      - documents
+                      additionalProperties: false
+                  issueDate:
+                    type: string
+                    format: date-time
+                  notes:
+                    type: string
+                    minLength: 1
+                required:
+                - policyNumber
+                - primaryRecords
+                additionalProperties: false
+        '400':
+          description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 400
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+        '401':
+          description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 401
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+        '403':
+          description: The authenticated caller does not have permission to perform this action on the target resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 403
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The authenticated caller does not have permission to perform this action on the target resource.
+        '404':
+          description: The requested resource does not exist or is not visible to the authenticated caller.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 404
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The requested resource does not exist or is not visible to the authenticated caller.
+        '500':
+          description: The server encountered an unexpected failure while processing the request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 500
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The server encountered an unexpected failure while processing the request.
+components:
+  schemas:
+    objectId:
+      title: ObjectId
+      type: string
+      format: ObjectId
+      examples:
+      - 507f1f77bcf86cd799439011
+    objectIdInput:
+      title: ObjectId
+      type: string
+      format: ObjectId
+      examples:
+      - 507f1f77bcf86cd799439011
+  securitySchemes:
+    Token:
+      name: Authorization
+      type: apiKey
+      in: header
+      description: ''

@@ -1,0 +1,1456 @@
+openapi: 3.0.0
+info:
+  title: TrustLayer Platform Auth Requirements API
+  version: '1.0'
+  contact:
+    name: TrustLayer Support
+    email: support@trustlayer.io
+  termsOfService: https://trustlayer.io/terms-of-service
+  externalDocs:
+    description: OpenAPI specification
+    url: /v1/platform-api.yaml
+  description: '3rd-party API for the TrustLayer platform.
+
+
+    **Deprecated.** Platform API v1 is deprecated as of 01 June 2026 and is
+
+    scheduled for sunset (end-of-life) on 31 March 2027. It remains fully
+
+    available until the sunset date but will not receive new features. Please
+
+    migrate to Platform API v2 for new integrations.
+
+
+    All v1 responses carry the standard deprecation response headers
+
+    ([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)):
+
+
+    ```http
+
+    Deprecation: @1780272000
+
+    Sunset: Wed, 31 Mar 2027 23:59:59 GMT
+
+    Link: <https://developers.trustlayer.io/>; rel="deprecation", <https://developers.trustlayer.io/>; rel="sunset"
+
+    ```
+
+
+    `Deprecation: @1780272000` is the Unix timestamp for 2026-06-01T00:00:00Z;
+
+    sunset (end-of-life) is 2027-03-31T23:59:59 GMT.'
+  x-deprecated: true
+  x-deprecation-date: '2026-06-01'
+  x-sunset: '2027-03-31'
+  license:
+    name: Apache 2.0
+    url: https://apache.org/licenses/LICENSE-2.0
+servers:
+- url: http://localhost:4000/v1
+  description: Local
+- url: https://api.trustlayer.io/v1
+  description: Production
+security:
+- API Key: []
+tags:
+- name: Requirements
+paths:
+  /requirements:
+    post:
+      tags:
+      - Requirements
+      description: Create a library requirement in the caller's organization (derived from the access token). Define the module/subject by label to create new ones, or by code/label to reuse an existing template, plus the attribute definition. Returns the persisted requirement.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - allOf:
+                - type: object
+                  properties:
+                    subjectCode:
+                      type: string
+                      minLength: 1
+                      description: Existing subject code on the compliance profile. When provided, the subject (and its parent module) are reused. Mutually exclusive with `subjectLabel`.
+                    moduleCode:
+                      description: Existing module code on the compliance profile. When provided, the requirement is anchored to that module. Mutually exclusive with `moduleLabel`.
+                      type: string
+                      minLength: 1
+                    subjectLabel:
+                      not: {}
+                    moduleLabel:
+                      not: {}
+                    matchingCriteria:
+                      type: string
+                      enum:
+                      - matchOnce
+                      - matchRepeatedly
+                      description: How the requirement matches against documents (e.g. `MatchOnce`, `MatchRepeatedly`).
+                    attributeCode:
+                      not: {}
+                  required:
+                  - subjectCode
+                  - matchingCriteria
+                - type: object
+                  properties:
+                    attributeCode:
+                      type: string
+                      minLength: 1
+                    attributeLabel:
+                      type: string
+                      minLength: 1
+                    attributeDescription:
+                      type: string
+                      minLength: 1
+                  required:
+                  - attributeLabel
+                - oneOf:
+                  - type: object
+                    properties:
+                      attributeType:
+                        type: string
+                        enum:
+                        - number
+                        - amBestRating
+                        - amBestFinancialStrength
+                      operator:
+                        type: string
+                        enum:
+                        - must be greater or equal to
+                        - must be less than or equal to
+                      targetValue:
+                        type: string
+                        minLength: 1
+                    required:
+                    - attributeType
+                    - operator
+                    - targetValue
+                  - type: object
+                    properties:
+                      attributeType:
+                        type: string
+                        enum:
+                        - boolean
+                        - connected
+                        - ai
+                      operator:
+                        type: string
+                        enum:
+                        - must be present
+                      targetValue:
+                        not: {}
+                    required:
+                    - attributeType
+                    - operator
+                  - type: object
+                    properties:
+                      attributeType:
+                        type: string
+                        enum:
+                        - fillableForm
+                      operator:
+                        type: string
+                        enum:
+                        - must be completed by
+                      targetValue:
+                        type: string
+                        minLength: 1
+                    required:
+                    - attributeType
+                    - operator
+                    - targetValue
+                  - type: object
+                    properties:
+                      attributeType:
+                        type: string
+                        enum:
+                        - list
+                      operator:
+                        type: string
+                        enum:
+                        - at least one must be present from list
+                      targetValue:
+                        minItems: 1
+                        type: array
+                        items:
+                          type: string
+                          minLength: 1
+                    required:
+                    - attributeType
+                    - operator
+                    - targetValue
+              - allOf:
+                - type: object
+                  properties:
+                    subjectLabel:
+                      type: string
+                      minLength: 1
+                      description: Human-readable label for a new subject. The subject code is derived from this label. Requires `moduleCode` or `moduleLabel` so the new subject can be attached to a module. Mutually exclusive with `subjectCode`.
+                    moduleCode:
+                      type: string
+                      minLength: 1
+                      description: Existing module code on the compliance profile. When provided, the requirement is anchored to that module. Mutually exclusive with `moduleLabel`.
+                    subjectCode:
+                      not: {}
+                    moduleLabel:
+                      not: {}
+                    matchingCriteria:
+                      type: string
+                      enum:
+                      - matchOnce
+                      - matchRepeatedly
+                      description: How the requirement matches against documents (e.g. `MatchOnce`, `MatchRepeatedly`).
+                    attributeCode:
+                      not: {}
+                  required:
+                  - subjectLabel
+                  - moduleCode
+                  - matchingCriteria
+                - type: object
+                  properties:
+                    attributeCode:
+                      type: string
+                      minLength: 1
+                    attributeLabel:
+                      type: string
+                      minLength: 1
+                    attributeDescription:
+                      type: string
+                      minLength: 1
+                  required:
+                  - attributeLabel
+                - oneOf:
+                  - type: object
+                    properties:
+                      attributeType:
+                        type: string
+                        enum:
+                        - number
+                        - amBestRating
+                        - amBestFinancialStrength
+                      operator:
+                        type: string
+                        enum:
+                        - must be greater or equal to
+                        - must be less than or equal to
+                      targetValue:
+                        type: string
+                        minLength: 1
+                    required:
+                    - attributeType
+                    - operator
+                    - targetValue
+                  - type: object
+                    properties:
+                      attributeType:
+                        type: string
+                        enum:
+                        - boolean
+                        - connected
+                        - ai
+                      operator:
+                        type: string
+                        enum:
+                        - must be present
+                      targetValue:
+                        not: {}
+                    required:
+                    - attributeType
+                    - operator
+                  - type: object
+                    properties:
+                      attributeType:
+                        type: string
+                        enum:
+                        - fillableForm
+                      operator:
+                        type: string
+                        enum:
+                        - must be completed by
+                      targetValue:
+                        type: string
+                        minLength: 1
+                    required:
+                    - attributeType
+                    - operator
+                    - targetValue
+                  - type: object
+                    properties:
+                      attributeType:
+                        type: string
+                        enum:
+                        - list
+                      operator:
+                        type: string
+                        enum:
+                        - at least one must be present from list
+                      targetValue:
+                        minItems: 1
+                        type: array
+                        items:
+                          type: string
+                          minLength: 1
+                    required:
+                    - attributeType
+                    - operator
+                    - targetValue
+              - allOf:
+                - type: object
+                  properties:
+                    subjectLabel:
+                      type: string
+                      minLength: 1
+                      description: Human-readable label for a new subject. The subject code is derived from this label. Requires `moduleCode` or `moduleLabel` so the new subject can be attached to a module. Mutually exclusive with `subjectCode`.
+                    moduleLabel:
+                      type: string
+                      minLength: 1
+                      description: Human-readable label for a new compliance module. The module code is derived from this label. Mutually exclusive with `moduleCode`.
+                    subjectCode:
+                      not: {}
+                    moduleCode:
+                      not: {}
+                    matchingCriteria:
+                      type: string
+                      enum:
+                      - matchOnce
+                      - matchRepeatedly
+                      description: How the requirement matches against documents (e.g. `MatchOnce`, `MatchRepeatedly`).
+                    attributeCode:
+                      not: {}
+                  required:
+                  - subjectLabel
+                  - moduleLabel
+                  - matchingCriteria
+                - type: object
+                  properties:
+                    attributeCode:
+                      type: string
+                      minLength: 1
+                    attributeLabel:
+                      type: string
+                      minLength: 1
+                    attributeDescription:
+                      type: string
+                      minLength: 1
+                  required:
+                  - attributeLabel
+                - oneOf:
+                  - type: object
+                    properties:
+                      attributeType:
+                        type: string
+                        enum:
+                        - number
+                        - amBestRating
+                        - amBestFinancialStrength
+                      operator:
+                        type: string
+                        enum:
+                        - must be greater or equal to
+                        - must be less than or equal to
+                      targetValue:
+                        type: string
+                        minLength: 1
+                    required:
+                    - attributeType
+                    - operator
+                    - targetValue
+                  - type: object
+                    properties:
+                      attributeType:
+                        type: string
+                        enum:
+                        - boolean
+                        - connected
+                        - ai
+                      operator:
+                        type: string
+                        enum:
+                        - must be present
+                      targetValue:
+                        not: {}
+                    required:
+                    - attributeType
+                    - operator
+                  - type: object
+                    properties:
+                      attributeType:
+                        type: string
+                        enum:
+                        - fillableForm
+                      operator:
+                        type: string
+                        enum:
+                        - must be completed by
+                      targetValue:
+                        type: string
+                        minLength: 1
+                    required:
+                    - attributeType
+                    - operator
+                    - targetValue
+                  - type: object
+                    properties:
+                      attributeType:
+                        type: string
+                        enum:
+                        - list
+                      operator:
+                        type: string
+                        enum:
+                        - at least one must be present from list
+                      targetValue:
+                        minItems: 1
+                        type: array
+                        items:
+                          type: string
+                          minLength: 1
+                    required:
+                    - attributeType
+                    - operator
+                    - targetValue
+              description: Request body for creating a library requirement. Define the module/subject by label (to create new ones) or by code/label (to reuse an existing template), plus the attribute definition; invalid `(attributeType, operator, targetValue)` combinations are rejected.
+        description: Request body for creating a library requirement. Define the module/subject by label (to create new ones) or by code/label (to reuse an existing template), plus the attribute definition; invalid `(attributeType, operator, targetValue)` combinations are rejected.
+      responses:
+        '201':
+          description: A single library requirement.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    description: Unique identifier of the library requirement.
+                    allOf:
+                    - $ref: '#/components/schemas/objectId'
+                  moduleCode:
+                    type: string
+                    minLength: 1
+                    description: Identifier of the module this requirement belongs to.
+                  moduleLabel:
+                    type: string
+                    minLength: 1
+                    description: Display label of the module.
+                  subjectCode:
+                    type: string
+                    minLength: 1
+                    description: Identifier of the subject this requirement belongs to.
+                  subjectLabel:
+                    type: string
+                    minLength: 1
+                    description: Display label of the subject.
+                  attributeCode:
+                    type: string
+                    minLength: 1
+                    description: Attribute code (maps to attributeId in storage).
+                  attributeType:
+                    type: string
+                    enum:
+                    - boolean
+                    - number
+                    - fillableForm
+                    - amBestRating
+                    - amBestFinancialStrength
+                    - connected
+                    - list
+                    - ai
+                    description: Data type of the attribute (e.g. boolean, number).
+                  attributeLabel:
+                    type: string
+                    minLength: 1
+                    description: Display label of the attribute.
+                  attributeDescription:
+                    description: Optional description of the attribute.
+                    type: string
+                    minLength: 1
+                  matchingCriteria:
+                    type: string
+                    enum:
+                    - matchOnce
+                    - matchRepeatedly
+                    description: Matching criteria for the requirement.
+                  operator:
+                    description: Comparison operator for the requirement.
+                    type: string
+                    enum:
+                    - must be present
+                    - must be greater or equal to
+                    - must be less than or equal to
+                    - must be completed by
+                    - at least one must be present from list
+                  targetValue:
+                    description: Target value for the requirement comparison.
+                    anyOf:
+                    - type: string
+                      minLength: 1
+                    - type: array
+                      items:
+                        type: string
+                        minLength: 1
+                required:
+                - _id
+                - moduleCode
+                - moduleLabel
+                - subjectCode
+                - subjectLabel
+                - attributeCode
+                - attributeType
+                - attributeLabel
+                - matchingCriteria
+                additionalProperties: false
+                description: A single library requirement.
+        '400':
+          description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 400
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+        '401':
+          description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 401
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+        '403':
+          description: The authenticated caller does not have permission to perform this action on the target resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 403
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The authenticated caller does not have permission to perform this action on the target resource.
+        '404':
+          description: The requested resource does not exist or is not visible to the authenticated caller.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 404
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The requested resource does not exist or is not visible to the authenticated caller.
+        '500':
+          description: The server encountered an unexpected failure while processing the request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 500
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The server encountered an unexpected failure while processing the request.
+    get:
+      tags:
+      - Requirements
+      description: 'List library requirements in the caller''s organization. Results are always scoped to the caller''s organization and never include system requirement templates. Supports pagination via `limit` and `skip`.
+
+
+        <!-- qs2mongo:list-summary -->
+
+
+        **Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `attributeCode` (string), `attributeLabel` (string). See "List Endpoints" in the API overview for operator syntax and combining rules.
+
+
+        **Sorting**: supported via `sort` (see the parameter''s description for allowed fields). Prefix with `-` for descending.
+
+
+        **Field projection**: supported via `fields` (see the parameter''s description for allowed fields).'
+      parameters:
+      - schema:
+          default: 20
+          type: integer
+          minimum: 0
+          exclusiveMinimum: true
+          maximum: 100
+        in: query
+        name: limit
+        required: false
+      - schema:
+          default: 0
+          type: integer
+          minimum: 0
+          maximum: 9007199254740991
+        in: query
+        name: skip
+        required: false
+      - schema:
+          type: string
+          minLength: 1
+        in: query
+        name: sort
+        required: false
+        description: 'Comma-separated list of fields to sort by. Example: ''_id,-createdAt''. Allowed: moduleCode, moduleLabel, subjectCode, subjectLabel, attributeCode, attributeType, attributeLabel, attributeDescription, matchingCriteria, operator'
+      - schema:
+          type: string
+          minLength: 1
+        in: query
+        name: fields
+        required: false
+        description: 'Comma-separated list of fields to project. Allowed: _id, moduleCode, moduleLabel, subjectCode, subjectLabel, attributeCode, attributeType, attributeLabel, attributeDescription, matchingCriteria, operator, targetValue'
+      - schema:
+          type: string
+        in: query
+        name: _id
+        required: false
+        description: Filter by _id. 24-character hex ObjectId string (e.g. `_id=507f1f77bcf86cd799439011`). See "List Endpoints" in the API overview for operator syntax.
+      - schema:
+          type: string
+        in: query
+        name: createdAt
+        required: false
+        description: Filter by createdAt. ISO-8601 date or datetime string (e.g. `createdAt=2024-01-15`). See "List Endpoints" in the API overview for operator syntax.
+      - schema:
+          type: string
+        in: query
+        name: updatedAt
+        required: false
+        description: Filter by updatedAt. ISO-8601 date or datetime string (e.g. `updatedAt=2024-01-15`). See "List Endpoints" in the API overview for operator syntax.
+      - schema:
+          type: string
+        in: query
+        name: attributeCode
+        required: false
+        description: Filter by attributeCode. String value (e.g. `attributeCode=example`). See "List Endpoints" in the API overview for operator syntax.
+      - schema:
+          type: string
+        in: query
+        name: attributeLabel
+        required: false
+        description: Filter by attributeLabel. String value (e.g. `attributeLabel=example`). See "List Endpoints" in the API overview for operator syntax.
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          description: Unique identifier of the library requirement.
+                          allOf:
+                          - $ref: '#/components/schemas/objectId'
+                        moduleCode:
+                          type: string
+                          minLength: 1
+                          description: Identifier of the module this requirement belongs to.
+                        moduleLabel:
+                          type: string
+                          minLength: 1
+                          description: Display label of the module.
+                        subjectCode:
+                          type: string
+                          minLength: 1
+                          description: Identifier of the subject this requirement belongs to.
+                        subjectLabel:
+                          type: string
+                          minLength: 1
+                          description: Display label of the subject.
+                        attributeCode:
+                          type: string
+                          minLength: 1
+                          description: Attribute code (maps to attributeId in storage).
+                        attributeType:
+                          type: string
+                          enum:
+                          - boolean
+                          - number
+                          - fillableForm
+                          - amBestRating
+                          - amBestFinancialStrength
+                          - connected
+                          - list
+                          - ai
+                          description: Data type of the attribute (e.g. boolean, number).
+                        attributeLabel:
+                          type: string
+                          minLength: 1
+                          description: Display label of the attribute.
+                        attributeDescription:
+                          description: Optional description of the attribute.
+                          type: string
+                          minLength: 1
+                        matchingCriteria:
+                          type: string
+                          enum:
+                          - matchOnce
+                          - matchRepeatedly
+                          description: Matching criteria for the requirement.
+                        operator:
+                          description: Comparison operator for the requirement.
+                          type: string
+                          enum:
+                          - must be present
+                          - must be greater or equal to
+                          - must be less than or equal to
+                          - must be completed by
+                          - at least one must be present from list
+                        targetValue:
+                          description: Target value for the requirement comparison.
+                          anyOf:
+                          - type: string
+                            minLength: 1
+                          - type: array
+                            items:
+                              type: string
+                              minLength: 1
+                      required:
+                      - _id
+                      additionalProperties: false
+                  meta:
+                    type: object
+                    properties:
+                      count:
+                        type: number
+                        description: Total number of records matching the query, across all pages.
+                      next:
+                        description: Relative URL for the next page of results, preserving filters/sort/projection. Omitted on the last page.
+                        type: string
+                      prev:
+                        description: Relative URL for the previous page of results, preserving filters/sort/projection. Omitted on the first page.
+                        type: string
+                    required:
+                    - count
+                    additionalProperties: false
+                required:
+                - data
+                - meta
+                additionalProperties: false
+        '400':
+          description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 400
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+        '401':
+          description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 401
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+        '403':
+          description: The authenticated caller does not have permission to perform this action on the target resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 403
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The authenticated caller does not have permission to perform this action on the target resource.
+        '404':
+          description: The requested resource does not exist or is not visible to the authenticated caller.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 404
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The requested resource does not exist or is not visible to the authenticated caller.
+        '500':
+          description: The server encountered an unexpected failure while processing the request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 500
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The server encountered an unexpected failure while processing the request.
+  /requirements/{id}:
+    patch:
+      tags:
+      - Requirements
+      description: Partially update a library requirement in the caller's organization. Supply any subset of the editable fields; omitted fields keep their stored values, and the merged (attributeType, operator, targetValue) triple must be internally consistent. The immutable attributeCode cannot be changed. Triggers the requirement-sync cascade. Returns the updated requirement.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                attributeType:
+                  description: Data type of the attribute (e.g. boolean, number).
+                  type: string
+                  enum:
+                  - boolean
+                  - number
+                  - fillableForm
+                  - amBestRating
+                  - amBestFinancialStrength
+                  - connected
+                  - list
+                  - ai
+                attributeLabel:
+                  description: Display label of the attribute.
+                  type: string
+                  minLength: 1
+                attributeDescription:
+                  description: Optional description of the attribute.
+                  type: string
+                  minLength: 1
+                matchingCriteria:
+                  description: Matching criteria for the requirement.
+                  type: string
+                  enum:
+                  - matchOnce
+                  - matchRepeatedly
+                operator:
+                  description: Comparison operator for the requirement.
+                  type: string
+                  enum:
+                  - must be present
+                  - must be greater or equal to
+                  - must be less than or equal to
+                  - must be completed by
+                  - at least one must be present from list
+                targetValue:
+                  description: Target value for the requirement comparison.
+                  anyOf:
+                  - type: string
+                    minLength: 1
+                  - type: array
+                    items:
+                      type: string
+                      minLength: 1
+              description: Request body for partially updating a library requirement. Supply any subset of the editable fields; omitted fields keep their stored values, and the merged (attributeType, operator, targetValue) triple must be internally consistent. The immutable identity keys (attributeCode/moduleCode/subjectCode) are ignored if supplied.
+        description: Request body for partially updating a library requirement. Supply any subset of the editable fields; omitted fields keep their stored values, and the merged (attributeType, operator, targetValue) triple must be internally consistent. The immutable identity keys (attributeCode/moduleCode/subjectCode) are ignored if supplied.
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/objectIdInput'
+        in: path
+        name: id
+        required: true
+        description: Identifier of the library requirement to update.
+      responses:
+        '200':
+          description: A single library requirement.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    description: Unique identifier of the library requirement.
+                    allOf:
+                    - $ref: '#/components/schemas/objectId'
+                  moduleCode:
+                    type: string
+                    minLength: 1
+                    description: Identifier of the module this requirement belongs to.
+                  moduleLabel:
+                    type: string
+                    minLength: 1
+                    description: Display label of the module.
+                  subjectCode:
+                    type: string
+                    minLength: 1
+                    description: Identifier of the subject this requirement belongs to.
+                  subjectLabel:
+                    type: string
+                    minLength: 1
+                    description: Display label of the subject.
+                  attributeCode:
+                    type: string
+                    minLength: 1
+                    description: Attribute code (maps to attributeId in storage).
+                  attributeType:
+                    type: string
+                    enum:
+                    - boolean
+                    - number
+                    - fillableForm
+                    - amBestRating
+                    - amBestFinancialStrength
+                    - connected
+                    - list
+                    - ai
+                    description: Data type of the attribute (e.g. boolean, number).
+                  attributeLabel:
+                    type: string
+                    minLength: 1
+                    description: Display label of the attribute.
+                  attributeDescription:
+                    description: Optional description of the attribute.
+                    type: string
+                    minLength: 1
+                  matchingCriteria:
+                    type: string
+                    enum:
+                    - matchOnce
+                    - matchRepeatedly
+                    description: Matching criteria for the requirement.
+                  operator:
+                    description: Comparison operator for the requirement.
+                    type: string
+                    enum:
+                    - must be present
+                    - must be greater or equal to
+                    - must be less than or equal to
+                    - must be completed by
+                    - at least one must be present from list
+                  targetValue:
+                    description: Target value for the requirement comparison.
+                    anyOf:
+                    - type: string
+                      minLength: 1
+                    - type: array
+                      items:
+                        type: string
+                        minLength: 1
+                required:
+                - _id
+                - moduleCode
+                - moduleLabel
+                - subjectCode
+                - subjectLabel
+                - attributeCode
+                - attributeType
+                - attributeLabel
+                - matchingCriteria
+                additionalProperties: false
+                description: A single library requirement.
+        '400':
+          description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 400
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+        '401':
+          description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 401
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+        '403':
+          description: The authenticated caller does not have permission to perform this action on the target resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 403
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The authenticated caller does not have permission to perform this action on the target resource.
+        '404':
+          description: The requested resource does not exist or is not visible to the authenticated caller.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 404
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The requested resource does not exist or is not visible to the authenticated caller.
+        '500':
+          description: The server encountered an unexpected failure while processing the request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 500
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The server encountered an unexpected failure while processing the request.
+    get:
+      tags:
+      - Requirements
+      description: Read a single library requirement by id, scoped to the caller's organization.
+      parameters:
+      - schema:
+          type: string
+          minLength: 1
+        in: query
+        name: fields
+        required: false
+        description: 'Comma-separated list of fields to project. Allowed: _id, moduleCode, moduleLabel, subjectCode, subjectLabel, attributeCode, attributeType, attributeLabel, attributeDescription, matchingCriteria, operator, targetValue'
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/objectIdInput'
+        in: path
+        name: id
+        required: true
+        description: Identifier of the library requirement to read.
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    description: Unique identifier of the library requirement.
+                    allOf:
+                    - $ref: '#/components/schemas/objectId'
+                  moduleCode:
+                    type: string
+                    minLength: 1
+                    description: Identifier of the module this requirement belongs to.
+                  moduleLabel:
+                    type: string
+                    minLength: 1
+                    description: Display label of the module.
+                  subjectCode:
+                    type: string
+                    minLength: 1
+                    description: Identifier of the subject this requirement belongs to.
+                  subjectLabel:
+                    type: string
+                    minLength: 1
+                    description: Display label of the subject.
+                  attributeCode:
+                    type: string
+                    minLength: 1
+                    description: Attribute code (maps to attributeId in storage).
+                  attributeType:
+                    type: string
+                    enum:
+                    - boolean
+                    - number
+                    - fillableForm
+                    - amBestRating
+                    - amBestFinancialStrength
+                    - connected
+                    - list
+                    - ai
+                    description: Data type of the attribute (e.g. boolean, number).
+                  attributeLabel:
+                    type: string
+                    minLength: 1
+                    description: Display label of the attribute.
+                  attributeDescription:
+                    description: Optional description of the attribute.
+                    type: string
+                    minLength: 1
+                  matchingCriteria:
+                    type: string
+                    enum:
+                    - matchOnce
+                    - matchRepeatedly
+                    description: Matching criteria for the requirement.
+                  operator:
+                    description: Comparison operator for the requirement.
+                    type: string
+                    enum:
+                    - must be present
+                    - must be greater or equal to
+                    - must be less than or equal to
+                    - must be completed by
+                    - at least one must be present from list
+                  targetValue:
+                    description: Target value for the requirement comparison.
+                    anyOf:
+                    - type: string
+                      minLength: 1
+                    - type: array
+                      items:
+                        type: string
+                        minLength: 1
+                required:
+                - _id
+                additionalProperties: false
+        '400':
+          description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 400
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.
+        '401':
+          description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 401
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.
+        '403':
+          description: The authenticated caller does not have permission to perform this action on the target resource.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 403
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The authenticated caller does not have permission to perform this action on the target resource.
+        '404':
+          description: The requested resource does not exist or is not visible to the authenticated caller.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 404
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The requested resource does not exist or is not visible to the authenticated caller.
+        '500':
+          description: The server encountered an unexpected failure while processing the request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: number
+                    enum:
+                    - 500
+                  applicationCode:
+                    type: string
+                    description: Machine-readable error code. For application errors this is the ApplicationError.applicationCode (e.g. "FLOW.006"); for schema validation failures it is "FLOW.002" (InvalidData); for unexpected server failures it is "LIB.000".
+                  message:
+                    type: string
+                    description: Human-readable error message.
+                  details:
+                    description: Optional additional context about the error.
+                required:
+                - statusCode
+                - applicationCode
+                - message
+                additionalProperties: false
+                description: The server encountered an unexpected failure while processing the request.
+components:
+  schemas:
+    objectId:
+      title: ObjectId
+      type: string
+      format: ObjectId
+      examples:
+      - 507f1f77bcf86cd799439011
+    objectIdInput:
+      title: ObjectId
+      type: string
+      format: ObjectId
+      examples:
+      - 507f1f77bcf86cd799439011
+  securitySchemes:
+    Token:
+      name: Authorization
+      type: apiKey
+      in: header
+      description: ''
