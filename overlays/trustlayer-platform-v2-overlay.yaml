@@ -1,0 +1,21 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for TrustLayer Platform API v2
+  version: 1.0.0
+extends: openapi/trustlayer-platform-v2-openapi.yaml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-07-21'
+    x-api-lifecycle: stable-early-access
+    x-authentication: authentication/trustlayer-authentication.yml
+    x-error-catalog: errors/trustlayer-problem-types.yml
+    x-conventions: conventions/trustlayer-conventions.yml
+    x-sandbox: sandbox/trustlayer-sandbox.yml
+    x-domain: vendor-risk-management-coi-tracking
+- target: $.servers
+  update:
+    x-environments:
+      production: https://api.trustlayer.io/v2
+      integration: https://api.integration.trustlayer.dev/v2
+      demo: https://api.demo.trustlayer.dev/v2

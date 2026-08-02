@@ -1,27 +1,400 @@
 aid: trustlayer
 name: TrustLayer
-description: 'TrustLayer is a company surfaced as a portfolio company of craft-ventures and added to the
-  API Evangelist network as a stub for enrichment. Sector: fintech. This profile is a lead awaiting the
-  enrichment pipeline.'
+description: >-
+  TrustLayer is a vendor risk management and certificate of insurance (COI)
+  tracking platform that automates the collection, verification, and ongoing
+  monitoring of compliance documents. It uses AI-powered OCR field extraction,
+  real-time carrier connections, and NIPR license verification to process COIs,
+  W9s, and business licenses across a network of 500,000+ companies. The
+  TrustLayer Platform API lets teams programmatically manage parties (vendors),
+  contacts, projects, documents, and compliance profiles, request documents,
+  and receive real-time webhook notifications as compliance status changes.
+  Backed by Craft Ventures. Sector: insurtech / fintech.
 url: https://raw.githubusercontent.com/api-evangelist/trustlayer/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - craft-ventures
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profiled
+x-tier-reason: enriched-from-provider-surface
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://developers.trustlayer.io/landing/favicon.png
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
 - Fintech
-apis: []
+- Insurtech
+- Insurance
+- Risk Management
+- Compliance
+- Certificate of Insurance
+- Vendor Management
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: trustlayer:trustlayer-auth-api
+  name: TrustLayer Auth API
+  description: The Auth API from TrustLayer — 1 operation(s) for auth.
+  humanURL: https://developers.trustlayer.io/v2
+  baseURL: https://api.trustlayer.io/v2
+  tags:
+  - Auth
+  properties:
+  - type: OpenAPI
+    url: openapi/trustlayer-auth-api-openapi.yml
+  - type: Documentation
+    url: https://developers.trustlayer.io/v2
+  - type: Documentation
+    url: https://developers.trustlayer.io/v1/
+- aid: trustlayer:trustlayer-branding-api
+  name: TrustLayer branding API
+  description: The branding API from TrustLayer — 2 operation(s) for branding.
+  humanURL: https://developers.trustlayer.io/v2
+  baseURL: https://api.trustlayer.io/v2
+  tags:
+  - branding
+  properties:
+  - type: OpenAPI
+    url: openapi/trustlayer-branding-api-openapi.yml
+  - type: Documentation
+    url: https://developers.trustlayer.io/v2
+  - type: Documentation
+    url: https://developers.trustlayer.io/v1/
+- aid: trustlayer:trustlayer-compliance-profiles-api
+  name: TrustLayer compliance-profiles API
+  description: The compliance-profiles API from TrustLayer — 8 operation(s) for compliance-profiles.
+  humanURL: https://developers.trustlayer.io/v2
+  baseURL: https://api.trustlayer.io/v2
+  tags:
+  - compliance-profiles
+  properties:
+  - type: OpenAPI
+    url: openapi/trustlayer-compliance-profiles-api-openapi.yml
+  - type: Documentation
+    url: https://developers.trustlayer.io/v2
+  - type: Documentation
+    url: https://developers.trustlayer.io/v1/
+- aid: trustlayer:trustlayer-contacts-api
+  name: TrustLayer contacts API
+  description: The contacts API from TrustLayer — 4 operation(s) for contacts.
+  humanURL: https://developers.trustlayer.io/v2
+  baseURL: https://api.trustlayer.io/v2
+  tags:
+  - contacts
+  properties:
+  - type: OpenAPI
+    url: openapi/trustlayer-contacts-api-openapi.yml
+  - type: Documentation
+    url: https://developers.trustlayer.io/v2
+  - type: Documentation
+    url: https://developers.trustlayer.io/v1/
+- aid: trustlayer:trustlayer-context-objects-api
+  name: TrustLayer Context Objects API
+  description: The Context Objects API from TrustLayer — 2 operation(s) for context objects.
+  humanURL: https://developers.trustlayer.io/v2
+  baseURL: https://api.trustlayer.io/v2
+  tags:
+  - Context Objects
+  properties:
+  - type: OpenAPI
+    url: openapi/trustlayer-context-objects-api-openapi.yml
+  - type: Documentation
+    url: https://developers.trustlayer.io/v2
+  - type: Documentation
+    url: https://developers.trustlayer.io/v1/
+- aid: trustlayer:trustlayer-context-records-api
+  name: TrustLayer Context Records API
+  description: The Context Records API from TrustLayer — 7 operation(s) for context records.
+  humanURL: https://developers.trustlayer.io/v2
+  baseURL: https://api.trustlayer.io/v2
+  tags:
+  - Context Records
+  properties:
+  - type: OpenAPI
+    url: openapi/trustlayer-context-records-api-openapi.yml
+  - type: Documentation
+    url: https://developers.trustlayer.io/v2
+  - type: Documentation
+    url: https://developers.trustlayer.io/v1/
+- aid: trustlayer:trustlayer-custom-fields-api
+  name: TrustLayer custom-fields API
+  description: The custom-fields API from TrustLayer — 4 operation(s) for custom-fields.
+  humanURL: https://developers.trustlayer.io/v2
+  baseURL: https://api.trustlayer.io/v2
+  tags:
+  - custom-fields
+  properties:
+  - type: OpenAPI
+    url: openapi/trustlayer-custom-fields-api-openapi.yml
+  - type: Documentation
+    url: https://developers.trustlayer.io/v2
+  - type: Documentation
+    url: https://developers.trustlayer.io/v1/
+- aid: trustlayer:trustlayer-document-types-api
+  name: TrustLayer Document Types API
+  description: The Document Types API from TrustLayer — 2 operation(s) for document types.
+  humanURL: https://developers.trustlayer.io/v2
+  baseURL: https://api.trustlayer.io/v2
+  tags:
+  - Document Types
+  properties:
+  - type: OpenAPI
+    url: openapi/trustlayer-document-types-api-openapi.yml
+  - type: Documentation
+    url: https://developers.trustlayer.io/v2
+  - type: Documentation
+    url: https://developers.trustlayer.io/v1/
+- aid: trustlayer:trustlayer-documents-api
+  name: TrustLayer documents API
+  description: The documents API from TrustLayer — 15 operation(s) for documents.
+  humanURL: https://developers.trustlayer.io/v2
+  baseURL: https://api.trustlayer.io/v2
+  tags:
+  - documents
+  properties:
+  - type: OpenAPI
+    url: openapi/trustlayer-documents-api-openapi.yml
+  - type: Documentation
+    url: https://developers.trustlayer.io/v2
+  - type: Documentation
+    url: https://developers.trustlayer.io/v1/
+- aid: trustlayer:trustlayer-parties-api
+  name: TrustLayer Parties API
+  description: The Parties API from TrustLayer — 20 operation(s) for parties.
+  humanURL: https://developers.trustlayer.io/v2
+  baseURL: https://api.trustlayer.io/v2
+  tags:
+  - Parties
+  properties:
+  - type: OpenAPI
+    url: openapi/trustlayer-parties-api-openapi.yml
+  - type: Documentation
+    url: https://developers.trustlayer.io/v2
+  - type: Documentation
+    url: https://developers.trustlayer.io/v1/
+- aid: trustlayer:trustlayer-party-types-api
+  name: TrustLayer party-types API
+  description: The party-types API from TrustLayer — 1 operation(s) for party-types.
+  humanURL: https://developers.trustlayer.io/v2
+  baseURL: https://api.trustlayer.io/v2
+  tags:
+  - party-types
+  properties:
+  - type: OpenAPI
+    url: openapi/trustlayer-party-types-api-openapi.yml
+  - type: Documentation
+    url: https://developers.trustlayer.io/v2
+  - type: Documentation
+    url: https://developers.trustlayer.io/v1/
+- aid: trustlayer:trustlayer-policies-api
+  name: TrustLayer Policies API
+  description: The Policies API from TrustLayer — 11 operation(s) for policies.
+  humanURL: https://developers.trustlayer.io/v2
+  baseURL: https://api.trustlayer.io/v2
+  tags:
+  - Policies
+  properties:
+  - type: OpenAPI
+    url: openapi/trustlayer-policies-api-openapi.yml
+  - type: Documentation
+    url: https://developers.trustlayer.io/v2
+  - type: Documentation
+    url: https://developers.trustlayer.io/v1/
+- aid: trustlayer:trustlayer-primary-objects-api
+  name: TrustLayer Primary Objects API
+  description: The Primary Objects API from TrustLayer — 2 operation(s) for primary objects.
+  humanURL: https://developers.trustlayer.io/v2
+  baseURL: https://api.trustlayer.io/v2
+  tags:
+  - Primary Objects
+  properties:
+  - type: OpenAPI
+    url: openapi/trustlayer-primary-objects-api-openapi.yml
+  - type: Documentation
+    url: https://developers.trustlayer.io/v2
+  - type: Documentation
+    url: https://developers.trustlayer.io/v1/
+- aid: trustlayer:trustlayer-primary-records-api
+  name: TrustLayer Primary Records API
+  description: The Primary Records API from TrustLayer — 12 operation(s) for primary records.
+  humanURL: https://developers.trustlayer.io/v2
+  baseURL: https://api.trustlayer.io/v2
+  tags:
+  - Primary Records
+  properties:
+  - type: OpenAPI
+    url: openapi/trustlayer-primary-records-api-openapi.yml
+  - type: Documentation
+    url: https://developers.trustlayer.io/v2
+  - type: Documentation
+    url: https://developers.trustlayer.io/v1/
+- aid: trustlayer:trustlayer-projects-api
+  name: TrustLayer Projects API
+  description: The Projects API from TrustLayer — 9 operation(s) for projects.
+  humanURL: https://developers.trustlayer.io/v2
+  baseURL: https://api.trustlayer.io/v2
+  tags:
+  - Projects
+  properties:
+  - type: OpenAPI
+    url: openapi/trustlayer-projects-api-openapi.yml
+  - type: Documentation
+    url: https://developers.trustlayer.io/v2
+  - type: Documentation
+    url: https://developers.trustlayer.io/v1/
+- aid: trustlayer:trustlayer-reports-api
+  name: TrustLayer reports API
+  description: The reports API from TrustLayer — 2 operation(s) for reports.
+  humanURL: https://developers.trustlayer.io/v2
+  baseURL: https://api.trustlayer.io/v2
+  tags:
+  - reports
+  properties:
+  - type: OpenAPI
+    url: openapi/trustlayer-reports-api-openapi.yml
+  - type: Documentation
+    url: https://developers.trustlayer.io/v2
+  - type: Documentation
+    url: https://developers.trustlayer.io/v1/
+- aid: trustlayer:trustlayer-request-records-api
+  name: TrustLayer Request Records API
+  description: The Request Records API from TrustLayer — 7 operation(s) for request records.
+  humanURL: https://developers.trustlayer.io/v2
+  baseURL: https://api.trustlayer.io/v2
+  tags:
+  - Request Records
+  properties:
+  - type: OpenAPI
+    url: openapi/trustlayer-request-records-api-openapi.yml
+  - type: Documentation
+    url: https://developers.trustlayer.io/v2
+  - type: Documentation
+    url: https://developers.trustlayer.io/v1/
+- aid: trustlayer:trustlayer-requirements-api
+  name: TrustLayer Requirements API
+  description: The Requirements API from TrustLayer — 2 operation(s) for requirements.
+  humanURL: https://developers.trustlayer.io/v2
+  baseURL: https://api.trustlayer.io/v2
+  tags:
+  - Requirements
+  properties:
+  - type: OpenAPI
+    url: openapi/trustlayer-requirements-api-openapi.yml
+  - type: Documentation
+    url: https://developers.trustlayer.io/v2
+  - type: Documentation
+    url: https://developers.trustlayer.io/v1/
+- aid: trustlayer:trustlayer-tags-api
+  name: TrustLayer tags API
+  description: The tags API from TrustLayer — 4 operation(s) for tags.
+  humanURL: https://developers.trustlayer.io/v2
+  baseURL: https://api.trustlayer.io/v2
+  tags:
+  - tags
+  properties:
+  - type: OpenAPI
+    url: openapi/trustlayer-tags-api-openapi.yml
+  - type: Documentation
+    url: https://developers.trustlayer.io/v2
+  - type: Documentation
+    url: https://developers.trustlayer.io/v1/
+- aid: trustlayer:trustlayer-views-api
+  name: TrustLayer Views API
+  description: The Views API from TrustLayer — 2 operation(s) for views.
+  humanURL: https://developers.trustlayer.io/v2
+  baseURL: https://api.trustlayer.io/v2
+  tags:
+  - Views
+  properties:
+  - type: OpenAPI
+    url: openapi/trustlayer-views-api-openapi.yml
+  - type: Documentation
+    url: https://developers.trustlayer.io/v2
+  - type: Documentation
+    url: https://developers.trustlayer.io/v1/
+- aid: trustlayer:trustlayer-workspaces-api
+  name: TrustLayer Workspaces API
+  description: The Workspaces API from TrustLayer — 1 operation(s) for workspaces.
+  humanURL: https://developers.trustlayer.io/v2
+  baseURL: https://api.trustlayer.io/v2
+  tags:
+  - Workspaces
+  properties:
+  - type: OpenAPI
+    url: openapi/trustlayer-workspaces-api-openapi.yml
+  - type: Documentation
+    url: https://developers.trustlayer.io/v2
+  - type: Documentation
+    url: https://developers.trustlayer.io/v1/
 common:
+- type: DeveloperPortal
+  url: https://developers.trustlayer.io/
+- type: Documentation
+  url: https://developers.trustlayer.io/
+- type: APIReference
+  url: https://www.trustlayer.io/pages/developers
+- type: Authentication
+  url: authentication/trustlayer-authentication.yml
+- type: Webhooks
+  url: asyncapi/trustlayer-webhooks.yml
+- type: MCPServer
+  url: mcp/trustlayer-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/trustlayer-llms.txt
+- type: WellKnown
+  url: well-known/trustlayer-well-known.yml
+- type: Conformance
+  url: conformance/trustlayer-conformance.yml
+- type: ErrorCatalog
+  url: errors/trustlayer-problem-types.yml
+- type: Conventions
+  url: conventions/trustlayer-conventions.yml
+- type: Sandbox
+  url: sandbox/trustlayer-sandbox.yml
+- type: DataModel
+  url: data-model/trustlayer-data-model.yml
+- type: Lifecycle
+  url: lifecycle/trustlayer-lifecycle.yml
+- type: StatusPage
+  url: https://status.trustlayer.io
+- type: Deprecation
+  url: https://developers.trustlayer.io/v1/
+- type: DomainSecurity
+  url: security/trustlayer-domain-security.yml
+- type: TrustCenter
+  url: https://trust.trustlayer.io/
+- type: Blog
+  url: https://trustlayer.io/blog
+- type: SignUp
+  url: https://trustlayer.io/pages/starter
+- type: Login
+  url: https://app.trustlayer.io
+- type: TermsOfService
+  url: https://trustlayer.io/terms-of-service
+- type: PrivacyPolicy
+  url: https://trustlayer.io/privacy-policy
 - type: Website
   url: https://trustlayer.io
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 21
+  pass: local-v1

@@ -1,0 +1,49 @@
+generated: '2026-07-21'
+method: derived
+status: candidate
+source: openapi/trustlayer-platform-v1-openapi.yaml
+server:
+  name: trustlayer
+  transport: http
+  note: >-
+    No official TrustLayer MCP server was found (no hosted server, no
+    @modelcontextprotocol package, no registry entry). This is a CANDIDATE tool
+    surface derived from the v1 Platform API operations to seed a future MCP
+    server; every tool maps to a real operationId in the referenced spec.
+tools:
+- name: list_parties
+  description: List tracked vendors/parties.
+  source_operation: openapi/trustlayer-platform-v1-openapi.yaml#get-parties
+- name: create_party
+  description: Create a new party (vendor).
+  source_operation: openapi/trustlayer-platform-v1-openapi.yaml#post-parties
+- name: get_party
+  description: Retrieve a single party by id.
+  source_operation: openapi/trustlayer-platform-v1-openapi.yaml#get-parties-:id
+- name: list_party_contacts
+  description: List contacts for a party.
+  source_operation: openapi/trustlayer-platform-v1-openapi.yaml#get-parties-id-contacts
+- name: create_party_contact
+  description: Add a contact to a party.
+  source_operation: openapi/trustlayer-platform-v1-openapi.yaml#post-parties-id-contacts
+- name: request_party_documents
+  description: Send a document request to a party.
+  source_operation: openapi/trustlayer-platform-v1-openapi.yaml#post-parties-partyId-document-request
+- name: get_party_compliance_certificate
+  description: Get the compliance certificate for a party.
+  source_operation: openapi/trustlayer-platform-v1-openapi.yaml#get-parties-id-compliance-certificate
+- name: list_projects
+  description: List projects.
+  source_operation: openapi/trustlayer-platform-v1-openapi.yaml#get-projects
+- name: create_project
+  description: Create a project.
+  source_operation: openapi/trustlayer-platform-v1-openapi.yaml#post-projects
+- name: list_documents
+  description: List compliance documents.
+  source_operation: openapi/trustlayer-platform-v1-openapi.yaml#get-documents
+- name: get_document
+  description: Retrieve a document by id.
+  source_operation: openapi/trustlayer-platform-v1-openapi.yaml#get-documents-id
+- name: list_compliance_profiles
+  description: List compliance profiles (requirement sets).
+  source_operation: openapi/trustlayer-platform-v1-openapi.yaml#get-compliance-profiles

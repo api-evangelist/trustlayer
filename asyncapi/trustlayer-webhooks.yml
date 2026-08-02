@@ -1,0 +1,54 @@
+generated: '2026-07-21'
+method: searched
+spec_type: Webhooks
+source: https://developers.trustlayer.io/webhooks/
+summary: >-
+  TrustLayer delivers real-time notifications via HTTP POST to a subscriber URL,
+  carrying a JSON payload describing the event and the records it applies to.
+  Two models are documented: the "Current" model uses generic object/record
+  terminology that extends to any custom entity, and a legacy model scoped to
+  Parties and Projects. Webhook endpoints are registered, listed, and deleted
+  through the Platform API (v1 /webhooks and /settings/webhooks).
+delivery:
+  transport: http
+  method: POST
+  payload: application/json
+management:
+  register: POST https://api.trustlayer.io/v1/webhooks
+  list: GET https://api.trustlayer.io/v1/webhooks
+  settings: https://api.trustlayer.io/v1/settings/webhooks
+  delete: DELETE https://api.trustlayer.io/v1/webhooks/{webhook_id}
+event_groups:
+  current_model:
+  - primary-record-events
+  - primary-record-attribute-events
+  - primary-record-document-events
+  - primary-record-message-events
+  - primary-record-tag-events
+  - context-record-events
+  - context-record-attribute-events
+  - request-record-events
+  - request-record-attribute-events
+  - request-record-compliance-events
+  legacy_model_events:
+  - party_added
+  - party_removed
+  - party_compliance
+  - project_compliance
+  - record_compliance
+  - verification_removed
+payload_fields_observed:
+- primaryRecord.id
+- primaryRecord.name
+- document.id
+- document.name
+- attribute.id
+- attribute.name
+- attribute.value
+- attribute.previousValue
+notes: >-
+  The webhooks reference is published as a pre-rendered documentation page; a
+  standalone AsyncAPI/OpenAPI document is not separately downloadable (the
+  /webhooks/webhooks-api.yaml path serves the rendered HTML). Event group names
+  are the documented section categories; the snake_case values are concrete
+  legacy-model event types observed in the reference.

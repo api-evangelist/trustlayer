@@ -1,0 +1,22 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/trustlayer-platform-v1-openapi.yaml, openapi/trustlayer-platform-v2-openapi.yaml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: Token
+  type: apiKey
+  in: header
+  parameter: Authorization
+  sources:
+  - openapi/trustlayer-platform-v1-openapi.yaml
+- name: Bearer Auth
+  type: http
+  scheme: bearer
+  description: 'Enter your API token:'
+  sources:
+  - openapi/trustlayer-platform-v2-openapi.yaml

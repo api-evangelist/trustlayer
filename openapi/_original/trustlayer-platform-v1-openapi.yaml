@@ -1,0 +1,4963 @@
+openapi: 3.0.0
+info:
+  title: TrustLayer Platform API
+  version: '1.0'
+  contact:
+    name: TrustLayer Support
+    email: support@trustlayer.io
+  termsOfService: 'https://trustlayer.io/terms-of-service'
+  externalDocs:
+    description: OpenAPI specification
+    url: /v1/platform-api.yaml
+  description: |-
+    3rd-party API for the TrustLayer platform.
+
+    **Deprecated.** Platform API v1 is deprecated as of 01 June 2026 and is
+    scheduled for sunset (end-of-life) on 31 March 2027. It remains fully
+    available until the sunset date but will not receive new features. Please
+    migrate to Platform API v2 for new integrations.
+
+    All v1 responses carry the standard deprecation response headers
+    ([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)):
+
+    ```http
+    Deprecation: @1780272000
+    Sunset: Wed, 31 Mar 2027 23:59:59 GMT
+    Link: <https://developers.trustlayer.io/>; rel="deprecation", <https://developers.trustlayer.io/>; rel="sunset"
+    ```
+
+    `Deprecation: @1780272000` is the Unix timestamp for 2026-06-01T00:00:00Z;
+    sunset (end-of-life) is 2027-03-31T23:59:59 GMT.
+  x-deprecated: true
+  x-deprecation-date: '2026-06-01'
+  x-sunset: '2027-03-31'
+  license:
+    name: Apache 2.0
+    url: 'https://apache.org/licenses/LICENSE-2.0'
+servers:
+  - url: 'http://localhost:4000/v1'
+    description: Local
+  - url: 'https://api.trustlayer.io/v1'
+    description: Production
+paths:
+  /parties:
+    get:
+      summary: List parties
+      tags:
+        - parties
+      operationId: get-parties
+      deprecated: true
+      parameters:
+        - $ref: '#/components/parameters/sort'
+        - $ref: '#/components/parameters/page-number'
+        - $ref: '#/components/parameters/page-size'
+        - $ref: '#/components/parameters/filter'
+        - $ref: '#/components/parameters/include'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/party'
+                  meta:
+                    $ref: '#/components/schemas/collection-meta'
+              examples: {}
+      description: |
+        Available filters:
+        * `project`
+        * `name`
+        * `type`
+        * `status`
+        * `createdAt`
+        * `updatedAt`
+        * `customField`
+        * `externalId`
+        * `active`
+
+        Available sort keys:
+        * `name`
+        * `createdAt`
+        * `updatedAt`
+        * `status`
+
+        Available include options:
+        * `projects`
+        * `documents`
+        * `tags`
+        * `complianceProfile`
+        * `customFields`
+
+        Pagination is enabled.
+
+        Notes:
+
+        * the `type` filter takes either the singular or plural version of the type (e.g. "Vendor", "Vendors")
+        * valid values for the `status` filter: "non_compliant", "compliant".
+        * valid values for the `active` filter: "true", "false"
+        * by default both active and inactive parties are returned
+        * when filtering by `project`, the parties compliance data will be relative to the selected project
+        * the value of the `externalId` filter must be in the format `<provider name>/<external id>`, e.g. `procore/1234`
+        * the value of the `customField` filter must be in the format `<custom field id>;<field value>`. The only supported operator is `eq` (exact match, case-sensitive).
+    post:
+      summary: Create a new party
+      operationId: post-parties
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/party'
+      tags:
+        - parties
+      description: |-
+        Note that a placeholder primary contact will be created with the name "Anonymous" if no contact information is provided.
+
+        The compliance profile will be assigned based on the party type.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                party:
+                  $ref: '#/components/schemas/party-create'
+      x-internal: false
+  '/parties/{partyId}':
+    get:
+      summary: Fetch a party
+      tags:
+        - parties
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/party'
+                required:
+                  - status
+                  - data
+                readOnly: true
+      operationId: 'get-parties-:id'
+      deprecated: true
+      description: |
+        Available include options:
+        * `projects`
+        * `documents`
+        * `tags`
+        * `complianceProfile`
+        * `customFields`
+
+        Available scope options:
+        * `projects`
+
+        If `scope[type]=project`, the compliance information in the resulting response will be relative to the selected project.
+        If a project scope is specified _and_ documents are included, only documents associated to the project will be returned.
+      parameters:
+        - $ref: '#/components/parameters/include'
+        - $ref: '#/components/parameters/scope-type'
+        - $ref: '#/components/parameters/scope-id'
+    parameters:
+      - schema:
+          type: string
+        name: partyId
+        in: path
+        required: true
+        description: Party ID
+    patch:
+      summary: Update a party
+      operationId: patch-parties-partyId
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/party'
+      description: |-
+        The compliance profile can be either turned on/off by assigning `true` or `false` to `complianceProfile`, or it can be changed to another global compliance profile.
+        Note: if compliance tracking is turned back on (with `{"complianceProfile": true}`), the party will _not_ have a compliance profile assigned.
+      tags:
+        - parties
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                party:
+                  $ref: '#/components/schemas/party-update'
+      x-internal: false
+    delete:
+      summary: Delete a party
+      operationId: delete-parties-partyId
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/party'
+      description: TBD
+      x-internal: false
+      tags:
+        - parties
+  '/contacts/{contactId}':
+    parameters:
+      - schema:
+          type: string
+        name: contactId
+        in: path
+        required: true
+    get:
+      summary: Fetch a party contact's information
+      tags:
+        - contacts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/contact'
+                required:
+                  - status
+                  - data
+      operationId: get-contacts-id
+      deprecated: true
+      description: |-
+        Available include options:
+        * party
+      parameters:
+        - $ref: '#/components/parameters/include'
+    patch:
+      summary: Update a party contact's information
+      operationId: patch-contacts-id
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/contact'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                contact:
+                  $ref: '#/components/schemas/contact-update'
+      description: |-
+        Update a contact with the given data.
+
+        * setting the `primary` flag to `true` will remove it from the other contacts.
+        * setting the `primary` flag to `false` on the current primary contact will return a `400` response, since a primary contact must always exist.
+        * if given, `name` must be non-blank
+      tags:
+        - contacts
+      parameters: []
+      x-internal: false
+    delete:
+      summary: Remove contact information from a party
+      operationId: delete-contacts-id
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/contact'
+      description: This will return a `400` response if you try to remove the primary contact.
+      tags:
+        - contacts
+      x-internal: false
+  /documents:
+    get:
+      summary: List documents
+      tags:
+        - documents
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/document'
+                  meta:
+                    $ref: '#/components/schemas/collection-meta'
+      operationId: get-documents
+      deprecated: true
+      parameters:
+        - $ref: '#/components/parameters/filter'
+        - $ref: '#/components/parameters/sort'
+        - $ref: '#/components/parameters/page-number'
+        - $ref: '#/components/parameters/page-size'
+        - $ref: '#/components/parameters/include'
+      description: |-
+        Available filters:
+        * `name`
+        * `party`
+        * `project`
+        * `type`
+        * `archived`
+        * `reviewed`
+        * `createdAt`
+        * `updatedAt`
+        * `reviewedAt`
+        * `archivedAt`
+        * `expirationDate`
+
+        Available sort keys:
+        * `name`
+        * `createdAt`
+        * `updatedAt`
+        * `archivedAt`
+        * `reviewedAt`
+        * `expirationDate`
+
+        Available include options:
+        * `party`
+        * `projects`
+        * `reviewedBy`
+        * `archivedBy`
+        * `types`
+
+        Pagination is enabled.
+    post:
+      summary: Upload a document
+      operationId: post-documents
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                document:
+                  type: string
+                  format: binary
+                documentType:
+                  type: string
+                  x-stoplight:
+                    id: 5m0jog13c31x8
+                  description: Document type name or ID
+              required:
+                - document
+        description: File data
+      description: |-
+        This endpoint accepts a `multipart/form-data` payload containing a single `document` parameter.
+        The returned document will be queued for processing.
+        Optionally, a `documentType` parameter can be specified, containing either the exact name of an existing document type, or its ID.
+      parameters: []
+      tags:
+        - documents
+  '/documents/{documentId}':
+    parameters:
+      - schema:
+          type: string
+        name: documentId
+        in: path
+        required: true
+        description: Document ID
+    get:
+      summary: Fetch a document
+      tags:
+        - documents
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document'
+      operationId: get-documents-id
+      deprecated: true
+      description: |
+        Available include options:
+
+        * `party`
+        * `projects`
+        * `types`
+        * `archivedBy`
+        * `reviewedBy`
+
+        Notes:
+
+        - the uploaded file is accessible via the `url` attribute; the URL will expire in 24 hours.
+      parameters:
+        - $ref: '#/components/parameters/include'
+    patch:
+      summary: Update a document
+      operationId: patch-documents-documentId
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document'
+      tags:
+        - documents
+      description: |-
+        * Updating a document's data will trigger a recalc of the compliance status for all affected parties.
+        * You can specify a project scope; the party the document is attached to _must_ belong to the project
+
+        Requirements: the document _must_ belong to a party.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                document:
+                  $ref: '#/components/schemas/document-input'
+      parameters:
+        - $ref: '#/components/parameters/scope-type'
+        - $ref: '#/components/parameters/scope-id'
+      x-internal: false
+    delete:
+      summary: Delete a document
+      operationId: delete-documents-documentId
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document'
+      description: TBD
+      tags:
+        - documents
+  '/documents/{documentId}/review':
+    parameters:
+      - schema:
+          type: string
+        name: documentId
+        in: path
+        required: true
+        description: Document ID
+    delete:
+      summary: Remove the review from a document
+      operationId: delete-documents-id-review
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document'
+      description: |-
+        Mark the document as not reviewed. This will remove all the information about the current review status of the document.
+
+        Requirements: the document _must_ belong to a party.
+      tags:
+        - documents
+      parameters:
+        - $ref: '#/components/parameters/scope-type'
+        - $ref: '#/components/parameters/scope-id'
+    post:
+      summary: Review a document
+      operationId: put-documents-id-review
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document'
+      description: |-
+        Mark the document as reviewed by the given user. If the document has already been reviewed, no change will be made.
+
+        Requirements: the document _must_ belong to a party.
+      tags:
+        - documents
+      parameters:
+        - $ref: '#/components/parameters/scope-type'
+        - $ref: '#/components/parameters/scope-id'
+  '/documents/{documentId}/archive':
+    parameters:
+      - schema:
+          type: string
+        name: documentId
+        in: path
+        required: true
+        description: Document ID
+    delete:
+      summary: Un-archive a document
+      operationId: delete-documents-id-archive
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document'
+      description: Mark the document as not archived.
+      tags:
+        - documents
+      parameters:
+        - $ref: '#/components/parameters/scope-type'
+        - $ref: '#/components/parameters/scope-id'
+    post:
+      summary: Archive a document
+      operationId: post-documents-id-archive
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document'
+      description: Mark the document as archived.
+      tags:
+        - documents
+      parameters:
+        - $ref: '#/components/parameters/scope-type'
+        - $ref: '#/components/parameters/scope-id'
+  '/documents/{documentId}/reprocess':
+    parameters:
+      - schema:
+          type: string
+        name: documentId
+        in: path
+        required: true
+        description: Document ID
+    post:
+      summary: Reprocess a document
+      operationId: put-documents-id-review
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document'
+      description: |
+        Send the document to the extraction pipeline. The results will overwite the document's current data.
+      tags:
+        - documents
+      parameters: []
+  '/documents/{documentId}/flag':
+    parameters:
+      - schema:
+          type: string
+        name: documentId
+        in: path
+        required: true
+        description: Document ID
+    delete:
+      summary: Remove the flag from a document
+      operationId: delete-documents-id-flag
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document'
+      description: |-
+        Remove the existing flag data from a document (if any).
+
+        If the document belongs to a party, you can specify an additional project `scope` (the party must belong to the project). This will be used to log the event in the activity timeline.
+
+        Requirements: the document _must_ belong to a party.
+      tags:
+        - documents
+      parameters:
+        - $ref: '#/components/parameters/scope-type'
+        - $ref: '#/components/parameters/scope-id'
+    post:
+      summary: Flag a document or update the existing flag info
+      operationId: put-documents-id-flag
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document'
+      description: |
+        A document can have at most one flag. If a document is already flagged, existing data will be replaced.
+
+        * `addedOn` will default to the current time if left blank
+        * `severityLevel` and `user.id` are the only required parameters
+
+        If the document belongs to a party, you can specify an additional project `scope` (the party must belong to the project). This will be used to log the event in the activity timeline.
+
+        Requirements: the document _must_ belong to a party.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                flag:
+                  $ref: '#/components/schemas/document-flag-input'
+      tags:
+        - documents
+      parameters:
+        - $ref: '#/components/parameters/scope-type'
+        - $ref: '#/components/parameters/scope-id'
+  /projects:
+    get:
+      summary: List projects
+      tags:
+        - projects
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/project'
+                  meta:
+                    $ref: '#/components/schemas/collection-meta'
+      operationId: get-projects
+      deprecated: true
+      description: |
+        Available filters:
+        * `name`
+        * `status` ("compliant", "non_compliant", others?)
+        * `active`
+        * `createdAt`
+        * `updatedAt`
+        * `startDate`
+        * `endDate`
+        * `customField`
+        * `externalId`
+        * `active`
+
+
+        Available sort keys:
+        * `name`
+        * `createdAt`
+        * `updatedAt`
+        * `startDate`
+        * `endDate`
+
+        Available include options:
+        * `parties`
+        * `customFields`
+
+        Notes:
+
+        * the value of the `externalId` filter must be in the format `<provider name>/<external id>`, e.g. `procore/1234`
+        * the value of the `customField` filter must be in the format `<custom field id>/<field value>`. The only supported operator is `eq`.
+      parameters:
+        - $ref: '#/components/parameters/sort'
+        - $ref: '#/components/parameters/page-number'
+        - $ref: '#/components/parameters/page-size'
+        - $ref: '#/components/parameters/filter'
+        - $ref: '#/components/parameters/include'
+      x-internal: false
+    post:
+      summary: Create a new project
+      operationId: post-projects
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/project'
+      tags:
+        - projects
+      description: The only required attribute is `name`.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                project:
+                  $ref: '#/components/schemas/project-create'
+  '/projects/{projectId}':
+    parameters:
+      - schema:
+          type: string
+        name: projectId
+        in: path
+        required: true
+        description: Project ID
+    get:
+      summary: Fetch a project
+      tags:
+        - projects
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/project'
+      operationId: get-projects-id
+      deprecated: true
+      description: |
+        Available include options:
+        * `parties`
+        * `customFields`
+      parameters:
+        - $ref: '#/components/parameters/include'
+    patch:
+      summary: Update a custom field
+      operationId: patch-custom-fields
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/custom-field'
+      description: |-
+        Note
+
+        * required attributes (`name` and `fieldType`) _must_ always be specified
+        * at the moment it's not possible to specify custom requirementsand checklists.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                project:
+                  $ref: '#/components/schemas/project-update'
+        description: ''
+      tags:
+        - custom-fields
+      x-internal: false
+    delete:
+      summary: Delete a project
+      operationId: delete-projects-projectId
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/project'
+      description: Soft-deletes a project
+      tags:
+        - projects
+      x-internal: false
+  '/parties/{partyId}/contacts':
+    parameters:
+      - schema:
+          type: string
+        name: partyId
+        in: path
+        required: true
+        description: Party ID
+    post:
+      summary: Create a party contact
+      operationId: post-parties-id-contacts
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/party'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                contact:
+                  $ref: '#/components/schemas/contact-create'
+      description: |
+        * `name` is required.
+        * setting the `primary` flag to `true` will unset it from the current primary contact.
+      x-internal: false
+      tags:
+        - parties
+        - contacts
+    get:
+      summary: List a party's contacts
+      operationId: get-parties-id-contacts
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/contact'
+                  meta:
+                    $ref: '#/components/schemas/collection-meta'
+      description: 'Returns all the contacts for a party. Note that pagination is not available, so the meta information will always return the number of contacts in `totalCount` and 1 in `totalPages`.'
+      tags:
+        - parties
+        - contacts
+  '/parties/{partyId}/compliance-certificate':
+    parameters:
+      - schema:
+          type: string
+        name: partyId
+        in: path
+        required: true
+        description: Party ID
+    post:
+      summary: Create a party compliance certificate
+      operationId: post-parties-id-compliance-certificate-create
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                complianceCertificate:
+                  $ref: '#/components/schemas/compliance-certificate-create'
+          multipart/form-data:
+            schema:
+              type: object
+              properties: null
+              effectiveDate:
+                type: string
+                format: date-time
+              expirationDate:
+                type: string
+                format: date-time
+              document:
+                type: string
+                format: binary
+      description: |
+        * if `effectiveDate` is not provided, it will default to the current moment
+        * if `expirationDate` is not provided, it will default to the earliest expiration date found in currently active documents; if no document is present, it will default to 1 year from the effective date
+        * if `document` is provided (only for multipart/form-data), it will be uploaded to the party and used as the compliance certificate
+
+        Available `scope` options:
+
+        * `projects`
+      x-internal: false
+      tags:
+        - parties
+        - documents
+    get:
+      summary: Fetch a party's compliance certificate
+      operationId: get-parties-id-compliance-certificate
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document'
+      description: |
+        Returns the currently valid compliance certificate for a party, if it exists; otherwise it responds with a 404 status.
+
+        Available `scope` options:
+
+        * `projects`
+      tags:
+        - parties
+        - documents
+  '/parties/{partyId}/relationships/documents':
+    parameters:
+      - schema:
+          type: string
+        name: partyId
+        in: path
+        required: true
+        description: Party ID
+    post:
+      summary: Attach documents to a party
+      operationId: post-parties-id-relationships-documents
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/party'
+      description: |
+        Note that at any given time, a document can only be attached to one party.
+        If the document is already attached to another party, it will be ignored.
+
+        All documents _must_ exist, otherwise a 404 response will be returned and no document will be attached.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                documents:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/reference-input'
+              required:
+                - documents
+      tags:
+        - documents
+        - parties
+      parameters: []
+    delete:
+      summary: Detach a document from a party
+      operationId: delete-parties-id-relationships-documents
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/party'
+      tags:
+        - documents
+        - parties
+      description: |-
+        Once the document has been detached from its party, it can be reattached to a different party.
+
+        All documents _must_ exist, otherwise a 404 response will be returned and no document will be attached.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                documents:
+                  $ref: '#/components/schemas/reference-list-input'
+              required:
+                - documents
+  '/projects/{projectId}/relationships/parties':
+    parameters:
+      - schema:
+          type: string
+        name: projectId
+        in: path
+        required: true
+        description: Project ID
+    post:
+      summary: Add parties to a project
+      operationId: post-projects-id-relationships-parties
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/project'
+      tags:
+        - projects
+        - parties
+      description: |-
+        Parties that are already associated with the project are ignored.
+
+        All parties _must_ exist, otherwise a 404 response will be returned and no party will be added.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                parties:
+                  $ref: '#/components/schemas/reference-list-input'
+              required:
+                - parties
+    delete:
+      summary: Remove a party from a project
+      operationId: delete-projects-id-relationships-parties
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/project'
+      description: 'All parties _must_ exist, otherwise a 404 response will be returned and no party will be removed.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                parties:
+                  $ref: '#/components/schemas/reference-list-input'
+              required:
+                - parties
+      tags:
+        - parties
+        - projects
+  '/projects/{projectId}/relationships/documents':
+    parameters:
+      - schema:
+          type: string
+        name: projectId
+        in: path
+        required: true
+        description: Project ID
+    post:
+      summary: Attach documents to a project
+      operationId: post-projects-id-relationships-documents
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/project'
+      tags:
+        - projects
+        - documents
+      description: |-
+        A document can be attached to any number of projects.
+
+        All documents _must_ exist, otherwise a 404 response will be returned and no document will be attached.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                documents:
+                  $ref: '#/components/schemas/reference-list-input'
+              required:
+                - documents
+    delete:
+      summary: Detach documents from a project
+      operationId: delete-projects-id-relationships-documents
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/project'
+      description: 'All documents _must_ exist, otherwise a 404 response will be returned and no document will be detached.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                documents:
+                  $ref: '#/components/schemas/reference-list-input'
+              required:
+                - documents
+      tags:
+        - projects
+        - documents
+  '/parties/{partyId}/documents':
+    parameters:
+      - schema:
+          type: string
+        name: partyId
+        in: path
+        required: true
+        description: Party ID
+    post:
+      summary: Upload a document to a party
+      operationId: post-parties-id-documents
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document'
+      tags:
+        - documents
+        - parties
+      description: This will simultaneusly upload a document and attach it to the party.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                document:
+                  type: string
+                  format: binary
+                documentType:
+                  type: string
+                  x-stoplight:
+                    id: 8w8io4y2eiiha
+                  description: Document type name or ID
+              required:
+                - document
+  /tags:
+    get:
+      summary: List tags
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/tag'
+                  meta:
+                    $ref: '#/components/schemas/collection-meta'
+      operationId: get-tags
+      deprecated: true
+      description: 'Note: all tags are returned, in alphabetical order.'
+      tags:
+        - tags
+    post:
+      summary: Create a new tag
+      operationId: post-tags
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/tag'
+      tags:
+        - tags
+      description: The tag name must be unique
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tag:
+                  $ref: '#/components/schemas/tag-input'
+              required:
+                - tag
+    parameters: []
+  '/tags/{tagId}':
+    parameters:
+      - schema:
+          type: string
+        name: tagId
+        in: path
+        required: true
+        description: Tag ID
+    delete:
+      summary: Remove a tag
+      operationId: delete-tags-id
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/tag'
+      tags:
+        - tags
+      description: Note that this will also remove all related taggings
+  /party-types:
+    get:
+      summary: List party types
+      tags:
+        - party-types
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/party-type'
+                  meta:
+                    $ref: '#/components/schemas/collection-meta'
+      operationId: get-party-types
+      deprecated: true
+      description: 'Note that this will return all party types, sorted by name'
+    post:
+      summary: Create a party type
+      operationId: post-party-types
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/party-type'
+      tags:
+        - party-types
+      description: Note that you _must_ provide both the singular and plural names.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                partyType:
+                  $ref: '#/components/schemas/party-type-input'
+              required:
+                - partyType
+  /compliance-profiles:
+    get:
+      summary: List global compliance profiles
+      tags:
+        - compliance-profiles
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/compliance-profile'
+                  meta:
+                    $ref: '#/components/schemas/collection-meta'
+      operationId: get-compliance-profiles
+      deprecated: true
+      description: |
+        Available sort options:
+        * `name`
+        * `createdAt`
+        * `updatedAt`
+
+        Available filter options:
+        * `name`
+        * `moduleId`
+        * `subjectId`
+        * `createdAt`
+        * `updatedAt`
+
+        Notes:
+
+        - `moduleId` and `subjectId` filters only perform an exact match (case-sensitive); they do not support other operator
+      parameters:
+        - $ref: '#/components/parameters/page-number'
+        - $ref: '#/components/parameters/page-size'
+        - $ref: '#/components/parameters/filter'
+        - $ref: '#/components/parameters/sort'
+  '/compliance-profiles/{profileId}':
+    parameters:
+      - schema:
+          type: string
+        name: profileId
+        in: path
+        required: true
+        description: Compliance Profile ID
+    get:
+      summary: Fetch a compliance profile
+      tags:
+        - compliance-profiles
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/compliance-profile'
+      operationId: get-compliance-profiles-id
+      deprecated: true
+      description: 'Note that you can also fetch project, party, and custom field compliance profiles, not just global ones.'
+  '/parties/{partyId}/relationships/tags':
+    post:
+      summary: Tag a party
+      operationId: 'post-parties-:id-tags'
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/party'
+      tags:
+        - parties
+        - tags
+      description: 'Add one or more tags to a party. If an expiration date is passed, it will be applied to all the tags.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tags:
+                  $ref: '#/components/schemas/reference-list-input'
+                expiresAt:
+                  type: string
+                  x-stoplight:
+                    id: igcouna7q1x73
+                  format: date
+              required:
+                - tags
+    delete:
+      summary: ''
+      operationId: 'delete-parties-:id-tags'
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/party'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tags:
+                  $ref: '#/components/schemas/reference-list-input'
+      description: Remove one or more tags from a party.
+      tags:
+        - parties
+        - tags
+    parameters:
+      - schema:
+          type: string
+        name: partyId
+        in: path
+        required: true
+        description: Party ID
+  '/parties/{partyId}/relationships/documents/{documentId}':
+    parameters:
+      - schema:
+          type: string
+        name: partyId
+        in: path
+        required: true
+        description: Party ID
+      - schema:
+          type: string
+        name: documentId
+        in: path
+        required: true
+        description: Document ID
+    delete:
+      summary: Remove a document from a party
+      tags:
+        - parties
+        - documents
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/party'
+      operationId: get-parties-partyId-relationships-documents-documentId
+      deprecated: true
+      description: 'If you need to remove multiple documents at once you can use the alternative endpoint `DELETE /parties/{partyId}/relationships/documents`'
+  '/projects/{projectId}/relationships/documents/{documentId}':
+    parameters:
+      - schema:
+          type: string
+        name: projectId
+        in: path
+        required: true
+        description: Project ID
+      - schema:
+          type: string
+        name: documentId
+        in: path
+        required: true
+        description: Document ID
+    delete:
+      summary: Remove a document from a project
+      operationId: delete-projects-projectId-relationships-documents-documentId
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/project'
+      tags:
+        - projects
+        - documents
+      description: 'If you need to remove multiple documents at once you can use the alternative endpoint `DELETE /projects/{projectId}/relationships/documents`'
+  '/parties/{partyId}/relationships/tags/{tagId}':
+    parameters:
+      - schema:
+          type: string
+        name: partyId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: tagId
+        in: path
+        required: true
+    delete:
+      summary: Remove a tag from a party
+      operationId: delete-parties-partyId-relationships-tags-tagId
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/party'
+      tags:
+        - parties
+        - tags
+      description: 'If you need to remove multiple tags at once you can use the alternative endpoint `DELETE /parties/{partyId}/relationships/tags`'
+  '/projects/{projectId}/relationships/parties/{partyId}':
+    parameters:
+      - schema:
+          type: string
+        name: projectId
+        in: path
+        required: true
+        description: Project ID
+      - schema:
+          type: string
+        name: partyId
+        in: path
+        required: true
+        description: Party ID
+    delete:
+      summary: Remove a party from a project
+      operationId: delete-projects-projectId-relationships-parties-partyId
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/project'
+      tags:
+        - projects
+        - parties
+      description: 'If you need to remove multiple parties at once you can use the alternative endpoint `DELETE /projects/{projectId}/relationships/parties`'
+  /custom-fields:
+    get:
+      summary: List custom fields
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/custom-field'
+                  meta:
+                    $ref: '#/components/schemas/collection-meta'
+      operationId: get-custom-fields
+      deprecated: true
+      description: |-
+        All fields are returned in alphabetical order; pagination and sorting are not enabled.
+
+        Available include options:
+        * `complianceProfile`
+      tags:
+        - custom-fields
+    post:
+      summary: Create a new custom field
+      operationId: post-custom-fields
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/custom-field'
+      description: 'Note: at the moment it''s not possible to specify custom requirements and checklists.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customField:
+                  $ref: '#/components/schemas/custom-field-create'
+      tags:
+        - custom-fields
+  /reports:
+    get:
+      summary: List public reports
+      tags:
+        - reports
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/report'
+                  meta:
+                    $ref: '#/components/schemas/collection-meta'
+      operationId: get-reports
+      deprecated: true
+      parameters:
+        - $ref: '#/components/parameters/filter'
+        - $ref: '#/components/parameters/sort'
+      description: |
+        Available filter options:
+        - `type` (either `projects` or `parties`)
+
+        Available sort options:
+        - `name`
+        - `createdAt`
+      x-internal: false
+    post:
+      summary: Create a new report
+      operationId: post-reports
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/report'
+      description: TBD
+      tags:
+        - reports
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                report:
+                  $ref: '#/components/schemas/report-create'
+      x-internal: false
+  '/reports/{id}':
+    get:
+      summary: Fetch a public report
+      tags:
+        - reports
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/report'
+      operationId: 'get-reports-:id'
+      deprecated: true
+      description: TBD
+      x-internal: false
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: Report ID
+    patch:
+      summary: Update a report
+      operationId: 'post-reports-:id-id'
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/report'
+      description: TBD
+      tags:
+        - reports
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                report:
+                  $ref: '#/components/schemas/report-update'
+      x-internal: false
+    delete:
+      summary: Delete a report
+      operationId: 'delete-reports-:id-id'
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/report'
+      tags:
+        - reports
+      description: TBD
+      x-internal: false
+  '/parties/{partyId}/document-request':
+    get:
+      summary: Fetch the current document request
+      tags:
+        - parties
+        - documents
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document-request'
+      operationId: 'get-parties-:id-document-request'
+      deprecated: true
+      description: |-
+        This will return the latest document request sent for the party.
+
+        Available include options:
+        * `party`
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  $ref: '#/components/schemas/response-status'
+                data:
+                  type: object
+      parameters:
+        - $ref: '#/components/parameters/include'
+      x-internal: false
+    parameters:
+      - schema:
+          type: string
+        name: partyId
+        in: path
+        required: true
+        description: Party ID
+    post:
+      summary: Send a new document request
+      operationId: post-parties-partyId-document-request
+      deprecated: true
+      tags:
+        - parties
+        - documents
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document-request'
+      description: 'If a request already exists for this party, this will send a reminder.'
+      x-internal: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                request:
+                  $ref: '#/components/schemas/document-request-input'
+  '/custom-fields/{fieldId}':
+    parameters:
+      - schema:
+          type: string
+        name: fieldId
+        in: path
+        required: true
+    patch:
+      summary: Update a custom field
+      operationId: patch-custom-fields-fieldId
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/custom-field'
+      tags:
+        - custom-fields
+      description: Note that by specifying `options` you will _replace_ all the existing values.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customField:
+                  $ref: '#/components/schemas/custom-field-update'
+    delete:
+      summary: Delete a custom field
+      operationId: delete-custom-fields-fieldId
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/custom-field'
+      tags:
+        - custom-fields
+      description: This will also remove the field from any project that is using it.
+  '/projects/{projectId}/compliance-profile':
+    parameters:
+      - schema:
+          type: string
+        name: projectId
+        in: path
+        required: true
+    get:
+      summary: Fetch compliance profile for project
+      tags:
+        - projects
+        - compliance-profiles
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/compliance-profile'
+      operationId: get-projects-projectId-compliance-profile
+      deprecated: true
+      parameters:
+        - $ref: '#/components/parameters/scope-type'
+        - $ref: '#/components/parameters/scope-id'
+      description: |-
+        This will return the project-specific compliance profile relative to the given scope.
+
+        NOTE: it is _mandatory_ to specify a `scope`, which can be either a `party` (belonging to a project) or a `complianceProfile`.
+      x-internal: true
+  /import-parties:
+    post:
+      summary: Bulk upload parties
+      operationId: post-bulk-uploads-parties
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    type: array
+                    items:
+                      oneOf:
+                        - properties:
+                            id:
+                              type: string
+                        - properties:
+                            error:
+                              type: string
+                      type: object
+      tags:
+        - parties
+      x-internal: false
+      description: |
+        This endpoint allows you to bulk upload parties via a CSV file.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                parties:
+                  type: string
+        description: File data
+    parameters: []
+  '/parties/{partyId}/compliance-profile':
+    parameters:
+      - schema:
+          type: string
+        name: partyId
+        in: path
+        required: true
+    get:
+      summary: Fetch a party's compliance profile
+      tags:
+        - parties
+        - compliance-profiles
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/compliance-profile'
+      operationId: get-parties-partyId-compliance-profile
+      deprecated: true
+      description: |
+        This will return the compliance profile associated to the party. If the party is not tracking compliance you will get a 404 response.
+        By specifying a `scope` of type `projects`, the project-specific compliance profile will be returned.
+      parameters:
+        - $ref: '#/components/parameters/scope-type'
+        - $ref: '#/components/parameters/scope-id'
+    post:
+      summary: Assign compliance profile to a party
+      operationId: post-parties-partyId-compliance-profile
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+      tags:
+        - parties
+        - compliance-profiles
+      description: 'This operation will assign an existing compliance profile to a party. Unless the `scope` parameters are specified, the profile will be applied at the global level. To assign at the project level, include `scope[type]=projects` and `scope[id]={projectId}` to the query string.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                complianceProfile:
+                  $ref: '#/components/schemas/reference-input'
+      parameters:
+        - $ref: '#/components/parameters/scope-type'
+        - $ref: '#/components/parameters/scope-id'
+  '/parties/{partyId}/relationships/compliance-profile':
+    parameters:
+      - schema:
+          type: string
+        name: partyId
+        in: path
+        required: true
+    post:
+      summary: Assign a compliance profile to a party
+      operationId: post-parties-partyId-relationships-compliance-profile
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/party'
+      tags:
+        - parties
+        - compliance-profiles
+      description: |-
+        This will turn on compliance tracking on the party if it's currently turned off.
+        To assign a compliance profile for a specific project, specify it using the `scope` parameters.
+      parameters:
+        - $ref: '#/components/parameters/scope-type'
+        - $ref: '#/components/parameters/scope-id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                complianceProfile:
+                  $ref: '#/components/schemas/reference-input'
+      x-internal: true
+    delete:
+      summary: Remove the compliance profile from a party
+      operationId: delete-parties-partyId-relationships-compliance-profile
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/party'
+      tags:
+        - parties
+        - compliance-profiles
+      description: This will turn off compliance tracking both at the global level and in each of the party's projects.
+      x-internal: true
+  '/documents/{documentId}/relationships/projects':
+    parameters:
+      - schema:
+          type: string
+        name: documentId
+        in: path
+        required: true
+    post:
+      summary: Associate a document to multiple projects
+      operationId: post-documents-documentId-relationships-projects
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document'
+      tags:
+        - documents
+        - projects
+      description: TBD
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                projects:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/reference-input'
+  '/parties/{partyId}/custom-data':
+    parameters:
+      - schema:
+          type: string
+        name: partyId
+        in: path
+        required: true
+    patch:
+      summary: Update party custom data
+      operationId: patch-parties-partyId-custom-data
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/party'
+      description: |-
+        Add, remove or update party custom fields.
+
+        To remove a field, set its value to `null`.
+
+        A project `scope` can be specified; in that case the changes will be made only to the project specific values.
+      tags:
+        - parties
+        - custom-fields
+      parameters:
+        - $ref: '#/components/parameters/scope-type'
+        - $ref: '#/components/parameters/scope-id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customData:
+                  $ref: '#/components/schemas/custom-data-update'
+            examples:
+              example-1:
+                value:
+                  customData:
+                    - value: string
+                      customField:
+                        id: string
+  /branding:
+    get:
+      summary: List Branding
+      tags:
+        - branding
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/branding'
+                  meta:
+                    $ref: '#/components/schemas/collection-meta'
+      operationId: get-branding
+      deprecated: true
+      description: |
+        Available sort options:
+        * `name`
+        * `createdAt`
+        * `updatedAt`
+
+        Available filter options:
+        * `name`
+        * `createdAt`
+        * `updatedAt`
+      parameters:
+        - $ref: '#/components/parameters/page-number'
+        - $ref: '#/components/parameters/page-size'
+        - $ref: '#/components/parameters/filter'
+        - $ref: '#/components/parameters/sort'
+    post:
+      summary: Create a new branding
+      operationId: create-branding
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/branding'
+      tags:
+        - branding
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/branding-create'
+      x-internal: false
+  '/branding/{brandingId}':
+    parameters:
+      - schema:
+          type: string
+        name: brandingId
+        in: path
+        required: true
+        description: Branding ID
+    get:
+      summary: Fetch a Branding
+      tags:
+        - branding
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/branding'
+      operationId: get-branding-id
+      deprecated: true
+    put:
+      summary: Update branding
+      tags:
+        - branding
+      operationId: update-branding
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  settings:
+                    $ref: '#/components/schemas/branding'
+      description: Update an existing branding.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/branding-update'
+    delete:
+      summary: Delete a branding
+      operationId: delete-branding
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+      x-internal: false
+      tags:
+        - branding
+  '/parties/{partyId}/external-ids':
+    parameters:
+      - schema:
+          type: string
+        name: partyId
+        in: path
+        required: true
+    put:
+      summary: Update party external IDs
+      operationId: put-parties-partyId-external-ids
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    x-stoplight:
+                      id: mw0f1krerzazl
+                  data:
+                    $ref: '#/components/schemas/party'
+      description: |-
+        Update the list of external IDs for this party. The passed values will replace the current ones.
+        External IDs are in the format `source/id` or `source:instance/id`, where `instance` can be used to differentiate multiple instances of the same `source`.
+
+        Note that if the workspace is already integrated with one or more external systems, this endpoint should _not_ be used.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                x-stoplight:
+                  id: q64zlg3vm1r2v
+                type: string
+          application/xml:
+            schema:
+              type: object
+              properties:
+                externalIds:
+                  type: array
+                  x-stoplight:
+                    id: ttvioxricz1ci
+                  items:
+                    x-stoplight:
+                      id: 38k8raaok2122
+                    type: string
+  '/projects/{id}/external-ids':
+    put:
+      summary: Update project external IDs
+      operationId: 'put-projects-:id-external-ids'
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/project'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                externalIds:
+                  type: array
+                  x-stoplight:
+                    id: 2pkejdal5p5gq
+                  items:
+                    x-stoplight:
+                      id: 93pbk6htcs4v3
+                    type: string
+      description: |-
+        Update the list of external IDs for this project. The passed values will replace the current ones.
+        External IDs are in the format `source/id` or `source:instance/id`, where `instance` can be used to differentiate multiple instances of the same `source`.
+
+        Note that if the workspace is already integrated with one or more external systems, this endpoint should _not_ be used.
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+  '/parties/{id}/waive-requirement':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: Party ID
+    post:
+      summary: Waive or override a requirement
+      operationId: post-parties-partyId-waive-requirement
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  party:
+                    $ref: '#/components/schemas/party'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/waive-requirement'
+      parameters:
+        - $ref: '#/components/parameters/scope-type'
+        - $ref: '#/components/parameters/scope-id'
+      description: |-
+        Apply a waiver or an override to a requirement, identified by its full attribute ID (e.g. `evidenceOfInsuranceCommercialGeneralLiabilityGeneralAggregate`).
+
+        By passing in the query string a `scope[type]` of "projects" and a project ID which the party belongs to as `scope[id]`, the waiver will be applied only at the project level.
+
+        It's possible to apply the waiver automatically to all present and future projects by setting `applyToAllProjects` in the request body.
+  '/parties/{id}/waive-subject':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: Party ID
+    post:
+      summary: Waive or override a subject
+      operationId: post-parties-partyId-waive-requirement
+      deprecated: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  party:
+                    $ref: '#/components/schemas/party'
+        '':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/party'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/waive-subject'
+      description: |-
+        Apply a waiver or an override to a whole subject, identified by its full ID (e.g. `commercialGeneralLiability`).
+
+        By passing in the query string a `scope[type]` of "projects" and a project ID which the party belongs to as `scope[id]`, the waiver will be applied only at the project level.
+
+        It's possible to apply the waiver automatically to all present and future projects by setting `applyToAllProjects` in the request body.
+  '/parties/{partyId}/comments':
+    parameters:
+      - schema:
+          type: string
+        name: partyId
+        in: path
+        required: true
+    post:
+      summary: Post a comment on a party's timeline
+      operationId: post-parties-partyId-comments
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/party-comment'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/party-comment-input'
+  /document-types:
+    get:
+      summary: List Document Types
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    x-stoplight:
+                      id: 0c0z0q9yanm9p
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/document-type'
+                  meta:
+                    $ref: '#/components/schemas/collection-meta'
+      operationId: get-document-types
+      deprecated: true
+      description: 'This endpoint returns the complete list of document types. No pagination, filtering or sorting option is supported at the moment.'
+  '/document-types/{documentTypeId}':
+    get:
+      summary: Fetch Document Type
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document-type'
+        '':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/response-status'
+                  data:
+                    $ref: '#/components/schemas/document-type'
+      operationId: get-document-types-id
+      deprecated: true
+      description: This endpoint returns a single document type.
+    parameters:
+      - schema:
+          type: string
+        name: documentTypeId
+        in: path
+        required: true
+components:
+  schemas:
+    branding:
+      title: Branding
+      type: object
+      x-examples:
+        Example Branding:
+          type: branding
+          id: 60896067dd86e01e90199f45
+          name: Acme Inc
+          createdAt: '2023-12-13T14:07:12.950Z'
+          updatedAt: '2023-12-13T14:07:12.950Z'
+          logo:
+            url: 'https://trustlayer-documents.s3.us-west-1.amazonaws.com/...'
+            uploadedAt: '2023-08-24T14:15:22Z'
+            friendlyName: acme-logo.jpeg
+      properties:
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        logo:
+          type: object
+          properties:
+            url:
+              type: string
+            friendlyName:
+              type: string
+            uploadedAt:
+              type: string
+    branding-create:
+      title: branding-create
+      type: object
+      x-internal: true
+      x-tags:
+        - input
+      x-examples: {}
+      properties:
+        name:
+          type: string
+          minLength: 1
+        logo:
+          type: object
+          properties:
+            url:
+              type: string
+              minLength: 1
+            friendlyName:
+              type: string
+              minLength: 1
+          required:
+            - url
+            - friendlyName
+      required:
+        - name
+        - logo
+    branding-update:
+      title: branding-update
+      type: object
+      x-internal: true
+      x-tags:
+        - input
+      x-examples: {}
+      properties:
+        name:
+          type: string
+        logo:
+          type: object
+          properties:
+            url:
+              type: string
+            friendlyName:
+              type: string
+            uploadedAt:
+              type: string
+    party:
+      title: Party
+      type: object
+      x-examples:
+        Example Party:
+          id: 60896067dd86e01e90199f42
+          name: Test Party
+          address:
+            line1: 123 Main Street
+            line2: ''
+            city: Pleasantville
+            postalCode: '10200'
+            region: NY
+            country: US
+          type: Vendor
+          status: new
+          customData:
+            - value: '123'
+              customField:
+                type: customFields
+                id: 60896067dd86e01e90199f42
+          externalIds:
+            procore:
+              - id: '49843945'
+      properties:
+        type:
+          type: string
+          default: parties
+          readOnly: true
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+        address:
+          $ref: '#/components/schemas/address'
+        status:
+          type: string
+          enum:
+            - new
+            - compliant
+            - non_compliant
+            - inactive
+          readOnly: true
+        contacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/contact'
+        website:
+          type: string
+          nullable: true
+        active:
+          type: boolean
+        notes:
+          type: string
+          nullable: true
+        complianceStatus:
+          $ref: '#/components/schemas/compliance-status'
+        projects:
+          type: array
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/reference'
+              - $ref: '#/components/schemas/project'
+        projectStats:
+          type: object
+          properties:
+            compliantProjectsCount:
+              type: number
+            totalProjectsCount:
+              type: number
+        documents:
+          type: array
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/reference'
+              - $ref: '#/components/schemas/document'
+        partyType:
+          oneOf:
+            - $ref: '#/components/schemas/reference'
+            - $ref: '#/components/schemas/party-type'
+        tags:
+          type: array
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/taggging'
+              - $ref: '#/components/schemas/taggging-full'
+        complianceProfile:
+          oneOf:
+            - $ref: '#/components/schemas/reference'
+            - $ref: '#/components/schemas/compliance-profile'
+            - nullable: true
+        customData:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+              customField:
+                oneOf:
+                  - $ref: '#/components/schemas/reference'
+                  - $ref: '#/components/schemas/custom-field'
+        deletedAt:
+          type: string
+          format: date-time
+          nullable: true
+        deletedBy:
+          oneOf:
+            - nullable: true
+            - $ref: '#/components/schemas/reference'
+        externalIds:
+          type: object
+          x-stoplight:
+            id: zk87opteuie3w
+    response-status:
+      type: string
+      title: Response Status
+      enum:
+        - success
+        - fail
+        - error
+      readOnly: true
+      x-examples:
+        Success: success
+      description: 'The possible values are "success", "fail", and "error".'
+      x-internal: true
+    contact:
+      title: Contact
+      type: object
+      x-examples:
+        Example Contact:
+          type: contacts
+          id: 60896067dd86e01e90199f43
+          name: Jane Smith
+          company: Acme Inc
+          email: jane.smith@example.com
+          phone: (555) 555-5555
+          fax: ''
+          title: Director
+          primary: true
+          defaultRequestRecipient: false
+          avatar: ''
+          party:
+            type: parties
+            id: 60896067dd86e01e90199f43
+      properties:
+        type:
+          type: string
+          default: contacts
+          readOnly: true
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+        company:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        fax:
+          type: string
+        title:
+          type: string
+        primary:
+          type: boolean
+          default: false
+        defaultRequestRecipient:
+          type: boolean
+          default: false
+        avatar:
+          type: string
+        party:
+          oneOf:
+            - $ref: '#/components/schemas/reference'
+            - $ref: '#/components/schemas/party'
+        externalId:
+          type: string
+          x-stoplight:
+            id: 07yyrzkup5tdk
+    document:
+      type: object
+      title: Document
+      x-examples:
+        Example document:
+          type: documents
+          id: 60a27c51fcd891823568ed35
+          issuedBy:
+            name: ''
+            address: ''
+            contactName: ''
+            phone: ''
+            email: ''
+          reviewedAt: '2019-08-24T14:15:22Z'
+          archivedAt: '2019-08-24T14:15:22Z'
+          notes: ''
+          status: processed
+          types:
+            - type: document-types
+              id: 60a27c517fd4e152a9642347
+          flag:
+            addedOn: '2019-08-24T14:15:22Z'
+            severityLevel: low
+            affectedSubjects:
+              - string
+            notes: ''
+            user:
+              id: 60a27c51fcd891823568ed24
+              type: users
+          appliesToAllProjects: true
+          expirationDate: '2019-08-24'
+          friendlyName: Acord25.pdf
+          data: {}
+          metadata: {}
+          updatedAt: '2019-08-24T14:15:22Z'
+          createdAt: '2019-08-24T14:15:22Z'
+          archivedBy:
+            id: 60a27c51fcd891823568ed24
+            type: users
+          reviewedBy: null
+          url: 'https://trustlayer-documents.s3.us-west-1.amazonaws.com/...'
+          issueDate: '2019-01-22'
+      properties:
+        type:
+          type: string
+          default: documents
+          readOnly: true
+        id:
+          type: string
+          readOnly: true
+        issuedBy:
+          type: object
+          properties:
+            name:
+              type: string
+            address:
+              type: string
+            contactName:
+              type: string
+            phone:
+              type: string
+            email:
+              type: string
+        reviewedAt:
+          type: string
+          format: date-time
+          readOnly: true
+        archivedAt:
+          type: string
+          format: date-time
+          readOnly: true
+        notes:
+          type: string
+        status:
+          type: string
+          minLength: 1
+          readOnly: true
+        types:
+          type: array
+          uniqueItems: true
+          minItems: 0
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/reference'
+              - $ref: '#/components/schemas/document-type'
+        flag:
+          type: object
+          properties:
+            addedOn:
+              type: string
+              format: date-time
+            severityLevel:
+              type: string
+              minLength: 1
+              enum:
+                - low
+                - medium
+                - high
+            affectedSubjects:
+              type: array
+              uniqueItems: true
+              items:
+                type: string
+            notes:
+              type: string
+            user:
+              oneOf:
+                - $ref: '#/components/schemas/reference'
+                - $ref: '#/components/schemas/user'
+        appliesToAllProjects:
+          type: boolean
+        expirationDate:
+          type: string
+          format: date
+        name:
+          type: string
+          minLength: 1
+        data:
+          type: object
+        metadata:
+          type: object
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        archivedBy:
+          oneOf:
+            - $ref: '#/components/schemas/reference'
+            - $ref: '#/components/schemas/user'
+            - nullable: true
+        reviewedBy:
+          oneOf:
+            - $ref: '#/components/schemas/reference'
+            - $ref: '#/components/schemas/user'
+            - nullable: true
+        url:
+          type: string
+        insurers:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              naic:
+                type: string
+              rating:
+                type: string
+              ratingEffectiveDate:
+                type: string
+                format: date-time
+              financialSizeCategory:
+                type: string
+              ratingModifier:
+                type: string
+              ratingAction:
+                type: string
+              ratingImplication:
+                type: string
+              extractedName:
+                type: string
+              canonicalName:
+                type: string
+            required:
+              - id
+              - naic
+        deletedAt:
+          type: string
+          format: date-time
+        deletedBy:
+          oneOf:
+            - $ref: '#/components/schemas/reference'
+            - $ref: '#/components/schemas/user'
+        issueDate:
+          type: string
+          format: date
+          readOnly: true
+    document-type:
+      description: ''
+      type: object
+      title: Document Type
+      x-examples:
+        Certificate of insurance:
+          type: document-types
+          id: 60a27c517fd4e152a9642347
+          name: Certificate of Insurance
+          system: true
+          pluralName: Certificates of Insurance
+      properties:
+        type:
+          type: string
+          default: document-types
+          readOnly: true
+        id:
+          type: string
+        name:
+          type: string
+          minLength: 1
+        system:
+          type: boolean
+        pluralName:
+          type: string
+          minLength: 1
+      required:
+        - id
+        - name
+        - system
+        - pluralName
+    user:
+      description: ''
+      type: object
+      properties:
+        id:
+          type: string
+        profile:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 1
+            phone:
+              type: string
+            title:
+              type: string
+            avatar:
+              type: string
+            role:
+              type: string
+            department:
+              type: string
+            timezone:
+              type: string
+        email:
+          type: string
+          minLength: 1
+        isActive:
+          type: boolean
+        type:
+          type: string
+          default: users
+          readOnly: true
+      title: User
+    reference:
+      title: Reference
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+      description: Generic object reference
+      x-internal: false
+      x-examples:
+        Generic reference example:
+          id: 60896067dd86e01e90199f43
+          type: widgets
+    project:
+      title: Project
+      type: object
+      x-examples:
+        Example project:
+          type: projects
+          id: 60a3dc67cba60c04739e8e46
+          name: Test Project
+          parties:
+            - id: 60896067dd86e01e90199f42
+              type: parties
+          customData:
+            - value: '123'
+              customField:
+                type: customFields
+                id: 60896067dd86e01e90199f42
+          externalIds:
+            procore:
+              - id: '49843945'
+      properties:
+        type:
+          type: string
+          default: projects
+          readOnly: true
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        startDate:
+          type: string
+          format: date-time
+          nullable: true
+        endDate:
+          type: string
+          format: date-time
+          nullable: true
+        active:
+          type: boolean
+        parties:
+          type: array
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/reference'
+              - $ref: '#/components/schemas/party'
+              - type: string
+        customData:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+              customField:
+                oneOf:
+                  - $ref: '#/components/schemas/reference'
+                  - $ref: '#/components/schemas/custom-field'
+        complianceStatus:
+          type: object
+          properties:
+            status:
+              type: string
+              enum:
+                - compliant
+                - non_compliant
+            compliantPartiesCount:
+              type: number
+            totalPartiesCount:
+              type: number
+            complianceScore:
+              type: number
+        deletedAt:
+          type: string
+          format: date-time
+          nullable: true
+        deletedBy:
+          oneOf:
+            - nullable: true
+            - $ref: '#/components/schemas/reference'
+        externalIds:
+          type: object
+          x-stoplight:
+            id: uw5iuj9nds4en
+    compliance-status:
+      type: object
+      title: Compliance Status
+      properties:
+        complianceProfile:
+          $ref: '#/components/schemas/reference'
+        nextExpirationDate:
+          type: string
+          format: date-time
+          nullable: true
+        latestExpirationDate:
+          type: string
+          format: date-time
+          nullable: true
+        modules:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              label:
+                type: string
+              status:
+                type: string
+                enum:
+                  - compliant
+                  - non_compliant
+              documents:
+                type: array
+                items:
+                  $ref: '#/components/schemas/compliance-document'
+              documentsCount:
+                type: number
+                example: 1
+              subjects:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    label:
+                      type: string
+                    status:
+                      type: string
+                      enum:
+                        - compliant
+                        - non_compliant
+                        - waived
+                        - overridden
+                    notes:
+                      type: string
+                    effectiveDate:
+                      type: string
+                      format: date-time
+                      nullable: true
+                    expirationDate:
+                      type: string
+                      format: date-time
+                      nullable: true
+                    latestExpirationDate:
+                      type: string
+                      format: date-time
+                      nullable: true
+                    latestValidEffectiveDate:
+                      type: string
+                      format: date-time
+                      nullable: true
+                    latestValidExpirationDate:
+                      type: string
+                      format: date-time
+                      nullable: true
+                    documents:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/compliance-document'
+                    documentsCount:
+                      type: number
+                    resetOn:
+                      type: string
+                      format: date-time
+                      nullable: true
+                    requirements:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          label:
+                            type: string
+                          moduleId:
+                            type: string
+                          moduleLabel:
+                            type: string
+                          subjectId:
+                            type: string
+                          subjectLabel:
+                            type: string
+                          attributeId:
+                            type: string
+                          attributeLabel:
+                            type: string
+                          attributeDescription:
+                            type: string
+                          matchingCriteria:
+                            type: string
+                            enum:
+                              - matchOnce
+                              - matchRepeatedly
+                          operator:
+                            type: string
+                            enum:
+                              - must be present
+                              - must be greater or equal to
+                              - must be less or equal to
+                              - must be completed by
+                              - at least one must be present from list
+                          targetValue:
+                            type: string
+                          value:
+                            type: string
+                          status:
+                            type: string
+                            enum:
+                              - compliant
+                              - non_compliant
+                              - waived
+                              - overridden
+                              - invalidated
+                          invalidatedBy:
+                            type: array
+                            items:
+                              type: string
+                          notes:
+                            type: string
+                          publicNotes:
+                            type: string
+                          documents:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/compliance-document'
+                          documentsCount:
+                            type: number
+                          resetOn:
+                            type: string
+                            format: date-time
+                            nullable: true
+                          custom:
+                            type: boolean
+                        required:
+                          - id
+                          - label
+                          - moduleId
+                          - moduleLabel
+                          - subjectId
+                          - subjectLabel
+                          - attributeId
+                          - attributeLabel
+                          - matchingCriteria
+                          - operator
+                          - status
+                          - documents
+                          - documentsCount
+                          - custom
+                  required:
+                    - id
+                    - label
+                    - status
+                    - documents
+                    - documentsCount
+                    - requirements
+            required:
+              - id
+              - label
+              - status
+              - documents
+              - documentsCount
+              - subjects
+        subjects:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              effectiveDate:
+                type: string
+                format: date-time
+                nullable: true
+              expirationDate:
+                type: string
+                format: date-time
+                nullable: true
+              latestValidEffectiveDate:
+                type: string
+                format: date-time
+                nullable: true
+              latestValidExpirationDate:
+                type: string
+                format: date-time
+                nullable: true
+              notes:
+                type: string
+              requirementsStatus:
+                type: string
+                enum:
+                  - compliant
+                  - non_compliant
+                  - waived
+                  - overridden
+              resetRequirementsOn:
+                type: string
+                format: date-time
+                nullable: true
+        requirements:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              label:
+                type: string
+              operator:
+                type: string
+              targetValue:
+                type: string
+              actualValue:
+                type: string
+              status:
+                type: string
+                enum:
+                  - compliant
+                  - non_compliant
+                  - waived
+                  - overridden
+                  - invalidated
+              waiverOrOverrideNotes:
+                type: string
+              waiverOrOverrideExpirationDate:
+                type: string
+                format: date-time
+                nullable: true
+        status:
+          type: string
+          enum:
+            - compliant
+            - non_compliant
+        lastChangedAt:
+          type: string
+          format: date-time
+      required:
+        - complianceProfile
+        - modules
+        - subjects
+        - requirements
+        - status
+      x-examples:
+        Example compliance status:
+          complianceProfile:
+            id: 60a27c51fcd891823568ed27
+            type: compliance-profiles
+          nextExpirationDate: '2024-11-14T00:00:00.000Z'
+          latestExpirationDate: '2025-12-19T23:59:59.999Z'
+          modules:
+            - id: evidenceOfInsurance
+              label: Evidence of Insurance
+              status: compliant
+              documents:
+                - id: 6877a0b2d7a1998eeb7f7f2f
+                  origin: upload
+                  complianceStatus: compliant
+              documentsCount: 1
+              subjects:
+                - id: commercialGeneralLiability
+                  label: Commercial General Liability
+                  status: compliant
+                  notes: lorem ipsum dolor sit amet
+                  effectiveDate: '2024-11-14T00:00:00.000Z'
+                  expirationDate: '2025-11-14T23:59:59.999Z'
+                  latestExpirationDate: '2025-12-19T23:59:59.999Z'
+                  latestValidEffectiveDate: '2024-11-14T00:00:00.000Z'
+                  latestValidExpirationDate: '2025-11-14T23:59:59.999Z'
+                  documents:
+                    - id: 6877a0b2d7a1998eeb7f7f2f
+                      origin: upload
+                      complianceStatus: compliant
+                  documentsCount: 1
+                  resetOn: '2025-06-02T00:00:00.000Z'
+                  requirements:
+                    - id: evidenceOfInsurance.commercialGeneralLiability.evidenceOfInsuranceCommercialGeneralLiabilityGeneralAggregate
+                      label: 'Evidence of Insurance : Commercial General Liability : General Aggregate'
+                      moduleId: evidenceOfInsurance
+                      moduleLabel: Evidence of Insurance
+                      subjectId: commercialGeneralLiability
+                      subjectLabel: Commercial General Liability
+                      attributeId: evidenceOfInsuranceCommercialGeneralLiabilityGeneralAggregate
+                      attributeLabel: General Aggregate
+                      matchingCriteria: matchOnce
+                      operator: must be greater or equal to
+                      targetValue: '1000000'
+                      value: '2000000'
+                      status: compliant
+                      invalidatedBy:
+                        - evidenceOfInsuranceCommercialGeneralLiabilityAMBestRating
+                      notes: lorem ipsum dolor sit amet
+                      publicNotes: lorem ipsum dolor sit amet
+                      documents:
+                        - id: 6877a0b2d7a1998eeb7f7f2f
+                          origin: upload
+                          complianceStatus: compliant
+                      documentsCount: 1
+                      resetOn: '2025-06-02T00:00:00.000Z'
+                      custom: false
+          subjects:
+            - id: commercialGeneralLiability
+              effectiveDate: '2024-11-14T00:00:00.000Z'
+              expirationDate: '2025-11-14T23:59:59.999Z'
+              latestValidEffectiveDate: '2024-11-14T00:00:00.000Z'
+              latestValidExpirationDate: '2025-11-14T23:59:59.999Z'
+              latestExpirationDate: '2025-12-19T23:59:59.999Z'
+              notes: lorem ipsum dolor sit amet
+              requirementsStatus: compliant
+              resetRequirementsOn: '2025-06-02T00:00:00.000Z'
+          requirements:
+            - id: evidenceOfInsurance.commercialGeneralLiability.evidenceOfInsuranceCommercialGeneralLiabilityGeneralAggregate
+              label: 'Evidence of Insurance : Commercial General Liability : General Aggregate'
+              operator: must be greater or equal to
+              targetValue: '1000000'
+              actualValue: '2000000'
+              status: compliant
+              waiverOrOverrideNotes: lorem ipsum dolor sit amet
+              waiverOrOverrideExpirationDate: '2025-06-02T00:00:00.000Z'
+          status: compliant
+          lastChangedAt: '2025-07-16T17:55:00.000Z'
+    compliance-document:
+      x-internal: true
+      title: Compliance Document
+      type: object
+      properties:
+        id:
+          type: string
+        origin:
+          type: string
+          enum:
+            - upload
+            - makeCompliant
+            - connectedDocument
+            - fillableForm
+            - webForm
+        complianceStatus:
+          type: string
+          enum:
+            - compliant
+            - non_compliant
+    tag:
+      title: Tag
+      type: object
+      properties:
+        type:
+          type: string
+          default: tags
+        id:
+          type: string
+        name:
+          type: string
+        color:
+          type: string
+    taggging:
+      title: Tagging
+      type: object
+      properties:
+        type:
+          type: string
+          default: tags
+        id:
+          type: string
+        addedAt:
+          type: string
+          format: date
+        addedBy:
+          type: string
+        expiresAt:
+          type: string
+          x-stoplight:
+            id: 8xpna1blern8o
+          format: date
+    taggging-full:
+      title: Tagging (full data)
+      type: object
+      properties:
+        type:
+          type: string
+          default: tags
+        id:
+          type: string
+        name:
+          type: string
+        color:
+          type: string
+        addedAt:
+          type: string
+          format: date
+        addedBy:
+          type: string
+    party-type:
+      title: Party Type
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          default: party-types
+        name:
+          type: string
+        pluralName:
+          type: string
+        defaultComplianceProfile:
+          oneOf:
+            - $ref: '#/components/schemas/reference'
+            - $ref: '#/components/schemas/compliance-profile'
+      x-examples:
+        Vendor:
+          id: 60a27c51fcd891823568ed28
+          type: party-types
+          name: Vendor
+          pluralName: Vendors
+          defaultComplianceProfile:
+            id: 60a27c51fcd891823568ed27
+            type: compliance-profiles
+    compliance-profile:
+      title: Compliance Profile
+      type: object
+      x-examples:
+        Example compliance profile:
+          id: 60a27c51fcd891823568ed27
+          type: compliance-profiles
+          name: Default compliance profile
+          rules:
+            - moduleId: evidenceOfInsurance
+              moduleLabel: Evidence of Insurance
+              subjectId: commercialGeneralLiability
+              subjectLabel: Commercial General Liability
+              attributeId: evidenceOfInsuranceCommercialGeneralLiabilityEachOccurrence
+              attributeLabel: Each Occurrence
+              attributeType: number
+              attributeDescription: ''
+              masterDocumentAttributeId: commercialGeneralLiabilityLimitsGeneralAggregate
+              operator: must be greater or equal to
+              targetValue: '2000000'
+          context: global
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          default: compliance-profiles
+        name:
+          type: string
+          example: Default compliance profile
+        rules:
+          type: array
+          items:
+            type: object
+            properties:
+              moduleId:
+                type: string
+                minLength: 1
+                example: evidenceOfInsurance
+              moduleLabel:
+                type: string
+                minLength: 1
+                example: Evidence of Insurance
+              subjectId:
+                type: string
+                minLength: 1
+                example: commercialGeneralLiability
+              subjectLabel:
+                type: string
+                minLength: 1
+                example: Commercial General Liability
+              attributeId:
+                type: string
+                minLength: 1
+                example: evidenceOfInsuranceCommercialGeneralLiabilityEachOccurrence
+              attributeLabel:
+                type: string
+                minLength: 1
+                example: Each Occurrence
+              attributeType:
+                type: string
+                minLength: 1
+                example: number
+              attributeDescription:
+                type: string
+              masterDocumentAttributeId:
+                type: string
+                minLength: 1
+                example: commercialGeneralLiabilityLimitsGeneralAggregate
+              operator:
+                type: string
+                minLength: 1
+                example: must be greater or equal to
+              targetValue:
+                type: string
+                minLength: 1
+                example: '2000000'
+        context:
+          type: string
+          enum:
+            - global
+            - project
+            - custom-field
+        documentChecklists:
+          type: array
+          items:
+            type: object
+            properties:
+              attributeId:
+                type: string
+              attributeLabel:
+                type: string
+              active:
+                type: boolean
+    document-flag-input:
+      type: object
+      x-examples:
+        Minimal flag:
+          severityLevel: low
+          user:
+            id: 60896067dd86e01e90199f43
+      title: document-flag-input
+      x-internal: true
+      x-tags:
+        - input
+      properties:
+        addedOn:
+          type: string
+          minLength: 1
+        level:
+          type: string
+          minLength: 1
+          enum:
+            - low
+            - medium
+            - high
+        subjects:
+          type: array
+          items:
+            type: string
+        notes:
+          type: string
+          minLength: 1
+      required:
+        - level
+    reference-input:
+      title: reference-input
+      type: object
+      properties:
+        id:
+          type: string
+          minLength: 24
+          maxLength: 24
+          pattern: '^[a-z0-9]{24}$'
+      required:
+        - id
+      x-internal: true
+      x-tags:
+        - input
+    contact-create:
+      type: object
+      x-examples:
+        Minimal contact:
+          value:
+            name: John Doe
+            email: johndoe@exampple.com
+      title: contact-create
+      x-internal: true
+      x-tags:
+        - input
+      properties:
+        name:
+          type: string
+          minLength: 1
+        email:
+          type: string
+        company:
+          type: string
+        phone:
+          type: string
+        fax:
+          type: string
+        title:
+          type: string
+        avatar:
+          type: string
+        primary:
+          type: boolean
+        defaultRequestRecipient:
+          type: boolean
+        externalId:
+          type: string
+          x-stoplight:
+            id: fj78rangs2n3d
+      required:
+        - name
+    primary-contact-create:
+      type: object
+      x-stoplight:
+        id: hh4aywz83nhyi
+      x-examples:
+        Minimal contact:
+          value:
+            name: John Doe
+            email: johndoe@exampple.com
+      title: primary-contact-create
+      x-internal: true
+      x-tags:
+        - input
+      properties:
+        name:
+          type: string
+          minLength: 1
+        email:
+          type: string
+        company:
+          type: string
+        phone:
+          type: string
+        fax:
+          type: string
+        title:
+          type: string
+        avatar:
+          type: string
+        defaultRequestRecipient:
+          type: boolean
+        externalId:
+          type: string
+          x-stoplight:
+            id: fj78rangs2n3d
+      required:
+        - name
+    contact-update:
+      description: ''
+      type: object
+      title: contact-update
+      x-internal: true
+      x-examples:
+        New primary contact:
+          value:
+            primary: true
+      x-tags:
+        - input
+      properties:
+        name:
+          type: string
+          minLength: 1
+        email:
+          type: string
+        phone:
+          type: string
+        fax:
+          type: string
+        company:
+          type: string
+        title:
+          type: string
+        avatar:
+          type: string
+        primary:
+          type: boolean
+        defaultRequestRecipient:
+          type: boolean
+        externalId:
+          type: string
+          x-stoplight:
+            id: rqfr3clb0btce
+    tag-input:
+      title: tag-input
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 3
+          description: Tag name
+        color:
+          type: string
+          pattern: '^#[0-9a-f]{6}$'
+          example: '#ff0000'
+          description: Color of the tag in hex format
+          minLength: 7
+          maxLength: 7
+      required:
+        - name
+      x-internal: true
+      x-tags:
+        - input
+    party-type-input:
+      title: party-type-input
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+        pluralName:
+          type: string
+          minLength: 1
+        defaultComplianceProfile:
+          $ref: '#/components/schemas/reference-input'
+      required:
+        - name
+        - pluralName
+      x-internal: true
+      x-tags:
+        - input
+    custom-field:
+      title: Custom Field
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          default: custom-fields
+        name:
+          type: string
+          description: Custom field label
+        'description ':
+          type: string
+          description: Optional description
+        color:
+          type: string
+          pattern: '^#[a-f0-9]{6}$'
+          description: 'Field color in #rrggbb format'
+        fieldType:
+          type: string
+          default: text
+          enum:
+            - text
+            - number
+            - dropdown
+        options:
+          type: array
+          description: List of options for the dropdown
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+                description: Unique identifier for the option
+              value:
+                type: string
+                description: Option label
+        complianceProfile:
+          oneOf:
+            - $ref: '#/components/schemas/reference'
+            - $ref: '#/components/schemas/compliance-profile'
+        associatedEntities:
+          type: array
+          enum:
+            - party
+            - project
+          description: List of entity types that can use this custom field
+          items:
+            type: string
+    custom-field-create:
+      title: custom-field-create
+      type: object
+      x-internal: true
+      x-tags:
+        - input
+      x-examples: {}
+      properties:
+        name:
+          type: string
+          minLength: 1
+        description:
+          type: string
+        color:
+          type: string
+          pattern: '^#[0-9a-f]{6}$'
+          minLength: 7
+          maxLength: 7
+          example: '#ffa900'
+        fieldType:
+          type: string
+          enum:
+            - text
+            - number
+            - dropdown
+        source:
+          type: string
+          enum:
+            - branding
+        associatedEntities:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+              - party
+              - project
+            default: party
+        options:
+          type: array
+          minItems: 1
+          items:
+            type: string
+      required:
+        - name
+        - fieldType
+    custom-field-update:
+      title: custom-field-update
+      type: object
+      x-internal: true
+      x-tags:
+        - input
+      properties:
+        name:
+          type: string
+          minLength: 1
+        description:
+          type: string
+        color:
+          type: string
+          pattern: '^#[0-9a-f]{6}$'
+          minLength: 7
+          maxLength: 7
+          example: '#ffa900'
+        fieldType:
+          type: string
+          enum:
+            - text
+            - number
+            - dropdown
+        source:
+          type: string
+          enum:
+            - branding
+        options:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            minLength: 1
+    party-create:
+      title: party-create
+      type: object
+      x-internal: true
+      x-examples: {}
+      x-tags:
+        - input
+      properties:
+        name:
+          type: string
+          minLength: 1
+          description: The party name
+        partyType:
+          $ref: '#/components/schemas/reference-input'
+        website:
+          type: string
+        notes:
+          type: string
+        address:
+          $ref: '#/components/schemas/address-input'
+        complianceProfile:
+          $ref: '#/components/schemas/reference-input'
+        customData:
+          type: array
+          items:
+            type: object
+            properties:
+              customField:
+                $ref: '#/components/schemas/reference-input'
+              value:
+                type: string
+                nullable: false
+            required:
+              - customField
+              - value
+        externalIds:
+          type: array
+          x-stoplight:
+            id: 4qem3ah39b27i
+          items:
+            x-stoplight:
+              id: 6g07uxhly8v89
+            type: string
+        primaryContact:
+          $ref: '#/components/schemas/primary-contact-create'
+      required:
+        - name
+        - partyType
+    party-update:
+      title: party-update
+      type: object
+      x-internal: true
+      x-examples: {}
+      x-tags:
+        - input
+      properties:
+        name:
+          type: string
+          minLength: 1
+          description: The party name
+        partyType:
+          $ref: '#/components/schemas/reference-input'
+        website:
+          type: string
+        notes:
+          type: string
+        address:
+          $ref: '#/components/schemas/address-input'
+        active:
+          type: boolean
+        customData:
+          type: array
+          items:
+            type: object
+            properties:
+              customField:
+                $ref: '#/components/schemas/reference-input'
+              value:
+                type: string
+                nullable: false
+            required:
+              - customField
+              - value
+        complianceProfile:
+          oneOf:
+            - $ref: '#/components/schemas/reference-input'
+            - type: boolean
+    project-create:
+      title: project-create
+      type: object
+      x-internal: true
+      x-tags:
+        - input
+      properties:
+        name:
+          type: string
+          description: The project name
+        description:
+          type: string
+          description: An optional description
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        customData:
+          type: array
+          items:
+            type: object
+            properties:
+              customField:
+                $ref: '#/components/schemas/reference-input'
+              value:
+                type: string
+                nullable: false
+            required:
+              - customField
+              - value
+        externalIds:
+          type: array
+          x-stoplight:
+            id: tla0kkdm08jk4
+          items:
+            x-stoplight:
+              id: utre6jd713rg1
+            type: string
+      required:
+        - name
+    project-update:
+      title: project-update
+      type: object
+      properties:
+        name:
+          type: string
+          description: The project name
+        description:
+          type: string
+          description: An optional description
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        active:
+          type: boolean
+        customData:
+          type: array
+          items:
+            type: object
+            properties:
+              customField:
+                $ref: '#/components/schemas/reference-input'
+              value:
+                type: string
+                nullable: false
+            required:
+              - customField
+              - value
+      required:
+        - name
+      x-internal: true
+      x-tags:
+        - input
+    document-input:
+      title: document-input
+      type: object
+      x-internal: true
+      properties:
+        name:
+          type: string
+        notes:
+          type: string
+        appliesToAllProjects:
+          type: boolean
+        issuedBy:
+          type: object
+          properties:
+            name:
+              type: string
+            address:
+              type: string
+            contactName:
+              type: string
+            phone:
+              type: string
+            email:
+              type: string
+        data:
+          type: object
+        metadata:
+          type: object
+      x-tags:
+        - input
+    report:
+      title: Report
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          default: reports
+        name:
+          type: string
+        filters:
+          type: object
+        updatedAt:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+      x-examples:
+        Example report:
+          id: 60be22526a69195b1941d77e
+          type: reports
+          name: Interesting projects
+          filters:
+            name: interesting
+            view: table
+            sortField: name
+            sortDirection: asc
+          updatedAt: '2019-08-24T14:15:22Z'
+          createdAt: '2019-08-24T14:15:22Z'
+    report-create:
+      type: object
+      title: report-create
+      x-examples: {}
+      x-internal: true
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+        filters:
+          type: object
+          minProperties: 1
+        reportType:
+          type: string
+          enum:
+            - parties
+            - projects
+      required:
+        - name
+        - filters
+        - reportType
+      x-tags:
+        - input
+    report-update:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        name:
+          type: string
+          minLength: 1
+        filters:
+          type: object
+          minProperties: 1
+      title: report-update
+      x-tags:
+        - input
+      x-internal: true
+    document-request:
+      title: Document Request
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          default: document-requests
+        party:
+          $ref: '#/components/schemas/reference'
+        message:
+          type: string
+        sentOn:
+          type: string
+          format: date
+        dueDate:
+          type: string
+          format: date-time
+        forwardedAt:
+          type: string
+          format: date-time
+        forwardedTo:
+          type: string
+    document-request-input:
+      type: object
+      title: document-request-input
+      x-internal: true
+      additionalProperties: false
+      x-examples: {}
+      x-tags:
+        - input
+      properties:
+        recipients:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/reference-input'
+        dueDate:
+          type: string
+          format: date
+        message:
+          type: string
+        sentBy:
+          $ref: '#/components/schemas/reference-input'
+      required:
+        - recipients
+    reference-list-input:
+      type: array
+      title: reference-list-input
+      x-tags:
+        - input
+      minItems: 1
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+            pattern: '^[a-z0-9]{24}$'
+            minLength: 24
+            maxLength: 24
+        required:
+          - id
+      x-internal: true
+    address-input:
+      description: ''
+      type: object
+      x-tags:
+        - input
+      x-examples: {}
+      properties:
+        city:
+          type: string
+          minLength: 1
+        country:
+          type: string
+          minLength: 1
+        line1:
+          type: string
+          minLength: 1
+        line2:
+          type: string
+        postalCode:
+          type: string
+          minLength: 1
+        region:
+          type: string
+          minLength: 1
+      required:
+        - city
+        - country
+        - line1
+        - postalCode
+        - region
+      title: address-input
+    collection-meta:
+      title: collection-meta
+      type: object
+      properties:
+        count:
+          type: number
+          description: The number of documents according to the specified filters
+        pages:
+          type: number
+        totalCount:
+          type: number
+          description: The total number of documents in the collection
+        totalPages:
+          type: number
+      x-internal: true
+    custom-data-update:
+      type: array
+      x-examples:
+        example-1:
+          - value: string
+            customField:
+              id: striangstringstringstring
+      x-internal: true
+      x-tags:
+        - input
+      items:
+        type: object
+        properties:
+          customField:
+            $ref: '#/components/schemas/reference-input'
+          value:
+            type:
+              - string
+              - number
+            nullable: false
+        required:
+          - customField
+          - value
+    export-parties:
+      title: export-parties
+      x-stoplight:
+        id: 31rg68rqe67vu
+      type: object
+      x-tags:
+        - input
+      x-internal: true
+      properties:
+        context:
+          type: string
+        mappings:
+          type: object
+        callbackUrl:
+          type: string
+      required:
+        - context
+        - mappings
+        - callbackUrl
+    compliance-certificate-create:
+      title: compliance-certificate-create
+      x-stoplight:
+        id: akhnyhbf79itg
+      type: object
+      x-tags:
+        - input
+      x-internal: true
+      properties:
+        effectiveDate:
+          type: string
+          x-stoplight:
+            id: a6g8zb1lrcvvj
+          format: date-time
+        expirationDate:
+          type: string
+          x-stoplight:
+            id: polry53pghsyk
+          format: date-time
+        subjects:
+          type: array
+          x-stoplight:
+            id: v1n68lhhosu12
+          items:
+            x-stoplight:
+              id: x1h6gr8lsbe8d
+            type: object
+            additionalProperties: false
+            properties:
+              id:
+                type: string
+                x-stoplight:
+                  id: e5p6jmbzqvbjv
+              effectiveDate:
+                type: string
+                x-stoplight:
+                  id: lxs15h7rlftfk
+                format: date-time
+              expirationDate:
+                type: string
+                x-stoplight:
+                  id: 91b3tvftsyosg
+                format: date-time
+            required:
+              - id
+              - expirationDate
+    externalId:
+      title: externalId
+      x-stoplight:
+        id: ghng89e3gpza8
+      type: object
+      properties:
+        id:
+          type: string
+        instance:
+          type: string
+          x-stoplight:
+            id: kzzaqq92miqoe
+    external-ids-update:
+      title: external-ids-update
+      x-stoplight:
+        id: p5ogpucx57155
+      type: array
+      uniqueItems: true
+      items:
+        x-stoplight:
+          id: 2dohzinuh2yw3
+        type: string
+      x-tags:
+        - input
+    waive-requirement:
+      title: waive-requirement
+      x-stoplight:
+        id: zhacnj2f3vbb8
+      type: object
+      x-tags:
+        - input
+      x-internal: true
+      properties:
+        attributeId:
+          type: string
+          x-stoplight:
+            id: epvtk6zfv7css
+        override:
+          type: boolean
+          x-stoplight:
+            id: iw9ka6brcyyy9
+          default: false
+        notes:
+          type: string
+          x-stoplight:
+            id: srq0rl5ijlrck
+        resetRequirementOn:
+          type: string
+          x-stoplight:
+            id: 3n1hrs3l6955r
+          format: date-time
+        applyToAllProjects:
+          type: boolean
+          x-stoplight:
+            id: upyv8wit1wzkn
+          default: false
+          description: Can only be set to true if no scope is specified
+      required:
+        - attributeId
+    waive-subject:
+      title: waive-subject
+      x-stoplight:
+        id: j35ah9xf264cd
+      type: object
+      x-tags:
+        - input
+      x-internal: true
+      properties:
+        subjectId:
+          type: string
+          x-stoplight:
+            id: xq88kdfmj2jfb
+        override:
+          type: boolean
+          x-stoplight:
+            id: 35ngz068df4oh
+          default: false
+        notes:
+          type: string
+          x-stoplight:
+            id: dm5zes8cwf3wh
+        resetSubjectOn:
+          type: string
+          x-stoplight:
+            id: fn1wyi8e46x09
+          format: date-time
+        applyToAllProjects:
+          type: boolean
+          x-stoplight:
+            id: 0o8pws9g6qsr9
+          default: false
+          description: Can only be set to true if no scope is specified
+      required:
+        - subjectId
+    party-comment-input:
+      title: party-comment-input
+      x-stoplight:
+        id: h6c1ndrftwgam
+      type: object
+      properties:
+        message:
+          type: string
+          x-stoplight:
+            id: a6exz10tihnkj
+          minLength: 1
+          maxLength: 4000
+      required:
+        - message
+      x-tags:
+        - input
+      x-internal: true
+    party-comment:
+      title: party-comment
+      x-stoplight:
+        id: 70nmqlak0hsle
+      type: object
+      properties:
+        id:
+          type: string
+        message:
+          type: string
+          x-stoplight:
+            id: zfphl946x55vc
+        userId:
+          type: string
+          x-stoplight:
+            id: yalet13rujxrq
+        userName:
+          type: string
+          x-stoplight:
+            id: xiimazsm03jp8
+        userEmail:
+          type: string
+          x-stoplight:
+            id: mh6h9a7vzp72g
+        createdAt:
+          type: string
+          x-stoplight:
+            id: k530jdhulydrj
+          format: date-time
+  parameters:
+    sort:
+      name: sort
+      in: query
+      required: false
+      schema:
+        type: string
+        example: 'name,-age'
+      description: List of comma-separated keys used to sort. Reversing is done by prepending "-" to the key name.
+      allowReserved: true
+    page-number:
+      name: 'page[number]'
+      in: query
+      required: false
+      schema:
+        type: number
+        minimum: 1
+        example: 1
+        default: 1
+      description: 'Page number, starting from 1'
+    page-size:
+      name: 'page[size]'
+      in: query
+      required: false
+      schema:
+        type: number
+        minimum: 1
+        maximum: 100
+        example: 20
+        default: 20
+      description: Number of items per page. Defaults to 20. Maximum is 100
+    include:
+      name: include
+      in: query
+      required: false
+      schema:
+        type: string
+        example: 'parties,projects'
+      description: List of comma-separated relationships to include in the result
+      allowReserved: true
+    scope-type:
+      name: 'scope[type]'
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Type of the resource to be used as scope
+    scope-id:
+      name: 'scope[id]'
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Id of the resource to be used as scope
+    filter:
+      name: filter
+      in: query
+      required: false
+      schema:
+        type: object
+        example:
+          title: foo
+      style: deepObject
+      description: 'Key-value pair, e.g. filter[key]=value'
+  responses:
+    not-authorized:
+      description: This response is returned when the user attempts to access an inaccessible resource or operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                default: fail
+                readOnly: true
+              data:
+                nullable: true
+              meta:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  error:
+                    type: string
+          examples:
+            Example:
+              value:
+                status: fail
+                data: null
+                meta:
+                  message: You are not authorized to access this resource
+                  error: Unauthorized
+    error:
+      description: This response is sent in case of an internal server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                default: error
+              data:
+                nullable: true
+              meta:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  error:
+                    type: string
+          examples:
+            Example:
+              value:
+                status: error
+                data: null
+                meta:
+                  message: An internal error occurred
+                  error: Internal server error
+    bad-request:
+      description: This response is sent when the user sends invalid data
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                default: fail
+                readOnly: true
+              data:
+                nullable: true
+              meta:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  error:
+                    type: string
+          examples:
+            Example:
+              value:
+                status: fail
+                data: null
+                meta:
+                  error: Bad request
+                  message: The request contains invalid data
+    not-found:
+      description: This response is returned when the resource is not present
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                default: fail
+                readOnly: true
+              data:
+                nullable: true
+              meta:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  error:
+                    type: string
+          examples:
+            Example:
+              value:
+                status: fail
+                data: null
+                meta:
+                  message: Widget 123 not found
+                  error: Not found
+  securitySchemes:
+    Token:
+      name: Authorization
+      type: apiKey
+      in: header
+      description: ''
+  examples: {}
+security:
+  - API Key: []
+tags:
+  - name: branding
+  - name: compliance-profiles
+  - name: contacts
+  - name: custom-fields
+  - name: documents
+  - name: parties
+  - name: party-types
+  - name: projects
+  - name: reports
+  - name: tags

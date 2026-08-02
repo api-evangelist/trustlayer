@@ -1,0 +1,31 @@
+generated: '2026-07-21'
+method: searched
+source: https://developers.trustlayer.io/ + openapi/trustlayer-platform-v1-openapi.yaml
+versioning:
+  scheme: uri-path
+  current: v2
+  versions:
+  - version: v1
+    status: deprecated
+    base_url: https://api.trustlayer.io/v1
+    docs: https://developers.trustlayer.io/v1/
+  - version: v2
+    status: stable
+    label: Early Access (2.0.0-beta)
+    base_url: https://api.trustlayer.io/v2
+    docs: https://developers.trustlayer.io/v2
+deprecation:
+  policy_url: https://developers.trustlayer.io/v1/
+  sunset_header: true
+  deprecation_header: true
+  notes: >-
+    Platform API v1 was deprecated 2026-06-01 and is scheduled for sunset
+    (end-of-life) on 2027-03-31. It remains fully available until sunset but
+    receives no new features. All v1 responses carry standard Deprecation and
+    Sunset response headers (RFC 8594). New integrations should target v2.
+  deprecated_on: '2026-06-01'
+  sunset_on: '2027-03-31'
+  migrate_to: v2
+status_page: https://status.trustlayer.io
+deprecated_apis:
+- openapi/trustlayer-platform-v1-openapi.yaml

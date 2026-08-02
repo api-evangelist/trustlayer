@@ -1,0 +1,45 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/trustlayer-platform-v2-openapi.yaml
+format: custom-json
+envelope:
+  media_type: application/json
+  fields:
+    statusCode: HTTP status code (integer)
+    applicationCode: TrustLayer application-specific error code (string)
+    message: Human-readable error message
+    details: Additional structured error detail
+  note: >-
+    TrustLayer v2 does NOT use RFC 9457 application/problem+json; errors are a
+    plain application/json object with the fields above. v1 does not declare a
+    formal error envelope.
+problems:
+- status: 400
+  title: Bad Request
+  meaning: The request was malformed or failed validation.
+  remediation: Check required fields, types, and formats against the operation schema.
+- status: 401
+  title: Unauthorized
+  meaning: Missing or invalid API token (Bearer).
+  remediation: "Provide a valid `Authorization: Bearer <token>` header for the target environment."
+- status: 403
+  title: Forbidden
+  meaning: The authenticated token lacks permission for this resource/action.
+  remediation: Confirm the token's workspace/role grants access to the requested object.
+- status: 404
+  title: Not Found
+  meaning: The requested resource (object/record) does not exist or is not visible to the token.
+  remediation: Verify the object id and that it belongs to the authenticated workspace.
+- status: 409
+  title: Conflict
+  meaning: The request conflicts with the current state of the resource.
+  remediation: Re-fetch current state and retry; avoid duplicate creates.
+- status: 500
+  title: Internal Server Error
+  meaning: An unexpected error occurred on the TrustLayer platform.
+  remediation: Retry with backoff; if it persists, contact support@trustlayer.io.
+coverage_note: >-
+  Status codes derived from the v2 OpenAPI responses (400/401/403/404/409/500
+  appear across nearly all v2 operations). Titles/remediation are generalized
+  from the envelope and standard HTTP semantics; TrustLayer's specific
+  `applicationCode` registry is not published in the spec.

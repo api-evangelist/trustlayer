@@ -1,0 +1,30 @@
+generated: '2026-07-21'
+method: searched
+source: openapi/trustlayer-platform-v2-openapi.yaml servers[]
+summary: >-
+  TrustLayer Platform API v2 publishes dedicated non-production server
+  environments alongside the production host, giving integrators isolated
+  sandboxes to build and test against before going live. No published test
+  credentials, magic test values, or fixture tooling were found in the public
+  docs; obtain sandbox API tokens from your TrustLayer account/CSM.
+environments:
+- name: production
+  base_url: https://api.trustlayer.io/v2
+  purpose: Live production data.
+- name: integration
+  base_url: https://api.integration.trustlayer.dev/v2
+  purpose: Integration/staging sandbox for building and testing v2 integrations.
+- name: demo
+  base_url: https://api.demo.trustlayer.dev/v2
+  purpose: Demo environment for evaluation and walkthroughs.
+auth:
+  model: bearer-token
+  note: >-
+    Each environment requires its own API token; tokens are scoped to the
+    environment that issued them (production tokens do not work against
+    integration/demo).
+test_values: []
+notes: >-
+  The v1 API (https://api.trustlayer.io/v1) does not publish a separate sandbox
+  host. TrustLayer also offers a free Starter tier (up to 50 vendors) which can
+  serve as a low-risk environment to exercise the API against real endpoints.

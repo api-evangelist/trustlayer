@@ -1,0 +1,56 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/trustlayer-platform-v1-openapi.yaml, openapi/trustlayer-platform-v2-openapi.yaml
+authentication:
+  v1:
+    style: api-key
+    location: header
+    header: Authorization
+    scheme_name: Token
+  v2:
+    style: bearer-token
+    location: header
+    header: Authorization
+    format: "Bearer <token>"
+  cross_ref: authentication/trustlayer-authentication.yml
+pagination:
+  style: limit-based
+  params:
+  - name: limit
+    in: query
+    applies_to: v2 list endpoints
+  notes: >-
+    v2 list operations accept a `limit` query parameter. v1 list endpoints do
+    not declare pagination parameters in the spec.
+idempotency:
+  supported: false
+  notes: >-
+    Neither the v1 nor v2 OpenAPI declares an Idempotency-Key header/parameter,
+    and the developer docs do not document an idempotency contract. v2 does
+    return 409 Conflict on conflicting writes. No idempotency guarantee is
+    asserted.
+versioning:
+  scheme: uri-path
+  current: v2
+  cross_ref: lifecycle/trustlayer-lifecycle.yml
+error_envelope:
+  v2:
+    media_type: application/json
+    shape:
+      statusCode: HTTP status code (integer)
+      applicationCode: TrustLayer application-specific error code
+      message: Human-readable error message
+      details: Additional structured error detail
+  v1:
+    notes: >-
+      v1 responses are documented with 200/201 success shapes; a formal error
+      envelope is not declared in the v1 spec.
+  cross_ref: errors/trustlayer-problem-types.yml
+rate_limiting:
+  documented: false
+  notes: No rate-limit response headers or policy are declared in the specs or docs.
+metadata:
+  custom_data: >-
+    v1 parties support arbitrary custom data via PATCH
+    /parties/{partyId}/custom-data and custom-fields; entities can carry
+    user-defined attributes.

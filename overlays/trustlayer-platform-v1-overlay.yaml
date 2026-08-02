@@ -1,0 +1,19 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for TrustLayer Platform API v1
+  version: 1.0.0
+extends: openapi/trustlayer-platform-v1-openapi.yaml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-07-21'
+    x-api-lifecycle: deprecated
+    x-deprecated-on: '2026-06-01'
+    x-sunset-on: '2027-03-31'
+    x-migrate-to: openapi/trustlayer-platform-v2-openapi.yaml
+    x-authentication: authentication/trustlayer-authentication.yml
+    x-domain: vendor-risk-management-coi-tracking
+- target: $.servers
+  update:
+    x-production-host: https://api.trustlayer.io/v1
+    x-note: The localhost server entry is a development placeholder; use the production host.

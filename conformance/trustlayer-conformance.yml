@@ -1,0 +1,38 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/trustlayer-platform-v1-openapi.yaml, openapi/trustlayer-platform-v2-openapi.yaml
+standards:
+- id: openapi-3.0
+  conforms: true
+  evidence: v1 is OpenAPI 3.0.0, v2 is OpenAPI 3.0.3
+- id: oauth2
+  conforms: false
+  evidence: no oauth2 securityScheme; v1 uses apiKey header, v2 uses http bearer token
+- id: oidc
+  conforms: false
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: v2 errors use plain application/json {statusCode, applicationCode, message, details}, not application/problem+json
+- id: rfc8594-sunset-deprecation-headers
+  conforms: true
+  evidence: v1 responses carry Deprecation and Sunset headers; documented deprecation/sunset lifecycle
+- id: bearer-token-auth
+  conforms: true
+  evidence: v2 securityScheme http bearer
+- id: api-key-auth
+  conforms: true
+  evidence: v1 securityScheme apiKey in header (Token)
+- id: pagination
+  conforms: true
+  evidence: v2 list operations expose a limit query parameter
+- id: webhooks
+  conforms: true
+  evidence: documented webhook event surface (developers.trustlayer.io/webhooks) with event catalog
+compliance_program:
+  trust_center: https://trust.trustlayer.io/
+  platform: Vanta
+  named_certifications: []
+  note: >-
+    A dedicated Vanta trust center exists but named certification badges could
+    not be verified from the static SPA; no Compliance pointer is emitted until
+    a specific framework (e.g. SOC 2) is confirmed.

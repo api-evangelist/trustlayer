@@ -1,0 +1,18 @@
+generated: '2026-07-21'
+method: searched
+probe: true
+url: https://trust.trustlayer.io/
+platform: Vanta
+certifications: []
+evidence:
+- source: https://trust.trustlayer.io/
+  status: 200
+  keywords:
+  - vanta
+  note: >-
+    TrustLayer operates a dedicated, Vanta-powered trust center at
+    trust.trustlayer.io. The page is a client-rendered Vanta trust-report SPA;
+    the specific certification/framework badges (e.g. SOC 2) load via Vanta's
+    authenticated backend and could not be verified from the static HTML, so no
+    named certifications are asserted here. Re-run with a rendering fetch to
+    capture the exact framework list.

@@ -1,0 +1,78 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/trustlayer-platform-v1-openapi.yaml
+summary: >-
+  Entity-relationship graph derived from the v1 Platform API paths and schemas.
+  The core domain is vendor/insurance compliance tracking: Parties (vendors) hold
+  Contacts and Documents (certificates of insurance and related paperwork),
+  belong to Projects, and are evaluated against Compliance Profiles.
+entities:
+- name: party
+  description: A tracked vendor/counterparty (the entity whose insurance/compliance is monitored).
+  key_endpoints: [get-parties, post-parties, get-parties-:id]
+- name: contact
+  description: A person associated with a party.
+  key_endpoints: [get-contacts-id, post-parties-id-contacts]
+- name: document
+  description: An uploaded compliance document (e.g. certificate of insurance).
+  key_endpoints: [get-documents, post-documents, get-documents-id]
+- name: document-type
+  description: Classification of a document.
+- name: project
+  description: A grouping of parties/requirements (e.g. a job, property, or program).
+  key_endpoints: [get-projects, post-projects, get-projects-id]
+- name: compliance-profile
+  description: The set of requirements a party/project is evaluated against.
+  key_endpoints: [get-compliance-profiles, get-compliance-profiles-id]
+- name: party-type
+  description: Categorization of a party.
+- name: tag
+  description: A label applied to parties.
+- name: custom-field
+  description: User-defined data attached to entities.
+- name: branding
+  description: Workspace branding configuration.
+- name: user
+  description: A TrustLayer platform user.
+relationships:
+- from: party
+  to: contact
+  type: has_many
+  via: /parties/{partyId}/contacts
+- from: contact
+  to: party
+  type: belongs_to
+- from: party
+  to: document
+  type: has_many
+  via: /parties/{partyId}/relationships/documents
+- from: party
+  to: tag
+  type: has_many
+  via: /parties/{partyId}/relationships/tags
+- from: party
+  to: compliance-profile
+  type: has_one
+  via: /parties/{partyId}/relationships/compliance-profile
+- from: party
+  to: party-type
+  type: belongs_to
+- from: project
+  to: party
+  type: has_many
+  via: /projects/{projectId}/relationships/parties
+- from: project
+  to: document
+  type: has_many
+  via: /projects/{projectId}/relationships/documents
+- from: project
+  to: compliance-profile
+  type: has_one
+  via: /projects/{projectId}/compliance-profile
+- from: document
+  to: document-type
+  type: belongs_to
+- from: document
+  to: project
+  type: has_many
+  via: /documents/{documentId}/relationships/projects

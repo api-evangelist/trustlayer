@@ -1,0 +1,16 @@
+generated: '2026-07-21'
+method: generated
+source: openapi/trustlayer-platform-v1-openapi.yaml
+skills:
+- file: trustlayer-onboard-vendor-and-request-coi.md
+  name: Onboard a vendor and request their certificate of insurance
+  api: openapi/trustlayer-platform-v1-openapi.yaml
+  operations: [post-parties, post-parties-id-contacts, post-parties-partyId-document-request]
+- file: trustlayer-check-vendor-compliance.md
+  name: Check a vendor's compliance status
+  api: openapi/trustlayer-platform-v1-openapi.yaml
+  operations: [get-parties, get-parties-partyId-compliance-profile, get-parties-id-compliance-certificate]
+- file: trustlayer-create-project-and-attach-vendors.md
+  name: Create a project and attach vendors
+  api: openapi/trustlayer-platform-v1-openapi.yaml
+  operations: [post-projects, post-projects-id-relationships-parties, get-projects-projectId-compliance-profile]
