@@ -343,6 +343,8 @@ apis:
   - type: Documentation
     url: https://developers.trustlayer.io/v1/
 common:
+- type: Overlay
+  url: overlays/trustlayer-platform-v1-overlay.yaml
 - type: DeveloperPortal
   url: https://developers.trustlayer.io/
 - type: Documentation
