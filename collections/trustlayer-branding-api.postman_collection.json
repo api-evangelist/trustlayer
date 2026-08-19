@@ -1,0 +1,505 @@
+{
+  "item": [
+    {
+      "id": "97d13a5d-a9a7-4d6e-a3c8-73eeb79f59c0",
+      "name": "branding",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1dd4700c-c853-4c81-bb3a-b1dfe9c48110",
+          "name": "List Branding",
+          "request": {
+            "name": "List Branding",
+            "description": {
+              "content": "Available sort options:\n* `name`\n* `createdAt`\n* `updatedAt`\n\nAvailable filter options:\n* `name`\n* `createdAt`\n* `updatedAt`\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "branding"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[number]",
+                  "value": "1",
+                  "description": "Page number, starting from 1"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "20",
+                  "description": "Number of items per page. Defaults to 20. Maximum is 100"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "List of comma-separated keys used to sort. Reversing is done by prepending \"-\" to the key name."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "944f7769-54a8-4e5d-ba7f-d8792b6fc862",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "branding"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[number]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "20"
+                    },
+                    {
+                      "key": "filter[title]",
+                      "value": "foo"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "name,-age"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"createdAt\": \"string\",\n      \"updatedAt\": \"string\",\n      \"logo\": {\n        \"url\": \"string\",\n        \"friendlyName\": \"string\",\n        \"uploadedAt\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"createdAt\": \"string\",\n      \"updatedAt\": \"string\",\n      \"logo\": {\n        \"url\": \"string\",\n        \"friendlyName\": \"string\",\n        \"uploadedAt\": \"string\"\n      }\n    }\n  ],\n  \"meta\": {\n    \"count\": 5251.185492513577,\n    \"pages\": 1164.5592828353413,\n    \"totalCount\": 1644.5462470158234,\n    \"totalPages\": 9308.539627025235\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ba37ed08-eb30-451b-a003-0c3ca2a71730",
+          "name": "Create a new branding",
+          "request": {
+            "name": "Create a new branding",
+            "description": {},
+            "url": {
+              "path": [
+                "branding"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"logo\": {\n    \"url\": \"<string>\",\n    \"friendlyName\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3886034e-2c21-4e8f-b064-657b2092b9e9",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "branding"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"logo\": {\n    \"url\": \"<string>\",\n    \"friendlyName\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"createdAt\": \"string\",\n    \"updatedAt\": \"string\",\n    \"logo\": {\n      \"url\": \"string\",\n      \"friendlyName\": \"string\",\n      \"uploadedAt\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5036ae51-c7ed-4931-a3dd-a93a2efd421e",
+          "name": "Fetch a Branding",
+          "request": {
+            "name": "Fetch a Branding",
+            "description": {},
+            "url": {
+              "path": [
+                "branding",
+                ":brandingId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "brandingId",
+                  "description": "(Required) Branding ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "064b1764-85e5-444d-9d4f-5b735290c6e0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "branding",
+                    ":brandingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "brandingId",
+                      "description": "(Required) Branding ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"createdAt\": \"string\",\n    \"updatedAt\": \"string\",\n    \"logo\": {\n      \"url\": \"string\",\n      \"friendlyName\": \"string\",\n      \"uploadedAt\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "09e3fe1d-a1d9-42c5-a95d-63c6a253c181",
+          "name": "Update branding",
+          "request": {
+            "name": "Update branding",
+            "description": {
+              "content": "Update an existing branding.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "branding",
+                ":brandingId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "brandingId",
+                  "description": "(Required) Branding ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"logo\": {\n    \"url\": \"<string>\",\n    \"friendlyName\": \"<string>\",\n    \"uploadedAt\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e847e2b0-b195-4e23-8151-834c173112d2",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "branding",
+                    ":brandingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "brandingId",
+                      "description": "(Required) Branding ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"logo\": {\n    \"url\": \"<string>\",\n    \"friendlyName\": \"<string>\",\n    \"uploadedAt\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"settings\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"createdAt\": \"string\",\n    \"updatedAt\": \"string\",\n    \"logo\": {\n      \"url\": \"string\",\n      \"friendlyName\": \"string\",\n      \"uploadedAt\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6635763e-55ad-45d0-94ff-b3f1f379833d",
+          "name": "Delete a branding",
+          "request": {
+            "name": "Delete a branding",
+            "description": {},
+            "url": {
+              "path": [
+                "branding",
+                ":brandingId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "brandingId",
+                  "description": "(Required) Branding ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "718d3091-9ae5-4019-baaa-99d5ddd3716f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "branding",
+                    ":brandingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "brandingId",
+                      "description": "(Required) Branding ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:4000/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b4314212-8022-49d4-b367-0bcf3a0bc2d0",
+    "name": "TrustLayer Platform Auth branding API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "3rd-party API for the TrustLayer platform.\n\n**Deprecated.** Platform API v1 is deprecated as of 01 June 2026 and is\nscheduled for sunset (end-of-life) on 31 March 2027. It remains fully\navailable until the sunset date but will not receive new features. Please\nmigrate to Platform API v2 for new integrations.\n\nAll v1 responses carry the standard deprecation response headers\n([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)):\n\n```http\nDeprecation: @1780272000\nSunset: Wed, 31 Mar 2027 23:59:59 GMT\nLink: <https://developers.trustlayer.io/>; rel=\"deprecation\", <https://developers.trustlayer.io/>; rel=\"sunset\"\n```\n\n`Deprecation: @1780272000` is the Unix timestamp for 2026-06-01T00:00:00Z;\nsunset (end-of-life) is 2027-03-31T23:59:59 GMT.\n\nContact Support:\n Name: TrustLayer Support\n Email: support@trustlayer.io",
+      "type": "text/plain"
+    }
+  }
+}

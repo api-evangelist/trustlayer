@@ -1,0 +1,1940 @@
+{
+  "item": [
+    {
+      "id": "ea96197a-3534-4c4b-9095-3ccc37de4ade",
+      "name": "Context Objects",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "666d0a0d-f8f9-4f5a-b596-ecf8ce8d1cc2",
+          "name": "Create a new context object (context type definition) in the caller's organization. Returns the new context object's identifier.",
+          "request": {
+            "name": "Create a new context object (context type definition) in the caller's organization. Returns the new context object's identifier.",
+            "description": {
+              "content": "Create a new context object (context type definition) in the caller's organization. Returns the new context object's identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "context-objects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"pluralName\": \"<string>\",\n  \"icon\": \"shop\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "59377ecf-96e1-45cb-b8a1-550768c2d330",
+              "name": "Identifier-only response. Returned when an endpoint mutates a context object but does not need to return the full document.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "context-objects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"pluralName\": \"<string>\",\n  \"icon\": \"shop\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "db9a2653-cba2-4299-8f86-f5bd15895c8a",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "context-objects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"pluralName\": \"<string>\",\n  \"icon\": \"shop\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "49a2d18b-a6dc-40fb-b674-85dd69d56896",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "context-objects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"pluralName\": \"<string>\",\n  \"icon\": \"shop\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8c6ee275-e289-4bc4-b894-7bc602d9cf65",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "context-objects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"pluralName\": \"<string>\",\n  \"icon\": \"shop\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "78c7b1e8-d664-43d6-b22c-d77d3412e8e2",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "context-objects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"pluralName\": \"<string>\",\n  \"icon\": \"shop\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "67ac3d9e-62fd-4af6-8a53-fec627187bfe",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "context-objects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"pluralName\": \"<string>\",\n  \"icon\": \"shop\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "826724ae-f003-4484-95a9-bbba8dc4ab61",
+          "name": "List context objects (context type definitions) in the caller's organization. Results are always scoped to the caller's organization. Supports pagination via `limit` and `skip`.\n\n<!-- qs2mongo:list-summary -->\n\n**Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `icon` (string), `name` (string), `pluralName` (string), `slug` (string). See \"List Endpoints\" in the API overview for operator syntax and combining rules.\n\n**Sorting**: supported via `sort` (see the parameter's description for allowed fields). Prefix with `-` for descending.\n\n**Field projection**: supported via `fields` (see the parameter's description for allowed fields).",
+          "request": {
+            "name": "List context objects (context type definitions) in the caller's organization. Results are always scoped to the caller's organization. Supports pagination via `limit` and `skip`.\n\n<!-- qs2mongo:list-summary -->\n\n**Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `icon` (string), `name` (string), `pluralName` (string), `slug` (string). See \"List Endpoints\" in the API overview for operator syntax and combining rules.\n\n**Sorting**: supported via `sort` (see the parameter's description for allowed fields). Prefix with `-` for descending.\n\n**Field projection**: supported via `fields` (see the parameter's description for allowed fields).",
+            "description": {
+              "content": "List context objects (context type definitions) in the caller's organization. Results are always scoped to the caller's organization. Supports pagination via `limit` and `skip`.\n\n<!-- qs2mongo:list-summary -->\n\n**Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `icon` (string), `name` (string), `pluralName` (string), `slug` (string). See \"List Endpoints\" in the API overview for operator syntax and combining rules.\n\n**Sorting**: supported via `sort` (see the parameter's description for allowed fields). Prefix with `-` for descending.\n\n**Field projection**: supported via `fields` (see the parameter's description for allowed fields).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "context-objects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "disabled": false,
+                  "key": "skip",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to sort by. Example: '_id,-createdAt'. Allowed: icon, name, pluralName, slug, createdAt, updatedAt"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to project. Allowed: _id, organization, icon, name, pluralName, slug, createdAt, updatedAt"
+                },
+                {
+                  "disabled": false,
+                  "key": "_id",
+                  "value": "<string>",
+                  "description": "Filter by _id. 24-character hex ObjectId string (e.g. `_id=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+                },
+                {
+                  "disabled": false,
+                  "key": "createdAt",
+                  "value": "<string>",
+                  "description": "Filter by createdAt. ISO-8601 date or datetime string (e.g. `createdAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+                },
+                {
+                  "disabled": false,
+                  "key": "updatedAt",
+                  "value": "<string>",
+                  "description": "Filter by updatedAt. ISO-8601 date or datetime string (e.g. `updatedAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+                },
+                {
+                  "disabled": false,
+                  "key": "icon",
+                  "value": "<string>",
+                  "description": "Filter by icon. String value (e.g. `icon=example`). See \"List Endpoints\" in the API overview for operator syntax."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Filter by name. String value (e.g. `name=example`). See \"List Endpoints\" in the API overview for operator syntax."
+                },
+                {
+                  "disabled": false,
+                  "key": "pluralName",
+                  "value": "<string>",
+                  "description": "Filter by pluralName. String value (e.g. `pluralName=example`). See \"List Endpoints\" in the API overview for operator syntax."
+                },
+                {
+                  "disabled": false,
+                  "key": "slug",
+                  "value": "<string>",
+                  "description": "Filter by slug. String value (e.g. `slug=example`). See \"List Endpoints\" in the API overview for operator syntax."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4df0a42a-cf4b-402d-9b85-d306d174366a",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "context-objects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "icon",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pluralName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "slug",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"_id\": \"string\",\n      \"organization\": \"string\",\n      \"icon\": \"string\",\n      \"name\": \"string\",\n      \"pluralName\": \"string\",\n      \"slug\": \"string\",\n      \"createdAt\": \"1960-04-07T11:20:41.175Z\",\n      \"updatedAt\": \"1999-05-23T21:12:56.284Z\"\n    },\n    {\n      \"_id\": \"string\",\n      \"organization\": \"string\",\n      \"icon\": \"string\",\n      \"name\": \"string\",\n      \"pluralName\": \"string\",\n      \"slug\": \"string\",\n      \"createdAt\": \"1980-10-21T22:06:57.509Z\",\n      \"updatedAt\": \"1971-06-14T23:25:24.176Z\"\n    }\n  ],\n  \"meta\": {\n    \"count\": 4635.826822703763,\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e4a2ce5a-1340-40d4-9e4e-10019b78dfa5",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "context-objects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "icon",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pluralName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "slug",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d81e504f-22c8-4fd3-9b38-ef50504ed498",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "context-objects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "icon",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pluralName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "slug",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d3af8e43-ce7a-40ca-895d-2d6e3d70d6a1",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "context-objects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "icon",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pluralName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "slug",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fe811387-a3ab-4b20-85ff-8564f4f6dba5",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "context-objects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "icon",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pluralName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "slug",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a0453a4e-9aa2-4585-a732-67db26e7eb5d",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "context-objects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "icon",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pluralName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "slug",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7d6ef4e7-e83f-415d-81ff-2f9b1f751df3",
+          "name": "Delete a context object (context type definition). Returns the deleted context object id on success. Deleting an object that does not exist returns 404 with the shared NotFoundError shape.",
+          "request": {
+            "name": "Delete a context object (context type definition). Returns the deleted context object id on success. Deleting an object that does not exist returns 404 with the shared NotFoundError shape.",
+            "description": {
+              "content": "Delete a context object (context type definition). Returns the deleted context object id on success. Deleting an object that does not exist returns 404 with the shared NotFoundError shape.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "context-objects",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<ObjectId>",
+                  "key": "id",
+                  "description": "(Required) Identifier of the context object to delete."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4d408c3c-e533-4e20-bee0-aed5a2004b09",
+              "name": "Identifier-only response. Returned when an endpoint mutates a context object but does not need to return the full document.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "context-objects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the context object to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e7d6eeaf-237d-4c6d-b503-cc70a11a06cf",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "context-objects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the context object to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "34ec473d-079c-4a6d-bd70-73b096abe583",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "context-objects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the context object to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d7b00b59-27d6-4e07-bca7-e247542cd367",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "context-objects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the context object to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8131f963-244c-487c-9ce9-0b863a68f245",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "context-objects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the context object to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a7e7ca4-27b7-45dc-8d35-32401a77750e",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "context-objects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the context object to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fe74c556-25fc-48d1-be28-d73d09db3424",
+          "name": "Read a single context object (context type definition) by id, scoped to the caller's organization. Use the `fields` query parameter to limit the response to a projection.",
+          "request": {
+            "name": "Read a single context object (context type definition) by id, scoped to the caller's organization. Use the `fields` query parameter to limit the response to a projection.",
+            "description": {
+              "content": "Read a single context object (context type definition) by id, scoped to the caller's organization. Use the `fields` query parameter to limit the response to a projection.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "context-objects",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to project. Allowed: _id, organization, icon, name, pluralName, slug, createdAt, updatedAt"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<ObjectId>",
+                  "key": "id",
+                  "description": "(Required) Identifier of the context object to read."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c98bb137-bffa-4715-b80b-6255598ab76f",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "context-objects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the context object to read."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_id\": \"string\",\n  \"organization\": \"string\",\n  \"icon\": \"string\",\n  \"name\": \"string\",\n  \"pluralName\": \"string\",\n  \"slug\": \"strin\",\n  \"createdAt\": \"1997-09-08T06:29:15.891Z\",\n  \"updatedAt\": \"1975-05-21T18:09:43.446Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "03146e6c-f078-4d8a-a75b-6f0068ea7155",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "context-objects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the context object to read."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ab926ed-5cbc-4254-8104-47677335f60d",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "context-objects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the context object to read."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "641ea795-9cfa-4137-9e3e-23a8ae9fe434",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "context-objects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the context object to read."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9d35c5b4-326f-4998-ad3f-6b1bf456ab3f",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "context-objects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the context object to read."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "286ee91b-6f42-4642-93af-7fbf45174d43",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "context-objects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the context object to read."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6959a5fa-5bd4-4501-b622-dd8e956b2de2",
+          "name": "Partially update a context object (context type definition). Any subset of writable fields may be provided; omitted fields are left unchanged. Returns the full updated context object.",
+          "request": {
+            "name": "Partially update a context object (context type definition). Any subset of writable fields may be provided; omitted fields are left unchanged. Returns the full updated context object.",
+            "description": {
+              "content": "Partially update a context object (context type definition). Any subset of writable fields may be provided; omitted fields are left unchanged. Returns the full updated context object.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "context-objects",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<ObjectId>",
+                  "key": "id",
+                  "description": "(Required) Identifier of the context object to update."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"pluralName\": \"<string>\",\n  \"icon\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2a7c65d5-a480-46fe-a77d-587e2eb33e33",
+              "name": "A context object — a configurable context type definition in the workspace (e.g. Project, Job).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "context-objects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the context object to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"pluralName\": \"<string>\",\n  \"icon\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_id\": \"string\",\n  \"organization\": \"string\",\n  \"icon\": \"string\",\n  \"name\": \"string\",\n  \"pluralName\": \"string\",\n  \"slug\": \"string\",\n  \"createdAt\": \"2026-07-21 13:34:49.143000+00:00\",\n  \"updatedAt\": \"2026-07-21 13:34:49.143000+00:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "316f8c62-d8c1-4a3a-afcc-5ba28b27df01",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "context-objects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the context object to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"pluralName\": \"<string>\",\n  \"icon\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e0c4fae1-600b-40f7-a204-96343bddbe18",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "context-objects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the context object to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"pluralName\": \"<string>\",\n  \"icon\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3c37d900-555e-4ca5-b132-227a5f97a633",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "context-objects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the context object to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"pluralName\": \"<string>\",\n  \"icon\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d1cb8e3c-5752-4a4c-ae71-16a0e3137f0b",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "context-objects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the context object to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"pluralName\": \"<string>\",\n  \"icon\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0623bc2a-957f-475f-8539-b70c99a3aa79",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "context-objects",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the context object to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"pluralName\": \"<string>\",\n  \"icon\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:4000/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "6ec4368b-69ef-483f-bfbe-0d3f506de427",
+    "name": "TrustLayer Platform Auth Context Objects API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "3rd-party API for the TrustLayer platform.\n\n**Deprecated.** Platform API v1 is deprecated as of 01 June 2026 and is\nscheduled for sunset (end-of-life) on 31 March 2027. It remains fully\navailable until the sunset date but will not receive new features. Please\nmigrate to Platform API v2 for new integrations.\n\nAll v1 responses carry the standard deprecation response headers\n([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)):\n\n```http\nDeprecation: @1780272000\nSunset: Wed, 31 Mar 2027 23:59:59 GMT\nLink: <https://developers.trustlayer.io/>; rel=\"deprecation\", <https://developers.trustlayer.io/>; rel=\"sunset\"\n```\n\n`Deprecation: @1780272000` is the Unix timestamp for 2026-06-01T00:00:00Z;\nsunset (end-of-life) is 2027-03-31T23:59:59 GMT.\n\nContact Support:\n Name: TrustLayer Support\n Email: support@trustlayer.io",
+      "type": "text/plain"
+    }
+  }
+}

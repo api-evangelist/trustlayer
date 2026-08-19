@@ -1,0 +1,809 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TrustLayer Platform Auth Parties API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Parties",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Update party external IDs",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:4000/v1/parties/:partyId/external-ids",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the list of external IDs for this party. The passed values will replace the current ones.\nExternal IDs are in the format `source/id` or `source:instance/id`, where `instance` can be used to differentiate multiple instances of the same `source`.\n\nNote that if the workspace is already integrated with one or more external systems, this endpoint should _not_ be used."
+        },
+        {
+          "info": {
+            "name": "Waive or override a requirement",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/parties/:id/waive-requirement",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Party ID"
+              },
+              {
+                "name": "scope[type]",
+                "value": "",
+                "type": "query",
+                "description": "Type of the resource to be used as scope"
+              },
+              {
+                "name": "scope[id]",
+                "value": "",
+                "type": "query",
+                "description": "Id of the resource to be used as scope"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Apply a waiver or an override to a requirement, identified by its full attribute ID (e.g. `evidenceOfInsuranceCommercialGeneralLiabilityGeneralAggregate`).\n\nBy passing in the query string a `scope[type]` of \"projects\" and a project ID which the party belongs to as `scope[id]`, the waiver will be applied only at the project level.\n\nIt's possible to apply the waiver automatically to all present and future projects by setting `applyToAllProjects` in the request body."
+        },
+        {
+          "info": {
+            "name": "Waive or override a subject",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/parties/:id/waive-subject",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Party ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Apply a waiver or an override to a whole subject, identified by its full ID (e.g. `commercialGeneralLiability`).\n\nBy passing in the query string a `scope[type]` of \"projects\" and a project ID which the party belongs to as `scope[id]`, the waiver will be applied only at the project level.\n\nIt's possible to apply the waiver automatically to all present and future projects by setting `applyToAllProjects` in the request body."
+        },
+        {
+          "info": {
+            "name": "Post a comment on a party's timeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/parties/:partyId/comments",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Post a comment on a party's timeline"
+        },
+        {
+          "info": {
+            "name": "List parties",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/parties",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "List of comma-separated keys used to sort. Reversing is done by prepending \"-\" to the key name."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Page number, starting from 1"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page. Defaults to 20. Maximum is 100"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Key-value pair, e.g. filter[key]=value"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "List of comma-separated relationships to include in the result"
+              }
+            ]
+          },
+          "docs": "Available filters:\n* `project`\n* `name`\n* `type`\n* `status`\n* `createdAt`\n* `updatedAt`\n* `customField`\n* `externalId`\n* `active`\n\nAvailable sort keys:\n* `name`\n* `createdAt`\n* `updatedAt`\n* `status`\n\nAvailable include options:\n* `projects`\n* `documents`\n* `tags`\n* `complianceProfile`\n* `customFields`\n\nPagination is enabled.\n\nNotes:\n\n* the `type` filter takes either the singular or plural version of the type (e.g. \"Vendor\", \"Vendors\")\n* valid values for the `status` filter: \"non_compliant\", \"com"
+        },
+        {
+          "info": {
+            "name": "Create a new party",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/parties",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Note that a placeholder primary contact will be created with the name \"Anonymous\" if no contact information is provided.\n\nThe compliance profile will be assigned based on the party type."
+        },
+        {
+          "info": {
+            "name": "Fetch a party",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/parties/:partyId",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path",
+                "description": "Party ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "List of comma-separated relationships to include in the result"
+              },
+              {
+                "name": "scope[type]",
+                "value": "",
+                "type": "query",
+                "description": "Type of the resource to be used as scope"
+              },
+              {
+                "name": "scope[id]",
+                "value": "",
+                "type": "query",
+                "description": "Id of the resource to be used as scope"
+              }
+            ]
+          },
+          "docs": "Available include options:\n* `projects`\n* `documents`\n* `tags`\n* `complianceProfile`\n* `customFields`\n\nAvailable scope options:\n* `projects`\n\nIf `scope[type]=project`, the compliance information in the resulting response will be relative to the selected project.\nIf a project scope is specified _and_ documents are included, only documents associated to the project will be returned.\n"
+        },
+        {
+          "info": {
+            "name": "Update a party",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:4000/v1/parties/:partyId",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path",
+                "description": "Party ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The compliance profile can be either turned on/off by assigning `true` or `false` to `complianceProfile`, or it can be changed to another global compliance profile.\nNote: if compliance tracking is turned back on (with `{\"complianceProfile\": true}`), the party will _not_ have a compliance profile assigned."
+        },
+        {
+          "info": {
+            "name": "Delete a party",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/parties/:partyId",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path",
+                "description": "Party ID"
+              }
+            ]
+          },
+          "docs": "TBD"
+        },
+        {
+          "info": {
+            "name": "List a party's contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/parties/:partyId/contacts",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path",
+                "description": "Party ID"
+              }
+            ]
+          },
+          "docs": "Returns all the contacts for a party. Note that pagination is not available, so the meta information will always return the number of contacts in `totalCount` and 1 in `totalPages`."
+        },
+        {
+          "info": {
+            "name": "Create a party contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/parties/:partyId/contacts",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path",
+                "description": "Party ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "* `name` is required.\n* setting the `primary` flag to `true` will unset it from the current primary contact.\n"
+        },
+        {
+          "info": {
+            "name": "Fetch a party's compliance certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/parties/:partyId/compliance-certificate",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path",
+                "description": "Party ID"
+              }
+            ]
+          },
+          "docs": "Returns the currently valid compliance certificate for a party, if it exists; otherwise it responds with a 404 status.\n\nAvailable `scope` options:\n\n* `projects`\n"
+        },
+        {
+          "info": {
+            "name": "Create a party compliance certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/parties/:partyId/compliance-certificate",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path",
+                "description": "Party ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "* if `effectiveDate` is not provided, it will default to the current moment\n* if `expirationDate` is not provided, it will default to the earliest expiration date found in currently active documents; if no document is present, it will default to 1 year from the effective date\n* if `document` is provided (only for multipart/form-data), it will be uploaded to the party and used as the compliance certificate\n\nAvailable `scope` options:\n\n* `projects`\n"
+        },
+        {
+          "info": {
+            "name": "Attach documents to a party",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/parties/:partyId/relationships/documents",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path",
+                "description": "Party ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Note that at any given time, a document can only be attached to one party.\nIf the document is already attached to another party, it will be ignored.\n\nAll documents _must_ exist, otherwise a 404 response will be returned and no document will be attached.\n"
+        },
+        {
+          "info": {
+            "name": "Detach a document from a party",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/parties/:partyId/relationships/documents",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path",
+                "description": "Party ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Once the document has been detached from its party, it can be reattached to a different party.\n\nAll documents _must_ exist, otherwise a 404 response will be returned and no document will be attached."
+        },
+        {
+          "info": {
+            "name": "Add parties to a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/projects/:projectId/relationships/parties",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Parties that are already associated with the project are ignored.\n\nAll parties _must_ exist, otherwise a 404 response will be returned and no party will be added."
+        },
+        {
+          "info": {
+            "name": "Remove a party from a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/projects/:projectId/relationships/parties",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "All parties _must_ exist, otherwise a 404 response will be returned and no party will be removed."
+        },
+        {
+          "info": {
+            "name": "Upload a document to a party",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/parties/:partyId/documents",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path",
+                "description": "Party ID"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "document",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "documentType",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "This will simultaneusly upload a document and attach it to the party."
+        },
+        {
+          "info": {
+            "name": "Tag a party",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/parties/:partyId/relationships/tags",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path",
+                "description": "Party ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add one or more tags to a party. If an expiration date is passed, it will be applied to all the tags."
+        },
+        {
+          "info": {
+            "name": "delete-parties-:id-tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/parties/:partyId/relationships/tags",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path",
+                "description": "Party ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove one or more tags from a party."
+        },
+        {
+          "info": {
+            "name": "Remove a document from a party",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/parties/:partyId/relationships/documents/:documentId",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path",
+                "description": "Party ID"
+              },
+              {
+                "name": "documentId",
+                "value": "",
+                "type": "path",
+                "description": "Document ID"
+              }
+            ]
+          },
+          "docs": "If you need to remove multiple documents at once you can use the alternative endpoint `DELETE /parties/{partyId}/relationships/documents`"
+        },
+        {
+          "info": {
+            "name": "Remove a tag from a party",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/parties/:partyId/relationships/tags/:tagId",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tagId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "If you need to remove multiple tags at once you can use the alternative endpoint `DELETE /parties/{partyId}/relationships/tags`"
+        },
+        {
+          "info": {
+            "name": "Remove a party from a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/projects/:projectId/relationships/parties/:partyId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path",
+                "description": "Party ID"
+              }
+            ]
+          },
+          "docs": "If you need to remove multiple parties at once you can use the alternative endpoint `DELETE /projects/{projectId}/relationships/parties`"
+        },
+        {
+          "info": {
+            "name": "Fetch the current document request",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/parties/:partyId/document-request",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path",
+                "description": "Party ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "List of comma-separated relationships to include in the result"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This will return the latest document request sent for the party.\n\nAvailable include options:\n* `party`"
+        },
+        {
+          "info": {
+            "name": "Send a new document request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/parties/:partyId/document-request",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path",
+                "description": "Party ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "If a request already exists for this party, this will send a reminder."
+        },
+        {
+          "info": {
+            "name": "Bulk upload parties",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/import-parties",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "parties",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "This endpoint allows you to bulk upload parties via a CSV file.\n"
+        },
+        {
+          "info": {
+            "name": "Fetch a party's compliance profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/parties/:partyId/compliance-profile",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "scope[type]",
+                "value": "",
+                "type": "query",
+                "description": "Type of the resource to be used as scope"
+              },
+              {
+                "name": "scope[id]",
+                "value": "",
+                "type": "query",
+                "description": "Id of the resource to be used as scope"
+              }
+            ]
+          },
+          "docs": "This will return the compliance profile associated to the party. If the party is not tracking compliance you will get a 404 response.\nBy specifying a `scope` of type `projects`, the project-specific compliance profile will be returned.\n"
+        },
+        {
+          "info": {
+            "name": "Assign compliance profile to a party",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/parties/:partyId/compliance-profile",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "scope[type]",
+                "value": "",
+                "type": "query",
+                "description": "Type of the resource to be used as scope"
+              },
+              {
+                "name": "scope[id]",
+                "value": "",
+                "type": "query",
+                "description": "Id of the resource to be used as scope"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This operation will assign an existing compliance profile to a party. Unless the `scope` parameters are specified, the profile will be applied at the global level. To assign at the project level, include `scope[type]=projects` and `scope[id]={projectId}` to the query string."
+        },
+        {
+          "info": {
+            "name": "Assign a compliance profile to a party",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/parties/:partyId/relationships/compliance-profile",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "scope[type]",
+                "value": "",
+                "type": "query",
+                "description": "Type of the resource to be used as scope"
+              },
+              {
+                "name": "scope[id]",
+                "value": "",
+                "type": "query",
+                "description": "Id of the resource to be used as scope"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This will turn on compliance tracking on the party if it's currently turned off.\nTo assign a compliance profile for a specific project, specify it using the `scope` parameters."
+        },
+        {
+          "info": {
+            "name": "Remove the compliance profile from a party",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/parties/:partyId/relationships/compliance-profile",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This will turn off compliance tracking both at the global level and in each of the party's projects."
+        },
+        {
+          "info": {
+            "name": "Update party custom data",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:4000/v1/parties/:partyId/custom-data",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "scope[type]",
+                "value": "",
+                "type": "query",
+                "description": "Type of the resource to be used as scope"
+              },
+              {
+                "name": "scope[id]",
+                "value": "",
+                "type": "query",
+                "description": "Id of the resource to be used as scope"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add, remove or update party custom fields.\n\nTo remove a field, set its value to `null`.\n\nA project `scope` can be specified; in that case the changes will be made only to the project specific values."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

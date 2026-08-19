@@ -1,0 +1,345 @@
+{
+  "item": [
+    {
+      "id": "49673459-ec8c-492e-add3-780fcf39cf38",
+      "name": "Auth",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5e005b33-9445-41e3-a994-c6957baf60ef",
+          "name": "Create a 24-hour authorization session token for the workspace-management endpoints. The returned token grants `workspaces` write access for the authenticated user and is required as a Bearer credential on the `/v2/workspaces` routes. Returns 404 if no user matches the email and 401 if the password is invalid or the user is not a workspaces admin.",
+          "request": {
+            "name": "Create a 24-hour authorization session token for the workspace-management endpoints. The returned token grants `workspaces` write access for the authenticated user and is required as a Bearer credential on the `/v2/workspaces` routes. Returns 404 if no user matches the email and 401 if the password is invalid or the user is not a workspaces admin.",
+            "description": {
+              "content": "Create a 24-hour authorization session token for the workspace-management endpoints. The returned token grants `workspaces` write access for the authenticated user and is required as a Bearer credential on the `/v2/workspaces` routes. Returns 404 if no user matches the email and 401 if the password is invalid or the user is not a workspaces admin.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "auth",
+                "sessions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "13440e7f-d9cd-4e8b-968a-72a469cb42e4",
+              "name": "Newly issued 24-hour authorization session token granting workspaces write access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth",
+                    "sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ca84fe3a-e7e5-4d32-8936-e6b1e132be04",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth",
+                    "sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc194014-116e-4b21-bb83-c181c8f3a10f",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth",
+                    "sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "26dbd636-fc37-4e77-8cc5-02dcff4bf41d",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth",
+                    "sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d737afb2-cabe-4329-9c5f-e3722993ff5a",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth",
+                    "sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9eca2a5b-0073-4747-abb0-2d380b594ffb",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "auth",
+                    "sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:4000/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a7c9fc8e-5b72-4e28-a141-6a3b4606f45d",
+    "name": "TrustLayer Platform Auth API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "3rd-party API for the TrustLayer platform.\n\n**Deprecated.** Platform API v1 is deprecated as of 01 June 2026 and is\nscheduled for sunset (end-of-life) on 31 March 2027. It remains fully\navailable until the sunset date but will not receive new features. Please\nmigrate to Platform API v2 for new integrations.\n\nAll v1 responses carry the standard deprecation response headers\n([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)):\n\n```http\nDeprecation: @1780272000\nSunset: Wed, 31 Mar 2027 23:59:59 GMT\nLink: <https://developers.trustlayer.io/>; rel=\"deprecation\", <https://developers.trustlayer.io/>; rel=\"sunset\"\n```\n\n`Deprecation: @1780272000` is the Unix timestamp for 2026-06-01T00:00:00Z;\nsunset (end-of-life) is 2027-03-31T23:59:59 GMT.\n\nContact Support:\n Name: TrustLayer Support\n Email: support@trustlayer.io",
+      "type": "text/plain"
+    }
+  }
+}

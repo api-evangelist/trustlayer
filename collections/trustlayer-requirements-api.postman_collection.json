@@ -1,0 +1,1572 @@
+{
+  "item": [
+    {
+      "id": "f4344cf0-db95-4ed4-b983-470086dfebd1",
+      "name": "Requirements",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8851f2fc-63c2-4948-bfbb-74ede662debd",
+          "name": "Create a library requirement in the caller's organization (derived from the access token). Define the module/subject by label to create new ones, or by code/label to reuse an existing template, plus the attribute definition. Returns the persisted requirement.",
+          "request": {
+            "name": "Create a library requirement in the caller's organization (derived from the access token). Define the module/subject by label to create new ones, or by code/label to reuse an existing template, plus the attribute definition. Returns the persisted requirement.",
+            "description": {
+              "content": "Create a library requirement in the caller's organization (derived from the access token). Define the module/subject by label to create new ones, or by code/label to reuse an existing template, plus the attribute definition. Returns the persisted requirement.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "requirements"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"value\": \"<Error: Could not resolve allOf schema\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a97c7019-05f2-4763-9192-4faddce3b952",
+              "name": "A single library requirement.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"value\": \"<Error: Could not resolve allOf schema\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_id\": \"string\",\n  \"moduleCode\": \"string\",\n  \"moduleLabel\": \"string\",\n  \"subjectCode\": \"string\",\n  \"subjectLabel\": \"string\",\n  \"attributeCode\": \"string\",\n  \"attributeType\": \"list\",\n  \"attributeLabel\": \"string\",\n  \"matchingCriteria\": \"matchRepeatedly\",\n  \"attributeDescription\": \"string\",\n  \"operator\": \"must be less than or equal to\",\n  \"targetValue\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "093dbc25-db09-488f-a26d-6dd835e00ad4",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"value\": \"<Error: Could not resolve allOf schema\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0ed0857b-7533-4ead-ad6d-1a7994d72afa",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"value\": \"<Error: Could not resolve allOf schema\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c26c988c-65e9-4241-a182-f11a5784bd1d",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"value\": \"<Error: Could not resolve allOf schema\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3d13e85e-469f-4e3c-9367-a37a18215fb0",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"value\": \"<Error: Could not resolve allOf schema\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "55a2a390-f11c-4dd1-abe3-4c027332029f",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"value\": \"<Error: Could not resolve allOf schema\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a926ecc3-9094-40be-b027-a40ec5f117f7",
+          "name": "List library requirements in the caller's organization. Results are always scoped to the caller's organization and never include system requirement templates. Supports pagination via `limit` and `skip`.\n\n<!-- qs2mongo:list-summary -->\n\n**Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `attributeCode` (string), `attributeLabel` (string). See \"List Endpoints\" in the API overview for operator syntax and combining rules.\n\n**Sorting**: supported via `sort` (see the parameter's description for allowed fields). Prefix with `-` for descending.\n\n**Field projection**: supported via `fields` (see the parameter's description for allowed fields).",
+          "request": {
+            "name": "List library requirements in the caller's organization. Results are always scoped to the caller's organization and never include system requirement templates. Supports pagination via `limit` and `skip`.\n\n<!-- qs2mongo:list-summary -->\n\n**Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `attributeCode` (string), `attributeLabel` (string). See \"List Endpoints\" in the API overview for operator syntax and combining rules.\n\n**Sorting**: supported via `sort` (see the parameter's description for allowed fields). Prefix with `-` for descending.\n\n**Field projection**: supported via `fields` (see the parameter's description for allowed fields).",
+            "description": {
+              "content": "List library requirements in the caller's organization. Results are always scoped to the caller's organization and never include system requirement templates. Supports pagination via `limit` and `skip`.\n\n<!-- qs2mongo:list-summary -->\n\n**Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `attributeCode` (string), `attributeLabel` (string). See \"List Endpoints\" in the API overview for operator syntax and combining rules.\n\n**Sorting**: supported via `sort` (see the parameter's description for allowed fields). Prefix with `-` for descending.\n\n**Field projection**: supported via `fields` (see the parameter's description for allowed fields).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "requirements"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "disabled": false,
+                  "key": "skip",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to sort by. Example: '_id,-createdAt'. Allowed: moduleCode, moduleLabel, subjectCode, subjectLabel, attributeCode, attributeType, attributeLabel, attributeDescription, matchingCriteria, operator"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to project. Allowed: _id, moduleCode, moduleLabel, subjectCode, subjectLabel, attributeCode, attributeType, attributeLabel, attributeDescription, matchingCriteria, operator, targetValue"
+                },
+                {
+                  "disabled": false,
+                  "key": "_id",
+                  "value": "<string>",
+                  "description": "Filter by _id. 24-character hex ObjectId string (e.g. `_id=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+                },
+                {
+                  "disabled": false,
+                  "key": "createdAt",
+                  "value": "<string>",
+                  "description": "Filter by createdAt. ISO-8601 date or datetime string (e.g. `createdAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+                },
+                {
+                  "disabled": false,
+                  "key": "updatedAt",
+                  "value": "<string>",
+                  "description": "Filter by updatedAt. ISO-8601 date or datetime string (e.g. `updatedAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+                },
+                {
+                  "disabled": false,
+                  "key": "attributeCode",
+                  "value": "<string>",
+                  "description": "Filter by attributeCode. String value (e.g. `attributeCode=example`). See \"List Endpoints\" in the API overview for operator syntax."
+                },
+                {
+                  "disabled": false,
+                  "key": "attributeLabel",
+                  "value": "<string>",
+                  "description": "Filter by attributeLabel. String value (e.g. `attributeLabel=example`). See \"List Endpoints\" in the API overview for operator syntax."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7afa4b22-64f6-4b44-9ba6-5ee47ec1359c",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "attributeCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "attributeLabel",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"_id\": \"string\",\n      \"moduleCode\": \"string\",\n      \"moduleLabel\": \"string\",\n      \"subjectCode\": \"stri\",\n      \"subjectLabel\": \"string\",\n      \"attributeCode\": \"string\",\n      \"attributeType\": \"amBestRating\",\n      \"attributeLabel\": \"strin\",\n      \"attributeDescription\": \"string\",\n      \"matchingCriteria\": \"matchRepeatedly\",\n      \"operator\": \"at least one must be present from list\",\n      \"targetValue\": \"string\"\n    },\n    {\n      \"_id\": \"string\",\n      \"moduleCode\": \"string\",\n      \"moduleLabel\": \"string\",\n      \"subjectCode\": \"string\",\n      \"subjectLabel\": \"string\",\n      \"attributeCode\": \"string\",\n      \"attributeType\": \"number\",\n      \"attributeLabel\": \"string\",\n      \"attributeDescription\": \"string\",\n      \"matchingCriteria\": \"matchRepeatedly\",\n      \"operator\": \"at least one must be present from list\",\n      \"targetValue\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"count\": 8555.155294874769,\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ff9107cc-1b43-42f6-a539-5dd1c989c74e",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "attributeCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "attributeLabel",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ab5cd6c-4ce1-4717-9a03-b5b280e27ca8",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "attributeCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "attributeLabel",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b55e7c20-295a-4cbc-83e8-064968adc748",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "attributeCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "attributeLabel",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "621a4b70-05d6-4424-8592-0bfbaa996fbe",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "attributeCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "attributeLabel",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5262266e-0f00-49a7-ac54-62b7d75bc403",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "attributeCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "attributeLabel",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0f0e04de-cb03-45fe-8f0a-7f3cc5aba7d5",
+          "name": "Partially update a library requirement in the caller's organization. Supply any subset of the editable fields; omitted fields keep their stored values, and the merged (attributeType, operator, targetValue) triple must be internally consistent. The immutable attributeCode cannot be changed. Triggers the requirement-sync cascade. Returns the updated requirement.",
+          "request": {
+            "name": "Partially update a library requirement in the caller's organization. Supply any subset of the editable fields; omitted fields keep their stored values, and the merged (attributeType, operator, targetValue) triple must be internally consistent. The immutable attributeCode cannot be changed. Triggers the requirement-sync cascade. Returns the updated requirement.",
+            "description": {
+              "content": "Partially update a library requirement in the caller's organization. Supply any subset of the editable fields; omitted fields keep their stored values, and the merged (attributeType, operator, targetValue) triple must be internally consistent. The immutable attributeCode cannot be changed. Triggers the requirement-sync cascade. Returns the updated requirement.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "requirements",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<ObjectId>",
+                  "key": "id",
+                  "description": "(Required) Identifier of the library requirement to update."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"attributeType\": \"<string>\",\n  \"attributeLabel\": \"<string>\",\n  \"attributeDescription\": \"<string>\",\n  \"matchingCriteria\": \"<string>\",\n  \"operator\": \"<string>\",\n  \"targetValue\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "317ae11b-cbce-4299-a3a9-bf71eed1aa73",
+              "name": "A single library requirement.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "requirements",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the library requirement to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"attributeType\": \"<string>\",\n  \"attributeLabel\": \"<string>\",\n  \"attributeDescription\": \"<string>\",\n  \"matchingCriteria\": \"<string>\",\n  \"operator\": \"<string>\",\n  \"targetValue\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_id\": \"string\",\n  \"moduleCode\": \"string\",\n  \"moduleLabel\": \"string\",\n  \"subjectCode\": \"string\",\n  \"subjectLabel\": \"string\",\n  \"attributeCode\": \"string\",\n  \"attributeType\": \"list\",\n  \"attributeLabel\": \"string\",\n  \"matchingCriteria\": \"matchRepeatedly\",\n  \"attributeDescription\": \"string\",\n  \"operator\": \"must be less than or equal to\",\n  \"targetValue\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1710ffa1-c4d1-4f33-87e8-c24ac912288f",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "requirements",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the library requirement to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"attributeType\": \"<string>\",\n  \"attributeLabel\": \"<string>\",\n  \"attributeDescription\": \"<string>\",\n  \"matchingCriteria\": \"<string>\",\n  \"operator\": \"<string>\",\n  \"targetValue\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2cc1d4be-f39d-4d32-a9d9-26c257360da9",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "requirements",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the library requirement to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"attributeType\": \"<string>\",\n  \"attributeLabel\": \"<string>\",\n  \"attributeDescription\": \"<string>\",\n  \"matchingCriteria\": \"<string>\",\n  \"operator\": \"<string>\",\n  \"targetValue\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9cac31b3-0d79-4f63-9a5e-f9d6b6163204",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "requirements",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the library requirement to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"attributeType\": \"<string>\",\n  \"attributeLabel\": \"<string>\",\n  \"attributeDescription\": \"<string>\",\n  \"matchingCriteria\": \"<string>\",\n  \"operator\": \"<string>\",\n  \"targetValue\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc6ad585-1e93-4001-9805-141cd111d02c",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "requirements",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the library requirement to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"attributeType\": \"<string>\",\n  \"attributeLabel\": \"<string>\",\n  \"attributeDescription\": \"<string>\",\n  \"matchingCriteria\": \"<string>\",\n  \"operator\": \"<string>\",\n  \"targetValue\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8989aaed-6108-49ad-bda9-6c1d4fd1c1a5",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "requirements",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the library requirement to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"attributeType\": \"<string>\",\n  \"attributeLabel\": \"<string>\",\n  \"attributeDescription\": \"<string>\",\n  \"matchingCriteria\": \"<string>\",\n  \"operator\": \"<string>\",\n  \"targetValue\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "83058f39-948f-4d8a-9535-4d05048d27c3",
+          "name": "Read a single library requirement by id, scoped to the caller's organization.",
+          "request": {
+            "name": "Read a single library requirement by id, scoped to the caller's organization.",
+            "description": {
+              "content": "Read a single library requirement by id, scoped to the caller's organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "requirements",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to project. Allowed: _id, moduleCode, moduleLabel, subjectCode, subjectLabel, attributeCode, attributeType, attributeLabel, attributeDescription, matchingCriteria, operator, targetValue"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<ObjectId>",
+                  "key": "id",
+                  "description": "(Required) Identifier of the library requirement to read."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "356f25f4-ec6d-45a8-85c0-4c0cb2305d6b",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "requirements",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the library requirement to read."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_id\": \"string\",\n  \"moduleCode\": \"string\",\n  \"moduleLabel\": \"string\",\n  \"subjectCode\": \"string\",\n  \"subjectLabel\": \"string\",\n  \"attributeCode\": \"string\",\n  \"attributeType\": \"boolean\",\n  \"attributeLabel\": \"string\",\n  \"attributeDescription\": \"string\",\n  \"matchingCriteria\": \"matchRepeatedly\",\n  \"operator\": \"must be greater or equal to\",\n  \"targetValue\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e06490e-f70a-45e3-b3d7-632321ebe7d5",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "requirements",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the library requirement to read."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3caa7324-c47a-4d83-b28f-31bff7dfc3db",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "requirements",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the library requirement to read."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec8c3320-799f-446c-bc5d-4f8d0f2d80b2",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "requirements",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the library requirement to read."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5dc8375b-f2a6-4d40-84e5-289ee85fd4c6",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "requirements",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the library requirement to read."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "72ddd026-9982-4985-bd1b-1ad4220f6edd",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "requirements",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the library requirement to read."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:4000/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e72a3582-5301-4c4b-9619-a84d3347d155",
+    "name": "TrustLayer Platform Auth Requirements API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "3rd-party API for the TrustLayer platform.\n\n**Deprecated.** Platform API v1 is deprecated as of 01 June 2026 and is\nscheduled for sunset (end-of-life) on 31 March 2027. It remains fully\navailable until the sunset date but will not receive new features. Please\nmigrate to Platform API v2 for new integrations.\n\nAll v1 responses carry the standard deprecation response headers\n([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)):\n\n```http\nDeprecation: @1780272000\nSunset: Wed, 31 Mar 2027 23:59:59 GMT\nLink: <https://developers.trustlayer.io/>; rel=\"deprecation\", <https://developers.trustlayer.io/>; rel=\"sunset\"\n```\n\n`Deprecation: @1780272000` is the Unix timestamp for 2026-06-01T00:00:00Z;\nsunset (end-of-life) is 2027-03-31T23:59:59 GMT.\n\nContact Support:\n Name: TrustLayer Support\n Email: support@trustlayer.io",
+      "type": "text/plain"
+    }
+  }
+}

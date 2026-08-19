@@ -1,0 +1,3405 @@
+{
+  "item": [
+    {
+      "id": "2602818f-a20f-425a-ba87-fa3999e2907f",
+      "name": "compliance-profiles",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9401f8db-003d-4498-ba05-4cad175df3d8",
+          "name": "List global compliance profiles",
+          "request": {
+            "name": "List global compliance profiles",
+            "description": {
+              "content": "Available sort options:\n* `name`\n* `createdAt`\n* `updatedAt`\n\nAvailable filter options:\n* `name`\n* `moduleId`\n* `subjectId`\n* `createdAt`\n* `updatedAt`\n\nNotes:\n\n- `moduleId` and `subjectId` filters only perform an exact match (case-sensitive); they do not support other operator\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "compliance-profiles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[number]",
+                  "value": "1",
+                  "description": "Page number, starting from 1"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "20",
+                  "description": "Number of items per page. Defaults to 20. Maximum is 100"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "List of comma-separated keys used to sort. Reversing is done by prepending \"-\" to the key name."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "41b74cbc-bc92-4a72-ad86-724fdf7c2ddf",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[number]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "20"
+                    },
+                    {
+                      "key": "filter[title]",
+                      "value": "foo"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "name,-age"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"compliance-profiles\",\n      \"name\": \"Default compliance profile\",\n      \"rules\": [\n        {\n          \"moduleId\": \"evidenceOfInsurance\",\n          \"moduleLabel\": \"Evidence of Insurance\",\n          \"subjectId\": \"commercialGeneralLiability\",\n          \"subjectLabel\": \"Commercial General Liability\",\n          \"attributeId\": \"evidenceOfInsuranceCommercialGeneralLiabilityEachOccurrence\",\n          \"attributeLabel\": \"Each Occurrence\",\n          \"attributeType\": \"number\",\n          \"attributeDescription\": \"string\",\n          \"masterDocumentAttributeId\": \"commercialGeneralLiabilityLimitsGeneralAggregate\",\n          \"operator\": \"must be greater or equal to\",\n          \"targetValue\": \"2000000\"\n        },\n        {\n          \"moduleId\": \"evidenceOfInsurance\",\n          \"moduleLabel\": \"Evidence of Insurance\",\n          \"subjectId\": \"commercialGeneralLiability\",\n          \"subjectLabel\": \"Commercial General Liability\",\n          \"attributeId\": \"evidenceOfInsuranceCommercialGeneralLiabilityEachOccurrence\",\n          \"attributeLabel\": \"Each Occurrence\",\n          \"attributeType\": \"number\",\n          \"attributeDescription\": \"string\",\n          \"masterDocumentAttributeId\": \"commercialGeneralLiabilityLimitsGeneralAggregate\",\n          \"operator\": \"must be greater or equal to\",\n          \"targetValue\": \"2000000\"\n        }\n      ],\n      \"context\": \"global\",\n      \"documentChecklists\": [\n        {\n          \"attributeId\": \"string\",\n          \"attributeLabel\": \"string\",\n          \"active\": true\n        },\n        {\n          \"attributeId\": \"string\",\n          \"attributeLabel\": \"string\",\n          \"active\": false\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"compliance-profiles\",\n      \"name\": \"Default compliance profile\",\n      \"rules\": [\n        {\n          \"moduleId\": \"evidenceOfInsurance\",\n          \"moduleLabel\": \"Evidence of Insurance\",\n          \"subjectId\": \"commercialGeneralLiability\",\n          \"subjectLabel\": \"Commercial General Liability\",\n          \"attributeId\": \"evidenceOfInsuranceCommercialGeneralLiabilityEachOccurrence\",\n          \"attributeLabel\": \"Each Occurrence\",\n          \"attributeType\": \"number\",\n          \"attributeDescription\": \"string\",\n          \"masterDocumentAttributeId\": \"commercialGeneralLiabilityLimitsGeneralAggregate\",\n          \"operator\": \"must be greater or equal to\",\n          \"targetValue\": \"2000000\"\n        },\n        {\n          \"moduleId\": \"evidenceOfInsurance\",\n          \"moduleLabel\": \"Evidence of Insurance\",\n          \"subjectId\": \"commercialGeneralLiability\",\n          \"subjectLabel\": \"Commercial General Liability\",\n          \"attributeId\": \"evidenceOfInsuranceCommercialGeneralLiabilityEachOccurrence\",\n          \"attributeLabel\": \"Each Occurrence\",\n          \"attributeType\": \"number\",\n          \"attributeDescription\": \"string\",\n          \"masterDocumentAttributeId\": \"commercialGeneralLiabilityLimitsGeneralAggregate\",\n          \"operator\": \"must be greater or equal to\",\n          \"targetValue\": \"2000000\"\n        }\n      ],\n      \"context\": \"global\",\n      \"documentChecklists\": [\n        {\n          \"attributeId\": \"string\",\n          \"attributeLabel\": \"string\",\n          \"active\": false\n        },\n        {\n          \"attributeId\": \"string\",\n          \"attributeLabel\": \"string\",\n          \"active\": false\n        }\n      ]\n    }\n  ],\n  \"meta\": {\n    \"count\": 5558.158988592123,\n    \"pages\": 9586.96593083267,\n    \"totalCount\": 697.8581852764987,\n    \"totalPages\": 9597.762997721762\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "727c9613-abfc-4882-a7af-b21bffc00d1f",
+          "name": "Create a new Global compliance profile in the caller's organization. The owning organization is derived from the access token. Returns the created profile.",
+          "request": {
+            "name": "Create a new Global compliance profile in the caller's organization. The owning organization is derived from the access token. Returns the created profile.",
+            "description": {
+              "content": "Create a new Global compliance profile in the caller's organization. The owning organization is derived from the access token. Returns the created profile.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "compliance-profiles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "56dc54b8-85e0-4dcc-a587-68fa32ae6272",
+              "name": "A compliance profile with its requirements.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_id\": \"string\",\n  \"name\": \"string\",\n  \"context\": \"global\",\n  \"requirements\": [\n    {\n      \"moduleCode\": \"string\",\n      \"moduleLabel\": \"string\",\n      \"subjectCode\": \"string\",\n      \"subjectLabel\": \"string\",\n      \"attributeCode\": \"string\",\n      \"attributeLabel\": \"string\",\n      \"attributeType\": \"number\",\n      \"matchingCriteria\": \"matchOnce\",\n      \"attributeDescription\": \"string\",\n      \"operator\": \"must be less than or equal to\",\n      \"targetValue\": \"string\"\n    },\n    {\n      \"moduleCode\": \"string\",\n      \"moduleLabel\": \"string\",\n      \"subjectCode\": \"string\",\n      \"subjectLabel\": \"string\",\n      \"attributeCode\": \"strin\",\n      \"attributeLabel\": \"string\",\n      \"attributeType\": \"ai\",\n      \"matchingCriteria\": \"matchOnce\",\n      \"attributeDescription\": \"string\",\n      \"operator\": \"must be present\",\n      \"targetValue\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "650a0a84-2627-42aa-9566-f1c3bf72c927",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0337cc41-d6fb-4c93-90bd-60060a088e75",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c365b1e6-a745-41e9-b4a9-3f9741732f65",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "050bf941-6bd4-4c04-94f2-8594cb5c55b1",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2d34c8cc-7d5c-48ae-a171-4e9cbe396ff7",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "518f6c41-42b1-49c4-811a-96db87e3db57",
+          "name": "Fetch a compliance profile",
+          "request": {
+            "name": "Fetch a compliance profile",
+            "description": {
+              "content": "Note that you can also fetch project, party, and custom field compliance profiles, not just global ones.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "compliance-profiles",
+                ":profileId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "profileId",
+                  "description": "(Required) Compliance Profile ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "58a79329-7a21-4b2a-9f60-8030315e20d4",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":profileId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "profileId",
+                      "description": "(Required) Compliance Profile ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"compliance-profiles\",\n    \"name\": \"Default compliance profile\",\n    \"rules\": [\n      {\n        \"moduleId\": \"evidenceOfInsurance\",\n        \"moduleLabel\": \"Evidence of Insurance\",\n        \"subjectId\": \"commercialGeneralLiability\",\n        \"subjectLabel\": \"Commercial General Liability\",\n        \"attributeId\": \"evidenceOfInsuranceCommercialGeneralLiabilityEachOccurrence\",\n        \"attributeLabel\": \"Each Occurrence\",\n        \"attributeType\": \"number\",\n        \"attributeDescription\": \"string\",\n        \"masterDocumentAttributeId\": \"commercialGeneralLiabilityLimitsGeneralAggregate\",\n        \"operator\": \"must be greater or equal to\",\n        \"targetValue\": \"2000000\"\n      },\n      {\n        \"moduleId\": \"evidenceOfInsurance\",\n        \"moduleLabel\": \"Evidence of Insurance\",\n        \"subjectId\": \"commercialGeneralLiability\",\n        \"subjectLabel\": \"Commercial General Liability\",\n        \"attributeId\": \"evidenceOfInsuranceCommercialGeneralLiabilityEachOccurrence\",\n        \"attributeLabel\": \"Each Occurrence\",\n        \"attributeType\": \"number\",\n        \"attributeDescription\": \"string\",\n        \"masterDocumentAttributeId\": \"commercialGeneralLiabilityLimitsGeneralAggregate\",\n        \"operator\": \"must be greater or equal to\",\n        \"targetValue\": \"2000000\"\n      }\n    ],\n    \"context\": \"project\",\n    \"documentChecklists\": [\n      {\n        \"attributeId\": \"string\",\n        \"attributeLabel\": \"string\",\n        \"active\": true\n      },\n      {\n        \"attributeId\": \"string\",\n        \"attributeLabel\": \"string\",\n        \"active\": true\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ade51d48-bd52-42f6-97e1-e68591cdd4ab",
+          "name": "Fetch compliance profile for project",
+          "request": {
+            "name": "Fetch compliance profile for project",
+            "description": {
+              "content": "This will return the project-specific compliance profile relative to the given scope.\n\nNOTE: it is _mandatory_ to specify a `scope`, which can be either a `party` (belonging to a project) or a `complianceProfile`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":projectId",
+                "compliance-profile"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "scope[type]",
+                  "value": "<string>",
+                  "description": "Type of the resource to be used as scope"
+                },
+                {
+                  "disabled": false,
+                  "key": "scope[id]",
+                  "value": "<string>",
+                  "description": "Id of the resource to be used as scope"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ad0ce354-ab3e-410a-a9a5-ee146298d19f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "compliance-profile"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope[type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scope[id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"compliance-profiles\",\n    \"name\": \"Default compliance profile\",\n    \"rules\": [\n      {\n        \"moduleId\": \"evidenceOfInsurance\",\n        \"moduleLabel\": \"Evidence of Insurance\",\n        \"subjectId\": \"commercialGeneralLiability\",\n        \"subjectLabel\": \"Commercial General Liability\",\n        \"attributeId\": \"evidenceOfInsuranceCommercialGeneralLiabilityEachOccurrence\",\n        \"attributeLabel\": \"Each Occurrence\",\n        \"attributeType\": \"number\",\n        \"attributeDescription\": \"string\",\n        \"masterDocumentAttributeId\": \"commercialGeneralLiabilityLimitsGeneralAggregate\",\n        \"operator\": \"must be greater or equal to\",\n        \"targetValue\": \"2000000\"\n      },\n      {\n        \"moduleId\": \"evidenceOfInsurance\",\n        \"moduleLabel\": \"Evidence of Insurance\",\n        \"subjectId\": \"commercialGeneralLiability\",\n        \"subjectLabel\": \"Commercial General Liability\",\n        \"attributeId\": \"evidenceOfInsuranceCommercialGeneralLiabilityEachOccurrence\",\n        \"attributeLabel\": \"Each Occurrence\",\n        \"attributeType\": \"number\",\n        \"attributeDescription\": \"string\",\n        \"masterDocumentAttributeId\": \"commercialGeneralLiabilityLimitsGeneralAggregate\",\n        \"operator\": \"must be greater or equal to\",\n        \"targetValue\": \"2000000\"\n      }\n    ],\n    \"context\": \"project\",\n    \"documentChecklists\": [\n      {\n        \"attributeId\": \"string\",\n        \"attributeLabel\": \"string\",\n        \"active\": true\n      },\n      {\n        \"attributeId\": \"string\",\n        \"attributeLabel\": \"string\",\n        \"active\": true\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9067c570-6813-41c0-acd9-507112fd02aa",
+          "name": "Fetch a party's compliance profile",
+          "request": {
+            "name": "Fetch a party's compliance profile",
+            "description": {
+              "content": "This will return the compliance profile associated to the party. If the party is not tracking compliance you will get a 404 response.\nBy specifying a `scope` of type `projects`, the project-specific compliance profile will be returned.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "parties",
+                ":partyId",
+                "compliance-profile"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "scope[type]",
+                  "value": "<string>",
+                  "description": "Type of the resource to be used as scope"
+                },
+                {
+                  "disabled": false,
+                  "key": "scope[id]",
+                  "value": "<string>",
+                  "description": "Id of the resource to be used as scope"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "partyId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4ac40002-33d6-4561-aff7-1e5d5c130b35",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parties",
+                    ":partyId",
+                    "compliance-profile"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope[type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scope[id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partyId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"compliance-profiles\",\n    \"name\": \"Default compliance profile\",\n    \"rules\": [\n      {\n        \"moduleId\": \"evidenceOfInsurance\",\n        \"moduleLabel\": \"Evidence of Insurance\",\n        \"subjectId\": \"commercialGeneralLiability\",\n        \"subjectLabel\": \"Commercial General Liability\",\n        \"attributeId\": \"evidenceOfInsuranceCommercialGeneralLiabilityEachOccurrence\",\n        \"attributeLabel\": \"Each Occurrence\",\n        \"attributeType\": \"number\",\n        \"attributeDescription\": \"string\",\n        \"masterDocumentAttributeId\": \"commercialGeneralLiabilityLimitsGeneralAggregate\",\n        \"operator\": \"must be greater or equal to\",\n        \"targetValue\": \"2000000\"\n      },\n      {\n        \"moduleId\": \"evidenceOfInsurance\",\n        \"moduleLabel\": \"Evidence of Insurance\",\n        \"subjectId\": \"commercialGeneralLiability\",\n        \"subjectLabel\": \"Commercial General Liability\",\n        \"attributeId\": \"evidenceOfInsuranceCommercialGeneralLiabilityEachOccurrence\",\n        \"attributeLabel\": \"Each Occurrence\",\n        \"attributeType\": \"number\",\n        \"attributeDescription\": \"string\",\n        \"masterDocumentAttributeId\": \"commercialGeneralLiabilityLimitsGeneralAggregate\",\n        \"operator\": \"must be greater or equal to\",\n        \"targetValue\": \"2000000\"\n      }\n    ],\n    \"context\": \"project\",\n    \"documentChecklists\": [\n      {\n        \"attributeId\": \"string\",\n        \"attributeLabel\": \"string\",\n        \"active\": true\n      },\n      {\n        \"attributeId\": \"string\",\n        \"attributeLabel\": \"string\",\n        \"active\": true\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ee6a1e54-eb45-448c-a374-35295ccbb381",
+          "name": "Assign compliance profile to a party",
+          "request": {
+            "name": "Assign compliance profile to a party",
+            "description": {
+              "content": "This operation will assign an existing compliance profile to a party. Unless the `scope` parameters are specified, the profile will be applied at the global level. To assign at the project level, include `scope[type]=projects` and `scope[id]={projectId}` to the query string.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "parties",
+                ":partyId",
+                "compliance-profile"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "scope[type]",
+                  "value": "<string>",
+                  "description": "Type of the resource to be used as scope"
+                },
+                {
+                  "disabled": false,
+                  "key": "scope[id]",
+                  "value": "<string>",
+                  "description": "Id of the resource to be used as scope"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "partyId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"complianceProfile\": {\n    \"id\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ba1109ab-a86a-4b80-87b4-dd51412a3d1f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parties",
+                    ":partyId",
+                    "compliance-profile"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope[type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scope[id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partyId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"complianceProfile\": {\n    \"id\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "18602624-2d19-4c74-beac-ca5925c82c46",
+          "name": "Assign a compliance profile to a party",
+          "request": {
+            "name": "Assign a compliance profile to a party",
+            "description": {
+              "content": "This will turn on compliance tracking on the party if it's currently turned off.\nTo assign a compliance profile for a specific project, specify it using the `scope` parameters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "parties",
+                ":partyId",
+                "relationships",
+                "compliance-profile"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "scope[type]",
+                  "value": "<string>",
+                  "description": "Type of the resource to be used as scope"
+                },
+                {
+                  "disabled": false,
+                  "key": "scope[id]",
+                  "value": "<string>",
+                  "description": "Id of the resource to be used as scope"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "partyId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"complianceProfile\": {\n    \"id\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9cac89e7-b898-469d-89d8-8d19592cc0b9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parties",
+                    ":partyId",
+                    "relationships",
+                    "compliance-profile"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope[type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scope[id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partyId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"complianceProfile\": {\n    \"id\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"fail\",\n  \"data\": {\n    \"type\": \"parties\",\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"address\": {\n      \"value\": \"reference #/components/schemas/address not found in the OpenAPI spec\"\n    },\n    \"status\": \"inactive\",\n    \"contacts\": [\n      {\n        \"type\": \"contacts\",\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"company\": \"string\",\n        \"email\": \"string\",\n        \"phone\": \"string\",\n        \"fax\": \"string\",\n        \"title\": \"string\",\n        \"primary\": false,\n        \"defaultRequestRecipient\": false,\n        \"avatar\": \"string\",\n        \"party\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        },\n        \"externalId\": \"string\"\n      },\n      {\n        \"type\": \"contacts\",\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"company\": \"string\",\n        \"email\": \"string\",\n        \"phone\": \"string\",\n        \"fax\": \"string\",\n        \"title\": \"string\",\n        \"primary\": false,\n        \"defaultRequestRecipient\": false,\n        \"avatar\": \"string\",\n        \"party\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        },\n        \"externalId\": \"string\"\n      }\n    ],\n    \"website\": \"string\",\n    \"active\": false,\n    \"notes\": \"string\",\n    \"complianceStatus\": {\n      \"complianceProfile\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      \"modules\": [\n        {\n          \"id\": \"string\",\n          \"label\": \"string\",\n          \"status\": \"non_compliant\",\n          \"documents\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"origin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"complianceStatus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"origin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"complianceStatus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"documentsCount\": 1,\n          \"subjects\": [\n            {\n              \"id\": \"string\",\n              \"label\": \"string\",\n              \"status\": \"compliant\",\n              \"documents\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"documentsCount\": 8870.749805591466,\n              \"requirements\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"notes\": \"string\",\n              \"effectiveDate\": \"1965-02-08T07:10:09.902Z\",\n              \"expirationDate\": \"1952-01-07T05:16:18.723Z\",\n              \"latestExpirationDate\": \"1949-08-29T11:12:27.602Z\",\n              \"latestValidEffectiveDate\": \"1956-04-20T16:52:04.266Z\",\n              \"latestValidExpirationDate\": \"2004-04-15T14:39:30.378Z\",\n              \"resetOn\": \"2010-01-08T06:32:07.131Z\"\n            },\n            {\n              \"id\": \"string\",\n              \"label\": \"string\",\n              \"status\": \"compliant\",\n              \"documents\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"documentsCount\": 1528.4033358404458,\n              \"requirements\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"notes\": \"string\",\n              \"effectiveDate\": \"1996-01-03T01:19:48.195Z\",\n              \"expirationDate\": \"1957-10-28T14:19:28.610Z\",\n              \"latestExpirationDate\": \"1988-07-21T12:49:46.373Z\",\n              \"latestValidEffectiveDate\": \"1985-03-14T08:55:46.095Z\",\n              \"latestValidExpirationDate\": \"2019-01-28T19:04:27.886Z\",\n              \"resetOn\": \"1984-10-02T18:59:19.999Z\"\n            }\n          ]\n        },\n        {\n          \"id\": \"string\",\n          \"label\": \"string\",\n          \"status\": \"compliant\",\n          \"documents\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"origin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"complianceStatus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"origin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"complianceStatus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"documentsCount\": 1,\n          \"subjects\": [\n            {\n              \"id\": \"string\",\n              \"label\": \"string\",\n              \"status\": \"non_compliant\",\n              \"documents\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"documentsCount\": 1384.9396948790882,\n              \"requirements\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"notes\": \"string\",\n              \"effectiveDate\": \"2008-09-26T14:13:39.210Z\",\n              \"expirationDate\": \"2023-02-09T21:19:12.885Z\",\n              \"latestExpirationDate\": \"1982-02-08T14:53:08.722Z\",\n              \"latestValidEffectiveDate\": \"2014-08-17T04:47:49.192Z\",\n              \"latestValidExpirationDate\": \"1995-06-15T01:39:20.407Z\",\n              \"resetOn\": \"1974-02-21T14:19:08.641Z\"\n            },\n            {\n              \"id\": \"string\",\n              \"label\": \"string\",\n              \"status\": \"non_compliant\",\n              \"documents\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"documentsCount\": 3254.6002857515577,\n              \"requirements\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"notes\": \"string\",\n              \"effectiveDate\": \"1970-10-25T16:37:22.009Z\",\n              \"expirationDate\": \"1963-07-21T12:55:00.072Z\",\n              \"latestExpirationDate\": \"1999-01-16T01:04:01.971Z\",\n              \"latestValidEffectiveDate\": \"1980-05-27T05:47:32.981Z\",\n              \"latestValidExpirationDate\": \"1971-01-08T07:50:31.960Z\",\n              \"resetOn\": \"1984-11-04T20:26:21.260Z\"\n            }\n          ]\n        }\n      ],\n      \"subjects\": [\n        {\n          \"id\": \"string\",\n          \"effectiveDate\": \"1986-03-01T19:06:40.701Z\",\n          \"expirationDate\": \"1991-03-24T17:53:14.468Z\",\n          \"latestValidEffectiveDate\": \"1980-10-21T03:34:00.519Z\",\n          \"latestValidExpirationDate\": \"1975-11-27T17:57:18.403Z\",\n          \"notes\": \"string\",\n          \"requirementsStatus\": \"overridden\",\n          \"resetRequirementsOn\": \"1962-02-20T13:34:43.530Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"effectiveDate\": \"1975-10-21T09:49:31.919Z\",\n          \"expirationDate\": \"1953-11-14T04:37:43.822Z\",\n          \"latestValidEffectiveDate\": \"1978-02-10T03:36:33.675Z\",\n          \"latestValidExpirationDate\": \"2001-07-07T05:43:43.905Z\",\n          \"notes\": \"string\",\n          \"requirementsStatus\": \"waived\",\n          \"resetRequirementsOn\": \"1985-02-28T04:42:50.153Z\"\n        }\n      ],\n      \"requirements\": [\n        {\n          \"id\": \"string\",\n          \"label\": \"string\",\n          \"operator\": \"string\",\n          \"targetValue\": \"string\",\n          \"actualValue\": \"string\",\n          \"status\": \"invalidated\",\n          \"waiverOrOverrideNotes\": \"string\",\n          \"waiverOrOverrideExpirationDate\": \"1961-04-27T15:53:55.240Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"label\": \"string\",\n          \"operator\": \"string\",\n          \"targetValue\": \"string\",\n          \"actualValue\": \"string\",\n          \"status\": \"compliant\",\n          \"waiverOrOverrideNotes\": \"string\",\n          \"waiverOrOverrideExpirationDate\": \"2001-04-06T01:43:17.528Z\"\n        }\n      ],\n      \"status\": \"compliant\",\n      \"nextExpirationDate\": \"2022-09-28T22:11:50.004Z\",\n      \"latestExpirationDate\": \"2019-07-13T07:55:00.965Z\",\n      \"lastChangedAt\": \"2016-12-03T07:50:30.480Z\"\n    },\n    \"projects\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"projectStats\": {\n      \"compliantProjectsCount\": 501.86011449673384,\n      \"totalProjectsCount\": 4549.544972269052\n    },\n    \"documents\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"partyType\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"tags\": [\n      {\n        \"type\": \"tags\",\n        \"id\": \"string\",\n        \"addedAt\": \"1960-04-11\",\n        \"addedBy\": \"string\",\n        \"expiresAt\": \"1955-02-25\"\n      },\n      {\n        \"type\": \"tags\",\n        \"id\": \"string\",\n        \"addedAt\": \"1986-01-02\",\n        \"addedBy\": \"string\",\n        \"expiresAt\": \"1950-03-20\"\n      }\n    ],\n    \"complianceProfile\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"customData\": [\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      }\n    ],\n    \"deletedAt\": \"1978-09-10T10:09:35.047Z\",\n    \"deletedBy\": {},\n    \"externalIds\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a9c61d11-7875-4553-966a-3f973895ea79",
+          "name": "Remove the compliance profile from a party",
+          "request": {
+            "name": "Remove the compliance profile from a party",
+            "description": {
+              "content": "This will turn off compliance tracking both at the global level and in each of the party's projects.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "parties",
+                ":partyId",
+                "relationships",
+                "compliance-profile"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "partyId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8a80e4b3-8f35-48f9-921c-54f8564e21bd",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parties",
+                    ":partyId",
+                    "relationships",
+                    "compliance-profile"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partyId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"type\": \"parties\",\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"address\": {\n      \"value\": \"reference #/components/schemas/address not found in the OpenAPI spec\"\n    },\n    \"status\": \"new\",\n    \"contacts\": [\n      {\n        \"type\": \"contacts\",\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"company\": \"string\",\n        \"email\": \"string\",\n        \"phone\": \"string\",\n        \"fax\": \"string\",\n        \"title\": \"string\",\n        \"primary\": false,\n        \"defaultRequestRecipient\": false,\n        \"avatar\": \"string\",\n        \"party\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        },\n        \"externalId\": \"string\"\n      },\n      {\n        \"type\": \"contacts\",\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"company\": \"string\",\n        \"email\": \"string\",\n        \"phone\": \"string\",\n        \"fax\": \"string\",\n        \"title\": \"string\",\n        \"primary\": false,\n        \"defaultRequestRecipient\": false,\n        \"avatar\": \"string\",\n        \"party\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        },\n        \"externalId\": \"string\"\n      }\n    ],\n    \"website\": \"string\",\n    \"active\": true,\n    \"notes\": \"string\",\n    \"complianceStatus\": {\n      \"complianceProfile\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      \"modules\": [\n        {\n          \"id\": \"string\",\n          \"label\": \"string\",\n          \"status\": \"non_compliant\",\n          \"documents\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"origin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"complianceStatus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"origin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"complianceStatus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"documentsCount\": 1,\n          \"subjects\": [\n            {\n              \"id\": \"string\",\n              \"label\": \"string\",\n              \"status\": \"overridden\",\n              \"documents\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"documentsCount\": 5939.462437133114,\n              \"requirements\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"notes\": \"string\",\n              \"effectiveDate\": \"1961-06-21T14:17:55.468Z\",\n              \"expirationDate\": \"1985-03-18T08:02:02.125Z\",\n              \"latestExpirationDate\": \"2012-11-16T09:39:14.220Z\",\n              \"latestValidEffectiveDate\": \"2004-03-16T15:25:23.633Z\",\n              \"latestValidExpirationDate\": \"2002-04-07T19:48:11.238Z\",\n              \"resetOn\": \"2016-04-16T13:28:33.957Z\"\n            },\n            {\n              \"id\": \"string\",\n              \"label\": \"string\",\n              \"status\": \"waived\",\n              \"documents\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"documentsCount\": 8302.845991442588,\n              \"requirements\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"notes\": \"string\",\n              \"effectiveDate\": \"2001-09-20T13:17:18.645Z\",\n              \"expirationDate\": \"1956-12-14T08:05:03.997Z\",\n              \"latestExpirationDate\": \"2018-05-19T21:19:29.104Z\",\n              \"latestValidEffectiveDate\": \"1968-10-03T21:33:23.237Z\",\n              \"latestValidExpirationDate\": \"1975-11-25T19:30:18.761Z\",\n              \"resetOn\": \"2000-07-30T21:41:08.065Z\"\n            }\n          ]\n        },\n        {\n          \"id\": \"string\",\n          \"label\": \"string\",\n          \"status\": \"compliant\",\n          \"documents\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"origin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"complianceStatus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"origin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"complianceStatus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"documentsCount\": 1,\n          \"subjects\": [\n            {\n              \"id\": \"string\",\n              \"label\": \"string\",\n              \"status\": \"overridden\",\n              \"documents\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"documentsCount\": 8522.275625924261,\n              \"requirements\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"notes\": \"string\",\n              \"effectiveDate\": \"2014-10-14T15:37:03.686Z\",\n              \"expirationDate\": \"1992-10-10T20:21:40.053Z\",\n              \"latestExpirationDate\": \"1987-04-12T19:54:55.763Z\",\n              \"latestValidEffectiveDate\": \"2024-04-16T22:37:09.585Z\",\n              \"latestValidExpirationDate\": \"1947-01-27T12:29:42.111Z\",\n              \"resetOn\": \"2015-04-18T08:16:57.177Z\"\n            },\n            {\n              \"id\": \"string\",\n              \"label\": \"string\",\n              \"status\": \"non_compliant\",\n              \"documents\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"documentsCount\": 1599.9882300574109,\n              \"requirements\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"notes\": \"string\",\n              \"effectiveDate\": \"1985-06-24T14:15:04.703Z\",\n              \"expirationDate\": \"2005-06-24T05:46:14.403Z\",\n              \"latestExpirationDate\": \"1987-11-19T14:13:57.460Z\",\n              \"latestValidEffectiveDate\": \"1982-09-09T06:11:21.759Z\",\n              \"latestValidExpirationDate\": \"1978-02-06T05:06:26.943Z\",\n              \"resetOn\": \"2025-01-24T04:13:23.065Z\"\n            }\n          ]\n        }\n      ],\n      \"subjects\": [\n        {\n          \"id\": \"string\",\n          \"effectiveDate\": \"1968-08-13T22:23:30.487Z\",\n          \"expirationDate\": \"1950-03-21T15:52:19.612Z\",\n          \"latestValidEffectiveDate\": \"1951-01-19T13:20:51.083Z\",\n          \"latestValidExpirationDate\": \"2019-02-27T16:58:51.516Z\",\n          \"notes\": \"string\",\n          \"requirementsStatus\": \"overridden\",\n          \"resetRequirementsOn\": \"1993-09-30T19:38:18.326Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"effectiveDate\": \"2024-06-24T18:53:10.233Z\",\n          \"expirationDate\": \"1997-06-24T22:39:26.096Z\",\n          \"latestValidEffectiveDate\": \"1999-03-16T08:13:37.068Z\",\n          \"latestValidExpirationDate\": \"2025-02-26T17:25:01.367Z\",\n          \"notes\": \"string\",\n          \"requirementsStatus\": \"non_compliant\",\n          \"resetRequirementsOn\": \"1993-05-28T07:16:03.396Z\"\n        }\n      ],\n      \"requirements\": [\n        {\n          \"id\": \"string\",\n          \"label\": \"string\",\n          \"operator\": \"string\",\n          \"targetValue\": \"string\",\n          \"actualValue\": \"string\",\n          \"status\": \"non_compliant\",\n          \"waiverOrOverrideNotes\": \"string\",\n          \"waiverOrOverrideExpirationDate\": \"1985-02-26T11:45:41.774Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"label\": \"string\",\n          \"operator\": \"string\",\n          \"targetValue\": \"string\",\n          \"actualValue\": \"string\",\n          \"status\": \"invalidated\",\n          \"waiverOrOverrideNotes\": \"string\",\n          \"waiverOrOverrideExpirationDate\": \"1983-02-27T01:08:55.826Z\"\n        }\n      ],\n      \"status\": \"compliant\",\n      \"nextExpirationDate\": \"1967-12-18T06:42:46.202Z\",\n      \"latestExpirationDate\": \"2014-12-17T21:32:25.690Z\",\n      \"lastChangedAt\": \"1964-10-01T12:14:59.367Z\"\n    },\n    \"projects\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"projectStats\": {\n      \"compliantProjectsCount\": 139.9018395588947,\n      \"totalProjectsCount\": 3956.6863200897483\n    },\n    \"documents\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"partyType\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"tags\": [\n      {\n        \"type\": \"tags\",\n        \"id\": \"string\",\n        \"addedAt\": \"2025-03-25\",\n        \"addedBy\": \"string\",\n        \"expiresAt\": \"2014-09-22\"\n      },\n      {\n        \"type\": \"tags\",\n        \"id\": \"string\",\n        \"addedAt\": \"2005-08-01\",\n        \"addedBy\": \"string\",\n        \"expiresAt\": \"2020-10-10\"\n      }\n    ],\n    \"complianceProfile\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"customData\": [\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      }\n    ],\n    \"deletedAt\": \"1992-07-30T01:10:08.249Z\",\n    \"deletedBy\": {},\n    \"externalIds\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aa276914-9328-4343-ba4f-f74c4fa8dbb4",
+          "name": "Rename a Global compliance profile in the caller's organization. Only profiles with context `Global` may be renamed via this endpoint. Returns the updated profile.",
+          "request": {
+            "name": "Rename a Global compliance profile in the caller's organization. Only profiles with context `Global` may be renamed via this endpoint. Returns the updated profile.",
+            "description": {
+              "content": "Rename a Global compliance profile in the caller's organization. Only profiles with context `Global` may be renamed via this endpoint. Returns the updated profile.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "compliance-profiles",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<ObjectId>",
+                  "key": "id",
+                  "description": "(Required) Identifier of the compliance profile to update."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a2dcbe22-d886-44aa-a658-12f88335031a",
+              "name": "A compliance profile with its requirements.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_id\": \"string\",\n  \"name\": \"string\",\n  \"context\": \"global\",\n  \"requirements\": [\n    {\n      \"moduleCode\": \"string\",\n      \"moduleLabel\": \"string\",\n      \"subjectCode\": \"string\",\n      \"subjectLabel\": \"string\",\n      \"attributeCode\": \"string\",\n      \"attributeLabel\": \"string\",\n      \"attributeType\": \"number\",\n      \"matchingCriteria\": \"matchOnce\",\n      \"attributeDescription\": \"string\",\n      \"operator\": \"must be less than or equal to\",\n      \"targetValue\": \"string\"\n    },\n    {\n      \"moduleCode\": \"string\",\n      \"moduleLabel\": \"string\",\n      \"subjectCode\": \"string\",\n      \"subjectLabel\": \"string\",\n      \"attributeCode\": \"strin\",\n      \"attributeLabel\": \"string\",\n      \"attributeType\": \"ai\",\n      \"matchingCriteria\": \"matchOnce\",\n      \"attributeDescription\": \"string\",\n      \"operator\": \"must be present\",\n      \"targetValue\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "10dab3c4-dda8-448c-960c-4da0d74479af",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "39408478-45a5-4996-b36c-967ee31c67cf",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "40fbef66-dea3-4852-ba64-341a12f66260",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "66e007dc-b44d-45bf-8b97-4223dec38098",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d4c2aa5b-3a2f-4e6b-ba7e-dc8a347a6b22",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cacf46c3-68a0-4a2b-9866-7ea587b5b9c1",
+          "name": "Add requirements to a compliance profile. Each item is either a library reference (`libraryRequirementId` or `attributeCode`) or a custom definition (module/subject by code or label, attribute by label). Idempotent on the (moduleLabel, subjectLabel, attributeLabel) tuple. The response contains only the requirements newly added by this call; duplicates of existing rules or earlier items in the batch are omitted, so the array is empty when every input was a duplicate.",
+          "request": {
+            "name": "Add requirements to a compliance profile. Each item is either a library reference (`libraryRequirementId` or `attributeCode`) or a custom definition (module/subject by code or label, attribute by label). Idempotent on the (moduleLabel, subjectLabel, attributeLabel) tuple. The response contains only the requirements newly added by this call; duplicates of existing rules or earlier items in the batch are omitted, so the array is empty when every input was a duplicate.",
+            "description": {
+              "content": "Add requirements to a compliance profile. Each item is either a library reference (`libraryRequirementId` or `attributeCode`) or a custom definition (module/subject by code or label, attribute by label). Idempotent on the (moduleLabel, subjectLabel, attributeLabel) tuple. The response contains only the requirements newly added by this call; duplicates of existing rules or earlier items in the batch are omitted, so the array is empty when every input was a duplicate.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "compliance-profiles",
+                ":id",
+                "requirements"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<ObjectId>",
+                  "key": "id",
+                  "description": "(Required) Identifier of the compliance profile to add requirements to."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requirements\": [\n    {\n      \"libraryRequirementId\": \"<ObjectId>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3be66b96-a7f6-4e8a-98c8-6dfc99a2286c",
+              "name": "An array of compliance profile requirements.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id",
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile to add requirements to."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requirements\": [\n    {\n      \"libraryRequirementId\": \"<ObjectId>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"moduleCode\": \"string\",\n    \"moduleLabel\": \"string\",\n    \"subjectCode\": \"string\",\n    \"subjectLabel\": \"string\",\n    \"attributeCode\": \"string\",\n    \"attributeLabel\": \"string\",\n    \"attributeType\": \"amBestRating\",\n    \"matchingCriteria\": \"matchOnce\",\n    \"attributeDescription\": \"string\",\n    \"operator\": \"must be present\",\n    \"targetValue\": \"string\"\n  },\n  {\n    \"moduleCode\": \"string\",\n    \"moduleLabel\": \"string\",\n    \"subjectCode\": \"string\",\n    \"subjectLabel\": \"string\",\n    \"attributeCode\": \"string\",\n    \"attributeLabel\": \"string\",\n    \"attributeType\": \"boolean\",\n    \"matchingCriteria\": \"matchRepeatedly\",\n    \"attributeDescription\": \"string\",\n    \"operator\": \"must be completed by\",\n    \"targetValue\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2de24d48-2afc-4d05-9f56-9a21bc73abab",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id",
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile to add requirements to."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requirements\": [\n    {\n      \"libraryRequirementId\": \"<ObjectId>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "52600f18-103c-4862-b1c3-9a4332237191",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id",
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile to add requirements to."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requirements\": [\n    {\n      \"libraryRequirementId\": \"<ObjectId>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "803b903f-0e65-49e8-b94f-96650c190f7d",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id",
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile to add requirements to."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requirements\": [\n    {\n      \"libraryRequirementId\": \"<ObjectId>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ace4a8a9-5637-482a-a5e8-f3462139aeb1",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id",
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile to add requirements to."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requirements\": [\n    {\n      \"libraryRequirementId\": \"<ObjectId>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c5e87983-afed-43d8-afa6-96aaab7db0a8",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id",
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile to add requirements to."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requirements\": [\n    {\n      \"libraryRequirementId\": \"<ObjectId>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5a7a0c57-f07b-410a-a1cb-11fa9aa7e550",
+          "name": "List the requirements of a compliance profile, paginated. Requirements are returned regardless of the profile context. Each rule is serialized as a requirement response alongside pagination metadata. A missing profile or cross-org access returns 404.",
+          "request": {
+            "name": "List the requirements of a compliance profile, paginated. Requirements are returned regardless of the profile context. Each rule is serialized as a requirement response alongside pagination metadata. A missing profile or cross-org access returns 404.",
+            "description": {
+              "content": "List the requirements of a compliance profile, paginated. Requirements are returned regardless of the profile context. Each rule is serialized as a requirement response alongside pagination metadata. A missing profile or cross-org access returns 404.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "compliance-profiles",
+                ":id",
+                "requirements"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "disabled": false,
+                  "key": "skip",
+                  "value": "0"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<ObjectId>",
+                  "key": "id",
+                  "description": "(Required) Identifier of the compliance profile whose requirements to list."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "828fa66b-b70c-444e-a926-757e770e3af5",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id",
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile whose requirements to list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"moduleCode\": \"string\",\n      \"moduleLabel\": \"string\",\n      \"subjectCode\": \"string\",\n      \"subjectLabel\": \"string\",\n      \"attributeCode\": \"string\",\n      \"attributeLabel\": \"string\",\n      \"attributeType\": \"list\",\n      \"matchingCriteria\": \"matchOnce\",\n      \"attributeDescription\": \"string\",\n      \"operator\": \"at least one must be present from list\",\n      \"targetValue\": \"string\"\n    },\n    {\n      \"moduleCode\": \"string\",\n      \"moduleLabel\": \"string\",\n      \"subjectCode\": \"string\",\n      \"subjectLabel\": \"string\",\n      \"attributeCode\": \"string\",\n      \"attributeLabel\": \"string\",\n      \"attributeType\": \"fillableForm\",\n      \"matchingCriteria\": \"matchOnce\",\n      \"attributeDescription\": \"string\",\n      \"operator\": \"must be present\",\n      \"targetValue\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"count\": 3063.6903582076357,\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "88f5a5c9-2bdd-40c8-89a8-f020accdd0e7",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id",
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile whose requirements to list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "764bd803-d77c-417b-a650-8bb2b8678dc9",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id",
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile whose requirements to list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "861c1e7a-380d-47b2-a55c-e9187532cc22",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id",
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile whose requirements to list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5148caeb-2a1e-4d12-8b53-2110296195c6",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id",
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile whose requirements to list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "afadc0ee-190c-484d-8370-7e5f3d4ffd14",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id",
+                    "requirements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile whose requirements to list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "19d1d111-2781-444c-9b0f-aec1db76fbdb",
+          "name": "Read a single requirement from a compliance profile by its attributeCode, regardless of the profile context. A missing profile, a missing requirement, or cross-org access returns 404.",
+          "request": {
+            "name": "Read a single requirement from a compliance profile by its attributeCode, regardless of the profile context. A missing profile, a missing requirement, or cross-org access returns 404.",
+            "description": {
+              "content": "Read a single requirement from a compliance profile by its attributeCode, regardless of the profile context. A missing profile, a missing requirement, or cross-org access returns 404.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "compliance-profiles",
+                ":id",
+                "requirements",
+                ":attributeCode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<ObjectId>",
+                  "key": "id",
+                  "description": "(Required) Identifier of the compliance profile."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "attributeCode",
+                  "description": "(Required) Attribute code identifying the requirement to operate on."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a3d81ad8-34bf-4835-b0ac-fb2b717deefd",
+              "name": "A single requirement within a compliance profile.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id",
+                    "requirements",
+                    ":attributeCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "attributeCode",
+                      "description": "(Required) Attribute code identifying the requirement to operate on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"moduleCode\": \"string\",\n  \"moduleLabel\": \"string\",\n  \"subjectCode\": \"string\",\n  \"subjectLabel\": \"string\",\n  \"attributeCode\": \"string\",\n  \"attributeLabel\": \"string\",\n  \"attributeType\": \"boolean\",\n  \"matchingCriteria\": \"matchOnce\",\n  \"attributeDescription\": \"string\",\n  \"operator\": \"must be completed by\",\n  \"targetValue\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de0d5b7f-a9fd-4eab-bff8-12a4b298bbb6",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id",
+                    "requirements",
+                    ":attributeCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "attributeCode",
+                      "description": "(Required) Attribute code identifying the requirement to operate on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0633353d-5642-4d42-b5a9-529657b5c2c6",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id",
+                    "requirements",
+                    ":attributeCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "attributeCode",
+                      "description": "(Required) Attribute code identifying the requirement to operate on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d3a10a3-18c8-436f-886f-387a140f1661",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id",
+                    "requirements",
+                    ":attributeCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "attributeCode",
+                      "description": "(Required) Attribute code identifying the requirement to operate on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5396bcb1-8f16-442d-ba95-3f781baeb9c7",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id",
+                    "requirements",
+                    ":attributeCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "attributeCode",
+                      "description": "(Required) Attribute code identifying the requirement to operate on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "be7cf660-0695-4efc-9011-389412e60600",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id",
+                    "requirements",
+                    ":attributeCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "attributeCode",
+                      "description": "(Required) Attribute code identifying the requirement to operate on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fd49d51b-1ec5-4e46-afc5-11c6a63e8239",
+          "name": "Partially update a requirement on a compliance profile. Only the supplied fields are changed; omitted fields retain their current values. Updates are accepted on profiles of any context, with context-based limitations: library-sourced requirements and requirements inherited from a custom field cannot be modified. Returns the updated requirement.",
+          "request": {
+            "name": "Partially update a requirement on a compliance profile. Only the supplied fields are changed; omitted fields retain their current values. Updates are accepted on profiles of any context, with context-based limitations: library-sourced requirements and requirements inherited from a custom field cannot be modified. Returns the updated requirement.",
+            "description": {
+              "content": "Partially update a requirement on a compliance profile. Only the supplied fields are changed; omitted fields retain their current values. Updates are accepted on profiles of any context, with context-based limitations: library-sourced requirements and requirements inherited from a custom field cannot be modified. Returns the updated requirement.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "compliance-profiles",
+                ":id",
+                "requirements",
+                ":attributeCode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<ObjectId>",
+                  "key": "id",
+                  "description": "(Required) Identifier of the compliance profile."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "attributeCode",
+                  "description": "(Required) Attribute code identifying the requirement to operate on."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"operator\": \"<string>\",\n  \"targetValue\": \"<string>\",\n  \"matchingCriteria\": \"<string>\",\n  \"attributeDescription\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "912bc8f9-16f1-4412-86e6-46a8a16a9bdc",
+              "name": "A single requirement within a compliance profile.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id",
+                    "requirements",
+                    ":attributeCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "attributeCode",
+                      "description": "(Required) Attribute code identifying the requirement to operate on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"operator\": \"<string>\",\n  \"targetValue\": \"<string>\",\n  \"matchingCriteria\": \"<string>\",\n  \"attributeDescription\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"moduleCode\": \"string\",\n  \"moduleLabel\": \"string\",\n  \"subjectCode\": \"string\",\n  \"subjectLabel\": \"string\",\n  \"attributeCode\": \"string\",\n  \"attributeLabel\": \"string\",\n  \"attributeType\": \"boolean\",\n  \"matchingCriteria\": \"matchOnce\",\n  \"attributeDescription\": \"string\",\n  \"operator\": \"must be completed by\",\n  \"targetValue\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e984872-d143-4b66-bf33-caa7e3b187cc",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id",
+                    "requirements",
+                    ":attributeCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "attributeCode",
+                      "description": "(Required) Attribute code identifying the requirement to operate on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"operator\": \"<string>\",\n  \"targetValue\": \"<string>\",\n  \"matchingCriteria\": \"<string>\",\n  \"attributeDescription\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b671553c-6f4c-4a26-89bd-d241784d5dd1",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id",
+                    "requirements",
+                    ":attributeCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "attributeCode",
+                      "description": "(Required) Attribute code identifying the requirement to operate on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"operator\": \"<string>\",\n  \"targetValue\": \"<string>\",\n  \"matchingCriteria\": \"<string>\",\n  \"attributeDescription\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e96b02f-f9e5-4cbd-b2b8-9dd703d78bd9",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id",
+                    "requirements",
+                    ":attributeCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "attributeCode",
+                      "description": "(Required) Attribute code identifying the requirement to operate on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"operator\": \"<string>\",\n  \"targetValue\": \"<string>\",\n  \"matchingCriteria\": \"<string>\",\n  \"attributeDescription\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bc8c12c6-2a3c-4aee-8330-05b93714736f",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id",
+                    "requirements",
+                    ":attributeCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "attributeCode",
+                      "description": "(Required) Attribute code identifying the requirement to operate on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"operator\": \"<string>\",\n  \"targetValue\": \"<string>\",\n  \"matchingCriteria\": \"<string>\",\n  \"attributeDescription\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "082ff4df-e268-4319-a4a6-786d6cb00e68",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id",
+                    "requirements",
+                    ":attributeCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "attributeCode",
+                      "description": "(Required) Attribute code identifying the requirement to operate on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"operator\": \"<string>\",\n  \"targetValue\": \"<string>\",\n  \"matchingCriteria\": \"<string>\",\n  \"attributeDescription\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "839f16e2-1808-4f45-a66c-10040dfa3dba",
+          "name": "Remove a requirement from a Global compliance profile. Returns 204 with no body on success.",
+          "request": {
+            "name": "Remove a requirement from a Global compliance profile. Returns 204 with no body on success.",
+            "description": {
+              "content": "Remove a requirement from a Global compliance profile. Returns 204 with no body on success.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "compliance-profiles",
+                ":id",
+                "requirements",
+                ":attributeCode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<ObjectId>",
+                  "key": "id",
+                  "description": "(Required) Identifier of the compliance profile."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "attributeCode",
+                  "description": "(Required) Attribute code identifying the requirement to operate on."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "859da7b9-8b66-4092-8412-92bdf44e3dbe",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id",
+                    "requirements",
+                    ":attributeCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "attributeCode",
+                      "description": "(Required) Attribute code identifying the requirement to operate on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "null",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a70e49d2-7c32-4e62-9fa4-e1c304f93e81",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id",
+                    "requirements",
+                    ":attributeCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "attributeCode",
+                      "description": "(Required) Attribute code identifying the requirement to operate on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f6ac27c-dfc9-4cfa-bd83-f2defa5ca498",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id",
+                    "requirements",
+                    ":attributeCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "attributeCode",
+                      "description": "(Required) Attribute code identifying the requirement to operate on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a0f34372-dfdc-4598-8f75-980467471945",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id",
+                    "requirements",
+                    ":attributeCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "attributeCode",
+                      "description": "(Required) Attribute code identifying the requirement to operate on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "27c3286d-27e9-4315-8590-8a79be3d7e4e",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id",
+                    "requirements",
+                    ":attributeCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "attributeCode",
+                      "description": "(Required) Attribute code identifying the requirement to operate on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e0ceeec0-a5a4-4ba9-bd43-46d05a73c3af",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compliance-profiles",
+                    ":id",
+                    "requirements",
+                    ":attributeCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the compliance profile."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "attributeCode",
+                      "description": "(Required) Attribute code identifying the requirement to operate on."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:4000/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "63896c0d-8582-474f-bf1a-f43ed6c14def",
+    "name": "TrustLayer Platform Auth compliance-profiles API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "3rd-party API for the TrustLayer platform.\n\n**Deprecated.** Platform API v1 is deprecated as of 01 June 2026 and is\nscheduled for sunset (end-of-life) on 31 March 2027. It remains fully\navailable until the sunset date but will not receive new features. Please\nmigrate to Platform API v2 for new integrations.\n\nAll v1 responses carry the standard deprecation response headers\n([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)):\n\n```http\nDeprecation: @1780272000\nSunset: Wed, 31 Mar 2027 23:59:59 GMT\nLink: <https://developers.trustlayer.io/>; rel=\"deprecation\", <https://developers.trustlayer.io/>; rel=\"sunset\"\n```\n\n`Deprecation: @1780272000` is the Unix timestamp for 2026-06-01T00:00:00Z;\nsunset (end-of-life) is 2027-03-31T23:59:59 GMT.\n\nContact Support:\n Name: TrustLayer Support\n Email: support@trustlayer.io",
+      "type": "text/plain"
+    }
+  }
+}

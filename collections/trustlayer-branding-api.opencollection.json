@@ -1,0 +1,131 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TrustLayer Platform Auth branding API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "branding",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Branding",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/branding",
+            "params": [
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Page number, starting from 1"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page. Defaults to 20. Maximum is 100"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Key-value pair, e.g. filter[key]=value"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "List of comma-separated keys used to sort. Reversing is done by prepending \"-\" to the key name."
+              }
+            ]
+          },
+          "docs": "Available sort options:\n* `name`\n* `createdAt`\n* `updatedAt`\n\nAvailable filter options:\n* `name`\n* `createdAt`\n* `updatedAt`\n"
+        },
+        {
+          "info": {
+            "name": "Create a new branding",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/branding",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new branding"
+        },
+        {
+          "info": {
+            "name": "Fetch a Branding",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/branding/:brandingId",
+            "params": [
+              {
+                "name": "brandingId",
+                "value": "",
+                "type": "path",
+                "description": "Branding ID"
+              }
+            ]
+          },
+          "docs": "Fetch a Branding"
+        },
+        {
+          "info": {
+            "name": "Update branding",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:4000/v1/branding/:brandingId",
+            "params": [
+              {
+                "name": "brandingId",
+                "value": "",
+                "type": "path",
+                "description": "Branding ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing branding."
+        },
+        {
+          "info": {
+            "name": "Delete a branding",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/branding/:brandingId",
+            "params": [
+              {
+                "name": "brandingId",
+                "value": "",
+                "type": "path",
+                "description": "Branding ID"
+              }
+            ]
+          },
+          "docs": "Delete a branding"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

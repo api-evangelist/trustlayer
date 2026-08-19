@@ -1,0 +1,132 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TrustLayer Platform Auth tags API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "tags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/tags"
+          },
+          "docs": "Note: all tags are returned, in alphabetical order."
+        },
+        {
+          "info": {
+            "name": "Create a new tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/tags",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The tag name must be unique"
+        },
+        {
+          "info": {
+            "name": "Remove a tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/tags/:tagId",
+            "params": [
+              {
+                "name": "tagId",
+                "value": "",
+                "type": "path",
+                "description": "Tag ID"
+              }
+            ]
+          },
+          "docs": "Note that this will also remove all related taggings"
+        },
+        {
+          "info": {
+            "name": "Tag a party",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/parties/:partyId/relationships/tags",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path",
+                "description": "Party ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add one or more tags to a party. If an expiration date is passed, it will be applied to all the tags."
+        },
+        {
+          "info": {
+            "name": "delete-parties-:id-tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/parties/:partyId/relationships/tags",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path",
+                "description": "Party ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove one or more tags from a party."
+        },
+        {
+          "info": {
+            "name": "Remove a tag from a party",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/parties/:partyId/relationships/tags/:tagId",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tagId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "If you need to remove multiple tags at once you can use the alternative endpoint `DELETE /parties/{partyId}/relationships/tags`"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

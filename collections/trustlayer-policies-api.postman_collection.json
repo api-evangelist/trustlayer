@@ -1,0 +1,4582 @@
+{
+  "item": [
+    {
+      "id": "7a773592-b6ed-495e-a7e3-f78a1eb35e38",
+      "name": "Policies",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b2ffe829-2256-4040-addb-ceefba11bde9",
+          "name": "Read a policy by its policy number. A policy aggregates one or more coverage lines (subjects) under a shared number; each subject carries its own effective/expiration dates and computed validity status. Scoped to the caller's organization. Use the policy sub-routes (`/amendments`, `/documents`, `/cancellations`, `/reinstatements`) for related entities.",
+          "request": {
+            "name": "Read a policy by its policy number. A policy aggregates one or more coverage lines (subjects) under a shared number; each subject carries its own effective/expiration dates and computed validity status. Scoped to the caller's organization. Use the policy sub-routes (`/amendments`, `/documents`, `/cancellations`, `/reinstatements`) for related entities.",
+            "description": {
+              "content": "Read a policy by its policy number. A policy aggregates one or more coverage lines (subjects) under a shared number; each subject carries its own effective/expiration dates and computed validity status. Scoped to the caller's organization. Use the policy sub-routes (`/amendments`, `/documents`, `/cancellations`, `/reinstatements`) for related entities.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "policies",
+                ":number"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "number",
+                  "description": "(Required) Policy number that uniquely identifies the policy to read."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e5d5313e-f6aa-49eb-bc5e-6e14fb906e1d",
+              "name": "A policy aggregates one or more coverage lines (subjects) under a shared policy number, with computed validity per subject.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number that uniquely identifies the policy to read."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"number\": \"string\",\n  \"subjects\": [\n    {\n      \"code\": \"string\",\n      \"label\": \"string\",\n      \"validityStatus\": \"inactive\",\n      \"effectiveDate\": \"1952-05-22T02:01:01.054Z\",\n      \"expirationDate\": \"1965-09-04T22:28:45.670Z\",\n      \"documents\": [\n        {\n          \"_id\": \"string\",\n          \"primaryRecordId\": \"string\",\n          \"name\": \"string\",\n          \"issueDate\": \"1976-11-09T20:17:29.939Z\"\n        },\n        {\n          \"_id\": \"string\",\n          \"primaryRecordId\": \"string\",\n          \"name\": \"string\",\n          \"issueDate\": \"1961-10-26T13:51:57.202Z\"\n        }\n      ],\n      \"cancellation\": {\n        \"originalValidity\": {\n          \"effectiveDate\": \"1974-11-04T00:41:11.957Z\",\n          \"expirationDate\": \"2022-08-30T18:01:17.871Z\"\n        },\n        \"effectiveDate\": \"1965-09-26T19:51:24.181Z\",\n        \"id\": \"string\",\n        \"issueDate\": \"1994-01-21T00:01:19.582Z\",\n        \"notes\": \"string\"\n      },\n      \"reinstatement\": {\n        \"id\": \"string\",\n        \"effectiveDate\": \"1987-10-17T11:21:47.345Z\",\n        \"issueDate\": \"1971-07-02T14:50:10.224Z\",\n        \"notes\": \"string\"\n      }\n    },\n    {\n      \"code\": \"string\",\n      \"label\": \"strin\",\n      \"validityStatus\": \"expired\",\n      \"effectiveDate\": \"2014-10-16T06:51:25.529Z\",\n      \"expirationDate\": \"1996-07-27T16:19:57.280Z\",\n      \"documents\": [\n        {\n          \"_id\": \"string\",\n          \"primaryRecordId\": \"string\",\n          \"name\": \"string\",\n          \"issueDate\": \"1989-08-14T20:14:58.731Z\"\n        },\n        {\n          \"_id\": \"string\",\n          \"primaryRecordId\": \"string\",\n          \"name\": \"string\",\n          \"issueDate\": \"1974-12-30T15:30:19.919Z\"\n        }\n      ],\n      \"cancellation\": {\n        \"originalValidity\": {\n          \"effectiveDate\": \"1953-02-18T06:37:45.269Z\",\n          \"expirationDate\": \"1985-03-04T20:08:37.027Z\"\n        },\n        \"effectiveDate\": \"1953-11-21T23:42:33.403Z\",\n        \"id\": \"string\",\n        \"issueDate\": \"1959-04-19T17:56:18.350Z\",\n        \"notes\": \"string\"\n      },\n      \"reinstatement\": {\n        \"id\": \"string\",\n        \"effectiveDate\": \"2001-07-11T23:01:33.381Z\",\n        \"issueDate\": \"2022-03-03T01:55:48.247Z\",\n        \"notes\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3ecf6afc-805f-4e3b-94fc-564d2031fe57",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number that uniquely identifies the policy to read."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d442a52-d8e2-47d5-80f2-a0ba8577a9e3",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number that uniquely identifies the policy to read."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e5e8e821-df8e-490d-a21f-ab6f82493574",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number that uniquely identifies the policy to read."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b75e9ec8-2c54-464e-bf4b-97f951c5235e",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number that uniquely identifies the policy to read."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "abf500f5-3948-4267-98ef-8331511bc21d",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number that uniquely identifies the policy to read."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ea873e2-b244-4bd4-8f4b-cfbbfcdfe1a7",
+          "name": "List documents that support a policy's coverage. Each document may carry one or more coverage subjects whose validity is evaluated against the policy. Supports filtering by primary record to retrieve only documents associated with a specific vendor or contractor.\n\n<!-- qs2mongo:list-summary -->\n\n**Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `primaryRecordId` (objectId), `name` (string), `issueDate` (date). See \"List Endpoints\" in the API overview for operator syntax and combining rules.\n\n**Sorting**: supported via `sort` (see the parameter's description for allowed fields). Prefix with `-` for descending.\n\n**Field projection**: not supported on this endpoint — full record is returned.",
+          "request": {
+            "name": "List documents that support a policy's coverage. Each document may carry one or more coverage subjects whose validity is evaluated against the policy. Supports filtering by primary record to retrieve only documents associated with a specific vendor or contractor.\n\n<!-- qs2mongo:list-summary -->\n\n**Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `primaryRecordId` (objectId), `name` (string), `issueDate` (date). See \"List Endpoints\" in the API overview for operator syntax and combining rules.\n\n**Sorting**: supported via `sort` (see the parameter's description for allowed fields). Prefix with `-` for descending.\n\n**Field projection**: not supported on this endpoint — full record is returned.",
+            "description": {
+              "content": "List documents that support a policy's coverage. Each document may carry one or more coverage subjects whose validity is evaluated against the policy. Supports filtering by primary record to retrieve only documents associated with a specific vendor or contractor.\n\n<!-- qs2mongo:list-summary -->\n\n**Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `primaryRecordId` (objectId), `name` (string), `issueDate` (date). See \"List Endpoints\" in the API overview for operator syntax and combining rules.\n\n**Sorting**: supported via `sort` (see the parameter's description for allowed fields). Prefix with `-` for descending.\n\n**Field projection**: not supported on this endpoint — full record is returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "policies",
+                ":number",
+                "documents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "disabled": false,
+                  "key": "skip",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to sort by. Example: '_id,-createdAt'. Allowed: name, issueDate"
+                },
+                {
+                  "disabled": false,
+                  "key": "_id",
+                  "value": "<string>",
+                  "description": "Filter by _id. 24-character hex ObjectId string (e.g. `_id=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+                },
+                {
+                  "disabled": false,
+                  "key": "createdAt",
+                  "value": "<string>",
+                  "description": "Filter by createdAt. ISO-8601 date or datetime string (e.g. `createdAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+                },
+                {
+                  "disabled": false,
+                  "key": "updatedAt",
+                  "value": "<string>",
+                  "description": "Filter by updatedAt. ISO-8601 date or datetime string (e.g. `updatedAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+                },
+                {
+                  "disabled": false,
+                  "key": "primaryRecordId",
+                  "value": "<string>",
+                  "description": "Filter by primaryRecordId. 24-character hex ObjectId string (e.g. `primaryRecordId=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Filter by name. String value (e.g. `name=example`). See \"List Endpoints\" in the API overview for operator syntax."
+                },
+                {
+                  "disabled": false,
+                  "key": "issueDate",
+                  "value": "<string>",
+                  "description": "Filter by issueDate. ISO-8601 date or datetime string (e.g. `issueDate=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "number",
+                  "description": "(Required) The policy number identifying the insurance policy whose documents should be listed."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3a893d5e-5614-442d-8f6a-72b3fee12353",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "primaryRecordId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "issueDate",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) The policy number identifying the insurance policy whose documents should be listed."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"_id\": \"string\",\n      \"primaryRecordId\": \"string\",\n      \"subjects\": [\n        {\n          \"code\": \"string\",\n          \"label\": \"st\",\n          \"validityStatus\": \"inactive\",\n          \"effectiveDate\": \"1963-07-22T01:25:27.225Z\",\n          \"expirationDate\": \"1961-06-26T20:43:39.415Z\",\n          \"cancellation\": {\n            \"originalValidity\": {\n              \"effectiveDate\": \"2020-09-17T00:03:10.094Z\",\n              \"expirationDate\": \"1993-03-20T09:00:04.792Z\"\n            },\n            \"effectiveDate\": \"1952-08-25T19:14:15.009Z\",\n            \"id\": \"string\",\n            \"issueDate\": \"1971-05-31T03:52:31.163Z\",\n            \"notes\": \"string\"\n          },\n          \"reinstatement\": {\n            \"id\": \"string\",\n            \"effectiveDate\": \"1973-08-17T17:26:05.538Z\",\n            \"issueDate\": \"2016-06-28T05:39:17.642Z\",\n            \"notes\": \"string\"\n          }\n        },\n        {\n          \"code\": \"string\",\n          \"label\": \"string\",\n          \"validityStatus\": \"cancelled\",\n          \"effectiveDate\": \"1956-08-11T20:36:25.324Z\",\n          \"expirationDate\": \"1957-06-18T03:36:26.171Z\",\n          \"cancellation\": {\n            \"originalValidity\": {\n              \"effectiveDate\": \"2006-09-21T09:56:47.852Z\",\n              \"expirationDate\": \"2019-01-22T19:25:03.877Z\"\n            },\n            \"effectiveDate\": \"1988-11-15T02:58:39.683Z\",\n            \"id\": \"string\",\n            \"issueDate\": \"1976-02-03T16:47:19.282Z\",\n            \"notes\": \"string\"\n          },\n          \"reinstatement\": {\n            \"id\": \"string\",\n            \"effectiveDate\": \"1985-08-08T10:26:27.235Z\",\n            \"issueDate\": \"1973-04-21T09:32:03.664Z\",\n            \"notes\": \"string\"\n          }\n        }\n      ],\n      \"name\": \"string\",\n      \"issueDate\": \"1957-09-25T17:51:36.649Z\"\n    },\n    {\n      \"_id\": \"string\",\n      \"primaryRecordId\": \"string\",\n      \"subjects\": [\n        {\n          \"code\": \"string\",\n          \"label\": \"string\",\n          \"validityStatus\": \"inactive\",\n          \"effectiveDate\": \"2024-07-12T14:34:07.021Z\",\n          \"expirationDate\": \"1970-06-02T10:00:26.679Z\",\n          \"cancellation\": {\n            \"originalValidity\": {\n              \"effectiveDate\": \"1974-10-04T13:13:00.209Z\",\n              \"expirationDate\": \"1989-04-05T09:02:17.850Z\"\n            },\n            \"effectiveDate\": \"1991-07-04T20:44:29.464Z\",\n            \"id\": \"string\",\n            \"issueDate\": \"1985-12-16T08:35:25.535Z\",\n            \"notes\": \"string\"\n          },\n          \"reinstatement\": {\n            \"id\": \"string\",\n            \"effectiveDate\": \"2010-12-14T03:25:20.820Z\",\n            \"issueDate\": \"1982-07-17T00:20:33.284Z\",\n            \"notes\": \"string\"\n          }\n        },\n        {\n          \"code\": \"string\",\n          \"label\": \"string\",\n          \"validityStatus\": \"inactive\",\n          \"effectiveDate\": \"1948-01-22T04:13:14.063Z\",\n          \"expirationDate\": \"1955-07-23T06:03:12.442Z\",\n          \"cancellation\": {\n            \"originalValidity\": {\n              \"effectiveDate\": \"2000-08-15T10:04:10.003Z\",\n              \"expirationDate\": \"1963-08-27T21:14:16.105Z\"\n            },\n            \"effectiveDate\": \"2018-08-16T07:09:52.684Z\",\n            \"id\": \"string\",\n            \"issueDate\": \"2007-05-28T08:18:06.405Z\",\n            \"notes\": \"string\"\n          },\n          \"reinstatement\": {\n            \"id\": \"string\",\n            \"effectiveDate\": \"2009-06-01T23:29:45.997Z\",\n            \"issueDate\": \"1981-07-02T08:57:22.540Z\",\n            \"notes\": \"string\"\n          }\n        }\n      ],\n      \"name\": \"string\",\n      \"issueDate\": \"2012-08-19T21:52:04.738Z\"\n    }\n  ],\n  \"meta\": {\n    \"count\": 6759.6084936767675,\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b31455c6-f971-46c3-a8fb-557373683381",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "primaryRecordId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "issueDate",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) The policy number identifying the insurance policy whose documents should be listed."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dbdb401d-7ead-4605-96d8-d480ef4881c3",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "primaryRecordId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "issueDate",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) The policy number identifying the insurance policy whose documents should be listed."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee6b3c96-3bd5-4dc6-ad02-b58fc105b310",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "primaryRecordId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "issueDate",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) The policy number identifying the insurance policy whose documents should be listed."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "31869409-e941-462c-849a-b722d3851c66",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "primaryRecordId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "issueDate",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) The policy number identifying the insurance policy whose documents should be listed."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "83686c4d-f99f-4fc9-9c74-82aa6b50421a",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "primaryRecordId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "issueDate",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) The policy number identifying the insurance policy whose documents should be listed."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fdec792d-4c21-4f5d-840f-e8581559bf9e",
+          "name": "List amendments (cancellations and reinstatements) for a policy identified by its number. Each amendment is either a cancellation that reduces or ends coverage, or a reinstatement that restores coverage after a cancellation. Supports pagination via `limit` and `skip`.\n\n<!-- qs2mongo:list-summary -->\n\n**Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `primaryRecordId` (objectId), `type` (string), `effectiveDate` (date), `issueDate` (date), `notes` (string). See \"List Endpoints\" in the API overview for operator syntax and combining rules.\n\n**Sorting**: not supported on this endpoint.\n\n**Field projection**: supported via `fields` (see the parameter's description for allowed fields).",
+          "request": {
+            "name": "List amendments (cancellations and reinstatements) for a policy identified by its number. Each amendment is either a cancellation that reduces or ends coverage, or a reinstatement that restores coverage after a cancellation. Supports pagination via `limit` and `skip`.\n\n<!-- qs2mongo:list-summary -->\n\n**Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `primaryRecordId` (objectId), `type` (string), `effectiveDate` (date), `issueDate` (date), `notes` (string). See \"List Endpoints\" in the API overview for operator syntax and combining rules.\n\n**Sorting**: not supported on this endpoint.\n\n**Field projection**: supported via `fields` (see the parameter's description for allowed fields).",
+            "description": {
+              "content": "List amendments (cancellations and reinstatements) for a policy identified by its number. Each amendment is either a cancellation that reduces or ends coverage, or a reinstatement that restores coverage after a cancellation. Supports pagination via `limit` and `skip`.\n\n<!-- qs2mongo:list-summary -->\n\n**Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `primaryRecordId` (objectId), `type` (string), `effectiveDate` (date), `issueDate` (date), `notes` (string). See \"List Endpoints\" in the API overview for operator syntax and combining rules.\n\n**Sorting**: not supported on this endpoint.\n\n**Field projection**: supported via `fields` (see the parameter's description for allowed fields).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "policies",
+                ":number",
+                "amendments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "disabled": false,
+                  "key": "skip",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to project. Allowed: _id, primaryRecordId, policyNumber, status, type, subjects, matchingSubjects, effectiveDate, issueDate, notes, document"
+                },
+                {
+                  "disabled": false,
+                  "key": "_id",
+                  "value": "<string>",
+                  "description": "Filter by _id. 24-character hex ObjectId string (e.g. `_id=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+                },
+                {
+                  "disabled": false,
+                  "key": "createdAt",
+                  "value": "<string>",
+                  "description": "Filter by createdAt. ISO-8601 date or datetime string (e.g. `createdAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+                },
+                {
+                  "disabled": false,
+                  "key": "updatedAt",
+                  "value": "<string>",
+                  "description": "Filter by updatedAt. ISO-8601 date or datetime string (e.g. `updatedAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+                },
+                {
+                  "disabled": false,
+                  "key": "primaryRecordId",
+                  "value": "<string>",
+                  "description": "Filter by primaryRecordId. 24-character hex ObjectId string (e.g. `primaryRecordId=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Filter by type. String value (e.g. `type=example`). See \"List Endpoints\" in the API overview for operator syntax."
+                },
+                {
+                  "disabled": false,
+                  "key": "effectiveDate",
+                  "value": "<string>",
+                  "description": "Filter by effectiveDate. ISO-8601 date or datetime string (e.g. `effectiveDate=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+                },
+                {
+                  "disabled": false,
+                  "key": "issueDate",
+                  "value": "<string>",
+                  "description": "Filter by issueDate. ISO-8601 date or datetime string (e.g. `issueDate=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+                },
+                {
+                  "disabled": false,
+                  "key": "notes",
+                  "value": "<string>",
+                  "description": "Filter by notes. String value (e.g. `notes=example`). See \"List Endpoints\" in the API overview for operator syntax."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "number",
+                  "description": "(Required) The policy number identifying the policy whose amendments to list."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "285caeb9-ee0f-4ecb-a404-38af990ccbd5",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "amendments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "primaryRecordId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "effectiveDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "issueDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "notes",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) The policy number identifying the policy whose amendments to list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"_id\": \"string\",\n      \"primaryRecordId\": \"string\",\n      \"policyNumber\": \"string\",\n      \"status\": \"active\",\n      \"type\": \"reinstatement\",\n      \"effectiveDate\": \"1987-11-29T07:12:07.629Z\",\n      \"issueDate\": \"1975-02-12T02:15:58.653Z\",\n      \"document\": {\n        \"id\": \"string\"\n      },\n      \"notes\": \"string\"\n    },\n    {\n      \"_id\": \"string\",\n      \"primaryRecordId\": \"string\",\n      \"policyNumber\": \"string\",\n      \"status\": \"active\",\n      \"type\": \"cancellation\",\n      \"effectiveDate\": \"1967-08-30T20:13:29.452Z\",\n      \"issueDate\": \"2018-06-16T03:37:15.649Z\",\n      \"document\": {\n        \"id\": \"string\"\n      },\n      \"notes\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"count\": 6693.777238723558,\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "73f4d3d8-e8df-479c-ab52-99bda13006c7",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "amendments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "primaryRecordId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "effectiveDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "issueDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "notes",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) The policy number identifying the policy whose amendments to list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b06c8d64-0b19-4f8d-b268-2a303aba4743",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "amendments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "primaryRecordId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "effectiveDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "issueDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "notes",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) The policy number identifying the policy whose amendments to list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "96a4a093-e3d5-48eb-b982-38dde3c6646c",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "amendments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "primaryRecordId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "effectiveDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "issueDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "notes",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) The policy number identifying the policy whose amendments to list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e7a4ce5b-0eac-406c-a18a-6edf4720d99b",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "amendments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "primaryRecordId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "effectiveDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "issueDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "notes",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) The policy number identifying the policy whose amendments to list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7027cb9f-824e-4272-93d0-1c15afb41dc8",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "amendments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "primaryRecordId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "effectiveDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "issueDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "notes",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) The policy number identifying the policy whose amendments to list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c6b75938-cb2a-4173-9b51-76bbd0aa2ce4",
+          "name": "Apply a cancellation to a policy, suppressing the validity of the targeted subjects from the effective date forward. This is a state-changing operation: it creates a cancellation modifier and updates subject validity accordingly. To record an externally-issued cancellation without altering platform state, use the `/log` variant instead.",
+          "request": {
+            "name": "Apply a cancellation to a policy, suppressing the validity of the targeted subjects from the effective date forward. This is a state-changing operation: it creates a cancellation modifier and updates subject validity accordingly. To record an externally-issued cancellation without altering platform state, use the `/log` variant instead.",
+            "description": {
+              "content": "Apply a cancellation to a policy, suppressing the validity of the targeted subjects from the effective date forward. This is a state-changing operation: it creates a cancellation modifier and updates subject validity accordingly. To record an externally-issued cancellation without altering platform state, use the `/log` variant instead.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "policies",
+                ":number",
+                "cancellations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "number",
+                  "description": "(Required) Policy number identifying the policy to cancel."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documentId\": \"<ObjectId>\",\n  \"effectiveDate\": {},\n  \"subjectCodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"issueDate\": {},\n  \"notes\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "de5e04d2-a2e8-41df-8d28-4e47e0a5a3a6",
+              "name": "The newly created cancellation record, including any pre-existing cancellations that cover overlapping subjects.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "cancellations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy to cancel."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documentId\": \"<ObjectId>\",\n  \"effectiveDate\": {},\n  \"subjectCodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"issueDate\": {},\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_id\": \"string\",\n  \"primaryRecordId\": \"string\",\n  \"policyNumber\": \"string\",\n  \"status\": \"active\",\n  \"type\": \"cancellation\",\n  \"subjects\": [],\n  \"matchingSubjects\": [],\n  \"effectiveDate\": \"2003-01-06T18:28:41.962Z\",\n  \"issueDate\": \"1989-03-12T14:17:26.323Z\",\n  \"document\": {\n    \"id\": \"string\"\n  },\n  \"conflicts\": [\n    {\n      \"_id\": \"string\",\n      \"status\": \"pending\",\n      \"type\": \"cancellation\",\n      \"effectiveDate\": \"1982-04-05T12:46:38.531Z\",\n      \"issueDate\": \"1949-09-02T00:11:23.077Z\",\n      \"document\": {\n        \"id\": \"string\"\n      },\n      \"conflictingSubjects\": [\n        {\n          \"code\": \"string\"\n        },\n        {\n          \"code\": \"string\"\n        }\n      ],\n      \"notes\": \"s\"\n    },\n    {\n      \"_id\": \"string\",\n      \"status\": \"active\",\n      \"type\": \"cancellation\",\n      \"effectiveDate\": \"1976-02-20T07:04:40.031Z\",\n      \"issueDate\": \"1987-04-11T09:28:23.709Z\",\n      \"document\": {\n        \"id\": \"string\"\n      },\n      \"conflictingSubjects\": [\n        {\n          \"code\": \"string\"\n        },\n        {\n          \"code\": \"string\"\n        }\n      ],\n      \"notes\": \"string\"\n    }\n  ],\n  \"notes\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5d4b920a-6db4-4792-8ba8-2db52d99a8b9",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "cancellations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy to cancel."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documentId\": \"<ObjectId>\",\n  \"effectiveDate\": {},\n  \"subjectCodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"issueDate\": {},\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee6ab161-14b5-4621-b2d5-6e8a2ba7e540",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "cancellations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy to cancel."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documentId\": \"<ObjectId>\",\n  \"effectiveDate\": {},\n  \"subjectCodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"issueDate\": {},\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a4be5401-09fb-42e2-a2ec-e7502c637cce",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "cancellations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy to cancel."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documentId\": \"<ObjectId>\",\n  \"effectiveDate\": {},\n  \"subjectCodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"issueDate\": {},\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c306b61e-b759-4017-a334-dcee524065f2",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "cancellations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy to cancel."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documentId\": \"<ObjectId>\",\n  \"effectiveDate\": {},\n  \"subjectCodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"issueDate\": {},\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c4660ee6-2dd4-4495-b730-d008538f457f",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "cancellations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy to cancel."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documentId\": \"<ObjectId>\",\n  \"effectiveDate\": {},\n  \"subjectCodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"issueDate\": {},\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "88ae4bfa-34fb-4cdf-ac76-5aacb638a2a1",
+          "name": "Record an externally-issued cancellation against an existing cancellation request. This is an audit-only operation: no policy state is changed. Use the non-`/log` POST variant if you need to apply a new cancellation that updates subject validity.",
+          "request": {
+            "name": "Record an externally-issued cancellation against an existing cancellation request. This is an audit-only operation: no policy state is changed. Use the non-`/log` POST variant if you need to apply a new cancellation that updates subject validity.",
+            "description": {
+              "content": "Record an externally-issued cancellation against an existing cancellation request. This is an audit-only operation: no policy state is changed. Use the non-`/log` POST variant if you need to apply a new cancellation that updates subject validity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "policies",
+                ":number",
+                "cancellations",
+                ":id",
+                "log"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "number",
+                  "description": "(Required) Policy number identifying the policy whose cancellation is being logged."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<ObjectId>",
+                  "key": "id",
+                  "description": "(Required) Identifier of the cancellation request being recorded as logged."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0892624c-924b-4919-a330-9d5f387c798a",
+              "name": "The audit log entry created by recording an externally-issued cancellation. No policy state is changed; this call only records that a cancellation occurred outside the platform.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "cancellations",
+                    ":id",
+                    "log"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy whose cancellation is being logged."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the cancellation request being recorded as logged."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_id\": \"string\",\n  \"primaryRecordId\": \"string\",\n  \"policyNumber\": \"string\",\n  \"subjects\": [\n    {\n      \"code\": \"string\",\n      \"label\": \"string\"\n    },\n    {\n      \"code\": \"strin\",\n      \"label\": \"string\"\n    }\n  ],\n  \"documents\": [\n    {\n      \"_id\": \"string\",\n      \"subjects\": [\n        {\n          \"code\": \"string\",\n          \"label\": \"string\",\n          \"effectiveDate\": \"2017-05-25T18:51:36.997Z\",\n          \"expirationDate\": \"1982-11-09T14:46:27.938Z\",\n          \"cancellation\": {\n            \"originalValidity\": {\n              \"effectiveDate\": \"1953-02-24T03:40:17.469Z\",\n              \"expirationDate\": \"2006-09-16T08:41:44.659Z\"\n            },\n            \"effectiveDate\": \"1964-06-23T12:13:54.380Z\",\n            \"id\": \"string\",\n            \"issueDate\": \"2007-08-23T10:22:52.911Z\",\n            \"notes\": \"string\"\n          },\n          \"reinstatement\": {\n            \"id\": \"string\",\n            \"effectiveDate\": \"1970-04-27T03:45:42.315Z\",\n            \"issueDate\": \"1973-10-10T02:47:11.091Z\",\n            \"notes\": \"string\"\n          }\n        },\n        {\n          \"code\": \"string\",\n          \"label\": \"string\",\n          \"effectiveDate\": \"2003-10-05T07:55:32.611Z\",\n          \"expirationDate\": \"2001-05-22T16:47:02.503Z\",\n          \"cancellation\": {\n            \"originalValidity\": {\n              \"effectiveDate\": \"2020-10-03T07:21:07.051Z\",\n              \"expirationDate\": \"1960-02-06T19:11:53.000Z\"\n            },\n            \"effectiveDate\": \"1947-05-09T22:56:18.749Z\",\n            \"id\": \"string\",\n            \"issueDate\": \"1985-10-28T21:44:07.174Z\",\n            \"notes\": \"string\"\n          },\n          \"reinstatement\": {\n            \"id\": \"string\",\n            \"effectiveDate\": \"2002-01-23T07:15:31.825Z\",\n            \"issueDate\": \"1990-01-20T09:18:30.839Z\",\n            \"notes\": \"string\"\n          }\n        }\n      ],\n      \"name\": \"string\",\n      \"issueDate\": \"1973-09-29T08:56:30.209Z\"\n    },\n    {\n      \"_id\": \"string\",\n      \"subjects\": [\n        {\n          \"code\": \"string\",\n          \"label\": \"string\",\n          \"effectiveDate\": \"1956-03-25T02:34:41.708Z\",\n          \"expirationDate\": \"1972-06-20T18:35:25.040Z\",\n          \"cancellation\": {\n            \"originalValidity\": {\n              \"effectiveDate\": \"1960-09-24T01:56:24.887Z\",\n              \"expirationDate\": \"1997-06-27T06:49:51.067Z\"\n            },\n            \"effectiveDate\": \"1954-05-07T06:36:48.325Z\",\n            \"id\": \"string\",\n            \"issueDate\": \"1977-12-22T07:52:24.733Z\",\n            \"notes\": \"string\"\n          },\n          \"reinstatement\": {\n            \"id\": \"string\",\n            \"effectiveDate\": \"2015-07-07T07:55:07.379Z\",\n            \"issueDate\": \"1983-09-12T06:15:33.762Z\",\n            \"notes\": \"string\"\n          }\n        },\n        {\n          \"code\": \"string\",\n          \"label\": \"string\",\n          \"effectiveDate\": \"2021-05-03T16:41:06.847Z\",\n          \"expirationDate\": \"1952-01-11T12:18:45.562Z\",\n          \"cancellation\": {\n            \"originalValidity\": {\n              \"effectiveDate\": \"1965-05-13T02:28:55.153Z\",\n              \"expirationDate\": \"1951-07-26T20:19:07.008Z\"\n            },\n            \"effectiveDate\": \"2011-10-01T16:48:22.222Z\",\n            \"id\": \"string\",\n            \"issueDate\": \"2023-11-24T14:24:24.637Z\",\n            \"notes\": \"string\"\n          },\n          \"reinstatement\": {\n            \"id\": \"string\",\n            \"effectiveDate\": \"1990-05-11T08:48:46.949Z\",\n            \"issueDate\": \"1995-11-01T15:10:58.600Z\",\n            \"notes\": \"string\"\n          }\n        }\n      ],\n      \"name\": \"string\",\n      \"issueDate\": \"2001-07-06T04:15:36.282Z\"\n    }\n  ],\n  \"effectiveDate\": \"1964-02-27T01:49:37.240Z\",\n  \"issueDate\": \"2002-06-11T19:10:06.130Z\",\n  \"notes\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f5b1a801-0ef5-4961-9fbe-0dd3428ffac1",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "cancellations",
+                    ":id",
+                    "log"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy whose cancellation is being logged."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the cancellation request being recorded as logged."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7880de28-17ba-4c6d-9707-d6b09bc8e5a5",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "cancellations",
+                    ":id",
+                    "log"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy whose cancellation is being logged."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the cancellation request being recorded as logged."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "feedaa2e-5150-4f1d-8b52-59fd68f9adf2",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "cancellations",
+                    ":id",
+                    "log"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy whose cancellation is being logged."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the cancellation request being recorded as logged."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fe9e0d07-6e6d-4eed-a506-d524a78487e6",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "cancellations",
+                    ":id",
+                    "log"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy whose cancellation is being logged."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the cancellation request being recorded as logged."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8b84ac00-9622-45f6-ad45-18c26db8ee21",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "cancellations",
+                    ":id",
+                    "log"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy whose cancellation is being logged."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the cancellation request being recorded as logged."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2f3ab9f7-07d8-4260-bb4b-e896b9eb8009",
+          "name": "Delete a previously-applied policy cancellation. Removing the cancellation reverses its effect on subject validity, so any subjects it was suppressing become valid again subject to the policy's other modifiers.",
+          "request": {
+            "name": "Delete a previously-applied policy cancellation. Removing the cancellation reverses its effect on subject validity, so any subjects it was suppressing become valid again subject to the policy's other modifiers.",
+            "description": {
+              "content": "Delete a previously-applied policy cancellation. Removing the cancellation reverses its effect on subject validity, so any subjects it was suppressing become valid again subject to the policy's other modifiers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "policies",
+                ":number",
+                "cancellations",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "number",
+                  "description": "(Required) Policy number identifying the policy from which the cancellation should be removed."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<ObjectId>",
+                  "key": "id",
+                  "description": "(Required) Identifier of the cancellation to delete."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a7d76028-59dc-4185-a395-5e4b27aa6763",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "cancellations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy from which the cancellation should be removed."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the cancellation to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "589fce1e-4f36-42f8-8857-afe8d14a3694",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "cancellations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy from which the cancellation should be removed."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the cancellation to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ccd06a56-7c48-467b-886d-1f49821d31b3",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "cancellations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy from which the cancellation should be removed."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the cancellation to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f848c1b7-2783-4af7-907c-aa1fc5704dcd",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "cancellations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy from which the cancellation should be removed."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the cancellation to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f6056976-6987-48da-b5a5-c5e8bd08bb5f",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "cancellations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy from which the cancellation should be removed."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the cancellation to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "57920fed-64f2-4381-876d-d3c3eccd5109",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "cancellations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy from which the cancellation should be removed."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the cancellation to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "002d0e1f-14ec-437e-9092-8a8442ca25f5",
+          "name": "Apply a reinstatement to a policy, reversing an active cancellation and restoring the covered subjects to compliant status. This is a state-changing operation: it creates a reinstatement modifier and updates subject validity accordingly. To record an externally-issued reinstatement without altering platform state, use the `/log` variant instead.",
+          "request": {
+            "name": "Apply a reinstatement to a policy, reversing an active cancellation and restoring the covered subjects to compliant status. This is a state-changing operation: it creates a reinstatement modifier and updates subject validity accordingly. To record an externally-issued reinstatement without altering platform state, use the `/log` variant instead.",
+            "description": {
+              "content": "Apply a reinstatement to a policy, reversing an active cancellation and restoring the covered subjects to compliant status. This is a state-changing operation: it creates a reinstatement modifier and updates subject validity accordingly. To record an externally-issued reinstatement without altering platform state, use the `/log` variant instead.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "policies",
+                ":number",
+                "reinstatements"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "number",
+                  "description": "(Required) Policy number identifying the policy to reinstate."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documentId\": \"<ObjectId>\",\n  \"effectiveDate\": {},\n  \"subjectCodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"issueDate\": {},\n  \"notes\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f5eb3432-d00a-43c7-8bae-d77af381b72d",
+              "name": "The newly created reinstatement record, including any pre-existing reinstatements that cover overlapping subjects.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "reinstatements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy to reinstate."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documentId\": \"<ObjectId>\",\n  \"effectiveDate\": {},\n  \"subjectCodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"issueDate\": {},\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_id\": \"string\",\n  \"primaryRecordId\": \"string\",\n  \"policyNumber\": \"string\",\n  \"status\": \"pending\",\n  \"type\": \"reinstatement\",\n  \"subjects\": [],\n  \"matchingSubjects\": [],\n  \"effectiveDate\": \"2021-11-29T04:45:48.185Z\",\n  \"issueDate\": \"1960-06-23T11:08:18.735Z\",\n  \"document\": {\n    \"id\": \"string\"\n  },\n  \"conflicts\": [\n    {\n      \"_id\": \"string\",\n      \"status\": \"pending\",\n      \"type\": \"reinstatement\",\n      \"effectiveDate\": \"1984-06-02T01:17:31.310Z\",\n      \"issueDate\": \"1957-05-13T08:15:51.594Z\",\n      \"document\": {\n        \"id\": \"string\"\n      },\n      \"conflictingSubjects\": [\n        {\n          \"code\": \"string\"\n        },\n        {\n          \"code\": \"string\"\n        }\n      ],\n      \"notes\": \"string\"\n    },\n    {\n      \"_id\": \"string\",\n      \"status\": \"active\",\n      \"type\": \"reinstatement\",\n      \"effectiveDate\": \"1956-11-19T15:55:40.351Z\",\n      \"issueDate\": \"1992-03-27T18:50:40.964Z\",\n      \"document\": {\n        \"id\": \"string\"\n      },\n      \"conflictingSubjects\": [\n        {\n          \"code\": \"string\"\n        },\n        {\n          \"code\": \"string\"\n        }\n      ],\n      \"notes\": \"string\"\n    }\n  ],\n  \"notes\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ec947fa-230c-44ca-b1fd-236391e69c0a",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "reinstatements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy to reinstate."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documentId\": \"<ObjectId>\",\n  \"effectiveDate\": {},\n  \"subjectCodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"issueDate\": {},\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "723c0294-df79-4cde-9a21-b8f341a80a5d",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "reinstatements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy to reinstate."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documentId\": \"<ObjectId>\",\n  \"effectiveDate\": {},\n  \"subjectCodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"issueDate\": {},\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "679eec30-4a05-4ce5-8f8f-542f3800308d",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "reinstatements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy to reinstate."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documentId\": \"<ObjectId>\",\n  \"effectiveDate\": {},\n  \"subjectCodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"issueDate\": {},\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cfbe6986-9053-4795-868d-21fd7190f891",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "reinstatements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy to reinstate."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documentId\": \"<ObjectId>\",\n  \"effectiveDate\": {},\n  \"subjectCodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"issueDate\": {},\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "958f3b6b-f788-4c1f-b643-be96afc5e18b",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "reinstatements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy to reinstate."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documentId\": \"<ObjectId>\",\n  \"effectiveDate\": {},\n  \"subjectCodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"issueDate\": {},\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9539d12e-a1d1-4725-a922-71dc93600bea",
+          "name": "Record an externally-issued reinstatement against an existing reinstatement request. This is an audit-only operation: no policy state is changed. Use the non-`/log` POST variant if you need to apply a new reinstatement that updates subject validity.",
+          "request": {
+            "name": "Record an externally-issued reinstatement against an existing reinstatement request. This is an audit-only operation: no policy state is changed. Use the non-`/log` POST variant if you need to apply a new reinstatement that updates subject validity.",
+            "description": {
+              "content": "Record an externally-issued reinstatement against an existing reinstatement request. This is an audit-only operation: no policy state is changed. Use the non-`/log` POST variant if you need to apply a new reinstatement that updates subject validity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "policies",
+                ":number",
+                "reinstatements",
+                ":id",
+                "log"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "number",
+                  "description": "(Required) Policy number identifying the policy whose reinstatement is being logged."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<ObjectId>",
+                  "key": "id",
+                  "description": "(Required) Identifier of the reinstatement request being recorded as logged."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3221a1f8-2ac6-4409-bccd-21b85721d6b9",
+              "name": "The audit log entry created by recording an externally-issued reinstatement. No policy state is changed; this call only records that a reinstatement occurred outside the platform.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "reinstatements",
+                    ":id",
+                    "log"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy whose reinstatement is being logged."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the reinstatement request being recorded as logged."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_id\": \"string\",\n  \"primaryRecordId\": \"string\",\n  \"policyNumber\": \"string\",\n  \"subjects\": [\n    {\n      \"code\": \"string\",\n      \"label\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"label\": \"string\"\n    }\n  ],\n  \"documents\": [\n    {\n      \"_id\": \"string\",\n      \"subjects\": [\n        {\n          \"code\": \"string\",\n          \"label\": \"string\",\n          \"effectiveDate\": \"2010-02-23T14:21:46.308Z\",\n          \"expirationDate\": \"1985-10-01T19:36:24.203Z\",\n          \"cancellation\": {\n            \"originalValidity\": {\n              \"effectiveDate\": \"1995-10-02T20:40:46.197Z\",\n              \"expirationDate\": \"2010-09-06T11:44:45.851Z\"\n            },\n            \"effectiveDate\": \"1972-10-22T13:11:51.394Z\",\n            \"id\": \"string\",\n            \"issueDate\": \"1969-12-09T07:32:18.572Z\",\n            \"notes\": \"string\"\n          },\n          \"reinstatement\": {\n            \"id\": \"string\",\n            \"effectiveDate\": \"1994-10-16T19:32:44.258Z\",\n            \"issueDate\": \"1991-01-10T18:23:46.675Z\",\n            \"notes\": \"string\"\n          }\n        },\n        {\n          \"code\": \"string\",\n          \"label\": \"string\",\n          \"effectiveDate\": \"1981-09-18T08:49:59.985Z\",\n          \"expirationDate\": \"1982-03-07T11:47:12.474Z\",\n          \"cancellation\": {\n            \"originalValidity\": {\n              \"effectiveDate\": \"2012-07-10T01:53:03.718Z\",\n              \"expirationDate\": \"1995-01-02T08:10:38.017Z\"\n            },\n            \"effectiveDate\": \"2023-03-05T03:13:04.202Z\",\n            \"id\": \"string\",\n            \"issueDate\": \"1982-02-03T16:14:34.267Z\",\n            \"notes\": \"string\"\n          },\n          \"reinstatement\": {\n            \"id\": \"string\",\n            \"effectiveDate\": \"2026-04-20T21:06:09.939Z\",\n            \"issueDate\": \"2024-10-03T22:53:56.118Z\",\n            \"notes\": \"string\"\n          }\n        }\n      ],\n      \"name\": \"string\",\n      \"issueDate\": \"1983-09-05T00:28:14.738Z\"\n    },\n    {\n      \"_id\": \"string\",\n      \"subjects\": [\n        {\n          \"code\": \"string\",\n          \"label\": \"string\",\n          \"effectiveDate\": \"1960-03-17T15:23:33.330Z\",\n          \"expirationDate\": \"2016-08-18T18:33:26.001Z\",\n          \"cancellation\": {\n            \"originalValidity\": {\n              \"effectiveDate\": \"2010-10-15T18:20:46.338Z\",\n              \"expirationDate\": \"2016-04-03T08:14:01.263Z\"\n            },\n            \"effectiveDate\": \"2024-11-27T03:22:35.458Z\",\n            \"id\": \"string\",\n            \"issueDate\": \"1955-01-03T20:44:50.678Z\",\n            \"notes\": \"string\"\n          },\n          \"reinstatement\": {\n            \"id\": \"string\",\n            \"effectiveDate\": \"1971-01-08T23:19:45.734Z\",\n            \"issueDate\": \"1985-05-20T20:12:32.163Z\",\n            \"notes\": \"string\"\n          }\n        },\n        {\n          \"code\": \"string\",\n          \"label\": \"string\",\n          \"effectiveDate\": \"1981-07-20T09:21:38.016Z\",\n          \"expirationDate\": \"1988-11-05T02:23:38.091Z\",\n          \"cancellation\": {\n            \"originalValidity\": {\n              \"effectiveDate\": \"1987-03-07T17:39:09.103Z\",\n              \"expirationDate\": \"2010-11-08T12:04:10.440Z\"\n            },\n            \"effectiveDate\": \"1972-05-19T19:43:52.145Z\",\n            \"id\": \"string\",\n            \"issueDate\": \"2022-05-13T15:19:37.501Z\",\n            \"notes\": \"string\"\n          },\n          \"reinstatement\": {\n            \"id\": \"string\",\n            \"effectiveDate\": \"1981-12-30T18:18:17.942Z\",\n            \"issueDate\": \"1990-09-29T05:32:10.021Z\",\n            \"notes\": \"string\"\n          }\n        }\n      ],\n      \"name\": \"string\",\n      \"issueDate\": \"1950-01-01T23:10:03.086Z\"\n    }\n  ],\n  \"effectiveDate\": \"1991-04-02T15:57:26.097Z\",\n  \"issueDate\": \"1966-06-08T06:45:11.512Z\",\n  \"notes\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "12e29617-0408-434e-a768-b8a1c4d19b78",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "reinstatements",
+                    ":id",
+                    "log"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy whose reinstatement is being logged."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the reinstatement request being recorded as logged."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "23c10ae7-951a-48b2-bbc7-2cc26d119efd",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "reinstatements",
+                    ":id",
+                    "log"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy whose reinstatement is being logged."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the reinstatement request being recorded as logged."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a71f3af-129e-4209-bb29-f593b9fa70f2",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "reinstatements",
+                    ":id",
+                    "log"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy whose reinstatement is being logged."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the reinstatement request being recorded as logged."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "16ed1119-5c10-4f43-bf13-43280297e8f1",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "reinstatements",
+                    ":id",
+                    "log"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy whose reinstatement is being logged."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the reinstatement request being recorded as logged."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "affad8bb-9f64-487a-b7d1-f2d6caa62739",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "reinstatements",
+                    ":id",
+                    "log"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy whose reinstatement is being logged."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the reinstatement request being recorded as logged."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e695f4d6-2917-4b1c-8f0f-9ed23d9a11b2",
+          "name": "Delete a previously-applied policy reinstatement. Removing the reinstatement re-asserts the underlying cancellation, so subjects that were restored by it return to suppressed status (subject to the policy's other modifiers).",
+          "request": {
+            "name": "Delete a previously-applied policy reinstatement. Removing the reinstatement re-asserts the underlying cancellation, so subjects that were restored by it return to suppressed status (subject to the policy's other modifiers).",
+            "description": {
+              "content": "Delete a previously-applied policy reinstatement. Removing the reinstatement re-asserts the underlying cancellation, so subjects that were restored by it return to suppressed status (subject to the policy's other modifiers).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "policies",
+                ":number",
+                "reinstatements",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "number",
+                  "description": "(Required) Policy number identifying the policy from which the reinstatement should be removed."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<ObjectId>",
+                  "key": "id",
+                  "description": "(Required) Identifier of the reinstatement to delete."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a630ea7b-6ab2-45b2-861e-19f1da543042",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "reinstatements",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy from which the reinstatement should be removed."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the reinstatement to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "527803b3-962d-48b5-9bbe-920afe94fef8",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "reinstatements",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy from which the reinstatement should be removed."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the reinstatement to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f676b1a8-6e14-4906-ad19-dcc6ebdc2ce6",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "reinstatements",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy from which the reinstatement should be removed."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the reinstatement to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2ede7cf7-c013-44a7-be56-522dd3c40d1d",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "reinstatements",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy from which the reinstatement should be removed."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the reinstatement to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "806f98ea-f7b7-42ba-b03c-1aa05c4f14e3",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "reinstatements",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy from which the reinstatement should be removed."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the reinstatement to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef99f5f7-7cc2-4dc5-a6b1-6735cf19ce3b",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "reinstatements",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) Policy number identifying the policy from which the reinstatement should be removed."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the reinstatement to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0e1649b2-92a3-4849-b06b-3afcbfb01bfd",
+          "name": "Log a policy cancellation",
+          "request": {
+            "name": "Log a policy cancellation",
+            "description": {
+              "content": "Log a policy cancellation",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "policies",
+                ":number",
+                "log-cancellation"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "number",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"effectiveDate\": \"\",\n  \"primaryRecordIds\": [\n    \"<ObjectId>\",\n    \"<ObjectId>\"\n  ],\n  \"subjectCodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"issueDate\": \"\",\n  \"notes\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "137e16c8-c062-4cf2-909e-967b30142b6f",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "log-cancellation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"effectiveDate\": \"\",\n  \"primaryRecordIds\": [\n    \"<ObjectId>\",\n    \"<ObjectId>\"\n  ],\n  \"subjectCodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"issueDate\": \"\",\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"policyNumber\": \"string\",\n  \"primaryRecords\": [\n    {\n      \"_id\": \"string\",\n      \"documents\": [\n        {\n          \"_id\": \"string\",\n          \"subjects\": [\n            {\n              \"code\": \"string\",\n              \"label\": \"string\"\n            },\n            {\n              \"code\": \"string\",\n              \"label\": \"string\"\n            }\n          ]\n        },\n        {\n          \"_id\": \"string\",\n          \"subjects\": [\n            {\n              \"code\": \"string\",\n              \"label\": \"string\"\n            },\n            {\n              \"code\": \"string\",\n              \"label\": \"string\"\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"_id\": \"string\",\n      \"documents\": [\n        {\n          \"_id\": \"string\",\n          \"subjects\": [\n            {\n              \"code\": \"string\",\n              \"label\": \"string\"\n            },\n            {\n              \"code\": \"string\",\n              \"label\": \"string\"\n            }\n          ]\n        },\n        {\n          \"_id\": \"string\",\n          \"subjects\": [\n            {\n              \"code\": \"string\",\n              \"label\": \"string\"\n            },\n            {\n              \"code\": \"string\",\n              \"label\": \"string\"\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"effectiveDate\": \"1988-06-30T07:52:55.625Z\",\n  \"issueDate\": \"1974-02-06T16:32:22.295Z\",\n  \"notes\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8b935188-ee9d-44a6-a3d3-ba4712aa9427",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "log-cancellation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"effectiveDate\": \"\",\n  \"primaryRecordIds\": [\n    \"<ObjectId>\",\n    \"<ObjectId>\"\n  ],\n  \"subjectCodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"issueDate\": \"\",\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d758f35d-5831-49c4-9f81-e6db7d725351",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "log-cancellation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"effectiveDate\": \"\",\n  \"primaryRecordIds\": [\n    \"<ObjectId>\",\n    \"<ObjectId>\"\n  ],\n  \"subjectCodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"issueDate\": \"\",\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "918657e8-2aed-47d6-9a1e-a22db68a9527",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "log-cancellation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"effectiveDate\": \"\",\n  \"primaryRecordIds\": [\n    \"<ObjectId>\",\n    \"<ObjectId>\"\n  ],\n  \"subjectCodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"issueDate\": \"\",\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "32e9202b-3575-4f9f-9d25-d3ddda67966d",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "log-cancellation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"effectiveDate\": \"\",\n  \"primaryRecordIds\": [\n    \"<ObjectId>\",\n    \"<ObjectId>\"\n  ],\n  \"subjectCodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"issueDate\": \"\",\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7eed54e4-bf4b-4e40-8433-0716b2544fe9",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "log-cancellation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"effectiveDate\": \"\",\n  \"primaryRecordIds\": [\n    \"<ObjectId>\",\n    \"<ObjectId>\"\n  ],\n  \"subjectCodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"issueDate\": \"\",\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7c7627aa-ea40-4650-ab2a-e9d5da27bff8",
+          "name": "Log a policy reinstatement",
+          "request": {
+            "name": "Log a policy reinstatement",
+            "description": {
+              "content": "Log a policy reinstatement",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "policies",
+                ":number",
+                "log-reinstatement"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "number",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"primaryRecordIds\": [\n    \"<ObjectId>\",\n    \"<ObjectId>\"\n  ],\n  \"subjectCodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"issueDate\": \"\",\n  \"notes\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "87c31b78-aa42-45a0-ae7f-d1463c8d18e9",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "log-reinstatement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"primaryRecordIds\": [\n    \"<ObjectId>\",\n    \"<ObjectId>\"\n  ],\n  \"subjectCodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"issueDate\": \"\",\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"policyNumber\": \"string\",\n  \"primaryRecords\": [\n    {\n      \"_id\": \"string\",\n      \"documents\": [\n        {\n          \"_id\": \"string\",\n          \"subjects\": [\n            {\n              \"code\": \"string\",\n              \"label\": \"string\"\n            },\n            {\n              \"code\": \"string\",\n              \"label\": \"string\"\n            }\n          ]\n        },\n        {\n          \"_id\": \"string\",\n          \"subjects\": [\n            {\n              \"code\": \"string\",\n              \"label\": \"string\"\n            },\n            {\n              \"code\": \"string\",\n              \"label\": \"string\"\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"_id\": \"string\",\n      \"documents\": [\n        {\n          \"_id\": \"string\",\n          \"subjects\": [\n            {\n              \"code\": \"string\",\n              \"label\": \"string\"\n            },\n            {\n              \"code\": \"string\",\n              \"label\": \"string\"\n            }\n          ]\n        },\n        {\n          \"_id\": \"string\",\n          \"subjects\": [\n            {\n              \"code\": \"string\",\n              \"label\": \"string\"\n            },\n            {\n              \"code\": \"string\",\n              \"label\": \"string\"\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"issueDate\": \"1962-04-13T21:09:27.839Z\",\n  \"notes\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "18887d6b-5073-4e80-83b8-eb8b195fd398",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "log-reinstatement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"primaryRecordIds\": [\n    \"<ObjectId>\",\n    \"<ObjectId>\"\n  ],\n  \"subjectCodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"issueDate\": \"\",\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "878463d9-2b2e-4818-a4c3-276ac511b768",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "log-reinstatement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"primaryRecordIds\": [\n    \"<ObjectId>\",\n    \"<ObjectId>\"\n  ],\n  \"subjectCodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"issueDate\": \"\",\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6a94f1ff-2c03-4628-ad46-36486f465094",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "log-reinstatement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"primaryRecordIds\": [\n    \"<ObjectId>\",\n    \"<ObjectId>\"\n  ],\n  \"subjectCodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"issueDate\": \"\",\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "da8b34d2-e4df-4dc9-b211-10b45cc9b515",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "log-reinstatement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"primaryRecordIds\": [\n    \"<ObjectId>\",\n    \"<ObjectId>\"\n  ],\n  \"subjectCodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"issueDate\": \"\",\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4e32a323-2ca1-4672-bca0-6051d1e61327",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "policies",
+                    ":number",
+                    "log-reinstatement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"primaryRecordIds\": [\n    \"<ObjectId>\",\n    \"<ObjectId>\"\n  ],\n  \"subjectCodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"issueDate\": \"\",\n  \"notes\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:4000/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "16264eb6-003b-45f5-9b5c-f6632c3a0dbb",
+    "name": "TrustLayer Platform Auth Policies API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "3rd-party API for the TrustLayer platform.\n\n**Deprecated.** Platform API v1 is deprecated as of 01 June 2026 and is\nscheduled for sunset (end-of-life) on 31 March 2027. It remains fully\navailable until the sunset date but will not receive new features. Please\nmigrate to Platform API v2 for new integrations.\n\nAll v1 responses carry the standard deprecation response headers\n([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)):\n\n```http\nDeprecation: @1780272000\nSunset: Wed, 31 Mar 2027 23:59:59 GMT\nLink: <https://developers.trustlayer.io/>; rel=\"deprecation\", <https://developers.trustlayer.io/>; rel=\"sunset\"\n```\n\n`Deprecation: @1780272000` is the Unix timestamp for 2026-06-01T00:00:00Z;\nsunset (end-of-life) is 2027-03-31T23:59:59 GMT.\n\nContact Support:\n Name: TrustLayer Support\n Email: support@trustlayer.io",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,233 @@
+{
+  "item": [
+    {
+      "id": "753525b3-bb73-4458-921a-a0ffc9838d0d",
+      "name": "Document Types",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "55ec5dbc-267c-41be-b093-e833677b94a6",
+          "name": "List Document Types",
+          "request": {
+            "name": "List Document Types",
+            "description": {
+              "content": "This endpoint returns the complete list of document types. No pagination, filtering or sorting option is supported at the moment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "document-types"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5076383c-fee4-4ff9-b15d-3f1ff90e41b5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document-types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"system\": true,\n      \"pluralName\": \"string\",\n      \"type\": \"document-types\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"system\": true,\n      \"pluralName\": \"string\",\n      \"type\": \"document-types\"\n    }\n  ],\n  \"meta\": {\n    \"count\": 9672.502098395405,\n    \"pages\": 59.19069618210537,\n    \"totalCount\": 8771.961784556677,\n    \"totalPages\": 3812.8281843135182\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "06ec9053-5165-4f90-a3aa-475f8c2e0850",
+          "name": "Fetch Document Type",
+          "request": {
+            "name": "Fetch Document Type",
+            "description": {
+              "content": "This endpoint returns a single document type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "document-types",
+                ":documentTypeId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "documentTypeId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5f035ab3-4b0c-48dc-b4e1-5b934d54a925",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document-types",
+                    ":documentTypeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "documentTypeId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"fail\",\n  \"data\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"system\": false,\n    \"pluralName\": \"string\",\n    \"type\": \"document-types\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2dc3303b-5a74-4987-ba8b-c20b1a1285f9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document-types",
+                    ":documentTypeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "documentTypeId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"fail\",\n  \"data\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"system\": false,\n    \"pluralName\": \"string\",\n    \"type\": \"document-types\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:4000/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "5f88e636-1dab-458d-b40e-d686654d1efc",
+    "name": "TrustLayer Platform Auth Document Types API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "3rd-party API for the TrustLayer platform.\n\n**Deprecated.** Platform API v1 is deprecated as of 01 June 2026 and is\nscheduled for sunset (end-of-life) on 31 March 2027. It remains fully\navailable until the sunset date but will not receive new features. Please\nmigrate to Platform API v2 for new integrations.\n\nAll v1 responses carry the standard deprecation response headers\n([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)):\n\n```http\nDeprecation: @1780272000\nSunset: Wed, 31 Mar 2027 23:59:59 GMT\nLink: <https://developers.trustlayer.io/>; rel=\"deprecation\", <https://developers.trustlayer.io/>; rel=\"sunset\"\n```\n\n`Deprecation: @1780272000` is the Unix timestamp for 2026-06-01T00:00:00Z;\nsunset (end-of-life) is 2027-03-31T23:59:59 GMT.\n\nContact Support:\n Name: TrustLayer Support\n Email: support@trustlayer.io",
+      "type": "text/plain"
+    }
+  }
+}

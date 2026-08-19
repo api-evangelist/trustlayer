@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TrustLayer Platform Auth API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Auth",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "POST /auth/sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/auth/sessions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a 24-hour authorization session token for the workspace-management endpoints. The returned token grants `workspaces` write access for the authenticated user and is required as a Bearer credential on the `/v2/workspaces` routes. Returns 404 if no user matches the email and 401 if the password is invalid or the user is not a workspaces admin."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

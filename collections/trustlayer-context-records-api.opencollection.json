@@ -1,0 +1,561 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TrustLayer Platform Auth Context Records API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Context Records",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET /context-records",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/context-records",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Example: '_id,-createdAt'. Allowed: status, name, description, startDate, endDate, archivedAt, createdAt, updatedAt"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to project. Allowed: _id, organization, contextObjectId, status, name, description, startDate, endDate, externalCodes, archivedAt, createdAt, updatedAt"
+              },
+              {
+                "name": "_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by _id. 24-character hex ObjectId string (e.g. `_id=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "createdAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter by createdAt. ISO-8601 date or datetime string (e.g. `createdAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "updatedAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter by updatedAt. ISO-8601 date or datetime string (e.g. `updatedAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "contextObjectId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contextObjectId. 24-character hex ObjectId string (e.g. `contextObjectId=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by name. String value (e.g. `name=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status. String value (e.g. `status=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "externalCodes",
+                "value": "",
+                "type": "query",
+                "description": "Filter by externalCodes. String value (e.g. `externalCodes=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter by startDate. ISO-8601 date or datetime string (e.g. `startDate=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter by endDate. ISO-8601 date or datetime string (e.g. `endDate=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "archivedAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter by archivedAt. ISO-8601 date or datetime string (e.g. `archivedAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+              }
+            ]
+          },
+          "docs": "List context records in the caller's organization. Results are always scoped to the caller's organization. Supports pagination via `limit` and `skip`.\n\n<!-- qs2mongo:list-summary -->\n\n**Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `contextObjectId` (objectId), `name` (string), `status` (string), `externalCodes` (string), `startDate` (date), `endDate` (date), `archivedAt` (date). See \"List Endpoints\" in the API overview for operator syntax and combining rules.\n\n**Sorting"
+        },
+        {
+          "info": {
+            "name": "POST /context-records",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/context-records",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new context record in the caller's organization. The owning organization is derived from the access token. Returns the new record's identifier."
+        },
+        {
+          "info": {
+            "name": "GET /context-records/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/context-records/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to project. Allowed: _id, organization, contextObjectId, status, name, description, startDate, endDate, externalCodes, archivedAt, createdAt, updatedAt"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the context record to read."
+              }
+            ]
+          },
+          "docs": "Read a single context record by id, scoped to the caller's organization. Use the `fields` query parameter to limit the response to a projection of the record."
+        },
+        {
+          "info": {
+            "name": "PATCH /context-records/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:4000/v1/context-records/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the context record to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially update a context record. Any subset of writable fields may be provided; omitted fields are left unchanged. Returns the full updated record."
+        },
+        {
+          "info": {
+            "name": "DELETE /context-records/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/context-records/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the context record to delete."
+              }
+            ]
+          },
+          "docs": "Delete a context record. Returns the deleted record id on success. Deleting a record that does not exist returns 404 with the shared NotFoundError shape."
+        },
+        {
+          "info": {
+            "name": "GET /context-records/{id}/attributes/{attributeId}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/context-records/:id/attributes/:attributeId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the context record."
+              },
+              {
+                "name": "attributeId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the attribute (custom field) to target."
+              }
+            ]
+          },
+          "docs": "Read a single attribute (custom field value) embedded in a context record. Returns 404 when the context record or the specific attribute does not exist."
+        },
+        {
+          "info": {
+            "name": "PUT /context-records/{id}/attributes/{attributeId}",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:4000/v1/context-records/:id/attributes/:attributeId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the context record."
+              },
+              {
+                "name": "attributeId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the attribute (custom field) to target."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create or replace an attribute (custom field value) on a context record. This is a full replacement — omitting `value` or `optionIds` clears that field. Returns 404 when the context record or the referenced custom field definition does not exist."
+        },
+        {
+          "info": {
+            "name": "DELETE /context-records/{id}/attributes/{attributeId}",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/context-records/:id/attributes/:attributeId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the context record."
+              },
+              {
+                "name": "attributeId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the attribute (custom field) to target."
+              }
+            ]
+          },
+          "docs": "Delete an attribute (custom field value) from a context record. Returns 404 when the context record or the specific attribute does not exist."
+        },
+        {
+          "info": {
+            "name": "GET /context-records/{id}/attributes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/context-records/:id/attributes",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the context record whose attributes to list."
+              }
+            ]
+          },
+          "docs": "List attributes (custom field values) embedded in a context record. Attributes are stored as an embedded array on the record — there is no separate filtering beyond pagination. Results are scoped to the caller's organization."
+        },
+        {
+          "info": {
+            "name": "GET /context-records/{id}/request-records",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/context-records/:id/request-records",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Example: '_id,-createdAt'. Allowed: contextRecordId, name, status, complianceTracking, complianceStatus, createdAt, updatedAt"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to project. Allowed: _id, organization, primaryRecordId, contextRecordId, name, status, complianceTracking, complianceProfile, complianceStatus, createdAt, updatedAt, complianceModules"
+              },
+              {
+                "name": "_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by _id. 24-character hex ObjectId string (e.g. `_id=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "createdAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter by createdAt. ISO-8601 date or datetime string (e.g. `createdAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "updatedAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter by updatedAt. ISO-8601 date or datetime string (e.g. `updatedAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "primaryRecordId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by primaryRecordId. 24-character hex ObjectId string (e.g. `primaryRecordId=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by name. String value (e.g. `name=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status. String value (e.g. `status=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "complianceTracking",
+                "value": "",
+                "type": "query",
+                "description": "Filter by complianceTracking. String value (e.g. `complianceTracking=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "complianceStatus",
+                "value": "",
+                "type": "query",
+                "description": "Filter by complianceStatus. String value (e.g. `complianceStatus=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "complianceProfile.complianceProfileId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by complianceProfile.complianceProfileId. 24-character hex ObjectId string (e.g. `complianceProfile.complianceProfileId=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the context record whose request records to list."
+              }
+            ]
+          },
+          "docs": "List request records scoped to a specific context record. The `contextRecordId` filter is always fixed to the `:id` path parameter and cannot be overridden by the caller. Supports pagination via `limit` and `skip`.\n\n<!-- qs2mongo:list-summary -->\n\n**Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `primaryRecordId` (objectId), `name` (string), `status` (string), `complianceTracking` (string), `complianceStatus` (string), `complianceProfile.complianceProfileId` (objectId). S"
+        },
+        {
+          "info": {
+            "name": "POST /context-records/{id}/request-records",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/context-records/:id/request-records",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new request record and assign it to a context record. The context record is identified by the `:id` path parameter. Returns the new request record's identifier."
+        },
+        {
+          "info": {
+            "name": "GET /context-records/{id}/request-records/{recordId}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/context-records/:id/request-records/:recordId",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to project. Allowed: _id, organization, primaryRecordId, contextRecordId, name, status, complianceTracking, complianceProfile, complianceStatus, createdAt, updatedAt, complianceModules"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the context record."
+              },
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the request record to read."
+              }
+            ]
+          },
+          "docs": "Read a single request record scoped to a specific context record. Returns 404 if the request record does not exist or does not belong to the specified context record."
+        },
+        {
+          "info": {
+            "name": "PATCH /context-records/{id}/request-records/{recordId}",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:4000/v1/context-records/:id/request-records/:recordId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the context record."
+              },
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the request record to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially update a request record scoped to a specific context record. Any subset of the request body fields may be provided; omitted fields are left unchanged. Returns the full updated request record."
+        },
+        {
+          "info": {
+            "name": "DELETE /context-records/{id}/request-records/{recordId}",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/context-records/:id/request-records/:recordId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the context record."
+              },
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the request record to delete."
+              }
+            ]
+          },
+          "docs": "Delete a request record scoped to a specific context record. Returns 404 if the request record does not exist or does not belong to the specified context record."
+        },
+        {
+          "info": {
+            "name": "GET /context-records/{id}/request-records/{recordId}/compliance-certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/context-records/:id/request-records/:recordId/compliance-certificate",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to project. Allowed: _id, name, processing, url, flag, organization, reviewedAt, archivedAt, notes, status, expirationDate, appliesToAllProjects, data, metadata, issueDate, createdAt, updatedAt"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get compliance certificate for a request record in a context record"
+        },
+        {
+          "info": {
+            "name": "POST /context-records/{id}/request-records/{recordId}/compliance-certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/context-records/:id/request-records/:recordId/compliance-certificate",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create compliance certificate for a request record in a context record"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

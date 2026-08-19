@@ -1,0 +1,119 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TrustLayer Platform Auth reports API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List public reports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/reports",
+            "params": [
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Key-value pair, e.g. filter[key]=value"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "List of comma-separated keys used to sort. Reversing is done by prepending \"-\" to the key name."
+              }
+            ]
+          },
+          "docs": "Available filter options:\n- `type` (either `projects` or `parties`)\n\nAvailable sort options:\n- `name`\n- `createdAt`\n"
+        },
+        {
+          "info": {
+            "name": "Create a new report",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/reports",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "TBD"
+        },
+        {
+          "info": {
+            "name": "Fetch a public report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/reports/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Report ID"
+              }
+            ]
+          },
+          "docs": "TBD"
+        },
+        {
+          "info": {
+            "name": "Update a report",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:4000/v1/reports/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Report ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "TBD"
+        },
+        {
+          "info": {
+            "name": "Delete a report",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/reports/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Report ID"
+              }
+            ]
+          },
+          "docs": "TBD"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

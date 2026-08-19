@@ -5,11 +5,9 @@ source: openapi/trustlayer-platform-v1-openapi.yaml
 server:
   name: trustlayer
   transport: http
-  note: >-
-    No official TrustLayer MCP server was found (no hosted server, no
-    @modelcontextprotocol package, no registry entry). This is a CANDIDATE tool
-    surface derived from the v1 Platform API operations to seed a future MCP
-    server; every tool maps to a real operationId in the referenced spec.
+  note: No official TrustLayer MCP server was found (no hosted server, no @modelcontextprotocol package,
+    no registry entry). This is a CANDIDATE tool surface derived from the v1 Platform API operations to
+    seed a future MCP server; every tool maps to a real operationId in the referenced spec.
 tools:
 - name: list_parties
   description: List tracked vendors/parties.
@@ -47,3 +45,9 @@ tools:
 - name: list_compliance_profiles
   description: List compliance profiles (requirement sets).
   source_operation: openapi/trustlayer-platform-v1-openapi.yaml#get-compliance-profiles
+deployment:
+  mode: none
+  verified: derived
+  tools: 12
+  checked: '2026-08-12'
+  source: catalog MCP census

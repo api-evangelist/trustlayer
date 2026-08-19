@@ -1,0 +1,1431 @@
+{
+  "item": [
+    {
+      "id": "c31ce7b6-2e32-490f-bdfe-4372523a6d2f",
+      "name": "Projects",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "52013f96-8bda-4ba6-9516-ab08d233e21c",
+          "name": "Update project external IDs",
+          "request": {
+            "name": "Update project external IDs",
+            "description": {
+              "content": "Update the list of external IDs for this project. The passed values will replace the current ones.\nExternal IDs are in the format `source/id` or `source:instance/id`, where `instance` can be used to differentiate multiple instances of the same `source`.\n\nNote that if the workspace is already integrated with one or more external systems, this endpoint should _not_ be used.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":id",
+                "external-ids"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"externalIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5786e496-cf68-4243-9696-59aab32e399d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":id",
+                    "external-ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"externalIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"fail\",\n  \"data\": {\n    \"type\": \"projects\",\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"startDate\": \"1955-06-09T09:11:56.656Z\",\n    \"endDate\": \"2004-04-30T01:07:36.714Z\",\n    \"active\": true,\n    \"parties\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"customData\": [\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      }\n    ],\n    \"complianceStatus\": {\n      \"status\": \"compliant\",\n      \"compliantPartiesCount\": 5132.6181715272505,\n      \"totalPartiesCount\": 8582.562385849627,\n      \"complianceScore\": 4001.241193172177\n    },\n    \"deletedAt\": \"1952-04-04T15:41:52.353Z\",\n    \"deletedBy\": {},\n    \"externalIds\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1c186bf3-b148-4f62-abdd-3a2758b7b5a6",
+          "name": "List projects",
+          "request": {
+            "name": "List projects",
+            "description": {
+              "content": "Available filters:\n* `name`\n* `status` (\"compliant\", \"non_compliant\", others?)\n* `active`\n* `createdAt`\n* `updatedAt`\n* `startDate`\n* `endDate`\n* `customField`\n* `externalId`\n* `active`\n\n\nAvailable sort keys:\n* `name`\n* `createdAt`\n* `updatedAt`\n* `startDate`\n* `endDate`\n\nAvailable include options:\n* `parties`\n* `customFields`\n\nNotes:\n\n* the value of the `externalId` filter must be in the format `<provider name>/<external id>`, e.g. `procore/1234`\n* the value of the `customField` filter must be in the format `<custom field id>/<field value>`. The only supported operator is `eq`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "List of comma-separated keys used to sort. Reversing is done by prepending \"-\" to the key name."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[number]",
+                  "value": "1",
+                  "description": "Page number, starting from 1"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "20",
+                  "description": "Number of items per page. Defaults to 20. Maximum is 100"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "List of comma-separated relationships to include in the result"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8c8267cc-6e07-46ed-bc32-51e027274960",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "name,-age"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "20"
+                    },
+                    {
+                      "key": "filter[title]",
+                      "value": "foo"
+                    },
+                    {
+                      "key": "include",
+                      "value": "parties,projects"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": [\n    {\n      \"type\": \"projects\",\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"startDate\": \"2007-07-04T05:37:46.153Z\",\n      \"endDate\": \"2013-05-31T03:37:41.008Z\",\n      \"active\": true,\n      \"parties\": [\n        {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      ],\n      \"customData\": [\n        {\n          \"value\": \"string\",\n          \"customField\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        },\n        {\n          \"value\": \"string\",\n          \"customField\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        }\n      ],\n      \"complianceStatus\": {\n        \"status\": \"non_compliant\",\n        \"compliantPartiesCount\": 5853.345616600619,\n        \"totalPartiesCount\": 2380.394080194953,\n        \"complianceScore\": 7060.81690372189\n      },\n      \"deletedAt\": \"1975-08-23T02:21:06.044Z\",\n      \"deletedBy\": {},\n      \"externalIds\": {}\n    },\n    {\n      \"type\": \"projects\",\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"startDate\": \"1974-02-20T05:46:54.695Z\",\n      \"endDate\": \"1994-07-15T05:46:16.235Z\",\n      \"active\": false,\n      \"parties\": [\n        {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      ],\n      \"customData\": [\n        {\n          \"value\": \"string\",\n          \"customField\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        },\n        {\n          \"value\": \"string\",\n          \"customField\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        }\n      ],\n      \"complianceStatus\": {\n        \"status\": \"non_compliant\",\n        \"compliantPartiesCount\": 7117.462476959534,\n        \"totalPartiesCount\": 4528.7886655791835,\n        \"complianceScore\": 9055.987737616295\n      },\n      \"deletedAt\": \"2009-06-17T12:19:24.154Z\",\n      \"deletedBy\": {},\n      \"externalIds\": {}\n    }\n  ],\n  \"meta\": {\n    \"count\": 1269.7397113410148,\n    \"pages\": 4159.402101949749,\n    \"totalCount\": 7747.643213871921,\n    \"totalPages\": 1442.2216953124723\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "46870a10-0769-416c-9cd9-4a62ecbc18d1",
+          "name": "Create a new project",
+          "request": {
+            "name": "Create a new project",
+            "description": {
+              "content": "The only required attribute is `name`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"project\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"startDate\": \"<date>\",\n    \"endDate\": \"<date>\",\n    \"customData\": [\n      {\n        \"customField\": {\n          \"id\": \"<string>\"\n        },\n        \"value\": \"<string>\"\n      },\n      {\n        \"customField\": {\n          \"id\": \"<string>\"\n        },\n        \"value\": \"<string>\"\n      }\n    ],\n    \"externalIds\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "55be8c6f-96cb-4157-a605-c4ec7c80de0b",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"project\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"startDate\": \"<date>\",\n    \"endDate\": \"<date>\",\n    \"customData\": [\n      {\n        \"customField\": {\n          \"id\": \"<string>\"\n        },\n        \"value\": \"<string>\"\n      },\n      {\n        \"customField\": {\n          \"id\": \"<string>\"\n        },\n        \"value\": \"<string>\"\n      }\n    ],\n    \"externalIds\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"fail\",\n  \"data\": {\n    \"type\": \"projects\",\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"startDate\": \"1961-02-08T18:54:41.693Z\",\n    \"endDate\": \"1974-03-11T23:09:08.729Z\",\n    \"active\": true,\n    \"parties\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"customData\": [\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      }\n    ],\n    \"complianceStatus\": {\n      \"status\": \"compliant\",\n      \"compliantPartiesCount\": 4533.738110030134,\n      \"totalPartiesCount\": 8541.73388113306,\n      \"complianceScore\": 1411.2295792585483\n    },\n    \"deletedAt\": \"2010-11-22T23:22:50.915Z\",\n    \"deletedBy\": {},\n    \"externalIds\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7570d7e9-6b18-4424-aab6-7b76d47eda49",
+          "name": "Fetch a project",
+          "request": {
+            "name": "Fetch a project",
+            "description": {
+              "content": "Available include options:\n* `parties`\n* `customFields`\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":projectId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "List of comma-separated relationships to include in the result"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) Project ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b03b8734-bbcd-4943-aee2-5b74b4be4f59",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "parties,projects"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"fail\",\n  \"data\": {\n    \"type\": \"projects\",\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"startDate\": \"1961-02-08T18:54:41.693Z\",\n    \"endDate\": \"1974-03-11T23:09:08.729Z\",\n    \"active\": true,\n    \"parties\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"customData\": [\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      }\n    ],\n    \"complianceStatus\": {\n      \"status\": \"compliant\",\n      \"compliantPartiesCount\": 4533.738110030134,\n      \"totalPartiesCount\": 8541.73388113306,\n      \"complianceScore\": 1411.2295792585483\n    },\n    \"deletedAt\": \"2010-11-22T23:22:50.915Z\",\n    \"deletedBy\": {},\n    \"externalIds\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f2e2f1f5-8b27-4609-8c6c-d071dd4e80ca",
+          "name": "Delete a project",
+          "request": {
+            "name": "Delete a project",
+            "description": {
+              "content": "Soft-deletes a project",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":projectId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) Project ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f4d5bc15-6de2-4913-be2c-d19990f23b35",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"fail\",\n  \"data\": {\n    \"type\": \"projects\",\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"startDate\": \"1961-02-08T18:54:41.693Z\",\n    \"endDate\": \"1974-03-11T23:09:08.729Z\",\n    \"active\": true,\n    \"parties\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"customData\": [\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      }\n    ],\n    \"complianceStatus\": {\n      \"status\": \"compliant\",\n      \"compliantPartiesCount\": 4533.738110030134,\n      \"totalPartiesCount\": 8541.73388113306,\n      \"complianceScore\": 1411.2295792585483\n    },\n    \"deletedAt\": \"2010-11-22T23:22:50.915Z\",\n    \"deletedBy\": {},\n    \"externalIds\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b0e97ee7-79b3-4eb7-ad37-1cc6ed09431c",
+          "name": "Add parties to a project",
+          "request": {
+            "name": "Add parties to a project",
+            "description": {
+              "content": "Parties that are already associated with the project are ignored.\n\nAll parties _must_ exist, otherwise a 404 response will be returned and no party will be added.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":projectId",
+                "relationships",
+                "parties"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) Project ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"parties\": [\n    {\n      \"id\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4d98a16a-0625-4b58-ba0e-949fafd07102",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "relationships",
+                    "parties"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parties\": [\n    {\n      \"id\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"fail\",\n  \"data\": {\n    \"type\": \"projects\",\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"startDate\": \"1961-02-08T18:54:41.693Z\",\n    \"endDate\": \"1974-03-11T23:09:08.729Z\",\n    \"active\": true,\n    \"parties\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"customData\": [\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      }\n    ],\n    \"complianceStatus\": {\n      \"status\": \"compliant\",\n      \"compliantPartiesCount\": 4533.738110030134,\n      \"totalPartiesCount\": 8541.73388113306,\n      \"complianceScore\": 1411.2295792585483\n    },\n    \"deletedAt\": \"2010-11-22T23:22:50.915Z\",\n    \"deletedBy\": {},\n    \"externalIds\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ab7f7ca5-3add-487b-b876-e25f91568285",
+          "name": "Remove a party from a project",
+          "request": {
+            "name": "Remove a party from a project",
+            "description": {
+              "content": "All parties _must_ exist, otherwise a 404 response will be returned and no party will be removed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":projectId",
+                "relationships",
+                "parties"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) Project ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"parties\": [\n    {\n      \"id\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e2ad951a-b246-4d19-9549-bb7e987611c3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "relationships",
+                    "parties"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parties\": [\n    {\n      \"id\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"fail\",\n  \"data\": {\n    \"type\": \"projects\",\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"startDate\": \"1961-02-08T18:54:41.693Z\",\n    \"endDate\": \"1974-03-11T23:09:08.729Z\",\n    \"active\": true,\n    \"parties\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"customData\": [\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      }\n    ],\n    \"complianceStatus\": {\n      \"status\": \"compliant\",\n      \"compliantPartiesCount\": 4533.738110030134,\n      \"totalPartiesCount\": 8541.73388113306,\n      \"complianceScore\": 1411.2295792585483\n    },\n    \"deletedAt\": \"2010-11-22T23:22:50.915Z\",\n    \"deletedBy\": {},\n    \"externalIds\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ab9e61d9-4166-4446-af3a-0a5298336d0b",
+          "name": "Attach documents to a project",
+          "request": {
+            "name": "Attach documents to a project",
+            "description": {
+              "content": "A document can be attached to any number of projects.\n\nAll documents _must_ exist, otherwise a 404 response will be returned and no document will be attached.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":projectId",
+                "relationships",
+                "documents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) Project ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documents\": [\n    {\n      \"id\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "36e2be7a-0b6a-4a4c-81b4-0248f366843a",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "relationships",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documents\": [\n    {\n      \"id\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"fail\",\n  \"data\": {\n    \"type\": \"projects\",\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"startDate\": \"1961-02-08T18:54:41.693Z\",\n    \"endDate\": \"1974-03-11T23:09:08.729Z\",\n    \"active\": true,\n    \"parties\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"customData\": [\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      }\n    ],\n    \"complianceStatus\": {\n      \"status\": \"compliant\",\n      \"compliantPartiesCount\": 4533.738110030134,\n      \"totalPartiesCount\": 8541.73388113306,\n      \"complianceScore\": 1411.2295792585483\n    },\n    \"deletedAt\": \"2010-11-22T23:22:50.915Z\",\n    \"deletedBy\": {},\n    \"externalIds\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "282abf25-95c3-4e12-b5cb-8759792ffeac",
+          "name": "Detach documents from a project",
+          "request": {
+            "name": "Detach documents from a project",
+            "description": {
+              "content": "All documents _must_ exist, otherwise a 404 response will be returned and no document will be detached.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":projectId",
+                "relationships",
+                "documents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) Project ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documents\": [\n    {\n      \"id\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1b22ffb7-b4b2-4b85-a95b-89c684108086",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "relationships",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documents\": [\n    {\n      \"id\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"fail\",\n  \"data\": {\n    \"type\": \"projects\",\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"startDate\": \"1961-02-08T18:54:41.693Z\",\n    \"endDate\": \"1974-03-11T23:09:08.729Z\",\n    \"active\": true,\n    \"parties\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"customData\": [\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      }\n    ],\n    \"complianceStatus\": {\n      \"status\": \"compliant\",\n      \"compliantPartiesCount\": 4533.738110030134,\n      \"totalPartiesCount\": 8541.73388113306,\n      \"complianceScore\": 1411.2295792585483\n    },\n    \"deletedAt\": \"2010-11-22T23:22:50.915Z\",\n    \"deletedBy\": {},\n    \"externalIds\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "014cd748-cc37-41a9-8687-e167e6559ce8",
+          "name": "Remove a document from a project",
+          "request": {
+            "name": "Remove a document from a project",
+            "description": {
+              "content": "If you need to remove multiple documents at once you can use the alternative endpoint `DELETE /projects/{projectId}/relationships/documents`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":projectId",
+                "relationships",
+                "documents",
+                ":documentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) Project ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "documentId",
+                  "description": "(Required) Document ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6fe20e67-87d2-4c7b-a516-618ff37f9916",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "relationships",
+                    "documents",
+                    ":documentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "documentId",
+                      "description": "(Required) Document ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"fail\",\n  \"data\": {\n    \"type\": \"projects\",\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"startDate\": \"1961-02-08T18:54:41.693Z\",\n    \"endDate\": \"1974-03-11T23:09:08.729Z\",\n    \"active\": true,\n    \"parties\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"customData\": [\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      }\n    ],\n    \"complianceStatus\": {\n      \"status\": \"compliant\",\n      \"compliantPartiesCount\": 4533.738110030134,\n      \"totalPartiesCount\": 8541.73388113306,\n      \"complianceScore\": 1411.2295792585483\n    },\n    \"deletedAt\": \"2010-11-22T23:22:50.915Z\",\n    \"deletedBy\": {},\n    \"externalIds\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b677ce20-26c8-4746-9b11-5e6ecb157a03",
+          "name": "Remove a party from a project",
+          "request": {
+            "name": "Remove a party from a project",
+            "description": {
+              "content": "If you need to remove multiple parties at once you can use the alternative endpoint `DELETE /projects/{projectId}/relationships/parties`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":projectId",
+                "relationships",
+                "parties",
+                ":partyId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) Project ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "partyId",
+                  "description": "(Required) Party ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8153560f-ee6e-42e2-9f43-6af69dcf5344",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "relationships",
+                    "parties",
+                    ":partyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partyId",
+                      "description": "(Required) Party ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"fail\",\n  \"data\": {\n    \"type\": \"projects\",\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"startDate\": \"1961-02-08T18:54:41.693Z\",\n    \"endDate\": \"1974-03-11T23:09:08.729Z\",\n    \"active\": true,\n    \"parties\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"customData\": [\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      }\n    ],\n    \"complianceStatus\": {\n      \"status\": \"compliant\",\n      \"compliantPartiesCount\": 4533.738110030134,\n      \"totalPartiesCount\": 8541.73388113306,\n      \"complianceScore\": 1411.2295792585483\n    },\n    \"deletedAt\": \"2010-11-22T23:22:50.915Z\",\n    \"deletedBy\": {},\n    \"externalIds\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "99a8f0d6-b4e9-476e-ab79-2564692498ae",
+          "name": "Fetch compliance profile for project",
+          "request": {
+            "name": "Fetch compliance profile for project",
+            "description": {
+              "content": "This will return the project-specific compliance profile relative to the given scope.\n\nNOTE: it is _mandatory_ to specify a `scope`, which can be either a `party` (belonging to a project) or a `complianceProfile`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":projectId",
+                "compliance-profile"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "scope[type]",
+                  "value": "<string>",
+                  "description": "Type of the resource to be used as scope"
+                },
+                {
+                  "disabled": false,
+                  "key": "scope[id]",
+                  "value": "<string>",
+                  "description": "Id of the resource to be used as scope"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e4c1ca55-0d04-4e5b-88c9-da7dcaefe190",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "compliance-profile"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope[type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scope[id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"fail\",\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"compliance-profiles\",\n    \"name\": \"Default compliance profile\",\n    \"rules\": [\n      {\n        \"moduleId\": \"evidenceOfInsurance\",\n        \"moduleLabel\": \"Evidence of Insurance\",\n        \"subjectId\": \"commercialGeneralLiability\",\n        \"subjectLabel\": \"Commercial General Liability\",\n        \"attributeId\": \"evidenceOfInsuranceCommercialGeneralLiabilityEachOccurrence\",\n        \"attributeLabel\": \"Each Occurrence\",\n        \"attributeType\": \"number\",\n        \"attributeDescription\": \"string\",\n        \"masterDocumentAttributeId\": \"commercialGeneralLiabilityLimitsGeneralAggregate\",\n        \"operator\": \"must be greater or equal to\",\n        \"targetValue\": \"2000000\"\n      },\n      {\n        \"moduleId\": \"evidenceOfInsurance\",\n        \"moduleLabel\": \"Evidence of Insurance\",\n        \"subjectId\": \"commercialGeneralLiability\",\n        \"subjectLabel\": \"Commercial General Liability\",\n        \"attributeId\": \"evidenceOfInsuranceCommercialGeneralLiabilityEachOccurrence\",\n        \"attributeLabel\": \"Each Occurrence\",\n        \"attributeType\": \"number\",\n        \"attributeDescription\": \"string\",\n        \"masterDocumentAttributeId\": \"commercialGeneralLiabilityLimitsGeneralAggregate\",\n        \"operator\": \"must be greater or equal to\",\n        \"targetValue\": \"2000000\"\n      }\n    ],\n    \"context\": \"global\",\n    \"documentChecklists\": [\n      {\n        \"attributeId\": \"string\",\n        \"attributeLabel\": \"string\",\n        \"active\": true\n      },\n      {\n        \"attributeId\": \"string\",\n        \"attributeLabel\": \"string\",\n        \"active\": false\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "02679442-d89c-47f8-b2c6-fe0c84ccbd48",
+          "name": "Associate a document to multiple projects",
+          "request": {
+            "name": "Associate a document to multiple projects",
+            "description": {
+              "content": "TBD",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "documents",
+                ":documentId",
+                "relationships",
+                "projects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "documentId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"projects\": [\n    {\n      \"id\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d9a821c4-43ff-4950-bf8b-e434ca554a66",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documents",
+                    ":documentId",
+                    "relationships",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "documentId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"projects\": [\n    {\n      \"id\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"type\": \"documents\",\n    \"id\": \"string\",\n    \"issuedBy\": {\n      \"name\": \"string\",\n      \"address\": \"string\",\n      \"contactName\": \"string\",\n      \"phone\": \"string\",\n      \"email\": \"string\"\n    },\n    \"reviewedAt\": \"1959-03-06T21:15:39.803Z\",\n    \"archivedAt\": \"1974-11-20T08:54:25.430Z\",\n    \"notes\": \"string\",\n    \"status\": \"string\",\n    \"types\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"flag\": {\n      \"addedOn\": \"1971-06-22T07:24:16.891Z\",\n      \"severityLevel\": \"low\",\n      \"affectedSubjects\": [\n        \"string\"\n      ],\n      \"notes\": \"string\",\n      \"user\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    },\n    \"appliesToAllProjects\": true,\n    \"expirationDate\": \"1969-10-06\",\n    \"name\": \"string\",\n    \"data\": {},\n    \"metadata\": {},\n    \"updatedAt\": \"2021-06-07T05:08:25.419Z\",\n    \"createdAt\": \"2019-06-29T06:25:43.963Z\",\n    \"archivedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"reviewedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"url\": \"string\",\n    \"insurers\": [\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"2013-10-10T00:00:55.597Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"1977-12-05T22:24:29.848Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      }\n    ],\n    \"deletedAt\": \"1948-12-31T00:06:08.029Z\",\n    \"deletedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"issueDate\": \"1947-07-17\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:4000/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e755f2fa-6128-4039-bdfe-c2f759158668",
+    "name": "TrustLayer Platform Auth Projects API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "3rd-party API for the TrustLayer platform.\n\n**Deprecated.** Platform API v1 is deprecated as of 01 June 2026 and is\nscheduled for sunset (end-of-life) on 31 March 2027. It remains fully\navailable until the sunset date but will not receive new features. Please\nmigrate to Platform API v2 for new integrations.\n\nAll v1 responses carry the standard deprecation response headers\n([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)):\n\n```http\nDeprecation: @1780272000\nSunset: Wed, 31 Mar 2027 23:59:59 GMT\nLink: <https://developers.trustlayer.io/>; rel=\"deprecation\", <https://developers.trustlayer.io/>; rel=\"sunset\"\n```\n\n`Deprecation: @1780272000` is the Unix timestamp for 2026-06-01T00:00:00Z;\nsunset (end-of-life) is 2027-03-31T23:59:59 GMT.\n\nContact Support:\n Name: TrustLayer Support\n Email: support@trustlayer.io",
+      "type": "text/plain"
+    }
+  }
+}

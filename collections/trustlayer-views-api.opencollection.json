@@ -1,0 +1,138 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TrustLayer Platform Auth Views API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Views",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET /views",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/views",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Example: '_id,-createdAt'. Allowed: name, type, visibility, readonly, createdAt, updatedAt"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to project. Allowed: _id, organization, name, type, reference, filter, userId, visibility, readonly, createdAt, updatedAt"
+              },
+              {
+                "name": "_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by _id. 24-character hex ObjectId string (e.g. `_id=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "createdAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter by createdAt. ISO-8601 date or datetime string (e.g. `createdAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "updatedAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter by updatedAt. ISO-8601 date or datetime string (e.g. `updatedAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by name. String value (e.g. `name=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by type. String value (e.g. `type=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "visibility",
+                "value": "",
+                "type": "query",
+                "description": "Filter by visibility. String value (e.g. `visibility=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "readonly",
+                "value": "",
+                "type": "query",
+                "description": "Filter by readonly. String value (e.g. `readonly=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by userId. 24-character hex ObjectId string (e.g. `userId=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "reference.id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by reference.id. 24-character hex ObjectId string (e.g. `reference.id=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "reference.type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by reference.type. String value (e.g. `reference.type=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              }
+            ]
+          },
+          "docs": "List views in the caller's organization. Results are scoped to the caller's organization and to views the caller has read access to (own private views plus workspace-visible views). Supports pagination via `limit` and `skip`.\n\n<!-- qs2mongo:list-summary -->\n\n**Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `name` (string), `type` (string), `visibility` (string), `readonly` (string), `userId` (objectId), `reference.id` (objectId), `reference.type` (string). See \"List Endpo"
+        },
+        {
+          "info": {
+            "name": "GET /views/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/views/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to project. Allowed: _id, organization, name, type, reference, filter, userId, visibility, readonly, createdAt, updatedAt"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the view to read."
+              }
+            ]
+          },
+          "docs": "Read a single view by id, scoped to the caller's organization and to views the caller has read access to. Use the `fields` query parameter to limit the response to a projection of the view."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

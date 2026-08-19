@@ -1,0 +1,389 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TrustLayer Platform Auth compliance-profiles API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "compliance-profiles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List global compliance profiles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/compliance-profiles",
+            "params": [
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Page number, starting from 1"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page. Defaults to 20. Maximum is 100"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Key-value pair, e.g. filter[key]=value"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "List of comma-separated keys used to sort. Reversing is done by prepending \"-\" to the key name."
+              }
+            ]
+          },
+          "docs": "Available sort options:\n* `name`\n* `createdAt`\n* `updatedAt`\n\nAvailable filter options:\n* `name`\n* `moduleId`\n* `subjectId`\n* `createdAt`\n* `updatedAt`\n\nNotes:\n\n- `moduleId` and `subjectId` filters only perform an exact match (case-sensitive); they do not support other operator\n"
+        },
+        {
+          "info": {
+            "name": "POST /compliance-profiles",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/compliance-profiles",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new Global compliance profile in the caller's organization. The owning organization is derived from the access token. Returns the created profile."
+        },
+        {
+          "info": {
+            "name": "Fetch a compliance profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/compliance-profiles/:profileId",
+            "params": [
+              {
+                "name": "profileId",
+                "value": "",
+                "type": "path",
+                "description": "Compliance Profile ID"
+              }
+            ]
+          },
+          "docs": "Note that you can also fetch project, party, and custom field compliance profiles, not just global ones."
+        },
+        {
+          "info": {
+            "name": "Fetch compliance profile for project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/projects/:projectId/compliance-profile",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "scope[type]",
+                "value": "",
+                "type": "query",
+                "description": "Type of the resource to be used as scope"
+              },
+              {
+                "name": "scope[id]",
+                "value": "",
+                "type": "query",
+                "description": "Id of the resource to be used as scope"
+              }
+            ]
+          },
+          "docs": "This will return the project-specific compliance profile relative to the given scope.\n\nNOTE: it is _mandatory_ to specify a `scope`, which can be either a `party` (belonging to a project) or a `complianceProfile`."
+        },
+        {
+          "info": {
+            "name": "Fetch a party's compliance profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/parties/:partyId/compliance-profile",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "scope[type]",
+                "value": "",
+                "type": "query",
+                "description": "Type of the resource to be used as scope"
+              },
+              {
+                "name": "scope[id]",
+                "value": "",
+                "type": "query",
+                "description": "Id of the resource to be used as scope"
+              }
+            ]
+          },
+          "docs": "This will return the compliance profile associated to the party. If the party is not tracking compliance you will get a 404 response.\nBy specifying a `scope` of type `projects`, the project-specific compliance profile will be returned.\n"
+        },
+        {
+          "info": {
+            "name": "Assign compliance profile to a party",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/parties/:partyId/compliance-profile",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "scope[type]",
+                "value": "",
+                "type": "query",
+                "description": "Type of the resource to be used as scope"
+              },
+              {
+                "name": "scope[id]",
+                "value": "",
+                "type": "query",
+                "description": "Id of the resource to be used as scope"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This operation will assign an existing compliance profile to a party. Unless the `scope` parameters are specified, the profile will be applied at the global level. To assign at the project level, include `scope[type]=projects` and `scope[id]={projectId}` to the query string."
+        },
+        {
+          "info": {
+            "name": "Assign a compliance profile to a party",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/parties/:partyId/relationships/compliance-profile",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "scope[type]",
+                "value": "",
+                "type": "query",
+                "description": "Type of the resource to be used as scope"
+              },
+              {
+                "name": "scope[id]",
+                "value": "",
+                "type": "query",
+                "description": "Id of the resource to be used as scope"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This will turn on compliance tracking on the party if it's currently turned off.\nTo assign a compliance profile for a specific project, specify it using the `scope` parameters."
+        },
+        {
+          "info": {
+            "name": "Remove the compliance profile from a party",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/parties/:partyId/relationships/compliance-profile",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This will turn off compliance tracking both at the global level and in each of the party's projects."
+        },
+        {
+          "info": {
+            "name": "PATCH /compliance-profiles/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:4000/v1/compliance-profiles/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the compliance profile to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Rename a Global compliance profile in the caller's organization. Only profiles with context `Global` may be renamed via this endpoint. Returns the updated profile."
+        },
+        {
+          "info": {
+            "name": "GET /compliance-profiles/{id}/requirements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/compliance-profiles/:id/requirements",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the compliance profile whose requirements to list."
+              }
+            ]
+          },
+          "docs": "List the requirements of a compliance profile, paginated. Requirements are returned regardless of the profile context. Each rule is serialized as a requirement response alongside pagination metadata. A missing profile or cross-org access returns 404."
+        },
+        {
+          "info": {
+            "name": "POST /compliance-profiles/{id}/requirements",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/compliance-profiles/:id/requirements",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the compliance profile to add requirements to."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add requirements to a compliance profile. Each item is either a library reference (`libraryRequirementId` or `attributeCode`) or a custom definition (module/subject by code or label, attribute by label). Idempotent on the (moduleLabel, subjectLabel, attributeLabel) tuple. The response contains only the requirements newly added by this call; duplicates of existing rules or earlier items in the batch are omitted, so the array is empty when every input was a duplicate."
+        },
+        {
+          "info": {
+            "name": "GET /compliance-profiles/{id}/requirements/{attributeCode}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/compliance-profiles/:id/requirements/:attributeCode",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the compliance profile."
+              },
+              {
+                "name": "attributeCode",
+                "value": "",
+                "type": "path",
+                "description": "Attribute code identifying the requirement to operate on."
+              }
+            ]
+          },
+          "docs": "Read a single requirement from a compliance profile by its attributeCode, regardless of the profile context. A missing profile, a missing requirement, or cross-org access returns 404."
+        },
+        {
+          "info": {
+            "name": "PATCH /compliance-profiles/{id}/requirements/{attributeCode}",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:4000/v1/compliance-profiles/:id/requirements/:attributeCode",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the compliance profile."
+              },
+              {
+                "name": "attributeCode",
+                "value": "",
+                "type": "path",
+                "description": "Attribute code identifying the requirement to operate on."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially update a requirement on a compliance profile. Only the supplied fields are changed; omitted fields retain their current values. Updates are accepted on profiles of any context, with context-based limitations: library-sourced requirements and requirements inherited from a custom field cannot be modified. Returns the updated requirement."
+        },
+        {
+          "info": {
+            "name": "DELETE /compliance-profiles/{id}/requirements/{attributeCode}",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/compliance-profiles/:id/requirements/:attributeCode",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the compliance profile."
+              },
+              {
+                "name": "attributeCode",
+                "value": "",
+                "type": "path",
+                "description": "Attribute code identifying the requirement to operate on."
+              }
+            ]
+          },
+          "docs": "Remove a requirement from a Global compliance profile. Returns 204 with no body on success."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,834 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TrustLayer Platform Auth Primary Records API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Primary Records",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET /primary-records",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/primary-records",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Example: '_id,-createdAt'. Allowed: typeId, status, name, additionalNotes, createdAt, updatedAt, website, portalMessage"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to project. Allowed: _id, organization, primaryObjectId, typeId, status, name, address, automationsEnabled, externalCodes, additionalNotes, createdAt, updatedAt, website, portalMessage, computedAttributes, contacts"
+              },
+              {
+                "name": "_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by _id. 24-character hex ObjectId string (e.g. `_id=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "createdAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter by createdAt. ISO-8601 date or datetime string (e.g. `createdAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "updatedAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter by updatedAt. ISO-8601 date or datetime string (e.g. `updatedAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "primaryObjectId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by primaryObjectId. 24-character hex ObjectId string (e.g. `primaryObjectId=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "typeId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by typeId. 24-character hex ObjectId string (e.g. `typeId=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by name. String value (e.g. `name=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status. String value (e.g. `status=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "externalCodes",
+                "value": "",
+                "type": "query",
+                "description": "Filter by externalCodes. String value (e.g. `externalCodes=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              }
+            ]
+          },
+          "docs": "List primary records in the caller's organization. Results are always scoped to the caller's organization. Supports pagination via `limit` and `skip`.\n\n<!-- qs2mongo:list-summary -->\n\n**Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `primaryObjectId` (objectId), `typeId` (objectId), `name` (string), `status` (string), `externalCodes` (string). See \"List Endpoints\" in the API overview for operator syntax and combining rules.\n\n**Sorting**: supported via `sort` (see the para"
+        },
+        {
+          "info": {
+            "name": "POST /primary-records",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/primary-records",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new primary record in the caller's organization. The owning organization is derived from the access token. Returns the new record's identifier."
+        },
+        {
+          "info": {
+            "name": "GET /primary-records/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/primary-records/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to project. Allowed: _id, organization, primaryObjectId, typeId, status, name, address, automationsEnabled, externalCodes, additionalNotes, createdAt, updatedAt, website, portalMessage, computedAttributes, contacts"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the primary record to read."
+              }
+            ]
+          },
+          "docs": "Read a single primary record by id, scoped to the caller's organization. Use the `fields` query parameter to limit the response to a projection of the record."
+        },
+        {
+          "info": {
+            "name": "PATCH /primary-records/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:4000/v1/primary-records/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the primary record to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially update a primary record. Any subset of writable fields may be provided; omitted fields are left unchanged. Status changes are accepted on this endpoint and are applied via the dedicated status workflow. Returns the full updated record."
+        },
+        {
+          "info": {
+            "name": "DELETE /primary-records/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/primary-records/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the primary record to delete."
+              }
+            ]
+          },
+          "docs": "Delete a primary record. The operation is idempotent — deleting a record that does not exist (or is already deleted) returns 200 with the requested id and is not treated as an error."
+        },
+        {
+          "info": {
+            "name": "GET /primary-records/{id}/attributes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/primary-records/:id/attributes",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the primary record whose attributes to list."
+              }
+            ]
+          },
+          "docs": "List attributes (custom field values) embedded in a primary record. Attributes are stored as an embedded array on the record — there is no separate filtering beyond pagination. Results are scoped to the caller's organization."
+        },
+        {
+          "info": {
+            "name": "GET /primary-records/{id}/attributes/{attributeId}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/primary-records/:id/attributes/:attributeId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the primary record."
+              },
+              {
+                "name": "attributeId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the attribute (custom field) to target."
+              }
+            ]
+          },
+          "docs": "Read a single attribute (custom field value) embedded in a primary record. Returns 404 when the primary record or the specific attribute does not exist."
+        },
+        {
+          "info": {
+            "name": "PUT /primary-records/{id}/attributes/{attributeId}",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:4000/v1/primary-records/:id/attributes/:attributeId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the primary record."
+              },
+              {
+                "name": "attributeId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the attribute (custom field) to target."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create or replace an attribute (custom field value) on a primary record. This is a full replacement — omitting `value` or `optionIds` clears that field. Returns 404 when the primary record or the referenced custom field definition does not exist."
+        },
+        {
+          "info": {
+            "name": "DELETE /primary-records/{id}/attributes/{attributeId}",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/primary-records/:id/attributes/:attributeId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the primary record."
+              },
+              {
+                "name": "attributeId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the attribute (custom field) to target."
+              }
+            ]
+          },
+          "docs": "Delete an attribute (custom field value) from a primary record. Returns 404 when the primary record or the specific attribute does not exist."
+        },
+        {
+          "info": {
+            "name": "GET /primary-records/{id}/request-records",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/primary-records/:id/request-records",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Example: '_id,-createdAt'. Allowed: contextRecordId, name, status, complianceTracking, complianceStatus, createdAt, updatedAt"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to project. Allowed: _id, organization, primaryRecordId, contextRecordId, name, status, complianceTracking, complianceProfile, complianceStatus, createdAt, updatedAt, complianceModules"
+              },
+              {
+                "name": "_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by _id. 24-character hex ObjectId string (e.g. `_id=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "createdAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter by createdAt. ISO-8601 date or datetime string (e.g. `createdAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "updatedAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter by updatedAt. ISO-8601 date or datetime string (e.g. `updatedAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "contextRecordId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contextRecordId. 24-character hex ObjectId string (e.g. `contextRecordId=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by name. String value (e.g. `name=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status. String value (e.g. `status=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "complianceTracking",
+                "value": "",
+                "type": "query",
+                "description": "Filter by complianceTracking. String value (e.g. `complianceTracking=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "complianceStatus",
+                "value": "",
+                "type": "query",
+                "description": "Filter by complianceStatus. String value (e.g. `complianceStatus=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "complianceProfile.complianceProfileId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by complianceProfile.complianceProfileId. 24-character hex ObjectId string (e.g. `complianceProfile.complianceProfileId=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the primary record whose request records to list."
+              }
+            ]
+          },
+          "docs": "List request records scoped to a specific primary record. The `primaryRecordId` filter is always fixed to the `:id` path parameter and cannot be overridden by the caller. Supports pagination via `limit` and `skip`.\n\n<!-- qs2mongo:list-summary -->\n\n**Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `contextRecordId` (objectId), `name` (string), `status` (string), `complianceTracking` (string), `complianceStatus` (string), `complianceProfile.complianceProfileId` (objectId). S"
+        },
+        {
+          "info": {
+            "name": "POST /primary-records/{id}/request-records",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/primary-records/:id/request-records",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new request record and assign it to a primary record. The primary record is identified by the `:id` path parameter. Returns the new request record's identifier."
+        },
+        {
+          "info": {
+            "name": "GET /primary-records/{id}/request-records/{recordId}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/primary-records/:id/request-records/:recordId",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to project. Allowed: _id, organization, primaryRecordId, contextRecordId, name, status, complianceTracking, complianceProfile, complianceStatus, createdAt, updatedAt, complianceModules"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the primary record."
+              },
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the request record to read."
+              }
+            ]
+          },
+          "docs": "Read a single request record scoped to a specific primary record. Returns 404 if the request record does not exist or does not belong to the specified primary record."
+        },
+        {
+          "info": {
+            "name": "PATCH /primary-records/{id}/request-records/{recordId}",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:4000/v1/primary-records/:id/request-records/:recordId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the primary record."
+              },
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the request record to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially update a request record scoped to a specific primary record. Any subset of the request body fields may be provided; omitted fields are left unchanged. Returns the full updated request record."
+        },
+        {
+          "info": {
+            "name": "DELETE /primary-records/{id}/request-records/{recordId}",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/primary-records/:id/request-records/:recordId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the primary record."
+              },
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the request record to delete."
+              }
+            ]
+          },
+          "docs": "Delete a request record scoped to a specific primary record. Returns 404 if the request record does not exist or does not belong to the specified primary record."
+        },
+        {
+          "info": {
+            "name": "GET /primary-records/{id}/contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/primary-records/:id/contacts",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the primary record whose contacts to list."
+              }
+            ]
+          },
+          "docs": "List contacts assigned to a primary record. Contacts are embedded within the primary record and are returned in insertion order. Filtering by contact fields is not supported — use `limit` and `skip` for pagination only."
+        },
+        {
+          "info": {
+            "name": "POST /primary-records/{id}/contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/primary-records/:id/contacts",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the primary record to assign the contact to."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Assign a contact to a primary record. The contact must already exist in the contacts collection. If the contact is already assigned, the existing assignment is updated with the provided fields."
+        },
+        {
+          "info": {
+            "name": "GET /primary-records/{id}/contacts/{contactId}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/primary-records/:id/contacts/:contactId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the primary record."
+              },
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the contact to read."
+              }
+            ]
+          },
+          "docs": "Read a single contact assigned to a primary record. Both the primary record and the contact assignment must exist within the caller's organization."
+        },
+        {
+          "info": {
+            "name": "PATCH /primary-records/{id}/contacts/{contactId}",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:4000/v1/primary-records/:id/contacts/:contactId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the primary record."
+              },
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the contact assignment to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially update a contact assignment on a primary record. Only the fields provided in the request body are changed; omitted fields retain their current values. Both the primary record and the contact assignment must exist within the caller's organization."
+        },
+        {
+          "info": {
+            "name": "DELETE /primary-records/{id}/contacts/{contactId}",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/primary-records/:id/contacts/:contactId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the primary record."
+              },
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the contact assignment to remove."
+              }
+            ]
+          },
+          "docs": "Remove a contact assignment from a primary record. The contact record itself is not deleted — only the assignment to this primary record is removed. Both the primary record and the contact assignment must exist within the caller's organization."
+        },
+        {
+          "info": {
+            "name": "GET /primary-records/{id}/tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/primary-records/:id/tags",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the primary record whose tag assignments to list."
+              }
+            ]
+          },
+          "docs": "List tag assignments on a primary record. Tags are stored as an embedded array on the parent record, so server-side filtering, sorting, and field projection are not supported — only `limit` and `skip` apply."
+        },
+        {
+          "info": {
+            "name": "POST /primary-records/{id}/tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/primary-records/:id/tags",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the primary record to assign the tag to."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Assign a tag to a primary record. The body references an existing tag in the same organization by id; an optional `expiresAt` controls when the assignment expires."
+        },
+        {
+          "info": {
+            "name": "GET /primary-records/{id}/tags/{tagId}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/primary-records/:id/tags/:tagId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the primary record."
+              },
+              {
+                "name": "tagId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the tag assignment on the primary record."
+              }
+            ]
+          },
+          "docs": "Read a single tag assignment on a primary record by tag id."
+        },
+        {
+          "info": {
+            "name": "PATCH /primary-records/{id}/tags/{tagId}",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:4000/v1/primary-records/:id/tags/:tagId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the primary record."
+              },
+              {
+                "name": "tagId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the tag assignment on the primary record."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially update a tag assignment on a primary record (currently only the `expiresAt` field can be updated)."
+        },
+        {
+          "info": {
+            "name": "DELETE /primary-records/{id}/tags/{tagId}",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/primary-records/:id/tags/:tagId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the primary record."
+              },
+              {
+                "name": "tagId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the tag assignment on the primary record."
+              }
+            ]
+          },
+          "docs": "Remove a tag assignment from a primary record. The operation is idempotent — removing a tag that is not assigned (or no longer assigned) returns 200 with the requested tag id and is not treated as an error."
+        },
+        {
+          "info": {
+            "name": "POST /primary-records/{id}/compliance-certificates",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/primary-records/:id/compliance-certificates",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the primary record whose request records will receive compliance certificates."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create compliance certificates for all request records under a primary record. Accepts application/json with optional effectiveDate and expirationDate fields, or multipart/form-data with the same date fields plus a document file in the `document` field. Returns one certificate identifier per request record processed."
+        },
+        {
+          "info": {
+            "name": "GET /primary-records/{id}/request-records/{recordId}/compliance-certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/primary-records/:id/request-records/:recordId/compliance-certificate",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to project. Allowed: _id, name, processing, url, flag, organization, reviewedAt, archivedAt, notes, status, expirationDate, appliesToAllProjects, data, metadata, issueDate, createdAt, updatedAt"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get compliance certificate for a request record in a primary record"
+        },
+        {
+          "info": {
+            "name": "POST /primary-records/{id}/request-records/{recordId}/compliance-certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/primary-records/:id/request-records/:recordId/compliance-certificate",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create compliance certificate for a request record in a primary record"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

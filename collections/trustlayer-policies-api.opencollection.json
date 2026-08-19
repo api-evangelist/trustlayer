@@ -1,0 +1,381 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TrustLayer Platform Auth Policies API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Policies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET /policies/{number}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/policies/:number",
+            "params": [
+              {
+                "name": "number",
+                "value": "",
+                "type": "path",
+                "description": "Policy number that uniquely identifies the policy to read."
+              }
+            ]
+          },
+          "docs": "Read a policy by its policy number. A policy aggregates one or more coverage lines (subjects) under a shared number; each subject carries its own effective/expiration dates and computed validity status. Scoped to the caller's organization. Use the policy sub-routes (`/amendments`, `/documents`, `/cancellations`, `/reinstatements`) for related entities."
+        },
+        {
+          "info": {
+            "name": "GET /policies/{number}/documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/policies/:number/documents",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Example: '_id,-createdAt'. Allowed: name, issueDate"
+              },
+              {
+                "name": "_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by _id. 24-character hex ObjectId string (e.g. `_id=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "createdAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter by createdAt. ISO-8601 date or datetime string (e.g. `createdAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "updatedAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter by updatedAt. ISO-8601 date or datetime string (e.g. `updatedAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "primaryRecordId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by primaryRecordId. 24-character hex ObjectId string (e.g. `primaryRecordId=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by name. String value (e.g. `name=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "issueDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter by issueDate. ISO-8601 date or datetime string (e.g. `issueDate=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "number",
+                "value": "",
+                "type": "path",
+                "description": "The policy number identifying the insurance policy whose documents should be listed."
+              }
+            ]
+          },
+          "docs": "List documents that support a policy's coverage. Each document may carry one or more coverage subjects whose validity is evaluated against the policy. Supports filtering by primary record to retrieve only documents associated with a specific vendor or contractor.\n\n<!-- qs2mongo:list-summary -->\n\n**Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `primaryRecordId` (objectId), `name` (string), `issueDate` (date). See \"List Endpoints\" in the API overview for operator syntax an"
+        },
+        {
+          "info": {
+            "name": "GET /policies/{number}/amendments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/policies/:number/amendments",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to project. Allowed: _id, primaryRecordId, policyNumber, status, type, subjects, matchingSubjects, effectiveDate, issueDate, notes, document"
+              },
+              {
+                "name": "_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by _id. 24-character hex ObjectId string (e.g. `_id=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "createdAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter by createdAt. ISO-8601 date or datetime string (e.g. `createdAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "updatedAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter by updatedAt. ISO-8601 date or datetime string (e.g. `updatedAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "primaryRecordId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by primaryRecordId. 24-character hex ObjectId string (e.g. `primaryRecordId=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by type. String value (e.g. `type=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "effectiveDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter by effectiveDate. ISO-8601 date or datetime string (e.g. `effectiveDate=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "issueDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter by issueDate. ISO-8601 date or datetime string (e.g. `issueDate=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "notes",
+                "value": "",
+                "type": "query",
+                "description": "Filter by notes. String value (e.g. `notes=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "number",
+                "value": "",
+                "type": "path",
+                "description": "The policy number identifying the policy whose amendments to list."
+              }
+            ]
+          },
+          "docs": "List amendments (cancellations and reinstatements) for a policy identified by its number. Each amendment is either a cancellation that reduces or ends coverage, or a reinstatement that restores coverage after a cancellation. Supports pagination via `limit` and `skip`.\n\n<!-- qs2mongo:list-summary -->\n\n**Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `primaryRecordId` (objectId), `type` (string), `effectiveDate` (date), `issueDate` (date), `notes` (string). See \"List Endpoi"
+        },
+        {
+          "info": {
+            "name": "POST /policies/{number}/cancellations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/policies/:number/cancellations",
+            "params": [
+              {
+                "name": "number",
+                "value": "",
+                "type": "path",
+                "description": "Policy number identifying the policy to cancel."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Apply a cancellation to a policy, suppressing the validity of the targeted subjects from the effective date forward. This is a state-changing operation: it creates a cancellation modifier and updates subject validity accordingly. To record an externally-issued cancellation without altering platform state, use the `/log` variant instead."
+        },
+        {
+          "info": {
+            "name": "POST /policies/{number}/cancellations/{id}/log",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/policies/:number/cancellations/:id/log",
+            "params": [
+              {
+                "name": "number",
+                "value": "",
+                "type": "path",
+                "description": "Policy number identifying the policy whose cancellation is being logged."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the cancellation request being recorded as logged."
+              }
+            ]
+          },
+          "docs": "Record an externally-issued cancellation against an existing cancellation request. This is an audit-only operation: no policy state is changed. Use the non-`/log` POST variant if you need to apply a new cancellation that updates subject validity."
+        },
+        {
+          "info": {
+            "name": "DELETE /policies/{number}/cancellations/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/policies/:number/cancellations/:id",
+            "params": [
+              {
+                "name": "number",
+                "value": "",
+                "type": "path",
+                "description": "Policy number identifying the policy from which the cancellation should be removed."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the cancellation to delete."
+              }
+            ]
+          },
+          "docs": "Delete a previously-applied policy cancellation. Removing the cancellation reverses its effect on subject validity, so any subjects it was suppressing become valid again subject to the policy's other modifiers."
+        },
+        {
+          "info": {
+            "name": "POST /policies/{number}/reinstatements",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/policies/:number/reinstatements",
+            "params": [
+              {
+                "name": "number",
+                "value": "",
+                "type": "path",
+                "description": "Policy number identifying the policy to reinstate."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Apply a reinstatement to a policy, reversing an active cancellation and restoring the covered subjects to compliant status. This is a state-changing operation: it creates a reinstatement modifier and updates subject validity accordingly. To record an externally-issued reinstatement without altering platform state, use the `/log` variant instead."
+        },
+        {
+          "info": {
+            "name": "POST /policies/{number}/reinstatements/{id}/log",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/policies/:number/reinstatements/:id/log",
+            "params": [
+              {
+                "name": "number",
+                "value": "",
+                "type": "path",
+                "description": "Policy number identifying the policy whose reinstatement is being logged."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the reinstatement request being recorded as logged."
+              }
+            ]
+          },
+          "docs": "Record an externally-issued reinstatement against an existing reinstatement request. This is an audit-only operation: no policy state is changed. Use the non-`/log` POST variant if you need to apply a new reinstatement that updates subject validity."
+        },
+        {
+          "info": {
+            "name": "DELETE /policies/{number}/reinstatements/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/policies/:number/reinstatements/:id",
+            "params": [
+              {
+                "name": "number",
+                "value": "",
+                "type": "path",
+                "description": "Policy number identifying the policy from which the reinstatement should be removed."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the reinstatement to delete."
+              }
+            ]
+          },
+          "docs": "Delete a previously-applied policy reinstatement. Removing the reinstatement re-asserts the underlying cancellation, so subjects that were restored by it return to suppressed status (subject to the policy's other modifiers)."
+        },
+        {
+          "info": {
+            "name": "POST /policies/{number}/log-cancellation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/policies/:number/log-cancellation",
+            "params": [
+              {
+                "name": "number",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Log a policy cancellation"
+        },
+        {
+          "info": {
+            "name": "POST /policies/{number}/log-reinstatement",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/policies/:number/log-reinstatement",
+            "params": [
+              {
+                "name": "number",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Log a policy reinstatement"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

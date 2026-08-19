@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TrustLayer Platform Auth Document Types API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Document Types",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Document Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/document-types"
+          },
+          "docs": "This endpoint returns the complete list of document types. No pagination, filtering or sorting option is supported at the moment."
+        },
+        {
+          "info": {
+            "name": "Fetch Document Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/document-types/:documentTypeId",
+            "params": [
+              {
+                "name": "documentTypeId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This endpoint returns a single document type."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,193 @@
+{
+  "item": [
+    {
+      "id": "201275ac-2015-4784-a8b2-ced1d0b61c1d",
+      "name": "party-types",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5343537f-fe55-4bb9-b523-1f9c3501337b",
+          "name": "List party types",
+          "request": {
+            "name": "List party types",
+            "description": {
+              "content": "Note that this will return all party types, sorted by name",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "party-types"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e7e57ac4-b166-42e7-9e9f-0197b648e400",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "party-types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"party-types\",\n      \"name\": \"string\",\n      \"pluralName\": \"string\",\n      \"defaultComplianceProfile\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"party-types\",\n      \"name\": \"string\",\n      \"pluralName\": \"string\",\n      \"defaultComplianceProfile\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    }\n  ],\n  \"meta\": {\n    \"count\": 7165.547683692754,\n    \"pages\": 8646.67245540672,\n    \"totalCount\": 3990.649818693053,\n    \"totalPages\": 3170.3582640702057\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6c8944c4-5edd-4a38-a12a-f2ec79b33d14",
+          "name": "Create a party type",
+          "request": {
+            "name": "Create a party type",
+            "description": {
+              "content": "Note that you _must_ provide both the singular and plural names.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "party-types"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"partyType\": {\n    \"name\": \"<string>\",\n    \"pluralName\": \"<string>\",\n    \"defaultComplianceProfile\": {\n      \"id\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1f3b24a6-38f9-4c0a-8779-91aced04c159",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "party-types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"partyType\": {\n    \"name\": \"<string>\",\n    \"pluralName\": \"<string>\",\n    \"defaultComplianceProfile\": {\n      \"id\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"party-types\",\n    \"name\": \"string\",\n    \"pluralName\": \"string\",\n    \"defaultComplianceProfile\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:4000/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ed1b7a02-4502-4ccd-a1c8-b607efdee908",
+    "name": "TrustLayer Platform Auth party-types API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "3rd-party API for the TrustLayer platform.\n\n**Deprecated.** Platform API v1 is deprecated as of 01 June 2026 and is\nscheduled for sunset (end-of-life) on 31 March 2027. It remains fully\navailable until the sunset date but will not receive new features. Please\nmigrate to Platform API v2 for new integrations.\n\nAll v1 responses carry the standard deprecation response headers\n([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)):\n\n```http\nDeprecation: @1780272000\nSunset: Wed, 31 Mar 2027 23:59:59 GMT\nLink: <https://developers.trustlayer.io/>; rel=\"deprecation\", <https://developers.trustlayer.io/>; rel=\"sunset\"\n```\n\n`Deprecation: @1780272000` is the Unix timestamp for 2026-06-01T00:00:00Z;\nsunset (end-of-life) is 2027-03-31T23:59:59 GMT.\n\nContact Support:\n Name: TrustLayer Support\n Email: support@trustlayer.io",
+      "type": "text/plain"
+    }
+  }
+}

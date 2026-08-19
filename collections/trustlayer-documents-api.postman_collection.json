@@ -1,0 +1,3080 @@
+{
+  "item": [
+    {
+      "id": "52b6e80a-13c3-4da6-814f-4f1409ca6ef3",
+      "name": "documents",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "118fdb05-fc50-4366-9941-09387cba3442",
+          "name": "List documents",
+          "request": {
+            "name": "List documents",
+            "description": {
+              "content": "Available filters:\n* `name`\n* `party`\n* `project`\n* `type`\n* `archived`\n* `reviewed`\n* `createdAt`\n* `updatedAt`\n* `reviewedAt`\n* `archivedAt`\n* `expirationDate`\n\nAvailable sort keys:\n* `name`\n* `createdAt`\n* `updatedAt`\n* `archivedAt`\n* `reviewedAt`\n* `expirationDate`\n\nAvailable include options:\n* `party`\n* `projects`\n* `reviewedBy`\n* `archivedBy`\n* `types`\n\nPagination is enabled.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "documents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "List of comma-separated keys used to sort. Reversing is done by prepending \"-\" to the key name."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[number]",
+                  "value": "1",
+                  "description": "Page number, starting from 1"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "20",
+                  "description": "Number of items per page. Defaults to 20. Maximum is 100"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "List of comma-separated relationships to include in the result"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9b42da29-432a-42f2-84ef-6d9d3bad86fe",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[title]",
+                      "value": "foo"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "name,-age"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "20"
+                    },
+                    {
+                      "key": "include",
+                      "value": "parties,projects"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"fail\",\n  \"data\": [\n    {\n      \"type\": \"documents\",\n      \"id\": \"string\",\n      \"issuedBy\": {\n        \"name\": \"string\",\n        \"address\": \"string\",\n        \"contactName\": \"string\",\n        \"phone\": \"string\",\n        \"email\": \"string\"\n      },\n      \"reviewedAt\": \"2001-11-13T21:05:14.771Z\",\n      \"archivedAt\": \"1996-07-26T15:29:17.593Z\",\n      \"notes\": \"string\",\n      \"status\": \"string\",\n      \"types\": [\n        {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      ],\n      \"flag\": {\n        \"addedOn\": \"2009-05-17T14:51:10.473Z\",\n        \"severityLevel\": \"high\",\n        \"affectedSubjects\": [\n          \"string\"\n        ],\n        \"notes\": \"string\",\n        \"user\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      \"appliesToAllProjects\": true,\n      \"expirationDate\": \"1959-11-05\",\n      \"name\": \"str\",\n      \"data\": {},\n      \"metadata\": {},\n      \"updatedAt\": \"2017-05-10T02:08:56.221Z\",\n      \"createdAt\": \"1976-10-25T18:25:58.733Z\",\n      \"archivedBy\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      \"reviewedBy\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      \"url\": \"string\",\n      \"insurers\": [\n        {\n          \"id\": \"string\",\n          \"naic\": \"string\",\n          \"rating\": \"string\",\n          \"ratingEffectiveDate\": \"1962-03-27T20:57:31.681Z\",\n          \"financialSizeCategory\": \"string\",\n          \"ratingModifier\": \"string\",\n          \"ratingAction\": \"string\",\n          \"ratingImplication\": \"string\",\n          \"extractedName\": \"string\",\n          \"canonicalName\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"naic\": \"string\",\n          \"rating\": \"string\",\n          \"ratingEffectiveDate\": \"1959-05-23T04:53:53.568Z\",\n          \"financialSizeCategory\": \"string\",\n          \"ratingModifier\": \"string\",\n          \"ratingAction\": \"string\",\n          \"ratingImplication\": \"string\",\n          \"extractedName\": \"string\",\n          \"canonicalName\": \"string\"\n        }\n      ],\n      \"deletedAt\": \"1999-01-11T21:18:14.151Z\",\n      \"deletedBy\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      \"issueDate\": \"1969-09-11\"\n    },\n    {\n      \"type\": \"documents\",\n      \"id\": \"string\",\n      \"issuedBy\": {\n        \"name\": \"string\",\n        \"address\": \"string\",\n        \"contactName\": \"string\",\n        \"phone\": \"string\",\n        \"email\": \"string\"\n      },\n      \"reviewedAt\": \"1947-11-05T04:29:12.663Z\",\n      \"archivedAt\": \"2015-02-28T23:52:22.555Z\",\n      \"notes\": \"string\",\n      \"status\": \"string\",\n      \"types\": [\n        {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      ],\n      \"flag\": {\n        \"addedOn\": \"2022-07-15T19:01:54.428Z\",\n        \"severityLevel\": \"low\",\n        \"affectedSubjects\": [\n          \"string\"\n        ],\n        \"notes\": \"string\",\n        \"user\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      \"appliesToAllProjects\": true,\n      \"expirationDate\": \"2014-01-22\",\n      \"name\": \"string\",\n      \"data\": {},\n      \"metadata\": {},\n      \"updatedAt\": \"1952-06-19T07:32:58.819Z\",\n      \"createdAt\": \"2022-07-05T02:14:23.255Z\",\n      \"archivedBy\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      \"reviewedBy\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      \"url\": \"string\",\n      \"insurers\": [\n        {\n          \"id\": \"string\",\n          \"naic\": \"string\",\n          \"rating\": \"string\",\n          \"ratingEffectiveDate\": \"1976-02-12T03:17:30.724Z\",\n          \"financialSizeCategory\": \"string\",\n          \"ratingModifier\": \"string\",\n          \"ratingAction\": \"string\",\n          \"ratingImplication\": \"string\",\n          \"extractedName\": \"string\",\n          \"canonicalName\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"naic\": \"string\",\n          \"rating\": \"string\",\n          \"ratingEffectiveDate\": \"1953-10-18T03:10:14.220Z\",\n          \"financialSizeCategory\": \"string\",\n          \"ratingModifier\": \"string\",\n          \"ratingAction\": \"string\",\n          \"ratingImplication\": \"string\",\n          \"extractedName\": \"string\",\n          \"canonicalName\": \"string\"\n        }\n      ],\n      \"deletedAt\": \"1957-12-16T23:02:15.570Z\",\n      \"deletedBy\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      \"issueDate\": \"2000-12-06\"\n    }\n  ],\n  \"meta\": {\n    \"count\": 9939.297393136236,\n    \"pages\": 1317.6119982630164,\n    \"totalCount\": 2012.5770711548496,\n    \"totalPages\": 4857.632773123558\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bb8548d0-60ec-49a2-83c0-73ba433cefcf",
+          "name": "Upload a document",
+          "request": {
+            "name": "Upload a document",
+            "description": {
+              "content": "This endpoint accepts a `multipart/form-data` payload containing a single `document` parameter.\nThe returned document will be queued for processing.\nOptionally, a `documentType` parameter can be specified, containing either the exact name of an existing document type, or its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "documents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "document",
+                  "type": "file",
+                  "description": "(Required) "
+                },
+                {
+                  "key": "documentType",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Document type name or ID"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4307120d-234e-4ccd-90ab-cad2d594a48e",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "document",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Document type name or ID",
+                        "type": "text/plain"
+                      },
+                      "key": "documentType",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"type\": \"documents\",\n    \"id\": \"string\",\n    \"issuedBy\": {\n      \"name\": \"string\",\n      \"address\": \"string\",\n      \"contactName\": \"string\",\n      \"phone\": \"string\",\n      \"email\": \"string\"\n    },\n    \"reviewedAt\": \"1962-12-31T09:04:32.528Z\",\n    \"archivedAt\": \"2016-09-18T18:20:13.342Z\",\n    \"notes\": \"string\",\n    \"status\": \"string\",\n    \"types\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"flag\": {\n      \"addedOn\": \"1990-09-09T16:26:01.166Z\",\n      \"severityLevel\": \"high\",\n      \"affectedSubjects\": [\n        \"string\"\n      ],\n      \"notes\": \"string\",\n      \"user\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    },\n    \"appliesToAllProjects\": false,\n    \"expirationDate\": \"2005-07-28\",\n    \"name\": \"string\",\n    \"data\": {},\n    \"metadata\": {},\n    \"updatedAt\": \"2015-01-18T07:59:39.044Z\",\n    \"createdAt\": \"2011-12-01T21:54:36.388Z\",\n    \"archivedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"reviewedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"url\": \"string\",\n    \"insurers\": [\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"2018-08-06T10:20:44.799Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"1997-06-21T17:16:13.104Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      }\n    ],\n    \"deletedAt\": \"2016-08-25T03:00:38.590Z\",\n    \"deletedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"issueDate\": \"1998-07-30\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4554394b-cefd-4228-8722-6f8590250072",
+          "name": "Fetch a document",
+          "request": {
+            "name": "Fetch a document",
+            "description": {
+              "content": "Available include options:\n\n* `party`\n* `projects`\n* `types`\n* `archivedBy`\n* `reviewedBy`\n\nNotes:\n\n- the uploaded file is accessible via the `url` attribute; the URL will expire in 24 hours.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "documents",
+                ":documentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "List of comma-separated relationships to include in the result"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "documentId",
+                  "description": "(Required) Document ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b144dd4c-25bf-4fa6-b7af-02c6fd880879",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documents",
+                    ":documentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "parties,projects"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "documentId",
+                      "description": "(Required) Document ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"type\": \"documents\",\n    \"id\": \"string\",\n    \"issuedBy\": {\n      \"name\": \"string\",\n      \"address\": \"string\",\n      \"contactName\": \"string\",\n      \"phone\": \"string\",\n      \"email\": \"string\"\n    },\n    \"reviewedAt\": \"1962-12-31T09:04:32.528Z\",\n    \"archivedAt\": \"2016-09-18T18:20:13.342Z\",\n    \"notes\": \"string\",\n    \"status\": \"string\",\n    \"types\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"flag\": {\n      \"addedOn\": \"1990-09-09T16:26:01.166Z\",\n      \"severityLevel\": \"high\",\n      \"affectedSubjects\": [\n        \"string\"\n      ],\n      \"notes\": \"string\",\n      \"user\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    },\n    \"appliesToAllProjects\": false,\n    \"expirationDate\": \"2005-07-28\",\n    \"name\": \"string\",\n    \"data\": {},\n    \"metadata\": {},\n    \"updatedAt\": \"2015-01-18T07:59:39.044Z\",\n    \"createdAt\": \"2011-12-01T21:54:36.388Z\",\n    \"archivedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"reviewedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"url\": \"string\",\n    \"insurers\": [\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"2018-08-06T10:20:44.799Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"1997-06-21T17:16:13.104Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      }\n    ],\n    \"deletedAt\": \"2016-08-25T03:00:38.590Z\",\n    \"deletedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"issueDate\": \"1998-07-30\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "85f98e43-f6fe-4218-864b-14a27b57cf6b",
+          "name": "Update a document",
+          "request": {
+            "name": "Update a document",
+            "description": {
+              "content": "* Updating a document's data will trigger a recalc of the compliance status for all affected parties.\n* You can specify a project scope; the party the document is attached to _must_ belong to the project\n\nRequirements: the document _must_ belong to a party.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "documents",
+                ":documentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "scope[type]",
+                  "value": "<string>",
+                  "description": "Type of the resource to be used as scope"
+                },
+                {
+                  "disabled": false,
+                  "key": "scope[id]",
+                  "value": "<string>",
+                  "description": "Id of the resource to be used as scope"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "documentId",
+                  "description": "(Required) Document ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"document\": {\n    \"name\": \"<string>\",\n    \"notes\": \"<string>\",\n    \"appliesToAllProjects\": \"<boolean>\",\n    \"issuedBy\": {\n      \"name\": \"<string>\",\n      \"address\": \"<string>\",\n      \"contactName\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"email\": \"<string>\"\n    },\n    \"data\": \"<object>\",\n    \"metadata\": \"<object>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d1583991-e54c-4417-a94e-b4f6f3944698",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documents",
+                    ":documentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope[type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scope[id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "documentId",
+                      "description": "(Required) Document ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"document\": {\n    \"name\": \"<string>\",\n    \"notes\": \"<string>\",\n    \"appliesToAllProjects\": \"<boolean>\",\n    \"issuedBy\": {\n      \"name\": \"<string>\",\n      \"address\": \"<string>\",\n      \"contactName\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"email\": \"<string>\"\n    },\n    \"data\": \"<object>\",\n    \"metadata\": \"<object>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"type\": \"documents\",\n    \"id\": \"string\",\n    \"issuedBy\": {\n      \"name\": \"string\",\n      \"address\": \"string\",\n      \"contactName\": \"string\",\n      \"phone\": \"string\",\n      \"email\": \"string\"\n    },\n    \"reviewedAt\": \"1962-12-31T09:04:32.528Z\",\n    \"archivedAt\": \"2016-09-18T18:20:13.342Z\",\n    \"notes\": \"string\",\n    \"status\": \"string\",\n    \"types\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"flag\": {\n      \"addedOn\": \"1990-09-09T16:26:01.166Z\",\n      \"severityLevel\": \"high\",\n      \"affectedSubjects\": [\n        \"string\"\n      ],\n      \"notes\": \"string\",\n      \"user\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    },\n    \"appliesToAllProjects\": false,\n    \"expirationDate\": \"2005-07-28\",\n    \"name\": \"string\",\n    \"data\": {},\n    \"metadata\": {},\n    \"updatedAt\": \"2015-01-18T07:59:39.044Z\",\n    \"createdAt\": \"2011-12-01T21:54:36.388Z\",\n    \"archivedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"reviewedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"url\": \"string\",\n    \"insurers\": [\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"2018-08-06T10:20:44.799Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"1997-06-21T17:16:13.104Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      }\n    ],\n    \"deletedAt\": \"2016-08-25T03:00:38.590Z\",\n    \"deletedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"issueDate\": \"1998-07-30\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9f1bde9d-49f3-4634-ba36-58b6e784b3e0",
+          "name": "Delete a document",
+          "request": {
+            "name": "Delete a document",
+            "description": {
+              "content": "TBD",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "documents",
+                ":documentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "documentId",
+                  "description": "(Required) Document ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "63dea0da-d497-4daa-8bd2-9aa13f929482",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documents",
+                    ":documentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "documentId",
+                      "description": "(Required) Document ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"type\": \"documents\",\n    \"id\": \"string\",\n    \"issuedBy\": {\n      \"name\": \"string\",\n      \"address\": \"string\",\n      \"contactName\": \"string\",\n      \"phone\": \"string\",\n      \"email\": \"string\"\n    },\n    \"reviewedAt\": \"1962-12-31T09:04:32.528Z\",\n    \"archivedAt\": \"2016-09-18T18:20:13.342Z\",\n    \"notes\": \"string\",\n    \"status\": \"string\",\n    \"types\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"flag\": {\n      \"addedOn\": \"1990-09-09T16:26:01.166Z\",\n      \"severityLevel\": \"high\",\n      \"affectedSubjects\": [\n        \"string\"\n      ],\n      \"notes\": \"string\",\n      \"user\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    },\n    \"appliesToAllProjects\": false,\n    \"expirationDate\": \"2005-07-28\",\n    \"name\": \"string\",\n    \"data\": {},\n    \"metadata\": {},\n    \"updatedAt\": \"2015-01-18T07:59:39.044Z\",\n    \"createdAt\": \"2011-12-01T21:54:36.388Z\",\n    \"archivedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"reviewedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"url\": \"string\",\n    \"insurers\": [\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"2018-08-06T10:20:44.799Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"1997-06-21T17:16:13.104Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      }\n    ],\n    \"deletedAt\": \"2016-08-25T03:00:38.590Z\",\n    \"deletedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"issueDate\": \"1998-07-30\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c519b685-2158-4455-b568-8a97b788335f",
+          "name": "Remove the review from a document",
+          "request": {
+            "name": "Remove the review from a document",
+            "description": {
+              "content": "Mark the document as not reviewed. This will remove all the information about the current review status of the document.\n\nRequirements: the document _must_ belong to a party.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "documents",
+                ":documentId",
+                "review"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "scope[type]",
+                  "value": "<string>",
+                  "description": "Type of the resource to be used as scope"
+                },
+                {
+                  "disabled": false,
+                  "key": "scope[id]",
+                  "value": "<string>",
+                  "description": "Id of the resource to be used as scope"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "documentId",
+                  "description": "(Required) Document ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "10e0e377-38d1-4edf-9738-26ca86334ba1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documents",
+                    ":documentId",
+                    "review"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope[type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scope[id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "documentId",
+                      "description": "(Required) Document ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"type\": \"documents\",\n    \"id\": \"string\",\n    \"issuedBy\": {\n      \"name\": \"string\",\n      \"address\": \"string\",\n      \"contactName\": \"string\",\n      \"phone\": \"string\",\n      \"email\": \"string\"\n    },\n    \"reviewedAt\": \"1962-12-31T09:04:32.528Z\",\n    \"archivedAt\": \"2016-09-18T18:20:13.342Z\",\n    \"notes\": \"string\",\n    \"status\": \"string\",\n    \"types\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"flag\": {\n      \"addedOn\": \"1990-09-09T16:26:01.166Z\",\n      \"severityLevel\": \"high\",\n      \"affectedSubjects\": [\n        \"string\"\n      ],\n      \"notes\": \"string\",\n      \"user\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    },\n    \"appliesToAllProjects\": false,\n    \"expirationDate\": \"2005-07-28\",\n    \"name\": \"string\",\n    \"data\": {},\n    \"metadata\": {},\n    \"updatedAt\": \"2015-01-18T07:59:39.044Z\",\n    \"createdAt\": \"2011-12-01T21:54:36.388Z\",\n    \"archivedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"reviewedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"url\": \"string\",\n    \"insurers\": [\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"2018-08-06T10:20:44.799Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"1997-06-21T17:16:13.104Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      }\n    ],\n    \"deletedAt\": \"2016-08-25T03:00:38.590Z\",\n    \"deletedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"issueDate\": \"1998-07-30\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "47cb5232-352c-4eb9-97cc-5e9a1900afe8",
+          "name": "Review a document",
+          "request": {
+            "name": "Review a document",
+            "description": {
+              "content": "Mark the document as reviewed by the given user. If the document has already been reviewed, no change will be made.\n\nRequirements: the document _must_ belong to a party.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "documents",
+                ":documentId",
+                "review"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "scope[type]",
+                  "value": "<string>",
+                  "description": "Type of the resource to be used as scope"
+                },
+                {
+                  "disabled": false,
+                  "key": "scope[id]",
+                  "value": "<string>",
+                  "description": "Id of the resource to be used as scope"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "documentId",
+                  "description": "(Required) Document ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "86a15848-a93a-455a-bd42-bccda65b5ce4",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documents",
+                    ":documentId",
+                    "review"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope[type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scope[id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "documentId",
+                      "description": "(Required) Document ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"type\": \"documents\",\n    \"id\": \"string\",\n    \"issuedBy\": {\n      \"name\": \"string\",\n      \"address\": \"string\",\n      \"contactName\": \"string\",\n      \"phone\": \"string\",\n      \"email\": \"string\"\n    },\n    \"reviewedAt\": \"1962-12-31T09:04:32.528Z\",\n    \"archivedAt\": \"2016-09-18T18:20:13.342Z\",\n    \"notes\": \"string\",\n    \"status\": \"string\",\n    \"types\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"flag\": {\n      \"addedOn\": \"1990-09-09T16:26:01.166Z\",\n      \"severityLevel\": \"high\",\n      \"affectedSubjects\": [\n        \"string\"\n      ],\n      \"notes\": \"string\",\n      \"user\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    },\n    \"appliesToAllProjects\": false,\n    \"expirationDate\": \"2005-07-28\",\n    \"name\": \"string\",\n    \"data\": {},\n    \"metadata\": {},\n    \"updatedAt\": \"2015-01-18T07:59:39.044Z\",\n    \"createdAt\": \"2011-12-01T21:54:36.388Z\",\n    \"archivedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"reviewedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"url\": \"string\",\n    \"insurers\": [\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"2018-08-06T10:20:44.799Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"1997-06-21T17:16:13.104Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      }\n    ],\n    \"deletedAt\": \"2016-08-25T03:00:38.590Z\",\n    \"deletedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"issueDate\": \"1998-07-30\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e43e66ba-9e79-4eeb-8d55-02e4dd46f349",
+          "name": "Un-archive a document",
+          "request": {
+            "name": "Un-archive a document",
+            "description": {
+              "content": "Mark the document as not archived.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "documents",
+                ":documentId",
+                "archive"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "scope[type]",
+                  "value": "<string>",
+                  "description": "Type of the resource to be used as scope"
+                },
+                {
+                  "disabled": false,
+                  "key": "scope[id]",
+                  "value": "<string>",
+                  "description": "Id of the resource to be used as scope"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "documentId",
+                  "description": "(Required) Document ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a3db10d4-427d-4381-9627-fa0fb99c9144",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documents",
+                    ":documentId",
+                    "archive"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope[type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scope[id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "documentId",
+                      "description": "(Required) Document ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"type\": \"documents\",\n    \"id\": \"string\",\n    \"issuedBy\": {\n      \"name\": \"string\",\n      \"address\": \"string\",\n      \"contactName\": \"string\",\n      \"phone\": \"string\",\n      \"email\": \"string\"\n    },\n    \"reviewedAt\": \"1962-12-31T09:04:32.528Z\",\n    \"archivedAt\": \"2016-09-18T18:20:13.342Z\",\n    \"notes\": \"string\",\n    \"status\": \"string\",\n    \"types\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"flag\": {\n      \"addedOn\": \"1990-09-09T16:26:01.166Z\",\n      \"severityLevel\": \"high\",\n      \"affectedSubjects\": [\n        \"string\"\n      ],\n      \"notes\": \"string\",\n      \"user\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    },\n    \"appliesToAllProjects\": false,\n    \"expirationDate\": \"2005-07-28\",\n    \"name\": \"string\",\n    \"data\": {},\n    \"metadata\": {},\n    \"updatedAt\": \"2015-01-18T07:59:39.044Z\",\n    \"createdAt\": \"2011-12-01T21:54:36.388Z\",\n    \"archivedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"reviewedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"url\": \"string\",\n    \"insurers\": [\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"2018-08-06T10:20:44.799Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"1997-06-21T17:16:13.104Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      }\n    ],\n    \"deletedAt\": \"2016-08-25T03:00:38.590Z\",\n    \"deletedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"issueDate\": \"1998-07-30\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bcb5ab4b-1016-45d5-b0e1-379017cb05fd",
+          "name": "Archive a document",
+          "request": {
+            "name": "Archive a document",
+            "description": {
+              "content": "Mark the document as archived.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "documents",
+                ":documentId",
+                "archive"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "scope[type]",
+                  "value": "<string>",
+                  "description": "Type of the resource to be used as scope"
+                },
+                {
+                  "disabled": false,
+                  "key": "scope[id]",
+                  "value": "<string>",
+                  "description": "Id of the resource to be used as scope"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "documentId",
+                  "description": "(Required) Document ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "051dd5ea-cc08-4250-8446-e93854a75e6a",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documents",
+                    ":documentId",
+                    "archive"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope[type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scope[id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "documentId",
+                      "description": "(Required) Document ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"type\": \"documents\",\n    \"id\": \"string\",\n    \"issuedBy\": {\n      \"name\": \"string\",\n      \"address\": \"string\",\n      \"contactName\": \"string\",\n      \"phone\": \"string\",\n      \"email\": \"string\"\n    },\n    \"reviewedAt\": \"1962-12-31T09:04:32.528Z\",\n    \"archivedAt\": \"2016-09-18T18:20:13.342Z\",\n    \"notes\": \"string\",\n    \"status\": \"string\",\n    \"types\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"flag\": {\n      \"addedOn\": \"1990-09-09T16:26:01.166Z\",\n      \"severityLevel\": \"high\",\n      \"affectedSubjects\": [\n        \"string\"\n      ],\n      \"notes\": \"string\",\n      \"user\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    },\n    \"appliesToAllProjects\": false,\n    \"expirationDate\": \"2005-07-28\",\n    \"name\": \"string\",\n    \"data\": {},\n    \"metadata\": {},\n    \"updatedAt\": \"2015-01-18T07:59:39.044Z\",\n    \"createdAt\": \"2011-12-01T21:54:36.388Z\",\n    \"archivedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"reviewedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"url\": \"string\",\n    \"insurers\": [\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"2018-08-06T10:20:44.799Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"1997-06-21T17:16:13.104Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      }\n    ],\n    \"deletedAt\": \"2016-08-25T03:00:38.590Z\",\n    \"deletedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"issueDate\": \"1998-07-30\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "976f8a6f-d49a-46ca-81de-84dd9a00edd8",
+          "name": "Reprocess a document",
+          "request": {
+            "name": "Reprocess a document",
+            "description": {
+              "content": "Send the document to the extraction pipeline. The results will overwite the document's current data.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "documents",
+                ":documentId",
+                "reprocess"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "documentId",
+                  "description": "(Required) Document ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "340cfe02-9f99-40ab-80bd-a898c1ecbc4c",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documents",
+                    ":documentId",
+                    "reprocess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "documentId",
+                      "description": "(Required) Document ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"type\": \"documents\",\n    \"id\": \"string\",\n    \"issuedBy\": {\n      \"name\": \"string\",\n      \"address\": \"string\",\n      \"contactName\": \"string\",\n      \"phone\": \"string\",\n      \"email\": \"string\"\n    },\n    \"reviewedAt\": \"1962-12-31T09:04:32.528Z\",\n    \"archivedAt\": \"2016-09-18T18:20:13.342Z\",\n    \"notes\": \"string\",\n    \"status\": \"string\",\n    \"types\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"flag\": {\n      \"addedOn\": \"1990-09-09T16:26:01.166Z\",\n      \"severityLevel\": \"high\",\n      \"affectedSubjects\": [\n        \"string\"\n      ],\n      \"notes\": \"string\",\n      \"user\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    },\n    \"appliesToAllProjects\": false,\n    \"expirationDate\": \"2005-07-28\",\n    \"name\": \"string\",\n    \"data\": {},\n    \"metadata\": {},\n    \"updatedAt\": \"2015-01-18T07:59:39.044Z\",\n    \"createdAt\": \"2011-12-01T21:54:36.388Z\",\n    \"archivedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"reviewedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"url\": \"string\",\n    \"insurers\": [\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"2018-08-06T10:20:44.799Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"1997-06-21T17:16:13.104Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      }\n    ],\n    \"deletedAt\": \"2016-08-25T03:00:38.590Z\",\n    \"deletedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"issueDate\": \"1998-07-30\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ac3fa003-665b-4689-95d0-809a3882e483",
+          "name": "Remove the flag from a document",
+          "request": {
+            "name": "Remove the flag from a document",
+            "description": {
+              "content": "Remove the existing flag data from a document (if any).\n\nIf the document belongs to a party, you can specify an additional project `scope` (the party must belong to the project). This will be used to log the event in the activity timeline.\n\nRequirements: the document _must_ belong to a party.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "documents",
+                ":documentId",
+                "flag"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "scope[type]",
+                  "value": "<string>",
+                  "description": "Type of the resource to be used as scope"
+                },
+                {
+                  "disabled": false,
+                  "key": "scope[id]",
+                  "value": "<string>",
+                  "description": "Id of the resource to be used as scope"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "documentId",
+                  "description": "(Required) Document ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "07f66603-5bef-4f9d-abcd-05256b9a1155",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documents",
+                    ":documentId",
+                    "flag"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope[type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scope[id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "documentId",
+                      "description": "(Required) Document ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"type\": \"documents\",\n    \"id\": \"string\",\n    \"issuedBy\": {\n      \"name\": \"string\",\n      \"address\": \"string\",\n      \"contactName\": \"string\",\n      \"phone\": \"string\",\n      \"email\": \"string\"\n    },\n    \"reviewedAt\": \"1962-12-31T09:04:32.528Z\",\n    \"archivedAt\": \"2016-09-18T18:20:13.342Z\",\n    \"notes\": \"string\",\n    \"status\": \"string\",\n    \"types\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"flag\": {\n      \"addedOn\": \"1990-09-09T16:26:01.166Z\",\n      \"severityLevel\": \"high\",\n      \"affectedSubjects\": [\n        \"string\"\n      ],\n      \"notes\": \"string\",\n      \"user\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    },\n    \"appliesToAllProjects\": false,\n    \"expirationDate\": \"2005-07-28\",\n    \"name\": \"string\",\n    \"data\": {},\n    \"metadata\": {},\n    \"updatedAt\": \"2015-01-18T07:59:39.044Z\",\n    \"createdAt\": \"2011-12-01T21:54:36.388Z\",\n    \"archivedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"reviewedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"url\": \"string\",\n    \"insurers\": [\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"2018-08-06T10:20:44.799Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"1997-06-21T17:16:13.104Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      }\n    ],\n    \"deletedAt\": \"2016-08-25T03:00:38.590Z\",\n    \"deletedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"issueDate\": \"1998-07-30\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cc72f6de-aee0-4558-b1eb-c13952b85e4f",
+          "name": "Flag a document or update the existing flag info",
+          "request": {
+            "name": "Flag a document or update the existing flag info",
+            "description": {
+              "content": "A document can have at most one flag. If a document is already flagged, existing data will be replaced.\n\n* `addedOn` will default to the current time if left blank\n* `severityLevel` and `user.id` are the only required parameters\n\nIf the document belongs to a party, you can specify an additional project `scope` (the party must belong to the project). This will be used to log the event in the activity timeline.\n\nRequirements: the document _must_ belong to a party.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "documents",
+                ":documentId",
+                "flag"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "scope[type]",
+                  "value": "<string>",
+                  "description": "Type of the resource to be used as scope"
+                },
+                {
+                  "disabled": false,
+                  "key": "scope[id]",
+                  "value": "<string>",
+                  "description": "Id of the resource to be used as scope"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "documentId",
+                  "description": "(Required) Document ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"flag\": {\n    \"level\": \"<string>\",\n    \"addedOn\": \"<string>\",\n    \"subjects\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"notes\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ce8f3075-8c9d-4fe7-b845-3455c36ba288",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documents",
+                    ":documentId",
+                    "flag"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope[type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scope[id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "documentId",
+                      "description": "(Required) Document ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"flag\": {\n    \"level\": \"<string>\",\n    \"addedOn\": \"<string>\",\n    \"subjects\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"notes\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"type\": \"documents\",\n    \"id\": \"string\",\n    \"issuedBy\": {\n      \"name\": \"string\",\n      \"address\": \"string\",\n      \"contactName\": \"string\",\n      \"phone\": \"string\",\n      \"email\": \"string\"\n    },\n    \"reviewedAt\": \"1962-12-31T09:04:32.528Z\",\n    \"archivedAt\": \"2016-09-18T18:20:13.342Z\",\n    \"notes\": \"string\",\n    \"status\": \"string\",\n    \"types\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"flag\": {\n      \"addedOn\": \"1990-09-09T16:26:01.166Z\",\n      \"severityLevel\": \"high\",\n      \"affectedSubjects\": [\n        \"string\"\n      ],\n      \"notes\": \"string\",\n      \"user\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    },\n    \"appliesToAllProjects\": false,\n    \"expirationDate\": \"2005-07-28\",\n    \"name\": \"string\",\n    \"data\": {},\n    \"metadata\": {},\n    \"updatedAt\": \"2015-01-18T07:59:39.044Z\",\n    \"createdAt\": \"2011-12-01T21:54:36.388Z\",\n    \"archivedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"reviewedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"url\": \"string\",\n    \"insurers\": [\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"2018-08-06T10:20:44.799Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"1997-06-21T17:16:13.104Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      }\n    ],\n    \"deletedAt\": \"2016-08-25T03:00:38.590Z\",\n    \"deletedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"issueDate\": \"1998-07-30\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0c9ccaee-9872-4944-a154-76702d7e9531",
+          "name": "Create a party compliance certificate",
+          "request": {
+            "name": "Create a party compliance certificate",
+            "description": {
+              "content": "* if `effectiveDate` is not provided, it will default to the current moment\n* if `expirationDate` is not provided, it will default to the earliest expiration date found in currently active documents; if no document is present, it will default to 1 year from the effective date\n* if `document` is provided (only for multipart/form-data), it will be uploaded to the party and used as the compliance certificate\n\nAvailable `scope` options:\n\n* `projects`\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "parties",
+                ":partyId",
+                "compliance-certificate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "partyId",
+                  "description": "(Required) Party ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            }
+          },
+          "response": [
+            {
+              "id": "9aaafa6a-f64e-4316-8cfd-1af134d873b8",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parties",
+                    ":partyId",
+                    "compliance-certificate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partyId",
+                      "description": "(Required) Party ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": []
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"type\": \"documents\",\n    \"id\": \"string\",\n    \"issuedBy\": {\n      \"name\": \"string\",\n      \"address\": \"string\",\n      \"contactName\": \"string\",\n      \"phone\": \"string\",\n      \"email\": \"string\"\n    },\n    \"reviewedAt\": \"1962-12-31T09:04:32.528Z\",\n    \"archivedAt\": \"2016-09-18T18:20:13.342Z\",\n    \"notes\": \"string\",\n    \"status\": \"string\",\n    \"types\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"flag\": {\n      \"addedOn\": \"1990-09-09T16:26:01.166Z\",\n      \"severityLevel\": \"high\",\n      \"affectedSubjects\": [\n        \"string\"\n      ],\n      \"notes\": \"string\",\n      \"user\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    },\n    \"appliesToAllProjects\": false,\n    \"expirationDate\": \"2005-07-28\",\n    \"name\": \"string\",\n    \"data\": {},\n    \"metadata\": {},\n    \"updatedAt\": \"2015-01-18T07:59:39.044Z\",\n    \"createdAt\": \"2011-12-01T21:54:36.388Z\",\n    \"archivedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"reviewedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"url\": \"string\",\n    \"insurers\": [\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"2018-08-06T10:20:44.799Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"1997-06-21T17:16:13.104Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      }\n    ],\n    \"deletedAt\": \"2016-08-25T03:00:38.590Z\",\n    \"deletedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"issueDate\": \"1998-07-30\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5b141c8b-e7ef-487a-b1c5-12b7d86516bf",
+          "name": "Fetch a party's compliance certificate",
+          "request": {
+            "name": "Fetch a party's compliance certificate",
+            "description": {
+              "content": "Returns the currently valid compliance certificate for a party, if it exists; otherwise it responds with a 404 status.\n\nAvailable `scope` options:\n\n* `projects`\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "parties",
+                ":partyId",
+                "compliance-certificate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "partyId",
+                  "description": "(Required) Party ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2fcdc982-b40a-4e38-a310-dceeee212f88",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parties",
+                    ":partyId",
+                    "compliance-certificate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partyId",
+                      "description": "(Required) Party ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"type\": \"documents\",\n    \"id\": \"string\",\n    \"issuedBy\": {\n      \"name\": \"string\",\n      \"address\": \"string\",\n      \"contactName\": \"string\",\n      \"phone\": \"string\",\n      \"email\": \"string\"\n    },\n    \"reviewedAt\": \"1962-12-31T09:04:32.528Z\",\n    \"archivedAt\": \"2016-09-18T18:20:13.342Z\",\n    \"notes\": \"string\",\n    \"status\": \"string\",\n    \"types\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"flag\": {\n      \"addedOn\": \"1990-09-09T16:26:01.166Z\",\n      \"severityLevel\": \"high\",\n      \"affectedSubjects\": [\n        \"string\"\n      ],\n      \"notes\": \"string\",\n      \"user\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    },\n    \"appliesToAllProjects\": false,\n    \"expirationDate\": \"2005-07-28\",\n    \"name\": \"string\",\n    \"data\": {},\n    \"metadata\": {},\n    \"updatedAt\": \"2015-01-18T07:59:39.044Z\",\n    \"createdAt\": \"2011-12-01T21:54:36.388Z\",\n    \"archivedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"reviewedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"url\": \"string\",\n    \"insurers\": [\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"2018-08-06T10:20:44.799Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"1997-06-21T17:16:13.104Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      }\n    ],\n    \"deletedAt\": \"2016-08-25T03:00:38.590Z\",\n    \"deletedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"issueDate\": \"1998-07-30\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5dec7a96-3cc9-403c-800d-7cbb8c93430e",
+          "name": "Attach documents to a party",
+          "request": {
+            "name": "Attach documents to a party",
+            "description": {
+              "content": "Note that at any given time, a document can only be attached to one party.\nIf the document is already attached to another party, it will be ignored.\n\nAll documents _must_ exist, otherwise a 404 response will be returned and no document will be attached.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "parties",
+                ":partyId",
+                "relationships",
+                "documents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "partyId",
+                  "description": "(Required) Party ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documents\": [\n    {\n      \"id\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3be3d065-fd02-4d87-aebb-7aa65082792e",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parties",
+                    ":partyId",
+                    "relationships",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partyId",
+                      "description": "(Required) Party ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documents\": [\n    {\n      \"id\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"fail\",\n  \"data\": {\n    \"type\": \"parties\",\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"address\": {\n      \"value\": \"reference #/components/schemas/address not found in the OpenAPI spec\"\n    },\n    \"status\": \"new\",\n    \"contacts\": [\n      {\n        \"type\": \"contacts\",\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"company\": \"string\",\n        \"email\": \"string\",\n        \"phone\": \"string\",\n        \"fax\": \"string\",\n        \"title\": \"string\",\n        \"primary\": false,\n        \"defaultRequestRecipient\": false,\n        \"avatar\": \"string\",\n        \"party\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        },\n        \"externalId\": \"string\"\n      },\n      {\n        \"type\": \"contacts\",\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"company\": \"string\",\n        \"email\": \"string\",\n        \"phone\": \"string\",\n        \"fax\": \"string\",\n        \"title\": \"string\",\n        \"primary\": false,\n        \"defaultRequestRecipient\": false,\n        \"avatar\": \"string\",\n        \"party\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        },\n        \"externalId\": \"string\"\n      }\n    ],\n    \"website\": \"string\",\n    \"active\": true,\n    \"notes\": \"string\",\n    \"complianceStatus\": {\n      \"complianceProfile\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      \"modules\": [\n        {\n          \"id\": \"string\",\n          \"label\": \"string\",\n          \"status\": \"non_compliant\",\n          \"documents\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"origin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"complianceStatus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"origin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"complianceStatus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"documentsCount\": 1,\n          \"subjects\": [\n            {\n              \"id\": \"string\",\n              \"label\": \"string\",\n              \"status\": \"compliant\",\n              \"documents\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"documentsCount\": 5178.591062133389,\n              \"requirements\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"notes\": \"string\",\n              \"effectiveDate\": \"2008-01-19T10:26:54.554Z\",\n              \"expirationDate\": \"1950-09-23T09:05:50.631Z\",\n              \"latestExpirationDate\": \"1987-11-25T19:56:02.245Z\",\n              \"latestValidEffectiveDate\": \"1982-11-04T19:06:26.726Z\",\n              \"latestValidExpirationDate\": \"2022-11-25T08:46:31.689Z\",\n              \"resetOn\": \"1979-06-18T21:56:55.783Z\"\n            },\n            {\n              \"id\": \"string\",\n              \"label\": \"string\",\n              \"status\": \"waived\",\n              \"documents\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"documentsCount\": 4957.250368620585,\n              \"requirements\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"notes\": \"string\",\n              \"effectiveDate\": \"1962-04-26T01:55:51.988Z\",\n              \"expirationDate\": \"1990-07-02T07:01:42.179Z\",\n              \"latestExpirationDate\": \"1986-11-19T21:50:18.159Z\",\n              \"latestValidEffectiveDate\": \"2010-07-02T05:21:19.827Z\",\n              \"latestValidExpirationDate\": \"1966-04-30T15:57:23.593Z\",\n              \"resetOn\": \"2007-05-05T01:57:09.661Z\"\n            }\n          ]\n        },\n        {\n          \"id\": \"string\",\n          \"label\": \"string\",\n          \"status\": \"compliant\",\n          \"documents\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"origin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"complianceStatus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"origin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"complianceStatus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"documentsCount\": 1,\n          \"subjects\": [\n            {\n              \"id\": \"string\",\n              \"label\": \"string\",\n              \"status\": \"non_compliant\",\n              \"documents\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"documentsCount\": 1061.824698063103,\n              \"requirements\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"notes\": \"string\",\n              \"effectiveDate\": \"1961-11-01T10:04:37.365Z\",\n              \"expirationDate\": \"1950-12-13T22:00:18.297Z\",\n              \"latestExpirationDate\": \"1979-10-22T05:29:52.988Z\",\n              \"latestValidEffectiveDate\": \"1965-08-19T19:02:45.455Z\",\n              \"latestValidExpirationDate\": \"1980-01-25T20:50:44.338Z\",\n              \"resetOn\": \"2024-01-14T13:34:48.913Z\"\n            },\n            {\n              \"id\": \"string\",\n              \"label\": \"string\",\n              \"status\": \"overridden\",\n              \"documents\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"documentsCount\": 5146.242715887957,\n              \"requirements\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"notes\": \"string\",\n              \"effectiveDate\": \"2023-04-19T11:02:19.253Z\",\n              \"expirationDate\": \"2013-06-01T19:16:00.106Z\",\n              \"latestExpirationDate\": \"2024-07-02T03:36:13.586Z\",\n              \"latestValidEffectiveDate\": \"1946-09-23T22:30:51.694Z\",\n              \"latestValidExpirationDate\": \"1984-11-04T01:14:48.319Z\",\n              \"resetOn\": \"1963-06-29T10:37:55.463Z\"\n            }\n          ]\n        }\n      ],\n      \"subjects\": [\n        {\n          \"id\": \"string\",\n          \"effectiveDate\": \"1995-01-08T08:14:56.582Z\",\n          \"expirationDate\": \"2014-08-29T12:09:30.503Z\",\n          \"latestValidEffectiveDate\": \"2010-02-26T03:50:20.373Z\",\n          \"latestValidExpirationDate\": \"2013-10-20T13:45:27.374Z\",\n          \"notes\": \"string\",\n          \"requirementsStatus\": \"compliant\",\n          \"resetRequirementsOn\": \"2021-02-20T22:09:08.989Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"effectiveDate\": \"2011-06-13T04:10:42.597Z\",\n          \"expirationDate\": \"1980-10-18T11:24:25.865Z\",\n          \"latestValidEffectiveDate\": \"2018-01-28T11:43:26.529Z\",\n          \"latestValidExpirationDate\": \"1959-04-11T01:08:07.923Z\",\n          \"notes\": \"string\",\n          \"requirementsStatus\": \"waived\",\n          \"resetRequirementsOn\": \"1983-06-18T07:38:28.447Z\"\n        }\n      ],\n      \"requirements\": [\n        {\n          \"id\": \"string\",\n          \"label\": \"string\",\n          \"operator\": \"string\",\n          \"targetValue\": \"string\",\n          \"actualValue\": \"string\",\n          \"status\": \"invalidated\",\n          \"waiverOrOverrideNotes\": \"string\",\n          \"waiverOrOverrideExpirationDate\": \"1951-04-26T18:36:07.490Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"label\": \"string\",\n          \"operator\": \"string\",\n          \"targetValue\": \"string\",\n          \"actualValue\": \"string\",\n          \"status\": \"non_compliant\",\n          \"waiverOrOverrideNotes\": \"string\",\n          \"waiverOrOverrideExpirationDate\": \"2014-06-29T19:34:30.639Z\"\n        }\n      ],\n      \"status\": \"compliant\",\n      \"nextExpirationDate\": \"2017-12-10T01:49:51.860Z\",\n      \"latestExpirationDate\": \"1984-08-11T19:03:13.157Z\",\n      \"lastChangedAt\": \"1994-04-03T11:30:39.569Z\"\n    },\n    \"projects\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"projectStats\": {\n      \"compliantProjectsCount\": 3699.5391053354656,\n      \"totalProjectsCount\": 5025.811985996254\n    },\n    \"documents\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"partyType\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"tags\": [\n      {\n        \"type\": \"tags\",\n        \"id\": \"string\",\n        \"addedAt\": \"2005-05-28\",\n        \"addedBy\": \"string\",\n        \"expiresAt\": \"1968-08-31\"\n      },\n      {\n        \"type\": \"tags\",\n        \"id\": \"string\",\n        \"addedAt\": \"1968-11-23\",\n        \"addedBy\": \"string\",\n        \"expiresAt\": \"1981-11-15\"\n      }\n    ],\n    \"complianceProfile\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"customData\": [\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      }\n    ],\n    \"deletedAt\": \"1955-09-07T13:45:39.874Z\",\n    \"deletedBy\": {},\n    \"externalIds\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "239a47ed-4462-4c76-a436-e87dea730280",
+          "name": "Detach a document from a party",
+          "request": {
+            "name": "Detach a document from a party",
+            "description": {
+              "content": "Once the document has been detached from its party, it can be reattached to a different party.\n\nAll documents _must_ exist, otherwise a 404 response will be returned and no document will be attached.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "parties",
+                ":partyId",
+                "relationships",
+                "documents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "partyId",
+                  "description": "(Required) Party ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documents\": [\n    {\n      \"id\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c7d8b00d-fb23-4fb6-b78b-d903541aa38a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parties",
+                    ":partyId",
+                    "relationships",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partyId",
+                      "description": "(Required) Party ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documents\": [\n    {\n      \"id\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"type\": \"parties\",\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"address\": {\n      \"value\": \"reference #/components/schemas/address not found in the OpenAPI spec\"\n    },\n    \"status\": \"compliant\",\n    \"contacts\": [\n      {\n        \"type\": \"contacts\",\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"company\": \"string\",\n        \"email\": \"string\",\n        \"phone\": \"string\",\n        \"fax\": \"string\",\n        \"title\": \"string\",\n        \"primary\": false,\n        \"defaultRequestRecipient\": false,\n        \"avatar\": \"string\",\n        \"party\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        },\n        \"externalId\": \"string\"\n      },\n      {\n        \"type\": \"contacts\",\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"company\": \"string\",\n        \"email\": \"string\",\n        \"phone\": \"string\",\n        \"fax\": \"string\",\n        \"title\": \"string\",\n        \"primary\": false,\n        \"defaultRequestRecipient\": false,\n        \"avatar\": \"string\",\n        \"party\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        },\n        \"externalId\": \"string\"\n      }\n    ],\n    \"website\": \"string\",\n    \"active\": true,\n    \"notes\": \"string\",\n    \"complianceStatus\": {\n      \"complianceProfile\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      \"modules\": [\n        {\n          \"id\": \"string\",\n          \"label\": \"string\",\n          \"status\": \"compliant\",\n          \"documents\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"origin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"complianceStatus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"origin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"complianceStatus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"documentsCount\": 1,\n          \"subjects\": [\n            {\n              \"id\": \"string\",\n              \"label\": \"string\",\n              \"status\": \"waived\",\n              \"documents\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"documentsCount\": 1316.1703281376492,\n              \"requirements\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"notes\": \"string\",\n              \"effectiveDate\": \"2026-02-14T08:05:40.936Z\",\n              \"expirationDate\": \"1951-02-06T16:05:39.790Z\",\n              \"latestExpirationDate\": \"2020-04-19T11:33:13.473Z\",\n              \"latestValidEffectiveDate\": \"1990-09-27T16:22:39.092Z\",\n              \"latestValidExpirationDate\": \"2017-07-06T18:00:45.724Z\",\n              \"resetOn\": \"1964-07-09T10:20:22.762Z\"\n            },\n            {\n              \"id\": \"string\",\n              \"label\": \"string\",\n              \"status\": \"waived\",\n              \"documents\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"documentsCount\": 8007.081549169416,\n              \"requirements\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"notes\": \"string\",\n              \"effectiveDate\": \"1991-11-28T09:25:19.044Z\",\n              \"expirationDate\": \"1950-05-02T13:32:28.171Z\",\n              \"latestExpirationDate\": \"2002-06-08T11:50:27.742Z\",\n              \"latestValidEffectiveDate\": \"1956-02-23T15:51:04.987Z\",\n              \"latestValidExpirationDate\": \"1998-10-23T06:21:01.865Z\",\n              \"resetOn\": \"1953-12-11T23:00:56.847Z\"\n            }\n          ]\n        },\n        {\n          \"id\": \"string\",\n          \"label\": \"string\",\n          \"status\": \"compliant\",\n          \"documents\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"origin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"complianceStatus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"origin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"complianceStatus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"documentsCount\": 1,\n          \"subjects\": [\n            {\n              \"id\": \"string\",\n              \"label\": \"string\",\n              \"status\": \"overridden\",\n              \"documents\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"documentsCount\": 771.2056903806152,\n              \"requirements\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"notes\": \"string\",\n              \"effectiveDate\": \"1978-09-27T22:51:12.431Z\",\n              \"expirationDate\": \"1976-09-10T06:02:39.427Z\",\n              \"latestExpirationDate\": \"1951-03-02T14:20:25.016Z\",\n              \"latestValidEffectiveDate\": \"2019-10-06T18:54:41.976Z\",\n              \"latestValidExpirationDate\": \"1983-11-27T22:08:58.415Z\",\n              \"resetOn\": \"2001-09-28T22:45:31.547Z\"\n            },\n            {\n              \"id\": \"string\",\n              \"label\": \"string\",\n              \"status\": \"non_compliant\",\n              \"documents\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"documentsCount\": 7436.011972313221,\n              \"requirements\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"notes\": \"string\",\n              \"effectiveDate\": \"1963-11-12T04:10:29.659Z\",\n              \"expirationDate\": \"1993-11-23T02:08:52.079Z\",\n              \"latestExpirationDate\": \"1981-11-12T00:06:07.124Z\",\n              \"latestValidEffectiveDate\": \"1954-07-05T19:37:50.726Z\",\n              \"latestValidExpirationDate\": \"1964-01-15T18:15:56.858Z\",\n              \"resetOn\": \"2000-11-22T11:43:38.310Z\"\n            }\n          ]\n        }\n      ],\n      \"subjects\": [\n        {\n          \"id\": \"string\",\n          \"effectiveDate\": \"1963-02-25T20:04:52.104Z\",\n          \"expirationDate\": \"1955-05-27T23:03:33.610Z\",\n          \"latestValidEffectiveDate\": \"2019-08-30T11:04:49.136Z\",\n          \"latestValidExpirationDate\": \"1987-05-31T16:24:44.777Z\",\n          \"notes\": \"string\",\n          \"requirementsStatus\": \"overridden\",\n          \"resetRequirementsOn\": \"1957-07-16T23:51:41.115Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"effectiveDate\": \"1979-04-16T17:09:54.270Z\",\n          \"expirationDate\": \"1973-12-18T00:27:23.467Z\",\n          \"latestValidEffectiveDate\": \"1992-04-13T11:24:46.638Z\",\n          \"latestValidExpirationDate\": \"1970-10-26T19:41:09.170Z\",\n          \"notes\": \"string\",\n          \"requirementsStatus\": \"overridden\",\n          \"resetRequirementsOn\": \"1999-02-19T17:09:14.219Z\"\n        }\n      ],\n      \"requirements\": [\n        {\n          \"id\": \"string\",\n          \"label\": \"string\",\n          \"operator\": \"string\",\n          \"targetValue\": \"string\",\n          \"actualValue\": \"string\",\n          \"status\": \"compliant\",\n          \"waiverOrOverrideNotes\": \"string\",\n          \"waiverOrOverrideExpirationDate\": \"2001-05-04T11:23:29.205Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"label\": \"string\",\n          \"operator\": \"string\",\n          \"targetValue\": \"string\",\n          \"actualValue\": \"string\",\n          \"status\": \"non_compliant\",\n          \"waiverOrOverrideNotes\": \"string\",\n          \"waiverOrOverrideExpirationDate\": \"1985-09-11T22:44:53.893Z\"\n        }\n      ],\n      \"status\": \"compliant\",\n      \"nextExpirationDate\": \"1979-07-08T11:10:12.548Z\",\n      \"latestExpirationDate\": \"2022-04-30T23:05:49.341Z\",\n      \"lastChangedAt\": \"2022-12-31T09:33:51.343Z\"\n    },\n    \"projects\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"projectStats\": {\n      \"compliantProjectsCount\": 7667.614920497305,\n      \"totalProjectsCount\": 643.5145316090951\n    },\n    \"documents\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"partyType\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"tags\": [\n      {\n        \"type\": \"tags\",\n        \"id\": \"string\",\n        \"addedAt\": \"2003-03-13\",\n        \"addedBy\": \"string\",\n        \"expiresAt\": \"1978-04-06\"\n      },\n      {\n        \"type\": \"tags\",\n        \"id\": \"string\",\n        \"addedAt\": \"1969-12-10\",\n        \"addedBy\": \"string\",\n        \"expiresAt\": \"2019-11-10\"\n      }\n    ],\n    \"complianceProfile\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"customData\": [\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      }\n    ],\n    \"deletedAt\": \"1973-09-25T11:59:39.240Z\",\n    \"deletedBy\": {},\n    \"externalIds\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "063bc56b-010c-4927-a00a-c210a956f16d",
+          "name": "Attach documents to a project",
+          "request": {
+            "name": "Attach documents to a project",
+            "description": {
+              "content": "A document can be attached to any number of projects.\n\nAll documents _must_ exist, otherwise a 404 response will be returned and no document will be attached.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":projectId",
+                "relationships",
+                "documents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) Project ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documents\": [\n    {\n      \"id\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9774b811-ddb1-42e7-bfee-b2f78fd5602e",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "relationships",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documents\": [\n    {\n      \"id\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"data\": {\n    \"type\": \"projects\",\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"startDate\": \"2014-03-17T15:56:20.664Z\",\n    \"endDate\": \"2010-12-11T19:15:14.169Z\",\n    \"active\": false,\n    \"parties\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"customData\": [\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      }\n    ],\n    \"complianceStatus\": {\n      \"status\": \"compliant\",\n      \"compliantPartiesCount\": 6254.2175476803395,\n      \"totalPartiesCount\": 2830.2339108192555,\n      \"complianceScore\": 4051.17004779621\n    },\n    \"deletedAt\": \"2015-05-29T17:47:38.562Z\",\n    \"deletedBy\": {},\n    \"externalIds\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4f7721a7-6baa-4aeb-b863-f8b23141a5ce",
+          "name": "Detach documents from a project",
+          "request": {
+            "name": "Detach documents from a project",
+            "description": {
+              "content": "All documents _must_ exist, otherwise a 404 response will be returned and no document will be detached.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":projectId",
+                "relationships",
+                "documents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) Project ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documents\": [\n    {\n      \"id\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1a145c1d-8899-4422-96a4-93df515b930f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "relationships",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documents\": [\n    {\n      \"id\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"type\": \"projects\",\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"startDate\": \"1979-07-14T04:55:01.103Z\",\n    \"endDate\": \"1996-01-24T02:02:31.204Z\",\n    \"active\": true,\n    \"parties\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"customData\": [\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      }\n    ],\n    \"complianceStatus\": {\n      \"status\": \"non_compliant\",\n      \"compliantPartiesCount\": 4869.751631301522,\n      \"totalPartiesCount\": 5984.9789953766685,\n      \"complianceScore\": 8721.583041716884\n    },\n    \"deletedAt\": \"1954-11-06T09:30:13.840Z\",\n    \"deletedBy\": {},\n    \"externalIds\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b1970866-fe88-4c4f-abe9-df8afde2a408",
+          "name": "Upload a document to a party",
+          "request": {
+            "name": "Upload a document to a party",
+            "description": {
+              "content": "This will simultaneusly upload a document and attach it to the party.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "parties",
+                ":partyId",
+                "documents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "partyId",
+                  "description": "(Required) Party ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "document",
+                  "type": "file",
+                  "description": "(Required) "
+                },
+                {
+                  "key": "documentType",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Document type name or ID"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "73416ea1-b75f-42ac-b0b9-89943dda4d9f",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parties",
+                    ":partyId",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partyId",
+                      "description": "(Required) Party ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "document",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Document type name or ID",
+                        "type": "text/plain"
+                      },
+                      "key": "documentType",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"type\": \"documents\",\n    \"id\": \"string\",\n    \"issuedBy\": {\n      \"name\": \"string\",\n      \"address\": \"string\",\n      \"contactName\": \"string\",\n      \"phone\": \"string\",\n      \"email\": \"string\"\n    },\n    \"reviewedAt\": \"1962-12-31T09:04:32.528Z\",\n    \"archivedAt\": \"2016-09-18T18:20:13.342Z\",\n    \"notes\": \"string\",\n    \"status\": \"string\",\n    \"types\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"flag\": {\n      \"addedOn\": \"1990-09-09T16:26:01.166Z\",\n      \"severityLevel\": \"high\",\n      \"affectedSubjects\": [\n        \"string\"\n      ],\n      \"notes\": \"string\",\n      \"user\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    },\n    \"appliesToAllProjects\": false,\n    \"expirationDate\": \"2005-07-28\",\n    \"name\": \"string\",\n    \"data\": {},\n    \"metadata\": {},\n    \"updatedAt\": \"2015-01-18T07:59:39.044Z\",\n    \"createdAt\": \"2011-12-01T21:54:36.388Z\",\n    \"archivedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"reviewedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"url\": \"string\",\n    \"insurers\": [\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"2018-08-06T10:20:44.799Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"1997-06-21T17:16:13.104Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      }\n    ],\n    \"deletedAt\": \"2016-08-25T03:00:38.590Z\",\n    \"deletedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"issueDate\": \"1998-07-30\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bccfe5ce-d397-4da6-be5f-beef17285c68",
+          "name": "Remove a document from a party",
+          "request": {
+            "name": "Remove a document from a party",
+            "description": {
+              "content": "If you need to remove multiple documents at once you can use the alternative endpoint `DELETE /parties/{partyId}/relationships/documents`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "parties",
+                ":partyId",
+                "relationships",
+                "documents",
+                ":documentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "partyId",
+                  "description": "(Required) Party ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "documentId",
+                  "description": "(Required) Document ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9145c4a7-c9e5-42a3-a360-facbe3292d66",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parties",
+                    ":partyId",
+                    "relationships",
+                    "documents",
+                    ":documentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partyId",
+                      "description": "(Required) Party ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "documentId",
+                      "description": "(Required) Document ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"type\": \"parties\",\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"address\": {\n      \"value\": \"reference #/components/schemas/address not found in the OpenAPI spec\"\n    },\n    \"status\": \"compliant\",\n    \"contacts\": [\n      {\n        \"type\": \"contacts\",\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"company\": \"string\",\n        \"email\": \"string\",\n        \"phone\": \"string\",\n        \"fax\": \"string\",\n        \"title\": \"string\",\n        \"primary\": false,\n        \"defaultRequestRecipient\": false,\n        \"avatar\": \"string\",\n        \"party\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        },\n        \"externalId\": \"string\"\n      },\n      {\n        \"type\": \"contacts\",\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"company\": \"string\",\n        \"email\": \"string\",\n        \"phone\": \"string\",\n        \"fax\": \"string\",\n        \"title\": \"string\",\n        \"primary\": false,\n        \"defaultRequestRecipient\": false,\n        \"avatar\": \"string\",\n        \"party\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        },\n        \"externalId\": \"string\"\n      }\n    ],\n    \"website\": \"string\",\n    \"active\": true,\n    \"notes\": \"string\",\n    \"complianceStatus\": {\n      \"complianceProfile\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      \"modules\": [\n        {\n          \"id\": \"string\",\n          \"label\": \"string\",\n          \"status\": \"compliant\",\n          \"documents\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"origin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"complianceStatus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"origin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"complianceStatus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"documentsCount\": 1,\n          \"subjects\": [\n            {\n              \"id\": \"string\",\n              \"label\": \"string\",\n              \"status\": \"waived\",\n              \"documents\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"documentsCount\": 1316.1703281376492,\n              \"requirements\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"notes\": \"string\",\n              \"effectiveDate\": \"2026-02-14T08:05:40.936Z\",\n              \"expirationDate\": \"1951-02-06T16:05:39.790Z\",\n              \"latestExpirationDate\": \"2020-04-19T11:33:13.473Z\",\n              \"latestValidEffectiveDate\": \"1990-09-27T16:22:39.092Z\",\n              \"latestValidExpirationDate\": \"2017-07-06T18:00:45.724Z\",\n              \"resetOn\": \"1964-07-09T10:20:22.762Z\"\n            },\n            {\n              \"id\": \"string\",\n              \"label\": \"string\",\n              \"status\": \"waived\",\n              \"documents\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"documentsCount\": 8007.081549169416,\n              \"requirements\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"notes\": \"string\",\n              \"effectiveDate\": \"1991-11-28T09:25:19.044Z\",\n              \"expirationDate\": \"1950-05-02T13:32:28.171Z\",\n              \"latestExpirationDate\": \"2002-06-08T11:50:27.742Z\",\n              \"latestValidEffectiveDate\": \"1956-02-23T15:51:04.987Z\",\n              \"latestValidExpirationDate\": \"1998-10-23T06:21:01.865Z\",\n              \"resetOn\": \"1953-12-11T23:00:56.847Z\"\n            }\n          ]\n        },\n        {\n          \"id\": \"string\",\n          \"label\": \"string\",\n          \"status\": \"compliant\",\n          \"documents\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"origin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"complianceStatus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"origin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"complianceStatus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"documentsCount\": 1,\n          \"subjects\": [\n            {\n              \"id\": \"string\",\n              \"label\": \"string\",\n              \"status\": \"overridden\",\n              \"documents\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"documentsCount\": 771.2056903806152,\n              \"requirements\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"notes\": \"string\",\n              \"effectiveDate\": \"1978-09-27T22:51:12.431Z\",\n              \"expirationDate\": \"1976-09-10T06:02:39.427Z\",\n              \"latestExpirationDate\": \"1951-03-02T14:20:25.016Z\",\n              \"latestValidEffectiveDate\": \"2019-10-06T18:54:41.976Z\",\n              \"latestValidExpirationDate\": \"1983-11-27T22:08:58.415Z\",\n              \"resetOn\": \"2001-09-28T22:45:31.547Z\"\n            },\n            {\n              \"id\": \"string\",\n              \"label\": \"string\",\n              \"status\": \"non_compliant\",\n              \"documents\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"documentsCount\": 7436.011972313221,\n              \"requirements\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"notes\": \"string\",\n              \"effectiveDate\": \"1963-11-12T04:10:29.659Z\",\n              \"expirationDate\": \"1993-11-23T02:08:52.079Z\",\n              \"latestExpirationDate\": \"1981-11-12T00:06:07.124Z\",\n              \"latestValidEffectiveDate\": \"1954-07-05T19:37:50.726Z\",\n              \"latestValidExpirationDate\": \"1964-01-15T18:15:56.858Z\",\n              \"resetOn\": \"2000-11-22T11:43:38.310Z\"\n            }\n          ]\n        }\n      ],\n      \"subjects\": [\n        {\n          \"id\": \"string\",\n          \"effectiveDate\": \"1963-02-25T20:04:52.104Z\",\n          \"expirationDate\": \"1955-05-27T23:03:33.610Z\",\n          \"latestValidEffectiveDate\": \"2019-08-30T11:04:49.136Z\",\n          \"latestValidExpirationDate\": \"1987-05-31T16:24:44.777Z\",\n          \"notes\": \"string\",\n          \"requirementsStatus\": \"overridden\",\n          \"resetRequirementsOn\": \"1957-07-16T23:51:41.115Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"effectiveDate\": \"1979-04-16T17:09:54.270Z\",\n          \"expirationDate\": \"1973-12-18T00:27:23.467Z\",\n          \"latestValidEffectiveDate\": \"1992-04-13T11:24:46.638Z\",\n          \"latestValidExpirationDate\": \"1970-10-26T19:41:09.170Z\",\n          \"notes\": \"string\",\n          \"requirementsStatus\": \"overridden\",\n          \"resetRequirementsOn\": \"1999-02-19T17:09:14.219Z\"\n        }\n      ],\n      \"requirements\": [\n        {\n          \"id\": \"string\",\n          \"label\": \"string\",\n          \"operator\": \"string\",\n          \"targetValue\": \"string\",\n          \"actualValue\": \"string\",\n          \"status\": \"compliant\",\n          \"waiverOrOverrideNotes\": \"string\",\n          \"waiverOrOverrideExpirationDate\": \"2001-05-04T11:23:29.205Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"label\": \"string\",\n          \"operator\": \"string\",\n          \"targetValue\": \"string\",\n          \"actualValue\": \"string\",\n          \"status\": \"non_compliant\",\n          \"waiverOrOverrideNotes\": \"string\",\n          \"waiverOrOverrideExpirationDate\": \"1985-09-11T22:44:53.893Z\"\n        }\n      ],\n      \"status\": \"compliant\",\n      \"nextExpirationDate\": \"1979-07-08T11:10:12.548Z\",\n      \"latestExpirationDate\": \"2022-04-30T23:05:49.341Z\",\n      \"lastChangedAt\": \"2022-12-31T09:33:51.343Z\"\n    },\n    \"projects\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"projectStats\": {\n      \"compliantProjectsCount\": 7667.614920497305,\n      \"totalProjectsCount\": 643.5145316090951\n    },\n    \"documents\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"partyType\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"tags\": [\n      {\n        \"type\": \"tags\",\n        \"id\": \"string\",\n        \"addedAt\": \"2003-03-13\",\n        \"addedBy\": \"string\",\n        \"expiresAt\": \"1978-04-06\"\n      },\n      {\n        \"type\": \"tags\",\n        \"id\": \"string\",\n        \"addedAt\": \"1969-12-10\",\n        \"addedBy\": \"string\",\n        \"expiresAt\": \"2019-11-10\"\n      }\n    ],\n    \"complianceProfile\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"customData\": [\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      }\n    ],\n    \"deletedAt\": \"1973-09-25T11:59:39.240Z\",\n    \"deletedBy\": {},\n    \"externalIds\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "373fce13-36e7-4664-998b-0c195aa01f8b",
+          "name": "Remove a document from a project",
+          "request": {
+            "name": "Remove a document from a project",
+            "description": {
+              "content": "If you need to remove multiple documents at once you can use the alternative endpoint `DELETE /projects/{projectId}/relationships/documents`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":projectId",
+                "relationships",
+                "documents",
+                ":documentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) Project ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "documentId",
+                  "description": "(Required) Document ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b04f9999-cf04-443d-9784-9c3b64d0994a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "relationships",
+                    "documents",
+                    ":documentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Project ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "documentId",
+                      "description": "(Required) Document ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"type\": \"projects\",\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"startDate\": \"1979-07-14T04:55:01.103Z\",\n    \"endDate\": \"1996-01-24T02:02:31.204Z\",\n    \"active\": true,\n    \"parties\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"customData\": [\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      }\n    ],\n    \"complianceStatus\": {\n      \"status\": \"non_compliant\",\n      \"compliantPartiesCount\": 4869.751631301522,\n      \"totalPartiesCount\": 5984.9789953766685,\n      \"complianceScore\": 8721.583041716884\n    },\n    \"deletedAt\": \"1954-11-06T09:30:13.840Z\",\n    \"deletedBy\": {},\n    \"externalIds\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d0f4631e-a057-48ad-bdef-d46d5c67928d",
+          "name": "Fetch the current document request",
+          "request": {
+            "name": "Fetch the current document request",
+            "description": {
+              "content": "This will return the latest document request sent for the party.\n\nAvailable include options:\n* `party`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "parties",
+                ":partyId",
+                "document-request"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "List of comma-separated relationships to include in the result"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "partyId",
+                  "description": "(Required) Party ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"<string>\",\n  \"data\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "957ff329-2b8d-4655-9f07-04f9eca36078",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parties",
+                    ":partyId",
+                    "document-request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "parties,projects"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partyId",
+                      "description": "(Required) Party ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"<string>\",\n  \"data\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"<string>\",\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"document-requests\",\n    \"party\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"message\": \"string\",\n    \"sentOn\": \"2006-11-05\",\n    \"dueDate\": \"2006-02-17T11:12:40.144Z\",\n    \"forwardedAt\": \"1966-03-02T06:37:38.531Z\",\n    \"forwardedTo\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ac9b0bbc-e4f8-45a7-9668-7bb84579caa0",
+          "name": "Send a new document request",
+          "request": {
+            "name": "Send a new document request",
+            "description": {
+              "content": "If a request already exists for this party, this will send a reminder.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "parties",
+                ":partyId",
+                "document-request"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "partyId",
+                  "description": "(Required) Party ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"request\": {\n    \"recipients\": [\n      {\n        \"id\": \"<string>\"\n      }\n    ],\n    \"dueDate\": \"<date>\",\n    \"message\": \"<string>\",\n    \"sentBy\": {\n      \"id\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7c422dcc-93aa-4073-a1b3-b252a81df02b",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parties",
+                    ":partyId",
+                    "document-request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partyId",
+                      "description": "(Required) Party ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"request\": {\n    \"recipients\": [\n      {\n        \"id\": \"<string>\"\n      }\n    ],\n    \"dueDate\": \"<date>\",\n    \"message\": \"<string>\",\n    \"sentBy\": {\n      \"id\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"<string>\",\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"document-requests\",\n    \"party\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"message\": \"string\",\n    \"sentOn\": \"2006-11-05\",\n    \"dueDate\": \"2006-02-17T11:12:40.144Z\",\n    \"forwardedAt\": \"1966-03-02T06:37:38.531Z\",\n    \"forwardedTo\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6027d46c-0f6d-432e-9e9d-7519bfd08ad9",
+          "name": "Associate a document to multiple projects",
+          "request": {
+            "name": "Associate a document to multiple projects",
+            "description": {
+              "content": "TBD",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "documents",
+                ":documentId",
+                "relationships",
+                "projects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "documentId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"projects\": [\n    {\n      \"id\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "331dac7b-58b9-449c-bb35-844ebbfd509c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documents",
+                    ":documentId",
+                    "relationships",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "documentId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"projects\": [\n    {\n      \"id\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"<string>\",\n  \"data\": {\n    \"type\": \"documents\",\n    \"id\": \"string\",\n    \"issuedBy\": {\n      \"name\": \"string\",\n      \"address\": \"string\",\n      \"contactName\": \"string\",\n      \"phone\": \"string\",\n      \"email\": \"string\"\n    },\n    \"reviewedAt\": \"2022-05-24T10:21:13.665Z\",\n    \"archivedAt\": \"2012-09-02T08:02:45.173Z\",\n    \"notes\": \"string\",\n    \"status\": \"string\",\n    \"types\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"flag\": {\n      \"addedOn\": \"1990-02-11T15:14:51.548Z\",\n      \"severityLevel\": \"high\",\n      \"affectedSubjects\": [\n        \"string\"\n      ],\n      \"notes\": \"string\",\n      \"user\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    },\n    \"appliesToAllProjects\": true,\n    \"expirationDate\": \"1996-04-23\",\n    \"name\": \"string\",\n    \"data\": {},\n    \"metadata\": {},\n    \"updatedAt\": \"1992-08-09T18:55:46.750Z\",\n    \"createdAt\": \"1985-05-21T23:07:11.853Z\",\n    \"archivedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"reviewedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"url\": \"string\",\n    \"insurers\": [\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"1974-07-20T22:18:30.432Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"naic\": \"string\",\n        \"rating\": \"string\",\n        \"ratingEffectiveDate\": \"1982-01-15T01:32:56.161Z\",\n        \"financialSizeCategory\": \"string\",\n        \"ratingModifier\": \"string\",\n        \"ratingAction\": \"string\",\n        \"ratingImplication\": \"string\",\n        \"extractedName\": \"string\",\n        \"canonicalName\": \"string\"\n      }\n    ],\n    \"deletedAt\": \"1981-05-24T05:40:57.256Z\",\n    \"deletedBy\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"issueDate\": \"1968-01-20\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "29368d5e-20cf-4d1c-8637-3567fcc20fa1",
+          "name": "List amendments (cancellations and reinstatements) attached to a document. Each amendment is either a cancellation that reduces or ends the policy coverage referenced by the document, or a reinstatement that restores it. Supports pagination (`limit`, `skip`). Results are scoped to the caller's organization.",
+          "request": {
+            "name": "List amendments (cancellations and reinstatements) attached to a document. Each amendment is either a cancellation that reduces or ends the policy coverage referenced by the document, or a reinstatement that restores it. Supports pagination (`limit`, `skip`). Results are scoped to the caller's organization.",
+            "description": {
+              "content": "List amendments (cancellations and reinstatements) attached to a document. Each amendment is either a cancellation that reduces or ends the policy coverage referenced by the document, or a reinstatement that restores it. Supports pagination (`limit`, `skip`). Results are scoped to the caller's organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "documents",
+                ":id",
+                "amendments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "disabled": false,
+                  "key": "skip",
+                  "value": "0"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<ObjectId>",
+                  "key": "id",
+                  "description": "(Required) Identifier of the document whose amendments to list."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6c6ddbe2-1b0a-4264-99a0-3167ddc193e8",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documents",
+                    ":id",
+                    "amendments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the document whose amendments to list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"_id\": \"string\",\n      \"primaryRecordId\": \"string\",\n      \"policyNumber\": \"string\",\n      \"status\": \"pending\",\n      \"type\": \"reinstatement\",\n      \"effectiveDate\": \"2022-01-31T05:22:08.439Z\",\n      \"issueDate\": \"1999-04-02T22:50:13.689Z\",\n      \"document\": {\n        \"id\": \"string\"\n      },\n      \"notes\": \"string\"\n    },\n    {\n      \"_id\": \"string\",\n      \"primaryRecordId\": \"string\",\n      \"policyNumber\": \"string\",\n      \"status\": \"pending\",\n      \"type\": \"reinstatement\",\n      \"effectiveDate\": \"1997-06-09T19:20:07.089Z\",\n      \"issueDate\": \"1977-06-13T12:27:48.746Z\",\n      \"document\": {\n        \"id\": \"string\"\n      },\n      \"notes\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"count\": 4431.118065197031,\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ffd55047-f635-4fa9-a869-42395a3aed8e",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documents",
+                    ":id",
+                    "amendments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the document whose amendments to list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "883dc645-3379-4568-af35-a9183fa1c782",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documents",
+                    ":id",
+                    "amendments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the document whose amendments to list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c967465c-b6c3-4ef9-a068-aaa83b80bcca",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documents",
+                    ":id",
+                    "amendments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the document whose amendments to list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6d11de99-4599-4e78-a533-2f2dd8f096a8",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documents",
+                    ":id",
+                    "amendments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the document whose amendments to list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0f0054bf-8d90-4779-a0b3-c0508038d0ad",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documents",
+                    ":id",
+                    "amendments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the document whose amendments to list."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:4000/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c6de8265-f462-4f57-8339-fc7759ef731b",
+    "name": "TrustLayer Platform Auth documents API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "3rd-party API for the TrustLayer platform.\n\n**Deprecated.** Platform API v1 is deprecated as of 01 June 2026 and is\nscheduled for sunset (end-of-life) on 31 March 2027. It remains fully\navailable until the sunset date but will not receive new features. Please\nmigrate to Platform API v2 for new integrations.\n\nAll v1 responses carry the standard deprecation response headers\n([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)):\n\n```http\nDeprecation: @1780272000\nSunset: Wed, 31 Mar 2027 23:59:59 GMT\nLink: <https://developers.trustlayer.io/>; rel=\"deprecation\", <https://developers.trustlayer.io/>; rel=\"sunset\"\n```\n\n`Deprecation: @1780272000` is the Unix timestamp for 2026-06-01T00:00:00Z;\nsunset (end-of-life) is 2027-03-31T23:59:59 GMT.\n\nContact Support:\n Name: TrustLayer Support\n Email: support@trustlayer.io",
+      "type": "text/plain"
+    }
+  }
+}

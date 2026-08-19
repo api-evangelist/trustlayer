@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TrustLayer Platform Auth Workspaces API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Workspaces",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET /workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/workspace"
+          },
+          "docs": "Get the current workspace for the access token, including its API version"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

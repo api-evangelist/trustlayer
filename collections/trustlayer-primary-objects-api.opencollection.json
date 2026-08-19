@@ -1,0 +1,177 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TrustLayer Platform Auth Primary Objects API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Primary Objects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET /primary-objects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/primary-objects",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Example: '_id,-createdAt'. Allowed: icon, name, pluralName, slug, createdAt, updatedAt"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to project. Allowed: _id, organization, icon, name, pluralName, slug, createdAt, updatedAt, defaultRequestRecords"
+              },
+              {
+                "name": "_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by _id. 24-character hex ObjectId string (e.g. `_id=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "createdAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter by createdAt. ISO-8601 date or datetime string (e.g. `createdAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "updatedAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter by updatedAt. ISO-8601 date or datetime string (e.g. `updatedAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "icon",
+                "value": "",
+                "type": "query",
+                "description": "Filter by icon. String value (e.g. `icon=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by name. String value (e.g. `name=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "pluralName",
+                "value": "",
+                "type": "query",
+                "description": "Filter by pluralName. String value (e.g. `pluralName=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "query",
+                "description": "Filter by slug. String value (e.g. `slug=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              }
+            ]
+          },
+          "docs": "List primary objects (entity type definitions) in the caller's organization. Results are always scoped to the caller's organization. Supports pagination via `limit` and `skip`.\n\n<!-- qs2mongo:list-summary -->\n\n**Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `icon` (string), `name` (string), `pluralName` (string), `slug` (string). See \"List Endpoints\" in the API overview for operator syntax and combining rules.\n\n**Sorting**: supported via `sort` (see the parameter's descr"
+        },
+        {
+          "info": {
+            "name": "POST /primary-objects",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/primary-objects",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new primary object (entity type definition) in the caller's organization. Returns the new primary object's identifier."
+        },
+        {
+          "info": {
+            "name": "GET /primary-objects/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/primary-objects/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to project. Allowed: _id, organization, icon, name, pluralName, slug, createdAt, updatedAt, defaultRequestRecords"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the primary object to read."
+              }
+            ]
+          },
+          "docs": "Read a single primary object (entity type definition) by id, scoped to the caller's organization. Use the `fields` query parameter to limit the response to a projection."
+        },
+        {
+          "info": {
+            "name": "PATCH /primary-objects/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:4000/v1/primary-objects/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the primary object to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially update a primary object (entity type definition). Any subset of writable fields may be provided; omitted fields are left unchanged. Returns the full updated primary object."
+        },
+        {
+          "info": {
+            "name": "DELETE /primary-objects/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/primary-objects/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the primary object to delete."
+              }
+            ]
+          },
+          "docs": "Delete a primary object (entity type definition). Returns the deleted primary object id on success. Deleting an object that does not exist returns 404 with the shared NotFoundError shape."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

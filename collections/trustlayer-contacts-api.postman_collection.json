@@ -1,0 +1,2452 @@
+{
+  "item": [
+    {
+      "id": "604e3e53-bb1e-4134-b0f2-6dbc5b27c136",
+      "name": "contacts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "12f24558-6f6c-4149-92b0-0bfbd5f74612",
+          "name": "Fetch a party contact's information",
+          "request": {
+            "name": "Fetch a party contact's information",
+            "description": {
+              "content": "Available include options:\n* party",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contacts",
+                ":contactId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "List of comma-separated relationships to include in the result"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "contactId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "313199c8-a825-43c8-90a9-14bbc3ded728",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":contactId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "parties,projects"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "contactId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"fail\",\n  \"data\": {\n    \"type\": \"contacts\",\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"company\": \"string\",\n    \"email\": \"string\",\n    \"phone\": \"string\",\n    \"fax\": \"string\",\n    \"title\": \"string\",\n    \"primary\": false,\n    \"defaultRequestRecipient\": false,\n    \"avatar\": \"string\",\n    \"party\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"externalId\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eb4844d3-dd41-48b2-861f-8205fe0081c5",
+          "name": "Update a party contact's information",
+          "request": {
+            "name": "Update a party contact's information",
+            "description": {
+              "content": "Update a contact with the given data.\n\n* setting the `primary` flag to `true` will remove it from the other contacts.\n* setting the `primary` flag to `false` on the current primary contact will return a `400` response, since a primary contact must always exist.\n* if given, `name` must be non-blank",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contacts",
+                ":contactId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "contactId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"contact\": {\n    \"name\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"company\": \"<string>\",\n    \"title\": \"<string>\",\n    \"avatar\": \"<string>\",\n    \"primary\": \"<boolean>\",\n    \"defaultRequestRecipient\": \"<boolean>\",\n    \"externalId\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bc16b2aa-a6b4-4d32-abfa-a90e098aa75a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":contactId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "contactId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contact\": {\n    \"name\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"company\": \"<string>\",\n    \"title\": \"<string>\",\n    \"avatar\": \"<string>\",\n    \"primary\": \"<boolean>\",\n    \"defaultRequestRecipient\": \"<boolean>\",\n    \"externalId\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"type\": \"contacts\",\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"company\": \"string\",\n    \"email\": \"string\",\n    \"phone\": \"string\",\n    \"fax\": \"string\",\n    \"title\": \"string\",\n    \"primary\": false,\n    \"defaultRequestRecipient\": false,\n    \"avatar\": \"string\",\n    \"party\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"externalId\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0c8ac671-2f86-4814-bcf0-a237a497e64e",
+          "name": "Remove contact information from a party",
+          "request": {
+            "name": "Remove contact information from a party",
+            "description": {
+              "content": "This will return a `400` response if you try to remove the primary contact.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contacts",
+                ":contactId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "contactId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0a1cbb57-bc2d-4f68-806b-497f07ebe30e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":contactId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "contactId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"type\": \"contacts\",\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"company\": \"string\",\n    \"email\": \"string\",\n    \"phone\": \"string\",\n    \"fax\": \"string\",\n    \"title\": \"string\",\n    \"primary\": false,\n    \"defaultRequestRecipient\": false,\n    \"avatar\": \"string\",\n    \"party\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"externalId\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "777ff07d-a27c-42b7-8999-b39f6e37b3dc",
+          "name": "Create a party contact",
+          "request": {
+            "name": "Create a party contact",
+            "description": {
+              "content": "* `name` is required.\n* setting the `primary` flag to `true` will unset it from the current primary contact.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "parties",
+                ":partyId",
+                "contacts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "partyId",
+                  "description": "(Required) Party ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"contact\": {\n    \"name\": \"<string>\",\n    \"email\": \"<string>\",\n    \"company\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"title\": \"<string>\",\n    \"avatar\": \"<string>\",\n    \"primary\": \"<boolean>\",\n    \"defaultRequestRecipient\": \"<boolean>\",\n    \"externalId\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dcb83b89-f12d-427d-83c4-6c1811366807",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parties",
+                    ":partyId",
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partyId",
+                      "description": "(Required) Party ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contact\": {\n    \"name\": \"<string>\",\n    \"email\": \"<string>\",\n    \"company\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"fax\": \"<string>\",\n    \"title\": \"<string>\",\n    \"avatar\": \"<string>\",\n    \"primary\": \"<boolean>\",\n    \"defaultRequestRecipient\": \"<boolean>\",\n    \"externalId\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"fail\",\n  \"data\": {\n    \"type\": \"parties\",\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"address\": {\n      \"value\": \"reference #/components/schemas/address not found in the OpenAPI spec\"\n    },\n    \"status\": \"inactive\",\n    \"contacts\": [\n      {\n        \"type\": \"contacts\",\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"company\": \"string\",\n        \"email\": \"string\",\n        \"phone\": \"string\",\n        \"fax\": \"string\",\n        \"title\": \"string\",\n        \"primary\": false,\n        \"defaultRequestRecipient\": false,\n        \"avatar\": \"string\",\n        \"party\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        },\n        \"externalId\": \"string\"\n      },\n      {\n        \"type\": \"contacts\",\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"company\": \"string\",\n        \"email\": \"string\",\n        \"phone\": \"string\",\n        \"fax\": \"string\",\n        \"title\": \"string\",\n        \"primary\": false,\n        \"defaultRequestRecipient\": false,\n        \"avatar\": \"string\",\n        \"party\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        },\n        \"externalId\": \"string\"\n      }\n    ],\n    \"website\": \"string\",\n    \"active\": true,\n    \"notes\": \"string\",\n    \"complianceStatus\": {\n      \"complianceProfile\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      \"modules\": [\n        {\n          \"id\": \"string\",\n          \"label\": \"string\",\n          \"status\": \"non_compliant\",\n          \"documents\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"origin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"complianceStatus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"origin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"complianceStatus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"documentsCount\": 1,\n          \"subjects\": [\n            {\n              \"id\": \"string\",\n              \"label\": \"string\",\n              \"status\": \"overridden\",\n              \"documents\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"documentsCount\": 1058.2210318661455,\n              \"requirements\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"notes\": \"string\",\n              \"effectiveDate\": \"2002-11-06T06:38:53.458Z\",\n              \"expirationDate\": \"1964-11-15T15:09:12.807Z\",\n              \"latestExpirationDate\": \"2003-04-02T03:22:14.266Z\",\n              \"latestValidEffectiveDate\": \"2004-03-24T09:13:52.955Z\",\n              \"latestValidExpirationDate\": \"2001-07-20T07:18:38.553Z\",\n              \"resetOn\": \"1951-07-06T05:29:50.346Z\"\n            },\n            {\n              \"id\": \"string\",\n              \"label\": \"string\",\n              \"status\": \"overridden\",\n              \"documents\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"documentsCount\": 5234.07546013458,\n              \"requirements\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"notes\": \"string\",\n              \"effectiveDate\": \"2016-12-13T15:56:09.758Z\",\n              \"expirationDate\": \"1991-05-22T16:38:34.803Z\",\n              \"latestExpirationDate\": \"1973-02-06T10:08:42.870Z\",\n              \"latestValidEffectiveDate\": \"2007-02-14T16:28:02.433Z\",\n              \"latestValidExpirationDate\": \"1962-06-13T01:49:15.838Z\",\n              \"resetOn\": \"1962-07-04T22:19:32.753Z\"\n            }\n          ]\n        },\n        {\n          \"id\": \"string\",\n          \"label\": \"string\",\n          \"status\": \"compliant\",\n          \"documents\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"origin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"complianceStatus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"origin\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"complianceStatus\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"documentsCount\": 1,\n          \"subjects\": [\n            {\n              \"id\": \"string\",\n              \"label\": \"string\",\n              \"status\": \"non_compliant\",\n              \"documents\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"documentsCount\": 7996.078027579267,\n              \"requirements\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"notes\": \"string\",\n              \"effectiveDate\": \"1994-11-22T13:11:20.043Z\",\n              \"expirationDate\": \"1971-04-08T12:22:50.163Z\",\n              \"latestExpirationDate\": \"1977-06-13T14:13:45.569Z\",\n              \"latestValidEffectiveDate\": \"2006-03-15T13:19:43.089Z\",\n              \"latestValidExpirationDate\": \"1948-05-30T14:55:35.858Z\",\n              \"resetOn\": \"1968-09-30T23:51:42.589Z\"\n            },\n            {\n              \"id\": \"string\",\n              \"label\": \"string\",\n              \"status\": \"overridden\",\n              \"documents\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"documentsCount\": 5831.2988489451745,\n              \"requirements\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"notes\": \"string\",\n              \"effectiveDate\": \"2017-10-20T23:44:11.519Z\",\n              \"expirationDate\": \"2021-03-12T19:39:59.355Z\",\n              \"latestExpirationDate\": \"2000-10-19T11:31:52.728Z\",\n              \"latestValidEffectiveDate\": \"1963-12-21T22:18:21.919Z\",\n              \"latestValidExpirationDate\": \"2011-11-06T06:10:05.926Z\",\n              \"resetOn\": \"1991-11-05T09:12:56.235Z\"\n            }\n          ]\n        }\n      ],\n      \"subjects\": [\n        {\n          \"id\": \"string\",\n          \"effectiveDate\": \"1956-05-28T18:09:40.695Z\",\n          \"expirationDate\": \"1954-03-15T16:55:48.583Z\",\n          \"latestValidEffectiveDate\": \"1993-05-18T13:58:43.853Z\",\n          \"latestValidExpirationDate\": \"2024-01-01T04:11:19.641Z\",\n          \"notes\": \"string\",\n          \"requirementsStatus\": \"waived\",\n          \"resetRequirementsOn\": \"1979-09-30T18:15:11.097Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"effectiveDate\": \"2020-08-14T00:43:51.448Z\",\n          \"expirationDate\": \"1950-11-22T14:32:44.285Z\",\n          \"latestValidEffectiveDate\": \"1996-05-20T13:42:03.931Z\",\n          \"latestValidExpirationDate\": \"1966-04-04T01:19:10.941Z\",\n          \"notes\": \"string\",\n          \"requirementsStatus\": \"non_compliant\",\n          \"resetRequirementsOn\": \"2014-05-03T14:27:52.233Z\"\n        }\n      ],\n      \"requirements\": [\n        {\n          \"id\": \"string\",\n          \"label\": \"string\",\n          \"operator\": \"string\",\n          \"targetValue\": \"string\",\n          \"actualValue\": \"string\",\n          \"status\": \"compliant\",\n          \"waiverOrOverrideNotes\": \"string\",\n          \"waiverOrOverrideExpirationDate\": \"2016-02-21T21:26:41.536Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"label\": \"string\",\n          \"operator\": \"string\",\n          \"targetValue\": \"string\",\n          \"actualValue\": \"string\",\n          \"status\": \"compliant\",\n          \"waiverOrOverrideNotes\": \"string\",\n          \"waiverOrOverrideExpirationDate\": \"1994-08-28T11:18:55.643Z\"\n        }\n      ],\n      \"status\": \"compliant\",\n      \"nextExpirationDate\": \"2000-02-18T09:36:51.063Z\",\n      \"latestExpirationDate\": \"1985-11-11T04:21:51.390Z\",\n      \"lastChangedAt\": \"1991-12-28T17:41:12.306Z\"\n    },\n    \"projects\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"projectStats\": {\n      \"compliantProjectsCount\": 2615.69217691328,\n      \"totalProjectsCount\": 5999.593462534438\n    },\n    \"documents\": [\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    ],\n    \"partyType\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"tags\": [\n      {\n        \"type\": \"tags\",\n        \"id\": \"string\",\n        \"addedAt\": \"1949-08-25\",\n        \"addedBy\": \"string\",\n        \"expiresAt\": \"1999-02-11\"\n      },\n      {\n        \"type\": \"tags\",\n        \"id\": \"string\",\n        \"addedAt\": \"1987-09-06\",\n        \"addedBy\": \"string\",\n        \"expiresAt\": \"1954-12-15\"\n      }\n    ],\n    \"complianceProfile\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"customData\": [\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      {\n        \"value\": \"string\",\n        \"customField\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      }\n    ],\n    \"deletedAt\": \"2022-04-05T12:03:26.700Z\",\n    \"deletedBy\": {},\n    \"externalIds\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3d80851b-00b0-491e-8362-a95ebc246709",
+          "name": "List a party's contacts",
+          "request": {
+            "name": "List a party's contacts",
+            "description": {
+              "content": "Returns all the contacts for a party. Note that pagination is not available, so the meta information will always return the number of contacts in `totalCount` and 1 in `totalPages`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "parties",
+                ":partyId",
+                "contacts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "partyId",
+                  "description": "(Required) Party ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "aff52acc-e41c-4b41-bd2e-af6942bcec07",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parties",
+                    ":partyId",
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partyId",
+                      "description": "(Required) Party ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"data\": [\n    {\n      \"type\": \"contacts\",\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"company\": \"string\",\n      \"email\": \"string\",\n      \"phone\": \"string\",\n      \"fax\": \"string\",\n      \"title\": \"string\",\n      \"primary\": false,\n      \"defaultRequestRecipient\": false,\n      \"avatar\": \"string\",\n      \"party\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      \"externalId\": \"string\"\n    },\n    {\n      \"type\": \"contacts\",\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"company\": \"string\",\n      \"email\": \"string\",\n      \"phone\": \"string\",\n      \"fax\": \"string\",\n      \"title\": \"string\",\n      \"primary\": false,\n      \"defaultRequestRecipient\": false,\n      \"avatar\": \"string\",\n      \"party\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      \"externalId\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"count\": 3080.526272386387,\n    \"pages\": 5517.1740415385875,\n    \"totalCount\": 177.62287672247746,\n    \"totalPages\": 2184.1621978990656\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5fca2113-9f64-4a66-adfb-c0e41ebaa76b",
+          "name": "List contacts in the caller's organization. Results are always scoped to the caller's organization. Supports filtering, sorting, and pagination via `limit` and `skip`.\n\n<!-- qs2mongo:list-summary -->\n\n**Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `email` (string), `contactPersonName` (string), `companyName` (string). See \"List Endpoints\" in the API overview for operator syntax and combining rules.\n\n**Sorting**: supported via `sort` (see the parameter's description for allowed fields). Prefix with `-` for descending.\n\n**Field projection**: supported via `fields` (see the parameter's description for allowed fields).",
+          "request": {
+            "name": "List contacts in the caller's organization. Results are always scoped to the caller's organization. Supports filtering, sorting, and pagination via `limit` and `skip`.\n\n<!-- qs2mongo:list-summary -->\n\n**Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `email` (string), `contactPersonName` (string), `companyName` (string). See \"List Endpoints\" in the API overview for operator syntax and combining rules.\n\n**Sorting**: supported via `sort` (see the parameter's description for allowed fields). Prefix with `-` for descending.\n\n**Field projection**: supported via `fields` (see the parameter's description for allowed fields).",
+            "description": {
+              "content": "List contacts in the caller's organization. Results are always scoped to the caller's organization. Supports filtering, sorting, and pagination via `limit` and `skip`.\n\n<!-- qs2mongo:list-summary -->\n\n**Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `email` (string), `contactPersonName` (string), `companyName` (string). See \"List Endpoints\" in the API overview for operator syntax and combining rules.\n\n**Sorting**: supported via `sort` (see the parameter's description for allowed fields). Prefix with `-` for descending.\n\n**Field projection**: supported via `fields` (see the parameter's description for allowed fields).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contacts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "disabled": false,
+                  "key": "skip",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to sort by. Example: '_id,-createdAt'. Allowed: email, contactPersonName, companyName, createdAt, updatedAt"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to project. Allowed: _id, email, contactPersonName, companyName, title, phone, fax, address, createdAt, updatedAt"
+                },
+                {
+                  "disabled": false,
+                  "key": "_id",
+                  "value": "<string>",
+                  "description": "Filter by _id. 24-character hex ObjectId string (e.g. `_id=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+                },
+                {
+                  "disabled": false,
+                  "key": "createdAt",
+                  "value": "<string>",
+                  "description": "Filter by createdAt. ISO-8601 date or datetime string (e.g. `createdAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+                },
+                {
+                  "disabled": false,
+                  "key": "updatedAt",
+                  "value": "<string>",
+                  "description": "Filter by updatedAt. ISO-8601 date or datetime string (e.g. `updatedAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+                },
+                {
+                  "disabled": false,
+                  "key": "email",
+                  "value": "<string>",
+                  "description": "Filter by email. String value (e.g. `email=example`). See \"List Endpoints\" in the API overview for operator syntax."
+                },
+                {
+                  "disabled": false,
+                  "key": "contactPersonName",
+                  "value": "<string>",
+                  "description": "Filter by contactPersonName. String value (e.g. `contactPersonName=example`). See \"List Endpoints\" in the API overview for operator syntax."
+                },
+                {
+                  "disabled": false,
+                  "key": "companyName",
+                  "value": "<string>",
+                  "description": "Filter by companyName. String value (e.g. `companyName=example`). See \"List Endpoints\" in the API overview for operator syntax."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c9b2468f-f86a-4873-88e8-bcd59e853128",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contactPersonName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyName",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"_id\": \"string\",\n      \"contactPersonName\": \"string\",\n      \"companyName\": \"string\",\n      \"title\": \"string\",\n      \"email\": {},\n      \"phone\": \"string\",\n      \"fax\": \"string\",\n      \"address\": {\n        \"type\": \"string\",\n        \"rawAddress\": \"string\",\n        \"line1\": \"string\",\n        \"line2\": \"string\",\n        \"postalCode\": \"string\",\n        \"city\": \"string\",\n        \"region\": \"string\",\n        \"country\": \"string\",\n        \"latitude\": 1079.7647976743162,\n        \"longitude\": 7050.8287445999495\n      },\n      \"createdAt\": \"2016-10-02T17:13:06.430Z\",\n      \"updatedAt\": \"1998-07-14T11:49:16.144Z\"\n    },\n    {\n      \"_id\": \"string\",\n      \"contactPersonName\": \"string\",\n      \"companyName\": \"string\",\n      \"title\": \"string\",\n      \"email\": {},\n      \"phone\": \"string\",\n      \"fax\": \"string\",\n      \"address\": {\n        \"type\": \"string\",\n        \"rawAddress\": \"string\",\n        \"line1\": \"string\",\n        \"line2\": \"string\",\n        \"postalCode\": \"string\",\n        \"city\": \"string\",\n        \"region\": \"string\",\n        \"country\": \"string\",\n        \"latitude\": 709.8249005400248,\n        \"longitude\": 2073.3059449135417\n      },\n      \"createdAt\": \"2007-12-01T10:45:53.563Z\",\n      \"updatedAt\": \"1949-01-31T06:18:45.669Z\"\n    }\n  ],\n  \"meta\": {\n    \"count\": 2074.8781808917993,\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "09082bfb-26d7-4d1d-8819-f8eedf802a08",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contactPersonName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyName",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aa7bcfeb-a534-4c3d-8d34-1ffebfbbb4b8",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contactPersonName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyName",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "38fbc650-2003-425f-8c7c-0f4b731d78fd",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contactPersonName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyName",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "434a3a87-6733-4941-b87a-a9e4534481a1",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contactPersonName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyName",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "137eba1e-c889-4255-ae7d-b894ee5eb115",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "createdAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "updatedAt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contactPersonName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "companyName",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1599af3c-ac41-409a-b995-8d01b38e4707",
+          "name": "Create a new contact in the caller's organization. The owning organization is derived from the access token and cannot be set in the body. Returns the new contact's identifier.",
+          "request": {
+            "name": "Create a new contact in the caller's organization. The owning organization is derived from the access token and cannot be set in the body. Returns the new contact's identifier.",
+            "description": {
+              "content": "Create a new contact in the caller's organization. The owning organization is derived from the access token and cannot be set in the body. Returns the new contact's identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contacts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<string>\",\n  \"contactPersonName\": \"<string>\",\n  \"companyName\": \"<string>\",\n  \"title\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"fax\": \"<string>\",\n  \"address\": {\n    \"type\": \"<string>\",\n    \"rawAddress\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"city\": \"<string>\",\n    \"region\": \"<string>\",\n    \"country\": \"<string>\",\n    \"latitude\": \"<number>\",\n    \"longitude\": \"<number>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "06a5d634-12ce-4b2a-837c-acecd98161e9",
+              "name": "Identifier-only response returned by contact write operations.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<string>\",\n  \"contactPersonName\": \"<string>\",\n  \"companyName\": \"<string>\",\n  \"title\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"fax\": \"<string>\",\n  \"address\": {\n    \"type\": \"<string>\",\n    \"rawAddress\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"city\": \"<string>\",\n    \"region\": \"<string>\",\n    \"country\": \"<string>\",\n    \"latitude\": \"<number>\",\n    \"longitude\": \"<number>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f6abba8-833d-47a0-abd2-23c4212f7b94",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<string>\",\n  \"contactPersonName\": \"<string>\",\n  \"companyName\": \"<string>\",\n  \"title\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"fax\": \"<string>\",\n  \"address\": {\n    \"type\": \"<string>\",\n    \"rawAddress\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"city\": \"<string>\",\n    \"region\": \"<string>\",\n    \"country\": \"<string>\",\n    \"latitude\": \"<number>\",\n    \"longitude\": \"<number>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "43ace2fa-b83b-4edc-986e-19a6090f574b",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<string>\",\n  \"contactPersonName\": \"<string>\",\n  \"companyName\": \"<string>\",\n  \"title\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"fax\": \"<string>\",\n  \"address\": {\n    \"type\": \"<string>\",\n    \"rawAddress\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"city\": \"<string>\",\n    \"region\": \"<string>\",\n    \"country\": \"<string>\",\n    \"latitude\": \"<number>\",\n    \"longitude\": \"<number>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c814bf76-8b9c-4751-972c-d6f9e4c9052e",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<string>\",\n  \"contactPersonName\": \"<string>\",\n  \"companyName\": \"<string>\",\n  \"title\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"fax\": \"<string>\",\n  \"address\": {\n    \"type\": \"<string>\",\n    \"rawAddress\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"city\": \"<string>\",\n    \"region\": \"<string>\",\n    \"country\": \"<string>\",\n    \"latitude\": \"<number>\",\n    \"longitude\": \"<number>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0afc65e6-1160-4b53-805d-3151dc50337a",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<string>\",\n  \"contactPersonName\": \"<string>\",\n  \"companyName\": \"<string>\",\n  \"title\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"fax\": \"<string>\",\n  \"address\": {\n    \"type\": \"<string>\",\n    \"rawAddress\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"city\": \"<string>\",\n    \"region\": \"<string>\",\n    \"country\": \"<string>\",\n    \"latitude\": \"<number>\",\n    \"longitude\": \"<number>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f30bffca-1324-4fb6-ab38-4b3a1340d6a1",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<string>\",\n  \"contactPersonName\": \"<string>\",\n  \"companyName\": \"<string>\",\n  \"title\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"fax\": \"<string>\",\n  \"address\": {\n    \"type\": \"<string>\",\n    \"rawAddress\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"city\": \"<string>\",\n    \"region\": \"<string>\",\n    \"country\": \"<string>\",\n    \"latitude\": \"<number>\",\n    \"longitude\": \"<number>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5ea6bcd1-3a95-4a3f-b9f5-a1e716913dc3",
+          "name": "Read a single contact by id, scoped to the caller's organization. Use the `fields` query parameter to limit the response to a projection of the contact.",
+          "request": {
+            "name": "Read a single contact by id, scoped to the caller's organization. Use the `fields` query parameter to limit the response to a projection of the contact.",
+            "description": {
+              "content": "Read a single contact by id, scoped to the caller's organization. Use the `fields` query parameter to limit the response to a projection of the contact.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contacts",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to project. Allowed: _id, contactPersonName, companyName, title, email, phone, fax, address, createdAt, updatedAt"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<ObjectId>",
+                  "key": "id",
+                  "description": "(Required) Identifier of the contact to read."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3e6fb23d-4d01-43d7-877c-e7b0fb866899",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the contact to read."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_id\": \"string\",\n  \"contactPersonName\": \"string\",\n  \"companyName\": \"string\",\n  \"title\": \"string\",\n  \"email\": {},\n  \"phone\": \"string\",\n  \"fax\": \"string\",\n  \"address\": {\n    \"type\": \"string\",\n    \"rawAddress\": \"string\",\n    \"line1\": \"string\",\n    \"line2\": \"string\",\n    \"postalCode\": \"string\",\n    \"city\": \"string\",\n    \"region\": \"string\",\n    \"country\": \"string\",\n    \"latitude\": 2603.7600030225803,\n    \"longitude\": 5414.203857683815\n  },\n  \"createdAt\": \"1995-01-18T22:14:24.131Z\",\n  \"updatedAt\": \"2016-03-09T03:03:27.853Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "56c89c42-c842-42ac-8925-350c00158a14",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the contact to read."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "70ce84da-64f1-4455-8b68-2a4c83365e22",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the contact to read."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f4c0209c-09b8-4f8b-89eb-dde1944dd33d",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the contact to read."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d523c751-4c4f-4b5a-bbd6-c1fbc708e66e",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the contact to read."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8c84441f-1c5d-41e9-9ef5-b994de5d84a6",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the contact to read."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "75df3576-1979-43de-adea-bd8dfb66b011",
+          "name": "Partially update a contact. Any subset of writable fields may be provided; omitted fields are left unchanged. Returns the contact's identifier.",
+          "request": {
+            "name": "Partially update a contact. Any subset of writable fields may be provided; omitted fields are left unchanged. Returns the contact's identifier.",
+            "description": {
+              "content": "Partially update a contact. Any subset of writable fields may be provided; omitted fields are left unchanged. Returns the contact's identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contacts",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<ObjectId>",
+                  "key": "id",
+                  "description": "(Required) Identifier of the contact to update."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<string>\",\n  \"contactPersonName\": \"<string>\",\n  \"companyName\": \"<string>\",\n  \"title\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"fax\": \"<string>\",\n  \"address\": {\n    \"type\": \"<string>\",\n    \"rawAddress\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"city\": \"<string>\",\n    \"region\": \"<string>\",\n    \"country\": \"<string>\",\n    \"latitude\": \"<number>\",\n    \"longitude\": \"<number>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cce09c92-ffeb-4a4d-815b-c59ac90bc4f2",
+              "name": "Identifier-only response returned by contact write operations.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the contact to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<string>\",\n  \"contactPersonName\": \"<string>\",\n  \"companyName\": \"<string>\",\n  \"title\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"fax\": \"<string>\",\n  \"address\": {\n    \"type\": \"<string>\",\n    \"rawAddress\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"city\": \"<string>\",\n    \"region\": \"<string>\",\n    \"country\": \"<string>\",\n    \"latitude\": \"<number>\",\n    \"longitude\": \"<number>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cbde25d9-b035-46a6-802c-172d3fd6587a",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the contact to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<string>\",\n  \"contactPersonName\": \"<string>\",\n  \"companyName\": \"<string>\",\n  \"title\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"fax\": \"<string>\",\n  \"address\": {\n    \"type\": \"<string>\",\n    \"rawAddress\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"city\": \"<string>\",\n    \"region\": \"<string>\",\n    \"country\": \"<string>\",\n    \"latitude\": \"<number>\",\n    \"longitude\": \"<number>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f1a263e-4426-4210-9cb1-c048c8516d05",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the contact to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<string>\",\n  \"contactPersonName\": \"<string>\",\n  \"companyName\": \"<string>\",\n  \"title\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"fax\": \"<string>\",\n  \"address\": {\n    \"type\": \"<string>\",\n    \"rawAddress\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"city\": \"<string>\",\n    \"region\": \"<string>\",\n    \"country\": \"<string>\",\n    \"latitude\": \"<number>\",\n    \"longitude\": \"<number>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f602cc3-6a49-4449-a2fd-8271723539e8",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the contact to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<string>\",\n  \"contactPersonName\": \"<string>\",\n  \"companyName\": \"<string>\",\n  \"title\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"fax\": \"<string>\",\n  \"address\": {\n    \"type\": \"<string>\",\n    \"rawAddress\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"city\": \"<string>\",\n    \"region\": \"<string>\",\n    \"country\": \"<string>\",\n    \"latitude\": \"<number>\",\n    \"longitude\": \"<number>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "abdd6714-6d14-49d8-9a4a-b6c6880d35b0",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the contact to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<string>\",\n  \"contactPersonName\": \"<string>\",\n  \"companyName\": \"<string>\",\n  \"title\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"fax\": \"<string>\",\n  \"address\": {\n    \"type\": \"<string>\",\n    \"rawAddress\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"city\": \"<string>\",\n    \"region\": \"<string>\",\n    \"country\": \"<string>\",\n    \"latitude\": \"<number>\",\n    \"longitude\": \"<number>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2b47e6a7-67ab-446c-a079-622c98bd270a",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the contact to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<string>\",\n  \"contactPersonName\": \"<string>\",\n  \"companyName\": \"<string>\",\n  \"title\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"fax\": \"<string>\",\n  \"address\": {\n    \"type\": \"<string>\",\n    \"rawAddress\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"city\": \"<string>\",\n    \"region\": \"<string>\",\n    \"country\": \"<string>\",\n    \"latitude\": \"<number>\",\n    \"longitude\": \"<number>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1f61f822-b7da-459b-b5f5-01a7a1a09f54",
+          "name": "Delete a contact by ID. The contact must not be assigned to any primary records — if it is still referenced, the request returns 409 with the referencing record ids in the error details. Note: deleting a contact does not cascade to legacy party contact data (PartyData.partyContacts); API-created contacts have no party association.",
+          "request": {
+            "name": "Delete a contact by ID. The contact must not be assigned to any primary records — if it is still referenced, the request returns 409 with the referencing record ids in the error details. Note: deleting a contact does not cascade to legacy party contact data (PartyData.partyContacts); API-created contacts have no party association.",
+            "description": {
+              "content": "Delete a contact by ID. The contact must not be assigned to any primary records — if it is still referenced, the request returns 409 with the referencing record ids in the error details. Note: deleting a contact does not cascade to legacy party contact data (PartyData.partyContacts); API-created contacts have no party association.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "contacts",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<ObjectId>",
+                  "key": "id",
+                  "description": "(Required) Identifier of the contact to delete."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "df117f55-1add-42b7-bcbb-1d0b736656d0",
+              "name": "Identifier-only response returned by contact write operations.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the contact to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a9fd414b-f2fa-444b-b6d9-d08e803934e6",
+              "name": "The request could not be understood — invalid body payload, unknown querystring filter, or a schema validation failure.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the contact to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5a0f5af9-58e8-431d-8dc2-46937f463693",
+              "name": "Authentication failed — the bearer token is missing, malformed, expired, or does not grant access to this resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the contact to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 401,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2e156bf8-bf9d-49d1-b34b-87d6b0719a1d",
+              "name": "The authenticated caller does not have permission to perform this action on the target resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the contact to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 403,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "07e1cd60-a07f-4a18-8070-6391ccc40390",
+              "name": "The requested resource does not exist or is not visible to the authenticated caller.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the contact to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 404,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c7bb225-1ea2-4182-a4d4-f8890960cc84",
+              "name": "The request conflicts with the current state of the resource — for example, attempting to delete a contact that is still assigned to one or more primary records.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the contact to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 409,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "08df3200-9a0c-4724-b8da-7ac93470650a",
+              "name": "The server encountered an unexpected failure while processing the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<ObjectId>",
+                      "key": "id",
+                      "description": "(Required) Identifier of the contact to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 500,\n  \"applicationCode\": \"string\",\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:4000/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b86cd81f-2d70-42bb-aaef-776d040f2d01",
+    "name": "TrustLayer Platform Auth contacts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "3rd-party API for the TrustLayer platform.\n\n**Deprecated.** Platform API v1 is deprecated as of 01 June 2026 and is\nscheduled for sunset (end-of-life) on 31 March 2027. It remains fully\navailable until the sunset date but will not receive new features. Please\nmigrate to Platform API v2 for new integrations.\n\nAll v1 responses carry the standard deprecation response headers\n([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)):\n\n```http\nDeprecation: @1780272000\nSunset: Wed, 31 Mar 2027 23:59:59 GMT\nLink: <https://developers.trustlayer.io/>; rel=\"deprecation\", <https://developers.trustlayer.io/>; rel=\"sunset\"\n```\n\n`Deprecation: @1780272000` is the Unix timestamp for 2026-06-01T00:00:00Z;\nsunset (end-of-life) is 2027-03-31T23:59:59 GMT.\n\nContact Support:\n Name: TrustLayer Support\n Email: support@trustlayer.io",
+      "type": "text/plain"
+    }
+  }
+}

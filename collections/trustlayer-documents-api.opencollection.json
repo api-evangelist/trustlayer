@@ -1,0 +1,696 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TrustLayer Platform Auth documents API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/documents",
+            "params": [
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Key-value pair, e.g. filter[key]=value"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "List of comma-separated keys used to sort. Reversing is done by prepending \"-\" to the key name."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Page number, starting from 1"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page. Defaults to 20. Maximum is 100"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "List of comma-separated relationships to include in the result"
+              }
+            ]
+          },
+          "docs": "Available filters:\n* `name`\n* `party`\n* `project`\n* `type`\n* `archived`\n* `reviewed`\n* `createdAt`\n* `updatedAt`\n* `reviewedAt`\n* `archivedAt`\n* `expirationDate`\n\nAvailable sort keys:\n* `name`\n* `createdAt`\n* `updatedAt`\n* `archivedAt`\n* `reviewedAt`\n* `expirationDate`\n\nAvailable include options:\n* `party`\n* `projects`\n* `reviewedBy`\n* `archivedBy`\n* `types`\n\nPagination is enabled."
+        },
+        {
+          "info": {
+            "name": "Upload a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/documents",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "document",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "documentType",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "This endpoint accepts a `multipart/form-data` payload containing a single `document` parameter.\nThe returned document will be queued for processing.\nOptionally, a `documentType` parameter can be specified, containing either the exact name of an existing document type, or its ID."
+        },
+        {
+          "info": {
+            "name": "Fetch a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/documents/:documentId",
+            "params": [
+              {
+                "name": "documentId",
+                "value": "",
+                "type": "path",
+                "description": "Document ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "List of comma-separated relationships to include in the result"
+              }
+            ]
+          },
+          "docs": "Available include options:\n\n* `party`\n* `projects`\n* `types`\n* `archivedBy`\n* `reviewedBy`\n\nNotes:\n\n- the uploaded file is accessible via the `url` attribute; the URL will expire in 24 hours.\n"
+        },
+        {
+          "info": {
+            "name": "Update a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:4000/v1/documents/:documentId",
+            "params": [
+              {
+                "name": "documentId",
+                "value": "",
+                "type": "path",
+                "description": "Document ID"
+              },
+              {
+                "name": "scope[type]",
+                "value": "",
+                "type": "query",
+                "description": "Type of the resource to be used as scope"
+              },
+              {
+                "name": "scope[id]",
+                "value": "",
+                "type": "query",
+                "description": "Id of the resource to be used as scope"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "* Updating a document's data will trigger a recalc of the compliance status for all affected parties.\n* You can specify a project scope; the party the document is attached to _must_ belong to the project\n\nRequirements: the document _must_ belong to a party."
+        },
+        {
+          "info": {
+            "name": "Delete a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/documents/:documentId",
+            "params": [
+              {
+                "name": "documentId",
+                "value": "",
+                "type": "path",
+                "description": "Document ID"
+              }
+            ]
+          },
+          "docs": "TBD"
+        },
+        {
+          "info": {
+            "name": "Review a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/documents/:documentId/review",
+            "params": [
+              {
+                "name": "documentId",
+                "value": "",
+                "type": "path",
+                "description": "Document ID"
+              },
+              {
+                "name": "scope[type]",
+                "value": "",
+                "type": "query",
+                "description": "Type of the resource to be used as scope"
+              },
+              {
+                "name": "scope[id]",
+                "value": "",
+                "type": "query",
+                "description": "Id of the resource to be used as scope"
+              }
+            ]
+          },
+          "docs": "Mark the document as reviewed by the given user. If the document has already been reviewed, no change will be made.\n\nRequirements: the document _must_ belong to a party."
+        },
+        {
+          "info": {
+            "name": "Remove the review from a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/documents/:documentId/review",
+            "params": [
+              {
+                "name": "documentId",
+                "value": "",
+                "type": "path",
+                "description": "Document ID"
+              },
+              {
+                "name": "scope[type]",
+                "value": "",
+                "type": "query",
+                "description": "Type of the resource to be used as scope"
+              },
+              {
+                "name": "scope[id]",
+                "value": "",
+                "type": "query",
+                "description": "Id of the resource to be used as scope"
+              }
+            ]
+          },
+          "docs": "Mark the document as not reviewed. This will remove all the information about the current review status of the document.\n\nRequirements: the document _must_ belong to a party."
+        },
+        {
+          "info": {
+            "name": "Archive a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/documents/:documentId/archive",
+            "params": [
+              {
+                "name": "documentId",
+                "value": "",
+                "type": "path",
+                "description": "Document ID"
+              },
+              {
+                "name": "scope[type]",
+                "value": "",
+                "type": "query",
+                "description": "Type of the resource to be used as scope"
+              },
+              {
+                "name": "scope[id]",
+                "value": "",
+                "type": "query",
+                "description": "Id of the resource to be used as scope"
+              }
+            ]
+          },
+          "docs": "Mark the document as archived."
+        },
+        {
+          "info": {
+            "name": "Un-archive a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/documents/:documentId/archive",
+            "params": [
+              {
+                "name": "documentId",
+                "value": "",
+                "type": "path",
+                "description": "Document ID"
+              },
+              {
+                "name": "scope[type]",
+                "value": "",
+                "type": "query",
+                "description": "Type of the resource to be used as scope"
+              },
+              {
+                "name": "scope[id]",
+                "value": "",
+                "type": "query",
+                "description": "Id of the resource to be used as scope"
+              }
+            ]
+          },
+          "docs": "Mark the document as not archived."
+        },
+        {
+          "info": {
+            "name": "Reprocess a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/documents/:documentId/reprocess",
+            "params": [
+              {
+                "name": "documentId",
+                "value": "",
+                "type": "path",
+                "description": "Document ID"
+              }
+            ]
+          },
+          "docs": "Send the document to the extraction pipeline. The results will overwite the document's current data.\n"
+        },
+        {
+          "info": {
+            "name": "Flag a document or update the existing flag info",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/documents/:documentId/flag",
+            "params": [
+              {
+                "name": "documentId",
+                "value": "",
+                "type": "path",
+                "description": "Document ID"
+              },
+              {
+                "name": "scope[type]",
+                "value": "",
+                "type": "query",
+                "description": "Type of the resource to be used as scope"
+              },
+              {
+                "name": "scope[id]",
+                "value": "",
+                "type": "query",
+                "description": "Id of the resource to be used as scope"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "A document can have at most one flag. If a document is already flagged, existing data will be replaced.\n\n* `addedOn` will default to the current time if left blank\n* `severityLevel` and `user.id` are the only required parameters\n\nIf the document belongs to a party, you can specify an additional project `scope` (the party must belong to the project). This will be used to log the event in the activity timeline.\n\nRequirements: the document _must_ belong to a party.\n"
+        },
+        {
+          "info": {
+            "name": "Remove the flag from a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/documents/:documentId/flag",
+            "params": [
+              {
+                "name": "documentId",
+                "value": "",
+                "type": "path",
+                "description": "Document ID"
+              },
+              {
+                "name": "scope[type]",
+                "value": "",
+                "type": "query",
+                "description": "Type of the resource to be used as scope"
+              },
+              {
+                "name": "scope[id]",
+                "value": "",
+                "type": "query",
+                "description": "Id of the resource to be used as scope"
+              }
+            ]
+          },
+          "docs": "Remove the existing flag data from a document (if any).\n\nIf the document belongs to a party, you can specify an additional project `scope` (the party must belong to the project). This will be used to log the event in the activity timeline.\n\nRequirements: the document _must_ belong to a party."
+        },
+        {
+          "info": {
+            "name": "Fetch a party's compliance certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/parties/:partyId/compliance-certificate",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path",
+                "description": "Party ID"
+              }
+            ]
+          },
+          "docs": "Returns the currently valid compliance certificate for a party, if it exists; otherwise it responds with a 404 status.\n\nAvailable `scope` options:\n\n* `projects`\n"
+        },
+        {
+          "info": {
+            "name": "Create a party compliance certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/parties/:partyId/compliance-certificate",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path",
+                "description": "Party ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "* if `effectiveDate` is not provided, it will default to the current moment\n* if `expirationDate` is not provided, it will default to the earliest expiration date found in currently active documents; if no document is present, it will default to 1 year from the effective date\n* if `document` is provided (only for multipart/form-data), it will be uploaded to the party and used as the compliance certificate\n\nAvailable `scope` options:\n\n* `projects`\n"
+        },
+        {
+          "info": {
+            "name": "Attach documents to a party",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/parties/:partyId/relationships/documents",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path",
+                "description": "Party ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Note that at any given time, a document can only be attached to one party.\nIf the document is already attached to another party, it will be ignored.\n\nAll documents _must_ exist, otherwise a 404 response will be returned and no document will be attached.\n"
+        },
+        {
+          "info": {
+            "name": "Detach a document from a party",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/parties/:partyId/relationships/documents",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path",
+                "description": "Party ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Once the document has been detached from its party, it can be reattached to a different party.\n\nAll documents _must_ exist, otherwise a 404 response will be returned and no document will be attached."
+        },
+        {
+          "info": {
+            "name": "Attach documents to a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/projects/:projectId/relationships/documents",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "A document can be attached to any number of projects.\n\nAll documents _must_ exist, otherwise a 404 response will be returned and no document will be attached."
+        },
+        {
+          "info": {
+            "name": "Detach documents from a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/projects/:projectId/relationships/documents",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "All documents _must_ exist, otherwise a 404 response will be returned and no document will be detached."
+        },
+        {
+          "info": {
+            "name": "Upload a document to a party",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/parties/:partyId/documents",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path",
+                "description": "Party ID"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "document",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "documentType",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "This will simultaneusly upload a document and attach it to the party."
+        },
+        {
+          "info": {
+            "name": "Remove a document from a party",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/parties/:partyId/relationships/documents/:documentId",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path",
+                "description": "Party ID"
+              },
+              {
+                "name": "documentId",
+                "value": "",
+                "type": "path",
+                "description": "Document ID"
+              }
+            ]
+          },
+          "docs": "If you need to remove multiple documents at once you can use the alternative endpoint `DELETE /parties/{partyId}/relationships/documents`"
+        },
+        {
+          "info": {
+            "name": "Remove a document from a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/projects/:projectId/relationships/documents/:documentId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Project ID"
+              },
+              {
+                "name": "documentId",
+                "value": "",
+                "type": "path",
+                "description": "Document ID"
+              }
+            ]
+          },
+          "docs": "If you need to remove multiple documents at once you can use the alternative endpoint `DELETE /projects/{projectId}/relationships/documents`"
+        },
+        {
+          "info": {
+            "name": "Fetch the current document request",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/parties/:partyId/document-request",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path",
+                "description": "Party ID"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "List of comma-separated relationships to include in the result"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This will return the latest document request sent for the party.\n\nAvailable include options:\n* `party`"
+        },
+        {
+          "info": {
+            "name": "Send a new document request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/parties/:partyId/document-request",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path",
+                "description": "Party ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "If a request already exists for this party, this will send a reminder."
+        },
+        {
+          "info": {
+            "name": "Associate a document to multiple projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/documents/:documentId/relationships/projects",
+            "params": [
+              {
+                "name": "documentId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "TBD"
+        },
+        {
+          "info": {
+            "name": "GET /documents/{id}/amendments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/documents/:id/amendments",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the document whose amendments to list."
+              }
+            ]
+          },
+          "docs": "List amendments (cancellations and reinstatements) attached to a document. Each amendment is either a cancellation that reduces or ends the policy coverage referenced by the document, or a reinstatement that restores it. Supports pagination (`limit`, `skip`). Results are scoped to the caller's organization."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

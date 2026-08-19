@@ -1,0 +1,146 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TrustLayer Platform Auth Requirements API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Requirements",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET /requirements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/requirements",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Example: '_id,-createdAt'. Allowed: moduleCode, moduleLabel, subjectCode, subjectLabel, attributeCode, attributeType, attributeLabel, attributeDescription, matchingCriteria, operator"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to project. Allowed: _id, moduleCode, moduleLabel, subjectCode, subjectLabel, attributeCode, attributeType, attributeLabel, attributeDescription, matchingCriteria, operator, targetValue"
+              },
+              {
+                "name": "_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by _id. 24-character hex ObjectId string (e.g. `_id=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "createdAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter by createdAt. ISO-8601 date or datetime string (e.g. `createdAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "updatedAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter by updatedAt. ISO-8601 date or datetime string (e.g. `updatedAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "attributeCode",
+                "value": "",
+                "type": "query",
+                "description": "Filter by attributeCode. String value (e.g. `attributeCode=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "attributeLabel",
+                "value": "",
+                "type": "query",
+                "description": "Filter by attributeLabel. String value (e.g. `attributeLabel=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              }
+            ]
+          },
+          "docs": "List library requirements in the caller's organization. Results are always scoped to the caller's organization and never include system requirement templates. Supports pagination via `limit` and `skip`.\n\n<!-- qs2mongo:list-summary -->\n\n**Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `attributeCode` (string), `attributeLabel` (string). See \"List Endpoints\" in the API overview for operator syntax and combining rules.\n\n**Sorting**: supported via `sort` (see the parameter's "
+        },
+        {
+          "info": {
+            "name": "POST /requirements",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/requirements",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a library requirement in the caller's organization (derived from the access token). Define the module/subject by label to create new ones, or by code/label to reuse an existing template, plus the attribute definition. Returns the persisted requirement."
+        },
+        {
+          "info": {
+            "name": "GET /requirements/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/requirements/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to project. Allowed: _id, moduleCode, moduleLabel, subjectCode, subjectLabel, attributeCode, attributeType, attributeLabel, attributeDescription, matchingCriteria, operator, targetValue"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the library requirement to read."
+              }
+            ]
+          },
+          "docs": "Read a single library requirement by id, scoped to the caller's organization."
+        },
+        {
+          "info": {
+            "name": "PATCH /requirements/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:4000/v1/requirements/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the library requirement to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially update a library requirement in the caller's organization. Supply any subset of the editable fields; omitted fields keep their stored values, and the merged (attributeType, operator, targetValue) triple must be internally consistent. The immutable attributeCode cannot be changed. Triggers the requirement-sync cascade. Returns the updated requirement."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

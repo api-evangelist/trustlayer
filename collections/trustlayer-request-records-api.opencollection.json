@@ -1,0 +1,415 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TrustLayer Platform Auth Request Records API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Request Records",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET /request-records",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/request-records",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Example: '_id,-createdAt'. Allowed: contextRecordId, name, status, complianceTracking, complianceStatus, createdAt, updatedAt"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to project. Allowed: _id, organization, primaryRecordId, contextRecordId, name, status, complianceTracking, complianceProfile, complianceStatus, createdAt, updatedAt, complianceModules"
+              },
+              {
+                "name": "_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by _id. 24-character hex ObjectId string (e.g. `_id=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "createdAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter by createdAt. ISO-8601 date or datetime string (e.g. `createdAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "updatedAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter by updatedAt. ISO-8601 date or datetime string (e.g. `updatedAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "primaryRecordId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by primaryRecordId. 24-character hex ObjectId string (e.g. `primaryRecordId=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "contextRecordId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contextRecordId. 24-character hex ObjectId string (e.g. `contextRecordId=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by name. String value (e.g. `name=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status. String value (e.g. `status=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "complianceTracking",
+                "value": "",
+                "type": "query",
+                "description": "Filter by complianceTracking. String value (e.g. `complianceTracking=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "complianceStatus",
+                "value": "",
+                "type": "query",
+                "description": "Filter by complianceStatus. String value (e.g. `complianceStatus=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "complianceProfile.complianceProfileId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by complianceProfile.complianceProfileId. 24-character hex ObjectId string (e.g. `complianceProfile.complianceProfileId=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+              }
+            ]
+          },
+          "docs": "List request records in the caller's organization. Results are always scoped to the caller's organization. Supports pagination via `limit` and `skip`.\n\n<!-- qs2mongo:list-summary -->\n\n**Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `primaryRecordId` (objectId), `contextRecordId` (objectId), `name` (string), `status` (string), `complianceTracking` (string), `complianceStatus` (string), `complianceProfile.complianceProfileId` (objectId). See \"List Endpoints\" in the API ove"
+        },
+        {
+          "info": {
+            "name": "POST /request-records",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/request-records",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new request record and assign it to a primary record. The owning organization is derived from the access token. Optionally pass a `complianceProfileId` to attach a compliance profile at creation time. Returns the new record's identifier."
+        },
+        {
+          "info": {
+            "name": "GET /request-records/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/request-records/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to project. Allowed: _id, organization, primaryRecordId, contextRecordId, name, status, complianceTracking, complianceProfile, complianceStatus, createdAt, updatedAt, complianceModules"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the request record to read."
+              }
+            ]
+          },
+          "docs": "Read a single request record by id, scoped to the caller's organization. Use the `fields` query parameter to limit the response to a projection of the record. Use `?fields=complianceModules` to include the expanded compliance modules from the assigned profile."
+        },
+        {
+          "info": {
+            "name": "PATCH /request-records/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:4000/v1/request-records/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the request record to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially update a request record. Any subset of writable fields may be provided; omitted fields are left unchanged. Status changes are accepted on this endpoint and are applied via the dedicated status workflow. Returns the full updated record."
+        },
+        {
+          "info": {
+            "name": "DELETE /request-records/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/request-records/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the request record to delete."
+              }
+            ]
+          },
+          "docs": "Delete a request record. Returns the deleted record id on success. Deleting a record that does not exist returns 404 with the shared NotFoundError shape."
+        },
+        {
+          "info": {
+            "name": "GET /request-records/{id}/attributes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/request-records/:id/attributes",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the request record whose attributes to list."
+              }
+            ]
+          },
+          "docs": "List attributes (custom field values) embedded in a request record. Attributes are stored as an embedded array on the record — there is no separate filtering beyond pagination. Results are scoped to the caller's organization."
+        },
+        {
+          "info": {
+            "name": "GET /request-records/{id}/attributes/{attributeId}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/request-records/:id/attributes/:attributeId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the request record."
+              },
+              {
+                "name": "attributeId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the attribute (custom field) to target."
+              }
+            ]
+          },
+          "docs": "Read a single attribute (custom field value) embedded in a request record. Returns 404 when the request record or the specific attribute does not exist."
+        },
+        {
+          "info": {
+            "name": "PUT /request-records/{id}/attributes/{attributeId}",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:4000/v1/request-records/:id/attributes/:attributeId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the request record."
+              },
+              {
+                "name": "attributeId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the attribute (custom field) to target."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create or replace an attribute (custom field value) on a request record. This is a full replacement — omitting `value` or `optionIds` clears that field. Returns 404 when the request record or the referenced custom field definition does not exist."
+        },
+        {
+          "info": {
+            "name": "DELETE /request-records/{id}/attributes/{attributeId}",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/request-records/:id/attributes/:attributeId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the request record."
+              },
+              {
+                "name": "attributeId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the attribute (custom field) to target."
+              }
+            ]
+          },
+          "docs": "Delete an attribute (custom field value) from a request record. Returns 404 when the request record or the specific attribute does not exist."
+        },
+        {
+          "info": {
+            "name": "POST /request-records/{id}/compliance-profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/request-records/:id/compliance-profile",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the request record to assign the compliance profile to."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Assign a compliance profile to a request record, scoped to the caller's organization. Assigning a profile attaches its rules and document checklists to the request record and starts compliance evaluation against it. If the request record has a context record and the supplied profile is `Global`, a `Project`-scoped compliance profile is created or reused automatically."
+        },
+        {
+          "info": {
+            "name": "DELETE /request-records/{id}/compliance-profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/request-records/:id/compliance-profile",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the request record to unassign the compliance profile from."
+              }
+            ]
+          },
+          "docs": "Unassign the compliance profile from a request record, scoped to the caller's organization. Removes the previously assigned profile and stops compliance tracking for the request record. The operation is idempotent: calling it on a request record that has no compliance profile assigned returns 204 without error."
+        },
+        {
+          "info": {
+            "name": "GET /request-records/{id}/compliance-certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/request-records/:id/compliance-certificate",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to project. Allowed: _id, name, processing, url, flag, organization, reviewedAt, archivedAt, notes, status, expirationDate, appliesToAllProjects, data, metadata, issueDate, createdAt, updatedAt"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the request record whose latest compliance certificate document will be returned."
+              }
+            ]
+          },
+          "docs": "Get the latest non-archived compliance certificate document for a request record. Returns the document with a signed URL when present; returns 404 when no compliance certificate has been generated for the request record."
+        },
+        {
+          "info": {
+            "name": "POST /request-records/{id}/compliance-certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/request-records/:id/compliance-certificate",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the request record that will receive the compliance certificate."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a compliance certificate for a request record. Accepts application/json with optional effectiveDate and expirationDate fields, or multipart/form-data with the same date fields plus a document file in the `document` field. Returns the identifier of the created compliance certificate document."
+        },
+        {
+          "info": {
+            "name": "POST /request-records/{id}/requirements",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/request-records/:id/requirements",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add requirements to the request record's compliance profile. Each item is either a library reference (`libraryRequirementId` or `attributeCode`) or a custom definition (module/subject by code or label, attribute by label). Idempotent on the (moduleLabel, subjectLabel, attributeLabel) tuple."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

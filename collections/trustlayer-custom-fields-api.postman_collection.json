@@ -1,0 +1,632 @@
+{
+  "item": [
+    {
+      "id": "7b278fab-106d-456a-be22-aecb50de9573",
+      "name": "custom-fields",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a74aea1d-8c31-4d51-a4a8-4bbc41ee4d45",
+          "name": "Update a custom field",
+          "request": {
+            "name": "Update a custom field",
+            "description": {
+              "content": "Note\n\n* required attributes (`name` and `fieldType`) _must_ always be specified\n* at the moment it's not possible to specify custom requirementsand checklists.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":projectId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "projectId",
+                  "description": "(Required) Project ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"project\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"startDate\": \"<date>\",\n    \"endDate\": \"<date>\",\n    \"active\": \"<boolean>\",\n    \"customData\": [\n      {\n        \"customField\": {\n          \"id\": \"<string>\"\n        },\n        \"value\": \"<string>\"\n      },\n      {\n        \"customField\": {\n          \"id\": \"<string>\"\n        },\n        \"value\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5d048b0a-2885-4c8f-a95a-16dda53c7de7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "projectId",
+                      "description": "(Required) Project ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"project\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"startDate\": \"<date>\",\n    \"endDate\": \"<date>\",\n    \"active\": \"<boolean>\",\n    \"customData\": [\n      {\n        \"customField\": {\n          \"id\": \"<string>\"\n        },\n        \"value\": \"<string>\"\n      },\n      {\n        \"customField\": {\n          \"id\": \"<string>\"\n        },\n        \"value\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"fail\",\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"custom-fields\",\n    \"name\": \"string\",\n    \"description \": \"string\",\n    \"color\": \"#0a887b\",\n    \"fieldType\": \"text\",\n    \"options\": [\n      {\n        \"key\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"value\": \"string\"\n      }\n    ],\n    \"complianceProfile\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"associatedEntities\": \"project\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "294a06af-0baa-4a52-92da-7fddde53c998",
+          "name": "List custom fields",
+          "request": {
+            "name": "List custom fields",
+            "description": {
+              "content": "All fields are returned in alphabetical order; pagination and sorting are not enabled.\n\nAvailable include options:\n* `complianceProfile`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "custom-fields"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ba83746b-c5e9-4fc1-b7d0-e4b996707edf",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "custom-fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"custom-fields\",\n      \"name\": \"string\",\n      \"description \": \"string\",\n      \"color\": \"#f09da0\",\n      \"fieldType\": \"text\",\n      \"options\": [\n        {\n          \"key\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"key\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"complianceProfile\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      \"associatedEntities\": \"project\"\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"custom-fields\",\n      \"name\": \"string\",\n      \"description \": \"string\",\n      \"color\": \"#e19035\",\n      \"fieldType\": \"text\",\n      \"options\": [\n        {\n          \"key\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"key\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"complianceProfile\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      \"associatedEntities\": \"party\"\n    }\n  ],\n  \"meta\": {\n    \"count\": 8619.697077167266,\n    \"pages\": 4783.435044070055,\n    \"totalCount\": 417.04753620479875,\n    \"totalPages\": 1954.84124159518\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1a96eb08-6029-47f4-83b8-3b5bb3f53ac5",
+          "name": "Create a new custom field",
+          "request": {
+            "name": "Create a new custom field",
+            "description": {
+              "content": "Note: at the moment it's not possible to specify custom requirements and checklists.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "custom-fields"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customField\": {\n    \"name\": \"<string>\",\n    \"fieldType\": \"<string>\",\n    \"description\": \"<string>\",\n    \"color\": \"<string>\",\n    \"source\": \"<string>\",\n    \"associatedEntities\": [\n      \"party\",\n      \"party\"\n    ],\n    \"options\": [\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "62177ea4-1017-4e69-be9a-649be6c9be30",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "custom-fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customField\": {\n    \"name\": \"<string>\",\n    \"fieldType\": \"<string>\",\n    \"description\": \"<string>\",\n    \"color\": \"#ffa900\",\n    \"source\": \"<string>\",\n    \"associatedEntities\": [\n      \"party\"\n    ],\n    \"options\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"custom-fields\",\n    \"name\": \"string\",\n    \"description \": \"string\",\n    \"color\": \"#453cd3\",\n    \"fieldType\": \"text\",\n    \"options\": [\n      {\n        \"key\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"value\": \"string\"\n      }\n    ],\n    \"complianceProfile\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"associatedEntities\": \"project\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2b10fd5e-c53e-47e0-bb67-672836c0718a",
+          "name": "Update a custom field",
+          "request": {
+            "name": "Update a custom field",
+            "description": {
+              "content": "Note that by specifying `options` you will _replace_ all the existing values.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "custom-fields",
+                ":fieldId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "fieldId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customField\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"color\": \"<string>\",\n    \"fieldType\": \"<string>\",\n    \"source\": \"<string>\",\n    \"options\": [\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "38807f04-67d8-47e0-9b69-fb0e88e3facf",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "custom-fields",
+                    ":fieldId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fieldId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customField\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"color\": \"#ffa900\",\n    \"fieldType\": \"<string>\",\n    \"source\": \"<string>\",\n    \"options\": [\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"custom-fields\",\n    \"name\": \"string\",\n    \"description \": \"string\",\n    \"color\": \"#453cd3\",\n    \"fieldType\": \"text\",\n    \"options\": [\n      {\n        \"key\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"value\": \"string\"\n      }\n    ],\n    \"complianceProfile\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"associatedEntities\": \"project\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d82311d4-b79f-4d2c-884f-c8c7b09902da",
+          "name": "Delete a custom field",
+          "request": {
+            "name": "Delete a custom field",
+            "description": {
+              "content": "This will also remove the field from any project that is using it.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "custom-fields",
+                ":fieldId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "fieldId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "83ebfeb7-3199-4b8d-b3ab-cb650a387b46",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "custom-fields",
+                    ":fieldId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fieldId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"error\",\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"custom-fields\",\n    \"name\": \"string\",\n    \"description \": \"string\",\n    \"color\": \"#453cd3\",\n    \"fieldType\": \"text\",\n    \"options\": [\n      {\n        \"key\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"value\": \"string\"\n      }\n    ],\n    \"complianceProfile\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"associatedEntities\": \"project\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2ecfce73-c5e7-42b9-b0e8-22112d293a9d",
+          "name": "Update party custom data",
+          "request": {
+            "name": "Update party custom data",
+            "description": {
+              "content": "Add, remove or update party custom fields.\n\nTo remove a field, set its value to `null`.\n\nA project `scope` can be specified; in that case the changes will be made only to the project specific values.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "parties",
+                ":partyId",
+                "custom-data"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "scope[type]",
+                  "value": "<string>",
+                  "description": "Type of the resource to be used as scope"
+                },
+                {
+                  "disabled": false,
+                  "key": "scope[id]",
+                  "value": "<string>",
+                  "description": "Id of the resource to be used as scope"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "partyId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customData\": [\n    {\n      \"customField\": {\n        \"id\": \"<string>\"\n      },\n      \"value\": \"<string,number>\"\n    },\n    {\n      \"customField\": {\n        \"id\": \"<string>\"\n      },\n      \"value\": \"<string,number>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "eed589ee-8401-44b8-93d2-b25b1ddf030c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parties",
+                    ":partyId",
+                    "custom-data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope[type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scope[id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partyId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customData\": [\n    {\n      \"value\": \"string\",\n      \"customField\": {\n        \"id\": \"string\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"parties\",\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"address\": {\n    \"value\": \"reference #/components/schemas/address not found in the OpenAPI spec\"\n  },\n  \"status\": \"new\",\n  \"contacts\": [\n    {\n      \"type\": \"contacts\",\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"company\": \"string\",\n      \"email\": \"string\",\n      \"phone\": \"string\",\n      \"fax\": \"string\",\n      \"title\": \"string\",\n      \"primary\": false,\n      \"defaultRequestRecipient\": false,\n      \"avatar\": \"string\",\n      \"party\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      \"externalId\": \"string\"\n    },\n    {\n      \"type\": \"contacts\",\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"company\": \"string\",\n      \"email\": \"string\",\n      \"phone\": \"string\",\n      \"fax\": \"string\",\n      \"title\": \"string\",\n      \"primary\": false,\n      \"defaultRequestRecipient\": false,\n      \"avatar\": \"string\",\n      \"party\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      },\n      \"externalId\": \"string\"\n    }\n  ],\n  \"website\": \"string\",\n  \"active\": false,\n  \"notes\": \"string\",\n  \"complianceStatus\": {\n    \"complianceProfile\": {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    \"modules\": [\n      {\n        \"id\": \"string\",\n        \"label\": \"string\",\n        \"status\": \"compliant\",\n        \"documents\": [\n          {\n            \"id\": \"string\",\n            \"origin\": \"makeCompliant\",\n            \"complianceStatus\": \"compliant\"\n          },\n          {\n            \"id\": \"string\",\n            \"origin\": \"webForm\",\n            \"complianceStatus\": \"non_compliant\"\n          }\n        ],\n        \"documentsCount\": 1,\n        \"subjects\": [\n          {\n            \"id\": \"string\",\n            \"label\": \"string\",\n            \"status\": \"non_compliant\",\n            \"documents\": [\n              {\n                \"id\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"origin\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"complianceStatus\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"id\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"origin\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"complianceStatus\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ],\n            \"documentsCount\": 3104.3774542607184,\n            \"requirements\": [\n              {\n                \"id\": \"string\",\n                \"label\": \"string\",\n                \"moduleId\": \"string\",\n                \"moduleLabel\": \"string\",\n                \"subjectId\": \"string\",\n                \"subjectLabel\": \"string\",\n                \"attributeId\": \"string\",\n                \"attributeLabel\": \"string\",\n                \"matchingCriteria\": \"matchOnce\",\n                \"operator\": \"must be present\",\n                \"status\": \"waived\",\n                \"documents\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"documentsCount\": 4894.495745403743,\n                \"custom\": true,\n                \"attributeDescription\": \"string\",\n                \"targetValue\": \"string\",\n                \"value\": \"string\",\n                \"invalidatedBy\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"notes\": \"string\",\n                \"publicNotes\": \"string\",\n                \"resetOn\": \"2013-08-23T04:31:12.641Z\"\n              },\n              {\n                \"id\": \"string\",\n                \"label\": \"string\",\n                \"moduleId\": \"string\",\n                \"moduleLabel\": \"string\",\n                \"subjectId\": \"string\",\n                \"subjectLabel\": \"string\",\n                \"attributeId\": \"string\",\n                \"attributeLabel\": \"string\",\n                \"matchingCriteria\": \"matchOnce\",\n                \"operator\": \"at least one must be present from list\",\n                \"status\": \"non_compliant\",\n                \"documents\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"documentsCount\": 9973.316917752614,\n                \"custom\": false,\n                \"attributeDescription\": \"string\",\n                \"targetValue\": \"string\",\n                \"value\": \"string\",\n                \"invalidatedBy\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"notes\": \"string\",\n                \"publicNotes\": \"string\",\n                \"resetOn\": \"2006-07-01T06:58:36.233Z\"\n              }\n            ],\n            \"notes\": \"string\",\n            \"effectiveDate\": \"1999-01-28T10:14:05.481Z\",\n            \"expirationDate\": \"1977-07-17T09:11:41.013Z\",\n            \"latestExpirationDate\": \"1969-08-16T12:09:41.590Z\",\n            \"latestValidEffectiveDate\": \"1976-01-04T02:08:59.420Z\",\n            \"latestValidExpirationDate\": \"1989-10-21T23:07:44.929Z\",\n            \"resetOn\": \"1989-03-20T12:15:05.633Z\"\n          },\n          {\n            \"id\": \"string\",\n            \"label\": \"string\",\n            \"status\": \"overridden\",\n            \"documents\": [\n              {\n                \"id\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"origin\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"complianceStatus\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"id\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"origin\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"complianceStatus\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ],\n            \"documentsCount\": 4008.0833061209687,\n            \"requirements\": [\n              {\n                \"id\": \"string\",\n                \"label\": \"string\",\n                \"moduleId\": \"string\",\n                \"moduleLabel\": \"string\",\n                \"subjectId\": \"string\",\n                \"subjectLabel\": \"string\",\n                \"attributeId\": \"string\",\n                \"attributeLabel\": \"string\",\n                \"matchingCriteria\": \"matchOnce\",\n                \"operator\": \"must be present\",\n                \"status\": \"waived\",\n                \"documents\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"documentsCount\": 9734.287457685534,\n                \"custom\": true,\n                \"attributeDescription\": \"string\",\n                \"targetValue\": \"string\",\n                \"value\": \"string\",\n                \"invalidatedBy\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"notes\": \"string\",\n                \"publicNotes\": \"string\",\n                \"resetOn\": \"1991-05-11T07:46:35.862Z\"\n              },\n              {\n                \"id\": \"string\",\n                \"label\": \"string\",\n                \"moduleId\": \"string\",\n                \"moduleLabel\": \"string\",\n                \"subjectId\": \"string\",\n                \"subjectLabel\": \"string\",\n                \"attributeId\": \"string\",\n                \"attributeLabel\": \"string\",\n                \"matchingCriteria\": \"matchOnce\",\n                \"operator\": \"must be greater or equal to\",\n                \"status\": \"compliant\",\n                \"documents\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"documentsCount\": 2706.9933072875074,\n                \"custom\": true,\n                \"attributeDescription\": \"string\",\n                \"targetValue\": \"string\",\n                \"value\": \"string\",\n                \"invalidatedBy\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"notes\": \"string\",\n                \"publicNotes\": \"string\",\n                \"resetOn\": \"1990-02-09T00:58:03.426Z\"\n              }\n            ],\n            \"notes\": \"string\",\n            \"effectiveDate\": \"1955-07-25T02:48:14.803Z\",\n            \"expirationDate\": \"1967-11-06T11:21:02.595Z\",\n            \"latestExpirationDate\": \"2020-03-11T04:39:53.738Z\",\n            \"latestValidEffectiveDate\": \"1980-09-24T07:23:09.537Z\",\n            \"latestValidExpirationDate\": \"1967-10-14T08:26:44.847Z\",\n            \"resetOn\": \"1976-10-14T21:43:12.043Z\"\n          }\n        ]\n      },\n      {\n        \"id\": \"string\",\n        \"label\": \"string\",\n        \"status\": \"compliant\",\n        \"documents\": [\n          {\n            \"id\": \"string\",\n            \"origin\": \"webForm\",\n            \"complianceStatus\": \"compliant\"\n          },\n          {\n            \"id\": \"string\",\n            \"origin\": \"connectedDocument\",\n            \"complianceStatus\": \"non_compliant\"\n          }\n        ],\n        \"documentsCount\": 1,\n        \"subjects\": [\n          {\n            \"id\": \"string\",\n            \"label\": \"string\",\n            \"status\": \"non_compliant\",\n            \"documents\": [\n              {\n                \"id\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"origin\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"complianceStatus\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"id\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"origin\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"complianceStatus\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ],\n            \"documentsCount\": 3649.408540998835,\n            \"requirements\": [\n              {\n                \"id\": \"string\",\n                \"label\": \"string\",\n                \"moduleId\": \"string\",\n                \"moduleLabel\": \"string\",\n                \"subjectId\": \"string\",\n                \"subjectLabel\": \"string\",\n                \"attributeId\": \"string\",\n                \"attributeLabel\": \"string\",\n                \"matchingCriteria\": \"matchOnce\",\n                \"operator\": \"must be less or equal to\",\n                \"status\": \"overridden\",\n                \"documents\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"documentsCount\": 719.8258470896468,\n                \"custom\": true,\n                \"attributeDescription\": \"string\",\n                \"targetValue\": \"string\",\n                \"value\": \"string\",\n                \"invalidatedBy\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"notes\": \"string\",\n                \"publicNotes\": \"string\",\n                \"resetOn\": \"1997-01-24T06:54:48.043Z\"\n              },\n              {\n                \"id\": \"string\",\n                \"label\": \"string\",\n                \"moduleId\": \"string\",\n                \"moduleLabel\": \"string\",\n                \"subjectId\": \"string\",\n                \"subjectLabel\": \"string\",\n                \"attributeId\": \"string\",\n                \"attributeLabel\": \"string\",\n                \"matchingCriteria\": \"matchOnce\",\n                \"operator\": \"must be greater or equal to\",\n                \"status\": \"invalidated\",\n                \"documents\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"documentsCount\": 8755.75350784884,\n                \"custom\": true,\n                \"attributeDescription\": \"string\",\n                \"targetValue\": \"string\",\n                \"value\": \"string\",\n                \"invalidatedBy\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"notes\": \"string\",\n                \"publicNotes\": \"string\",\n                \"resetOn\": \"2011-10-12T18:56:17.681Z\"\n              }\n            ],\n            \"notes\": \"string\",\n            \"effectiveDate\": \"2001-06-01T00:37:47.440Z\",\n            \"expirationDate\": \"1959-03-16T13:54:51.106Z\",\n            \"latestExpirationDate\": \"2022-06-15T17:43:10.424Z\",\n            \"latestValidEffectiveDate\": \"2008-06-18T09:44:54.500Z\",\n            \"latestValidExpirationDate\": \"1981-04-05T19:07:15.036Z\",\n            \"resetOn\": \"1990-08-11T22:01:01.299Z\"\n          },\n          {\n            \"id\": \"string\",\n            \"label\": \"string\",\n            \"status\": \"non_compliant\",\n            \"documents\": [\n              {\n                \"id\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"origin\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"complianceStatus\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"id\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"origin\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"complianceStatus\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ],\n            \"documentsCount\": 6678.023541152156,\n            \"requirements\": [\n              {\n                \"id\": \"string\",\n                \"label\": \"string\",\n                \"moduleId\": \"string\",\n                \"moduleLabel\": \"string\",\n                \"subjectId\": \"string\",\n                \"subjectLabel\": \"string\",\n                \"attributeId\": \"string\",\n                \"attributeLabel\": \"string\",\n                \"matchingCriteria\": \"matchOnce\",\n                \"operator\": \"must be completed by\",\n                \"status\": \"invalidated\",\n                \"documents\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"documentsCount\": 157.08673430409047,\n                \"custom\": false,\n                \"attributeDescription\": \"string\",\n                \"targetValue\": \"string\",\n                \"value\": \"string\",\n                \"invalidatedBy\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"notes\": \"string\",\n                \"publicNotes\": \"string\",\n                \"resetOn\": \"2011-07-22T06:23:20.867Z\"\n              },\n              {\n                \"id\": \"string\",\n                \"label\": \"string\",\n                \"moduleId\": \"string\",\n                \"moduleLabel\": \"string\",\n                \"subjectId\": \"string\",\n                \"subjectLabel\": \"string\",\n                \"attributeId\": \"string\",\n                \"attributeLabel\": \"string\",\n                \"matchingCriteria\": \"matchOnce\",\n                \"operator\": \"must be less or equal to\",\n                \"status\": \"compliant\",\n                \"documents\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"documentsCount\": 4693.416486698524,\n                \"custom\": true,\n                \"attributeDescription\": \"string\",\n                \"targetValue\": \"string\",\n                \"value\": \"string\",\n                \"invalidatedBy\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"notes\": \"string\",\n                \"publicNotes\": \"string\",\n                \"resetOn\": \"1971-09-21T05:11:48.838Z\"\n              }\n            ],\n            \"notes\": \"string\",\n            \"effectiveDate\": \"2021-12-11T22:21:27.955Z\",\n            \"expirationDate\": \"2024-03-09T02:25:46.356Z\",\n            \"latestExpirationDate\": \"1969-05-22T10:21:43.238Z\",\n            \"latestValidEffectiveDate\": \"2021-05-11T00:59:24.220Z\",\n            \"latestValidExpirationDate\": \"1981-04-15T13:46:51.752Z\",\n            \"resetOn\": \"1985-05-18T08:11:58.176Z\"\n          }\n        ]\n      }\n    ],\n    \"subjects\": [\n      {\n        \"id\": \"string\",\n        \"effectiveDate\": \"1992-09-23T05:42:45.574Z\",\n        \"expirationDate\": \"2014-04-15T21:36:33.834Z\",\n        \"latestValidEffectiveDate\": \"1973-01-23T22:17:06.696Z\",\n        \"latestValidExpirationDate\": \"2012-02-25T16:24:55.028Z\",\n        \"notes\": \"string\",\n        \"requirementsStatus\": \"waived\",\n        \"resetRequirementsOn\": \"2000-07-28T00:18:09.988Z\"\n      },\n      {\n        \"id\": \"string\",\n        \"effectiveDate\": \"1960-12-18T22:30:44.268Z\",\n        \"expirationDate\": \"1976-06-23T15:34:38.974Z\",\n        \"latestValidEffectiveDate\": \"1962-03-27T16:49:53.054Z\",\n        \"latestValidExpirationDate\": \"1991-12-02T04:45:06.628Z\",\n        \"notes\": \"string\",\n        \"requirementsStatus\": \"overridden\",\n        \"resetRequirementsOn\": \"2017-01-15T09:59:25.961Z\"\n      }\n    ],\n    \"requirements\": [\n      {\n        \"id\": \"string\",\n        \"label\": \"string\",\n        \"operator\": \"string\",\n        \"targetValue\": \"string\",\n        \"actualValue\": \"string\",\n        \"status\": \"waived\",\n        \"waiverOrOverrideNotes\": \"string\",\n        \"waiverOrOverrideExpirationDate\": \"1948-02-22T06:10:46.365Z\"\n      },\n      {\n        \"id\": \"string\",\n        \"label\": \"string\",\n        \"operator\": \"string\",\n        \"targetValue\": \"string\",\n        \"actualValue\": \"string\",\n        \"status\": \"non_compliant\",\n        \"waiverOrOverrideNotes\": \"string\",\n        \"waiverOrOverrideExpirationDate\": \"1951-11-27T15:03:12.079Z\"\n      }\n    ],\n    \"status\": \"non_compliant\",\n    \"nextExpirationDate\": \"2018-05-09T05:52:39.520Z\",\n    \"latestExpirationDate\": \"2025-12-31T01:24:38.259Z\",\n    \"lastChangedAt\": \"2023-04-16T13:32:49.616Z\"\n  },\n  \"projects\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    }\n  ],\n  \"projectStats\": {\n    \"compliantProjectsCount\": 3244.8054589002704,\n    \"totalProjectsCount\": 894.7805770943629\n  },\n  \"documents\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    }\n  ],\n  \"partyType\": {\n    \"id\": \"string\",\n    \"type\": \"string\"\n  },\n  \"tags\": [\n    {\n      \"type\": \"tags\",\n      \"id\": \"string\",\n      \"addedAt\": \"1984-08-17\",\n      \"addedBy\": \"string\",\n      \"expiresAt\": \"2008-07-18\"\n    },\n    {\n      \"type\": \"tags\",\n      \"id\": \"string\",\n      \"addedAt\": \"1970-07-20\",\n      \"addedBy\": \"string\",\n      \"expiresAt\": \"1960-03-18\"\n    }\n  ],\n  \"complianceProfile\": {\n    \"id\": \"string\",\n    \"type\": \"string\"\n  },\n  \"customData\": [\n    {\n      \"value\": \"string\",\n      \"customField\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    },\n    {\n      \"value\": \"string\",\n      \"customField\": {\n        \"id\": \"string\",\n        \"type\": \"string\"\n      }\n    }\n  ],\n  \"deletedAt\": \"1989-05-13T07:06:16.649Z\",\n  \"deletedBy\": {},\n  \"externalIds\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:4000/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ac17e780-ea81-41ea-bc92-648e5daa6a51",
+    "name": "TrustLayer Platform Auth custom-fields API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "3rd-party API for the TrustLayer platform.\n\n**Deprecated.** Platform API v1 is deprecated as of 01 June 2026 and is\nscheduled for sunset (end-of-life) on 31 March 2027. It remains fully\navailable until the sunset date but will not receive new features. Please\nmigrate to Platform API v2 for new integrations.\n\nAll v1 responses carry the standard deprecation response headers\n([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)):\n\n```http\nDeprecation: @1780272000\nSunset: Wed, 31 Mar 2027 23:59:59 GMT\nLink: <https://developers.trustlayer.io/>; rel=\"deprecation\", <https://developers.trustlayer.io/>; rel=\"sunset\"\n```\n\n`Deprecation: @1780272000` is the Unix timestamp for 2026-06-01T00:00:00Z;\nsunset (end-of-life) is 2027-03-31T23:59:59 GMT.\n\nContact Support:\n Name: TrustLayer Support\n Email: support@trustlayer.io",
+      "type": "text/plain"
+    }
+  }
+}

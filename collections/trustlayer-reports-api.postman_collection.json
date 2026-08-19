@@ -1,0 +1,494 @@
+{
+  "item": [
+    {
+      "id": "7e503f9d-1caa-44e9-b03f-a4e07b6e2184",
+      "name": "reports",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "16cad6f7-750c-47ee-b153-aeccb40a6e52",
+          "name": "List public reports",
+          "request": {
+            "name": "List public reports",
+            "description": {
+              "content": "Available filter options:\n- `type` (either `projects` or `parties`)\n\nAvailable sort options:\n- `name`\n- `createdAt`\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "List of comma-separated keys used to sort. Reversing is done by prepending \"-\" to the key name."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "16c57b52-7136-40d3-8bb5-103a796d8e33",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[title]",
+                      "value": "foo"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "name,-age"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"fail\",\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"reports\",\n      \"name\": \"string\",\n      \"filters\": {},\n      \"updatedAt\": \"2004-03-26T18:45:46.487Z\",\n      \"createdAt\": \"1960-07-01T09:04:50.448Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"reports\",\n      \"name\": \"string\",\n      \"filters\": {},\n      \"updatedAt\": \"1958-09-18T06:59:59.708Z\",\n      \"createdAt\": \"2006-10-13T04:07:10.535Z\"\n    }\n  ],\n  \"meta\": {\n    \"count\": 5450.584187819802,\n    \"pages\": 3428.591309274834,\n    \"totalCount\": 9486.662453871995,\n    \"totalPages\": 2148.671474577548\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6ee41612-d816-4cea-91a9-a877302b385d",
+          "name": "Create a new report",
+          "request": {
+            "name": "Create a new report",
+            "description": {
+              "content": "TBD",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"report\": {\n    \"name\": \"<string>\",\n    \"filters\": \"<object>\",\n    \"reportType\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b3e7a5b5-a101-4422-8db6-caff13b2e95f",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"report\": {\n    \"name\": \"<string>\",\n    \"filters\": \"<object>\",\n    \"reportType\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"fail\",\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"reports\",\n    \"name\": \"string\",\n    \"filters\": {},\n    \"updatedAt\": \"1983-01-05T10:25:58.053Z\",\n    \"createdAt\": \"2013-05-18T17:32:39.562Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d9fc4582-7213-4c22-babf-7a5cd32d7753",
+          "name": "Fetch a public report",
+          "request": {
+            "name": "Fetch a public report",
+            "description": {
+              "content": "TBD",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Report ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3ba237c9-a25d-474b-a91c-3c9a4c4a175d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Report ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"fail\",\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"reports\",\n    \"name\": \"string\",\n    \"filters\": {},\n    \"updatedAt\": \"1983-01-05T10:25:58.053Z\",\n    \"createdAt\": \"2013-05-18T17:32:39.562Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8ec8e601-c99b-4a43-9ff6-ffbcb4703e54",
+          "name": "Update a report",
+          "request": {
+            "name": "Update a report",
+            "description": {
+              "content": "TBD",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Report ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"report\": {\n    \"name\": \"<string>\",\n    \"filters\": \"<object>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ddf5a721-fad0-4086-85bf-7404695a3191",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Report ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"report\": {\n    \"name\": \"<string>\",\n    \"filters\": \"<object>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"fail\",\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"reports\",\n    \"name\": \"string\",\n    \"filters\": {},\n    \"updatedAt\": \"1983-01-05T10:25:58.053Z\",\n    \"createdAt\": \"2013-05-18T17:32:39.562Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f8247430-09e9-4ee9-bc78-8a0cf7301131",
+          "name": "Delete a report",
+          "request": {
+            "name": "Delete a report",
+            "description": {
+              "content": "TBD",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reports",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Report ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "160dbc7e-1a87-4333-af9e-ceb9da44a463",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reports",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Report ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"fail\",\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"reports\",\n    \"name\": \"string\",\n    \"filters\": {},\n    \"updatedAt\": \"1983-01-05T10:25:58.053Z\",\n    \"createdAt\": \"2013-05-18T17:32:39.562Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:4000/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b79e1fd0-98e4-4618-ba76-a0265ddb5bfd",
+    "name": "TrustLayer Platform Auth reports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "3rd-party API for the TrustLayer platform.\n\n**Deprecated.** Platform API v1 is deprecated as of 01 June 2026 and is\nscheduled for sunset (end-of-life) on 31 March 2027. It remains fully\navailable until the sunset date but will not receive new features. Please\nmigrate to Platform API v2 for new integrations.\n\nAll v1 responses carry the standard deprecation response headers\n([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)):\n\n```http\nDeprecation: @1780272000\nSunset: Wed, 31 Mar 2027 23:59:59 GMT\nLink: <https://developers.trustlayer.io/>; rel=\"deprecation\", <https://developers.trustlayer.io/>; rel=\"sunset\"\n```\n\n`Deprecation: @1780272000` is the Unix timestamp for 2026-06-01T00:00:00Z;\nsunset (end-of-life) is 2027-03-31T23:59:59 GMT.\n\nContact Support:\n Name: TrustLayer Support\n Email: support@trustlayer.io",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TrustLayer Platform Auth party-types API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "party-types",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List party types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/party-types"
+          },
+          "docs": "Note that this will return all party types, sorted by name"
+        },
+        {
+          "info": {
+            "name": "Create a party type",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/party-types",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Note that you _must_ provide both the singular and plural names."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

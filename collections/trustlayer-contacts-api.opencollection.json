@@ -1,0 +1,277 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TrustLayer Platform Auth contacts API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "contacts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch a party contact's information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/contacts/:contactId",
+            "params": [
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "List of comma-separated relationships to include in the result"
+              }
+            ]
+          },
+          "docs": "Available include options:\n* party"
+        },
+        {
+          "info": {
+            "name": "Update a party contact's information",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:4000/v1/contacts/:contactId",
+            "params": [
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a contact with the given data.\n\n* setting the `primary` flag to `true` will remove it from the other contacts.\n* setting the `primary` flag to `false` on the current primary contact will return a `400` response, since a primary contact must always exist.\n* if given, `name` must be non-blank"
+        },
+        {
+          "info": {
+            "name": "Remove contact information from a party",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/contacts/:contactId",
+            "params": [
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This will return a `400` response if you try to remove the primary contact."
+        },
+        {
+          "info": {
+            "name": "List a party's contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/parties/:partyId/contacts",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path",
+                "description": "Party ID"
+              }
+            ]
+          },
+          "docs": "Returns all the contacts for a party. Note that pagination is not available, so the meta information will always return the number of contacts in `totalCount` and 1 in `totalPages`."
+        },
+        {
+          "info": {
+            "name": "Create a party contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/parties/:partyId/contacts",
+            "params": [
+              {
+                "name": "partyId",
+                "value": "",
+                "type": "path",
+                "description": "Party ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "* `name` is required.\n* setting the `primary` flag to `true` will unset it from the current primary contact.\n"
+        },
+        {
+          "info": {
+            "name": "GET /contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/contacts",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to sort by. Example: '_id,-createdAt'. Allowed: email, contactPersonName, companyName, createdAt, updatedAt"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to project. Allowed: _id, email, contactPersonName, companyName, title, phone, fax, address, createdAt, updatedAt"
+              },
+              {
+                "name": "_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by _id. 24-character hex ObjectId string (e.g. `_id=507f1f77bcf86cd799439011`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "createdAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter by createdAt. ISO-8601 date or datetime string (e.g. `createdAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "updatedAt",
+                "value": "",
+                "type": "query",
+                "description": "Filter by updatedAt. ISO-8601 date or datetime string (e.g. `updatedAt=2024-01-15`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "Filter by email. String value (e.g. `email=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "contactPersonName",
+                "value": "",
+                "type": "query",
+                "description": "Filter by contactPersonName. String value (e.g. `contactPersonName=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              },
+              {
+                "name": "companyName",
+                "value": "",
+                "type": "query",
+                "description": "Filter by companyName. String value (e.g. `companyName=example`). See \"List Endpoints\" in the API overview for operator syntax."
+              }
+            ]
+          },
+          "docs": "List contacts in the caller's organization. Results are always scoped to the caller's organization. Supports filtering, sorting, and pagination via `limit` and `skip`.\n\n<!-- qs2mongo:list-summary -->\n\n**Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `email` (string), `contactPersonName` (string), `companyName` (string). See \"List Endpoints\" in the API overview for operator syntax and combining rules.\n\n**Sorting**: supported via `sort` (see the parameter's description for "
+        },
+        {
+          "info": {
+            "name": "POST /contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/v1/contacts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new contact in the caller's organization. The owning organization is derived from the access token and cannot be set in the body. Returns the new contact's identifier."
+        },
+        {
+          "info": {
+            "name": "GET /contacts/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/v1/contacts/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to project. Allowed: _id, contactPersonName, companyName, title, email, phone, fax, address, createdAt, updatedAt"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the contact to read."
+              }
+            ]
+          },
+          "docs": "Read a single contact by id, scoped to the caller's organization. Use the `fields` query parameter to limit the response to a projection of the contact."
+        },
+        {
+          "info": {
+            "name": "PATCH /contacts/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "http://localhost:4000/v1/contacts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the contact to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially update a contact. Any subset of writable fields may be provided; omitted fields are left unchanged. Returns the contact's identifier."
+        },
+        {
+          "info": {
+            "name": "DELETE /contacts/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/v1/contacts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the contact to delete."
+              }
+            ]
+          },
+          "docs": "Delete a contact by ID. The contact must not be assigned to any primary records — if it is still referenced, the request returns 409 with the referencing record ids in the error details. Note: deleting a contact does not cascade to legacy party contact data (PartyData.partyContacts); API-created contacts have no party association."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
