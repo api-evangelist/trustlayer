@@ -156,7 +156,7 @@ apis:
   humanURL: https://developers.trustlayer.io/v2
   baseURL: https://api.trustlayer.io/v2
   tags:
-  - custom-fields
+  - Custom Fields
   tags_raw:
   - custom-fields
   properties:
