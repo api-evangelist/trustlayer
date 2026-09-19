@@ -364,6 +364,8 @@ apis:
   humanURL: https://developers.trustlayer.io/v2
   baseURL: https://api.trustlayer.io/v2
   tags:
+  - Workspace
+  tags_raw:
   - Workspaces
   properties:
   - type: OpenAPI
