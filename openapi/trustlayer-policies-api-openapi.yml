@@ -1,58 +1,24 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: TrustLayer Platform Auth Policies API
-  version: '1.0'
+  title: TrustLayer Platform API V2 (Early Access) Policies API
+  description: The following documentation sets out to provide everything you need to build your solutions using the TrustLayer API.
+  termsOfService: https://trustlayer.io/terms-of-use/
+  version: 2.0.0-beta
   contact:
-    name: TrustLayer Support
-    email: support@trustlayer.io
-  termsOfService: https://trustlayer.io/terms-of-service
-  externalDocs:
-    description: OpenAPI specification
-    url: /v1/platform-api.yaml
-  description: '3rd-party API for the TrustLayer platform.
-
-
-    **Deprecated.** Platform API v1 is deprecated as of 01 June 2026 and is
-
-    scheduled for sunset (end-of-life) on 31 March 2027. It remains fully
-
-    available until the sunset date but will not receive new features. Please
-
-    migrate to Platform API v2 for new integrations.
-
-
-    All v1 responses carry the standard deprecation response headers
-
-    ([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)):
-
-
-    ```http
-
-    Deprecation: @1780272000
-
-    Sunset: Wed, 31 Mar 2027 23:59:59 GMT
-
-    Link: <https://developers.trustlayer.io/>; rel="deprecation", <https://developers.trustlayer.io/>; rel="sunset"
-
-    ```
-
-
-    `Deprecation: @1780272000` is the Unix timestamp for 2026-06-01T00:00:00Z;
-
-    sunset (end-of-life) is 2027-03-31T23:59:59 GMT.'
-  x-deprecated: true
-  x-deprecation-date: '2026-06-01'
-  x-sunset: '2027-03-31'
+    name: TrustLayer API Services
+    email: api@trustlayer.io
   license:
     name: Apache 2.0
     url: https://apache.org/licenses/LICENSE-2.0
 servers:
-- url: http://localhost:4000/v1
-  description: Local
-- url: https://api.trustlayer.io/v1
-  description: Production
+- url: https://api.trustlayer.io/v2
+  description: Production Server
+- url: https://api.integration.trustlayer.dev/v2
+  description: Integration Server
+- url: https://api.demo.trustlayer.dev/v2
+  description: Demo Server
 security:
-- API Key: []
+- Bearer Auth: []
 tags:
 - name: Policies
 paths:
@@ -191,8 +157,9 @@ paths:
                                 type: string
                               issueDate:
                                 description: Date the document was issued, if known.
-                                nullable: true
-                                type: string
+                                type:
+                                - string
+                                - 'null'
                                 format: date-time
                               primaryRecordId:
                                 description: Identifier of the primary record (e.g. vendor or contractor) associated with this document.
@@ -342,14 +309,15 @@ paths:
                 - message
                 additionalProperties: false
                 description: The server encountered an unexpected failure while processing the request.
+      summary: Get policies by number
+      x-summary-source: derived
+      operationId: getPoliciesByNumber
+      x-operation-id-source: derived
   /policies/{number}/documents:
     get:
       tags:
       - Policies
       description: 'List documents that support a policy''s coverage. Each document may carry one or more coverage subjects whose validity is evaluated against the policy. Supports filtering by primary record to retrieve only documents associated with a specific vendor or contractor.
-
-
-        <!-- qs2mongo:list-summary -->
 
 
         **Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `primaryRecordId` (objectId), `name` (string), `issueDate` (date). See "List Endpoints" in the API overview for operator syntax and combining rules.
@@ -363,9 +331,8 @@ paths:
       - schema:
           default: 20
           type: integer
-          minimum: 0
-          exclusiveMinimum: true
           maximum: 100
+          exclusiveMinimum: 0
         in: query
         name: limit
         required: false
@@ -449,8 +416,9 @@ paths:
                           type: string
                         issueDate:
                           description: Date the document was issued, if known.
-                          nullable: true
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           format: date-time
                         primaryRecordId:
                           description: Identifier of the primary record (e.g. vendor or contractor) associated with this document.
@@ -710,14 +678,15 @@ paths:
                 - message
                 additionalProperties: false
                 description: The server encountered an unexpected failure while processing the request.
+      summary: Get policies by number documents
+      x-summary-source: derived
+      operationId: getPoliciesByNumberDocuments
+      x-operation-id-source: derived
   /policies/{number}/amendments:
     get:
       tags:
       - Policies
       description: 'List amendments (cancellations and reinstatements) for a policy identified by its number. Each amendment is either a cancellation that reduces or ends coverage, or a reinstatement that restores coverage after a cancellation. Supports pagination via `limit` and `skip`.
-
-
-        <!-- qs2mongo:list-summary -->
 
 
         **Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `primaryRecordId` (objectId), `type` (string), `effectiveDate` (date), `issueDate` (date), `notes` (string). See "List Endpoints" in the API overview for operator syntax and combining rules.
@@ -731,9 +700,8 @@ paths:
       - schema:
           default: 20
           type: integer
-          minimum: 0
-          exclusiveMinimum: true
           maximum: 100
+          exclusiveMinimum: 0
         in: query
         name: limit
         required: false
@@ -1040,6 +1008,10 @@ paths:
                 - message
                 additionalProperties: false
                 description: The server encountered an unexpected failure while processing the request.
+      summary: Get policies by number amendments
+      x-summary-source: derived
+      operationId: getPoliciesByNumberAmendments
+      x-operation-id-source: derived
   /policies/{number}/cancellations:
     post:
       tags:
@@ -1386,6 +1358,10 @@ paths:
                 - message
                 additionalProperties: false
                 description: The server encountered an unexpected failure while processing the request.
+      summary: Create policies by number cancellations
+      x-summary-source: derived
+      operationId: postPoliciesByNumberCancellations
+      x-operation-id-source: derived
   /policies/{number}/cancellations/{id}/log:
     post:
       tags:
@@ -1454,8 +1430,9 @@ paths:
                         name:
                           type: string
                         issueDate:
-                          nullable: true
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           format: date-time
                         subjects:
                           type: array
@@ -1701,6 +1678,10 @@ paths:
                 - message
                 additionalProperties: false
                 description: The server encountered an unexpected failure while processing the request.
+      summary: Create policies by number cancellations by id log
+      x-summary-source: derived
+      operationId: postPoliciesByNumberCancellationsByIdLog
+      x-operation-id-source: derived
   /policies/{number}/cancellations/{id}:
     delete:
       tags:
@@ -1861,6 +1842,10 @@ paths:
                 - message
                 additionalProperties: false
                 description: The server encountered an unexpected failure while processing the request.
+      summary: Delete policies by number cancellations by id
+      x-summary-source: derived
+      operationId: deletePoliciesByNumberCancellationsById
+      x-operation-id-source: derived
   /policies/{number}/reinstatements:
     post:
       tags:
@@ -2207,6 +2192,10 @@ paths:
                 - message
                 additionalProperties: false
                 description: The server encountered an unexpected failure while processing the request.
+      summary: Create policies by number reinstatements
+      x-summary-source: derived
+      operationId: postPoliciesByNumberReinstatements
+      x-operation-id-source: derived
   /policies/{number}/reinstatements/{id}/log:
     post:
       tags:
@@ -2275,8 +2264,9 @@ paths:
                         name:
                           type: string
                         issueDate:
-                          nullable: true
-                          type: string
+                          type:
+                          - string
+                          - 'null'
                           format: date-time
                         subjects:
                           type: array
@@ -2522,6 +2512,10 @@ paths:
                 - message
                 additionalProperties: false
                 description: The server encountered an unexpected failure while processing the request.
+      summary: Create policies by number reinstatements by id log
+      x-summary-source: derived
+      operationId: postPoliciesByNumberReinstatementsByIdLog
+      x-operation-id-source: derived
   /policies/{number}/reinstatements/{id}:
     delete:
       tags:
@@ -2682,6 +2676,10 @@ paths:
                 - message
                 additionalProperties: false
                 description: The server encountered an unexpected failure while processing the request.
+      summary: Delete policies by number reinstatements by id
+      x-summary-source: derived
+      operationId: deletePoliciesByNumberReinstatementsById
+      x-operation-id-source: derived
   /policies/{number}/log-cancellation:
     post:
       tags:
@@ -2907,6 +2905,10 @@ paths:
                 - message
                 additionalProperties: false
                 description: The server encountered an unexpected failure while processing the request.
+      summary: Create policies by number log cancellation
+      x-summary-source: derived
+      operationId: postPoliciesByNumberLogCancellation
+      x-operation-id-source: derived
   /policies/{number}/log-reinstatement:
     post:
       tags:
@@ -3125,23 +3127,26 @@ paths:
                 - message
                 additionalProperties: false
                 description: The server encountered an unexpected failure while processing the request.
+      summary: Create policies by number log reinstatement
+      x-summary-source: derived
+      operationId: postPoliciesByNumberLogReinstatement
+      x-operation-id-source: derived
 components:
   schemas:
-    objectId:
-      title: ObjectId
-      type: string
-      format: ObjectId
-      examples:
-      - 507f1f77bcf86cd799439011
     objectIdInput:
       title: ObjectId
       type: string
       format: ObjectId
       examples:
       - 507f1f77bcf86cd799439011
+    objectId:
+      title: ObjectId
+      type: string
+      format: ObjectId
+      examples:
+      - 507f1f77bcf86cd799439011
   securitySchemes:
-    Token:
-      name: Authorization
-      type: apiKey
-      in: header
-      description: ''
+    Bearer_Auth:
+      type: http
+      scheme: bearer
+      description: 'Enter your API token:'

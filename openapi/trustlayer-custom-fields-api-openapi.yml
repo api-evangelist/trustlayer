@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: TrustLayer Platform Auth custom-fields API
+  title: TrustLayer Platform Custom Fields API
   version: '1.0'
   contact:
     name: TrustLayer Support
@@ -9,37 +9,7 @@ info:
   externalDocs:
     description: OpenAPI specification
     url: /v1/platform-api.yaml
-  description: '3rd-party API for the TrustLayer platform.
-
-
-    **Deprecated.** Platform API v1 is deprecated as of 01 June 2026 and is
-
-    scheduled for sunset (end-of-life) on 31 March 2027. It remains fully
-
-    available until the sunset date but will not receive new features. Please
-
-    migrate to Platform API v2 for new integrations.
-
-
-    All v1 responses carry the standard deprecation response headers
-
-    ([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)):
-
-
-    ```http
-
-    Deprecation: @1780272000
-
-    Sunset: Wed, 31 Mar 2027 23:59:59 GMT
-
-    Link: <https://developers.trustlayer.io/>; rel="deprecation", <https://developers.trustlayer.io/>; rel="sunset"
-
-    ```
-
-
-    `Deprecation: @1780272000` is the Unix timestamp for 2026-06-01T00:00:00Z;
-
-    sunset (end-of-life) is 2027-03-31T23:59:59 GMT.'
+  description: 3rd-party API for the TrustLayer platform.
   x-deprecated: true
   x-deprecation-date: '2026-06-01'
   x-sunset: '2027-03-31'
@@ -54,7 +24,7 @@ servers:
 security:
 - API Key: []
 tags:
-- name: custom-fields
+- name: Custom Fields
 paths:
   /projects/{projectId}:
     parameters:
@@ -96,7 +66,7 @@ paths:
                   $ref: '#/components/schemas/project-update'
         description: ''
       tags:
-      - custom-fields
+      - Custom Fields
       x-internal: false
   /custom-fields:
     get:
@@ -126,7 +96,7 @@ paths:
 
         * `complianceProfile`'
       tags:
-      - custom-fields
+      - Custom Fields
     post:
       summary: Create a new custom field
       operationId: post-custom-fields
@@ -153,7 +123,7 @@ paths:
                 customField:
                   $ref: '#/components/schemas/custom-field-create'
       tags:
-      - custom-fields
+      - Custom Fields
   /custom-fields/{fieldId}:
     parameters:
     - schema:
@@ -178,7 +148,7 @@ paths:
                   data:
                     $ref: '#/components/schemas/custom-field'
       tags:
-      - custom-fields
+      - Custom Fields
       description: Note that by specifying `options` you will _replace_ all the existing values.
       requestBody:
         content:
@@ -205,7 +175,7 @@ paths:
                   data:
                     $ref: '#/components/schemas/custom-field'
       tags:
-      - custom-fields
+      - Custom Fields
       description: This will also remove the field from any project that is using it.
   /parties/{partyId}/custom-data:
     parameters:
@@ -233,7 +203,7 @@ paths:
 
         A project `scope` can be specified; in that case the changes will be made only to the project specific values.'
       tags:
-      - custom-fields
+      - Custom Fields
       parameters:
       - $ref: '#/components/parameters/scope-type'
       - $ref: '#/components/parameters/scope-id'
@@ -254,647 +224,43 @@ paths:
                       id: string
 components:
   schemas:
-    project-update:
-      title: project-update
+    collection-meta:
+      title: collection-meta
       type: object
       properties:
-        name:
-          type: string
-          description: The project name
-        description:
-          type: string
-          description: An optional description
-        startDate:
-          type: string
-          format: date
-        endDate:
-          type: string
-          format: date
-        active:
-          type: boolean
-        customData:
-          type: array
-          items:
-            type: object
-            properties:
-              customField:
-                $ref: '#/components/schemas/reference-input'
-              value:
-                type: string
-                nullable: false
-            required:
-            - customField
-            - value
-      required:
-      - name
+        count:
+          type: number
+          description: The number of documents according to the specified filters
+        pages:
+          type: number
+        totalCount:
+          type: number
+          description: The total number of documents in the collection
+        totalPages:
+          type: number
+      x-internal: true
+    custom-data-update:
+      type: array
+      x-examples:
+        example-1:
+        - value: string
+          customField:
+            id: striangstringstringstring
       x-internal: true
       x-tags:
       - input
-    project:
-      title: Project
-      type: object
-      x-examples:
-        Example project:
-          type: projects
-          id: 60a3dc67cba60c04739e8e46
-          name: Test Project
-          parties:
-          - id: 60896067dd86e01e90199f42
-            type: parties
-          customData:
-          - value: '123'
-            customField:
-              type: customFields
-              id: 60896067dd86e01e90199f42
-          externalIds:
-            procore:
-            - id: '49843945'
-      properties:
-        type:
-          type: string
-          default: projects
-          readOnly: true
-        id:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-          nullable: true
-        startDate:
-          type: string
-          format: date-time
-          nullable: true
-        endDate:
-          type: string
-          format: date-time
-          nullable: true
-        active:
-          type: boolean
-        parties:
-          type: array
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/reference'
-            - $ref: '#/components/schemas/party'
-            - type: string
-        customData:
-          type: array
-          items:
-            type: object
-            properties:
-              value:
-                type: string
-              customField:
-                oneOf:
-                - $ref: '#/components/schemas/reference'
-                - $ref: '#/components/schemas/custom-field'
-        complianceStatus:
-          type: object
-          properties:
-            status:
-              type: string
-              enum:
-              - compliant
-              - non_compliant
-            compliantPartiesCount:
-              type: number
-            totalPartiesCount:
-              type: number
-            complianceScore:
-              type: number
-        deletedAt:
-          type: string
-          format: date-time
-          nullable: true
-        deletedBy:
-          oneOf:
-          - nullable: true
-          - $ref: '#/components/schemas/reference'
-        externalIds:
-          type: object
-          x-stoplight:
-            id: uw5iuj9nds4en
-    custom-field-update:
-      title: custom-field-update
-      type: object
-      x-internal: true
-      x-tags:
-      - input
-      properties:
-        name:
-          type: string
-          minLength: 1
-        description:
-          type: string
-        color:
-          type: string
-          pattern: ^#[0-9a-f]{6}$
-          minLength: 7
-          maxLength: 7
-          example: '#ffa900'
-        fieldType:
-          type: string
-          enum:
-          - text
-          - number
-          - dropdown
-        source:
-          type: string
-          enum:
-          - branding
-        options:
-          type: array
-          minItems: 1
-          items:
-            type: string
-            minLength: 1
-    compliance-document:
-      x-internal: true
-      title: Compliance Document
-      type: object
-      properties:
-        id:
-          type: string
-        origin:
-          type: string
-          enum:
-          - upload
-          - makeCompliant
-          - connectedDocument
-          - fillableForm
-          - webForm
-        complianceStatus:
-          type: string
-          enum:
-          - compliant
-          - non_compliant
-    party:
-      title: Party
-      type: object
-      x-examples:
-        Example Party:
-          id: 60896067dd86e01e90199f42
-          name: Test Party
-          address:
-            line1: 123 Main Street
-            line2: ''
-            city: Pleasantville
-            postalCode: '10200'
-            region: NY
-            country: US
-          type: Vendor
-          status: new
-          customData:
-          - value: '123'
-            customField:
-              type: customFields
-              id: 60896067dd86e01e90199f42
-          externalIds:
-            procore:
-            - id: '49843945'
-      properties:
-        type:
-          type: string
-          default: parties
-          readOnly: true
-        id:
-          type: string
-          readOnly: true
-        name:
-          type: string
-        address:
-          $ref: '#/components/schemas/address'
-        status:
-          type: string
-          enum:
-          - new
-          - compliant
-          - non_compliant
-          - inactive
-          readOnly: true
-        contacts:
-          type: array
-          items:
-            $ref: '#/components/schemas/contact'
-        website:
-          type: string
-          nullable: true
-        active:
-          type: boolean
-        notes:
-          type: string
-          nullable: true
-        complianceStatus:
-          $ref: '#/components/schemas/compliance-status'
-        projects:
-          type: array
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/reference'
-            - $ref: '#/components/schemas/project'
-        projectStats:
-          type: object
-          properties:
-            compliantProjectsCount:
-              type: number
-            totalProjectsCount:
-              type: number
-        documents:
-          type: array
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/reference'
-            - $ref: '#/components/schemas/document'
-        partyType:
-          oneOf:
-          - $ref: '#/components/schemas/reference'
-          - $ref: '#/components/schemas/party-type'
-        tags:
-          type: array
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/taggging'
-            - $ref: '#/components/schemas/taggging-full'
-        complianceProfile:
-          oneOf:
-          - $ref: '#/components/schemas/reference'
-          - $ref: '#/components/schemas/compliance-profile'
-          - nullable: true
-        customData:
-          type: array
-          items:
-            type: object
-            properties:
-              value:
-                type: string
-              customField:
-                oneOf:
-                - $ref: '#/components/schemas/reference'
-                - $ref: '#/components/schemas/custom-field'
-        deletedAt:
-          type: string
-          format: date-time
-          nullable: true
-        deletedBy:
-          oneOf:
-          - nullable: true
-          - $ref: '#/components/schemas/reference'
-        externalIds:
-          type: object
-          x-stoplight:
-            id: zk87opteuie3w
-    reference-input:
-      title: reference-input
-      type: object
-      properties:
-        id:
-          type: string
-          minLength: 24
-          maxLength: 24
-          pattern: ^[a-z0-9]{24}$
-      required:
-      - id
-      x-internal: true
-      x-tags:
-      - input
-    compliance-status:
-      type: object
-      title: Compliance Status
-      properties:
-        complianceProfile:
-          $ref: '#/components/schemas/reference'
-        nextExpirationDate:
-          type: string
-          format: date-time
-          nullable: true
-        latestExpirationDate:
-          type: string
-          format: date-time
-          nullable: true
-        modules:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              label:
-                type: string
-              status:
-                type: string
-                enum:
-                - compliant
-                - non_compliant
-              documents:
-                type: array
-                items:
-                  $ref: '#/components/schemas/compliance-document'
-              documentsCount:
-                type: number
-                example: 1
-              subjects:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                    label:
-                      type: string
-                    status:
-                      type: string
-                      enum:
-                      - compliant
-                      - non_compliant
-                      - waived
-                      - overridden
-                    notes:
-                      type: string
-                    effectiveDate:
-                      type: string
-                      format: date-time
-                      nullable: true
-                    expirationDate:
-                      type: string
-                      format: date-time
-                      nullable: true
-                    latestExpirationDate:
-                      type: string
-                      format: date-time
-                      nullable: true
-                    latestValidEffectiveDate:
-                      type: string
-                      format: date-time
-                      nullable: true
-                    latestValidExpirationDate:
-                      type: string
-                      format: date-time
-                      nullable: true
-                    documents:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/compliance-document'
-                    documentsCount:
-                      type: number
-                    resetOn:
-                      type: string
-                      format: date-time
-                      nullable: true
-                    requirements:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          id:
-                            type: string
-                          label:
-                            type: string
-                          moduleId:
-                            type: string
-                          moduleLabel:
-                            type: string
-                          subjectId:
-                            type: string
-                          subjectLabel:
-                            type: string
-                          attributeId:
-                            type: string
-                          attributeLabel:
-                            type: string
-                          attributeDescription:
-                            type: string
-                          matchingCriteria:
-                            type: string
-                            enum:
-                            - matchOnce
-                            - matchRepeatedly
-                          operator:
-                            type: string
-                            enum:
-                            - must be present
-                            - must be greater or equal to
-                            - must be less or equal to
-                            - must be completed by
-                            - at least one must be present from list
-                          targetValue:
-                            type: string
-                          value:
-                            type: string
-                          status:
-                            type: string
-                            enum:
-                            - compliant
-                            - non_compliant
-                            - waived
-                            - overridden
-                            - invalidated
-                          invalidatedBy:
-                            type: array
-                            items:
-                              type: string
-                          notes:
-                            type: string
-                          publicNotes:
-                            type: string
-                          documents:
-                            type: array
-                            items:
-                              $ref: '#/components/schemas/compliance-document'
-                          documentsCount:
-                            type: number
-                          resetOn:
-                            type: string
-                            format: date-time
-                            nullable: true
-                          custom:
-                            type: boolean
-                        required:
-                        - id
-                        - label
-                        - moduleId
-                        - moduleLabel
-                        - subjectId
-                        - subjectLabel
-                        - attributeId
-                        - attributeLabel
-                        - matchingCriteria
-                        - operator
-                        - status
-                        - documents
-                        - documentsCount
-                        - custom
-                  required:
-                  - id
-                  - label
-                  - status
-                  - documents
-                  - documentsCount
-                  - requirements
-            required:
-            - id
-            - label
-            - status
-            - documents
-            - documentsCount
-            - subjects
-        subjects:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              effectiveDate:
-                type: string
-                format: date-time
-                nullable: true
-              expirationDate:
-                type: string
-                format: date-time
-                nullable: true
-              latestValidEffectiveDate:
-                type: string
-                format: date-time
-                nullable: true
-              latestValidExpirationDate:
-                type: string
-                format: date-time
-                nullable: true
-              notes:
-                type: string
-              requirementsStatus:
-                type: string
-                enum:
-                - compliant
-                - non_compliant
-                - waived
-                - overridden
-              resetRequirementsOn:
-                type: string
-                format: date-time
-                nullable: true
-        requirements:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              label:
-                type: string
-              operator:
-                type: string
-              targetValue:
-                type: string
-              actualValue:
-                type: string
-              status:
-                type: string
-                enum:
-                - compliant
-                - non_compliant
-                - waived
-                - overridden
-                - invalidated
-              waiverOrOverrideNotes:
-                type: string
-              waiverOrOverrideExpirationDate:
-                type: string
-                format: date-time
-                nullable: true
-        status:
-          type: string
-          enum:
-          - compliant
-          - non_compliant
-        lastChangedAt:
-          type: string
-          format: date-time
-      required:
-      - complianceProfile
-      - modules
-      - subjects
-      - requirements
-      - status
-      x-examples:
-        Example compliance status:
-          complianceProfile:
-            id: 60a27c51fcd891823568ed27
-            type: compliance-profiles
-          nextExpirationDate: '2024-11-14T00:00:00.000Z'
-          latestExpirationDate: '2025-12-19T23:59:59.999Z'
-          modules:
-          - id: evidenceOfInsurance
-            label: Evidence of Insurance
-            status: compliant
-            documents:
-            - id: 6877a0b2d7a1998eeb7f7f2f
-              origin: upload
-              complianceStatus: compliant
-            documentsCount: 1
-            subjects:
-            - id: commercialGeneralLiability
-              label: Commercial General Liability
-              status: compliant
-              notes: lorem ipsum dolor sit amet
-              effectiveDate: '2024-11-14T00:00:00.000Z'
-              expirationDate: '2025-11-14T23:59:59.999Z'
-              latestExpirationDate: '2025-12-19T23:59:59.999Z'
-              latestValidEffectiveDate: '2024-11-14T00:00:00.000Z'
-              latestValidExpirationDate: '2025-11-14T23:59:59.999Z'
-              documents:
-              - id: 6877a0b2d7a1998eeb7f7f2f
-                origin: upload
-                complianceStatus: compliant
-              documentsCount: 1
-              resetOn: '2025-06-02T00:00:00.000Z'
-              requirements:
-              - id: evidenceOfInsurance.commercialGeneralLiability.evidenceOfInsuranceCommercialGeneralLiabilityGeneralAggregate
-                label: 'Evidence of Insurance : Commercial General Liability : General Aggregate'
-                moduleId: evidenceOfInsurance
-                moduleLabel: Evidence of Insurance
-                subjectId: commercialGeneralLiability
-                subjectLabel: Commercial General Liability
-                attributeId: evidenceOfInsuranceCommercialGeneralLiabilityGeneralAggregate
-                attributeLabel: General Aggregate
-                matchingCriteria: matchOnce
-                operator: must be greater or equal to
-                targetValue: '1000000'
-                value: '2000000'
-                status: compliant
-                invalidatedBy:
-                - evidenceOfInsuranceCommercialGeneralLiabilityAMBestRating
-                notes: lorem ipsum dolor sit amet
-                publicNotes: lorem ipsum dolor sit amet
-                documents:
-                - id: 6877a0b2d7a1998eeb7f7f2f
-                  origin: upload
-                  complianceStatus: compliant
-                documentsCount: 1
-                resetOn: '2025-06-02T00:00:00.000Z'
-                custom: false
-          subjects:
-          - id: commercialGeneralLiability
-            effectiveDate: '2024-11-14T00:00:00.000Z'
-            expirationDate: '2025-11-14T23:59:59.999Z'
-            latestValidEffectiveDate: '2024-11-14T00:00:00.000Z'
-            latestValidExpirationDate: '2025-11-14T23:59:59.999Z'
-            latestExpirationDate: '2025-12-19T23:59:59.999Z'
-            notes: lorem ipsum dolor sit amet
-            requirementsStatus: compliant
-            resetRequirementsOn: '2025-06-02T00:00:00.000Z'
-          requirements:
-          - id: evidenceOfInsurance.commercialGeneralLiability.evidenceOfInsuranceCommercialGeneralLiabilityGeneralAggregate
-            label: 'Evidence of Insurance : Commercial General Liability : General Aggregate'
-            operator: must be greater or equal to
-            targetValue: '1000000'
-            actualValue: '2000000'
-            status: compliant
-            waiverOrOverrideNotes: lorem ipsum dolor sit amet
-            waiverOrOverrideExpirationDate: '2025-06-02T00:00:00.000Z'
-          status: compliant
-          lastChangedAt: '2025-07-16T17:55:00.000Z'
+      items:
+        type: object
+        properties:
+          customField:
+            $ref: '#/components/schemas/reference-input'
+          value:
+            type:
+            - string
+            - number
+        required:
+        - customField
+        - value
     contact:
       title: Contact
       type: object
@@ -950,104 +316,124 @@ components:
           type: string
           x-stoplight:
             id: 07yyrzkup5tdk
-    user:
-      description: ''
+    party:
+      title: Party
       type: object
-      properties:
-        id:
-          type: string
-        profile:
-          type: object
-          properties:
-            name:
-              type: string
-              minLength: 1
-            phone:
-              type: string
-            title:
-              type: string
-            avatar:
-              type: string
-            role:
-              type: string
-            department:
-              type: string
-            timezone:
-              type: string
-        email:
-          type: string
-          minLength: 1
-        isActive:
-          type: boolean
-        type:
-          type: string
-          default: users
-          readOnly: true
-      title: User
-    reference:
-      title: Reference
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-      description: Generic object reference
-      x-internal: false
       x-examples:
-        Generic reference example:
-          id: 60896067dd86e01e90199f43
-          type: widgets
-    custom-field:
-      title: Custom Field
-      type: object
+        Example Party:
+          id: 60896067dd86e01e90199f42
+          name: Test Party
+          address:
+            line1: 123 Main Street
+            line2: ''
+            city: Pleasantville
+            postalCode: '10200'
+            region: NY
+            country: US
+          type: Vendor
+          status: new
+          customData:
+          - value: '123'
+            customField:
+              type: customFields
+              id: 60896067dd86e01e90199f42
+          externalIds:
+            procore:
+            - id: '49843945'
       properties:
-        id:
-          type: string
         type:
           type: string
-          default: custom-fields
+          default: parties
+          readOnly: true
+        id:
+          type: string
+          readOnly: true
         name:
           type: string
-          description: Custom field label
-        'description ':
+        address:
+          $ref: '#/components/schemas/address'
+        status:
           type: string
-          description: Optional description
-        color:
-          type: string
-          pattern: ^#[a-f0-9]{6}$
-          description: 'Field color in #rrggbb format'
-        fieldType:
-          type: string
-          default: text
           enum:
-          - text
-          - number
-          - dropdown
-        options:
+          - new
+          - compliant
+          - non_compliant
+          - inactive
+          readOnly: true
+        contacts:
           type: array
-          description: List of options for the dropdown
           items:
-            type: object
-            properties:
-              key:
-                type: string
-                description: Unique identifier for the option
-              value:
-                type: string
-                description: Option label
+            $ref: '#/components/schemas/contact'
+        website:
+          type:
+          - string
+          - 'null'
+        active:
+          type: boolean
+        notes:
+          type:
+          - string
+          - 'null'
+        complianceStatus:
+          $ref: '#/components/schemas/compliance-status'
+        projects:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/reference'
+            - $ref: '#/components/schemas/project'
+        projectStats:
+          type: object
+          properties:
+            compliantProjectsCount:
+              type: number
+            totalProjectsCount:
+              type: number
+        documents:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/reference'
+            - $ref: '#/components/schemas/document'
+        partyType:
+          oneOf:
+          - $ref: '#/components/schemas/reference'
+          - $ref: '#/components/schemas/party-type'
+        tags:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/taggging'
+            - $ref: '#/components/schemas/taggging-full'
         complianceProfile:
           oneOf:
           - $ref: '#/components/schemas/reference'
           - $ref: '#/components/schemas/compliance-profile'
-        associatedEntities:
+          - {}
+        customData:
           type: array
-          enum:
-          - party
-          - project
-          description: List of entity types that can use this custom field
           items:
-            type: string
+            type: object
+            properties:
+              value:
+                type: string
+              customField:
+                oneOf:
+                - $ref: '#/components/schemas/reference'
+                - $ref: '#/components/schemas/custom-field'
+        deletedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        deletedBy:
+          oneOf:
+          - {}
+          - $ref: '#/components/schemas/reference'
+        externalIds:
+          type: object
+          x-stoplight:
+            id: zk87opteuie3w
     document-type:
       description: ''
       type: object
@@ -1079,67 +465,6 @@ components:
       - name
       - system
       - pluralName
-    custom-data-update:
-      type: array
-      x-examples:
-        example-1:
-        - value: string
-          customField:
-            id: striangstringstringstring
-      x-internal: true
-      x-tags:
-      - input
-      items:
-        type: object
-        properties:
-          customField:
-            $ref: '#/components/schemas/reference-input'
-          value:
-            type:
-            - string
-            - number
-            nullable: false
-        required:
-        - customField
-        - value
-    response-status:
-      type: string
-      title: Response Status
-      enum:
-      - success
-      - fail
-      - error
-      readOnly: true
-      x-examples:
-        Success: success
-      description: The possible values are "success", "fail", and "error".
-      x-internal: true
-    party-type:
-      title: Party Type
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          default: party-types
-        name:
-          type: string
-        pluralName:
-          type: string
-        defaultComplianceProfile:
-          oneOf:
-          - $ref: '#/components/schemas/reference'
-          - $ref: '#/components/schemas/compliance-profile'
-      x-examples:
-        Vendor:
-          id: 60a27c51fcd891823568ed28
-          type: party-types
-          name: Vendor
-          pluralName: Vendors
-          defaultComplianceProfile:
-            id: 60a27c51fcd891823568ed27
-            type: compliance-profiles
     document:
       type: object
       title: Document
@@ -1273,12 +598,12 @@ components:
           oneOf:
           - $ref: '#/components/schemas/reference'
           - $ref: '#/components/schemas/user'
-          - nullable: true
+          - {}
         reviewedBy:
           oneOf:
           - $ref: '#/components/schemas/reference'
           - $ref: '#/components/schemas/user'
-          - nullable: true
+          - {}
         url:
           type: string
         insurers:
@@ -1321,6 +646,181 @@ components:
           type: string
           format: date
           readOnly: true
+    user:
+      description: ''
+      type: object
+      properties:
+        id:
+          type: string
+        profile:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 1
+            phone:
+              type: string
+            title:
+              type: string
+            avatar:
+              type: string
+            role:
+              type: string
+            department:
+              type: string
+            timezone:
+              type: string
+        email:
+          type: string
+          minLength: 1
+        isActive:
+          type: boolean
+        type:
+          type: string
+          default: users
+          readOnly: true
+      title: User
+    custom-field-update:
+      title: custom-field-update
+      type: object
+      x-internal: true
+      x-tags:
+      - input
+      properties:
+        name:
+          type: string
+          minLength: 1
+        description:
+          type: string
+        color:
+          type: string
+          pattern: ^#[0-9a-f]{6}$
+          minLength: 7
+          maxLength: 7
+          example: '#ffa900'
+        fieldType:
+          type: string
+          enum:
+          - text
+          - number
+          - dropdown
+        source:
+          type: string
+          enum:
+          - branding
+        options:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            minLength: 1
+    project:
+      title: Project
+      type: object
+      x-examples:
+        Example project:
+          type: projects
+          id: 60a3dc67cba60c04739e8e46
+          name: Test Project
+          parties:
+          - id: 60896067dd86e01e90199f42
+            type: parties
+          customData:
+          - value: '123'
+            customField:
+              type: customFields
+              id: 60896067dd86e01e90199f42
+          externalIds:
+            procore:
+            - id: '49843945'
+      properties:
+        type:
+          type: string
+          default: projects
+          readOnly: true
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type:
+          - string
+          - 'null'
+        startDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        endDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        active:
+          type: boolean
+        parties:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/reference'
+            - $ref: '#/components/schemas/party'
+            - type: string
+        customData:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+              customField:
+                oneOf:
+                - $ref: '#/components/schemas/reference'
+                - $ref: '#/components/schemas/custom-field'
+        complianceStatus:
+          type: object
+          properties:
+            status:
+              type: string
+              enum:
+              - compliant
+              - non_compliant
+            compliantPartiesCount:
+              type: number
+            totalPartiesCount:
+              type: number
+            complianceScore:
+              type: number
+        deletedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        deletedBy:
+          oneOf:
+          - {}
+          - $ref: '#/components/schemas/reference'
+        externalIds:
+          type: object
+          x-stoplight:
+            id: uw5iuj9nds4en
+    taggging-full:
+      title: Tagging (full data)
+      type: object
+      properties:
+        type:
+          type: string
+          default: tags
+        id:
+          type: string
+        name:
+          type: string
+        color:
+          type: string
+        addedAt:
+          type: string
+          format: date
+        addedBy:
+          type: string
     compliance-profile:
       title: Compliance Profile
       type: object
@@ -1461,24 +961,503 @@ components:
       required:
       - name
       - fieldType
-    taggging-full:
-      title: Tagging (full data)
+    project-update:
+      title: project-update
       type: object
       properties:
-        type:
-          type: string
-          default: tags
-        id:
-          type: string
         name:
           type: string
-        color:
+          description: The project name
+        description:
           type: string
-        addedAt:
+          description: An optional description
+        startDate:
           type: string
           format: date
-        addedBy:
+        endDate:
           type: string
+          format: date
+        active:
+          type: boolean
+        customData:
+          type: array
+          items:
+            type: object
+            properties:
+              customField:
+                $ref: '#/components/schemas/reference-input'
+              value:
+                type: string
+            required:
+            - customField
+            - value
+      required:
+      - name
+      x-internal: true
+      x-tags:
+      - input
+    reference-input:
+      title: reference-input
+      type: object
+      properties:
+        id:
+          type: string
+          minLength: 24
+          maxLength: 24
+          pattern: ^[a-z0-9]{24}$
+      required:
+      - id
+      x-internal: true
+      x-tags:
+      - input
+    compliance-status:
+      type: object
+      title: Compliance Status
+      properties:
+        complianceProfile:
+          $ref: '#/components/schemas/reference'
+        nextExpirationDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        latestExpirationDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        modules:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              label:
+                type: string
+              status:
+                type: string
+                enum:
+                - compliant
+                - non_compliant
+              documents:
+                type: array
+                items:
+                  $ref: '#/components/schemas/compliance-document'
+              documentsCount:
+                type: number
+                example: 1
+              subjects:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    label:
+                      type: string
+                    status:
+                      type: string
+                      enum:
+                      - compliant
+                      - non_compliant
+                      - waived
+                      - overridden
+                    notes:
+                      type: string
+                    effectiveDate:
+                      type:
+                      - string
+                      - 'null'
+                      format: date-time
+                    expirationDate:
+                      type:
+                      - string
+                      - 'null'
+                      format: date-time
+                    latestExpirationDate:
+                      type:
+                      - string
+                      - 'null'
+                      format: date-time
+                    latestValidEffectiveDate:
+                      type:
+                      - string
+                      - 'null'
+                      format: date-time
+                    latestValidExpirationDate:
+                      type:
+                      - string
+                      - 'null'
+                      format: date-time
+                    documents:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/compliance-document'
+                    documentsCount:
+                      type: number
+                    resetOn:
+                      type:
+                      - string
+                      - 'null'
+                      format: date-time
+                    requirements:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          label:
+                            type: string
+                          moduleId:
+                            type: string
+                          moduleLabel:
+                            type: string
+                          subjectId:
+                            type: string
+                          subjectLabel:
+                            type: string
+                          attributeId:
+                            type: string
+                          attributeLabel:
+                            type: string
+                          attributeDescription:
+                            type: string
+                          matchingCriteria:
+                            type: string
+                            enum:
+                            - matchOnce
+                            - matchRepeatedly
+                          operator:
+                            type: string
+                            enum:
+                            - must be present
+                            - must be greater or equal to
+                            - must be less or equal to
+                            - must be completed by
+                            - at least one must be present from list
+                          targetValue:
+                            type: string
+                          value:
+                            type: string
+                          status:
+                            type: string
+                            enum:
+                            - compliant
+                            - non_compliant
+                            - waived
+                            - overridden
+                            - invalidated
+                          invalidatedBy:
+                            type: array
+                            items:
+                              type: string
+                          notes:
+                            type: string
+                          publicNotes:
+                            type: string
+                          documents:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/compliance-document'
+                          documentsCount:
+                            type: number
+                          resetOn:
+                            type:
+                            - string
+                            - 'null'
+                            format: date-time
+                          custom:
+                            type: boolean
+                        required:
+                        - id
+                        - label
+                        - moduleId
+                        - moduleLabel
+                        - subjectId
+                        - subjectLabel
+                        - attributeId
+                        - attributeLabel
+                        - matchingCriteria
+                        - operator
+                        - status
+                        - documents
+                        - documentsCount
+                        - custom
+                  required:
+                  - id
+                  - label
+                  - status
+                  - documents
+                  - documentsCount
+                  - requirements
+            required:
+            - id
+            - label
+            - status
+            - documents
+            - documentsCount
+            - subjects
+        subjects:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              effectiveDate:
+                type:
+                - string
+                - 'null'
+                format: date-time
+              expirationDate:
+                type:
+                - string
+                - 'null'
+                format: date-time
+              latestValidEffectiveDate:
+                type:
+                - string
+                - 'null'
+                format: date-time
+              latestValidExpirationDate:
+                type:
+                - string
+                - 'null'
+                format: date-time
+              notes:
+                type: string
+              requirementsStatus:
+                type: string
+                enum:
+                - compliant
+                - non_compliant
+                - waived
+                - overridden
+              resetRequirementsOn:
+                type:
+                - string
+                - 'null'
+                format: date-time
+        requirements:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              label:
+                type: string
+              operator:
+                type: string
+              targetValue:
+                type: string
+              actualValue:
+                type: string
+              status:
+                type: string
+                enum:
+                - compliant
+                - non_compliant
+                - waived
+                - overridden
+                - invalidated
+              waiverOrOverrideNotes:
+                type: string
+              waiverOrOverrideExpirationDate:
+                type:
+                - string
+                - 'null'
+                format: date-time
+        status:
+          type: string
+          enum:
+          - compliant
+          - non_compliant
+        lastChangedAt:
+          type: string
+          format: date-time
+      required:
+      - complianceProfile
+      - modules
+      - subjects
+      - requirements
+      - status
+      x-examples:
+        Example compliance status:
+          complianceProfile:
+            id: 60a27c51fcd891823568ed27
+            type: compliance-profiles
+          nextExpirationDate: '2024-11-14T00:00:00.000Z'
+          latestExpirationDate: '2025-12-19T23:59:59.999Z'
+          modules:
+          - id: evidenceOfInsurance
+            label: Evidence of Insurance
+            status: compliant
+            documents:
+            - id: 6877a0b2d7a1998eeb7f7f2f
+              origin: upload
+              complianceStatus: compliant
+            documentsCount: 1
+            subjects:
+            - id: commercialGeneralLiability
+              label: Commercial General Liability
+              status: compliant
+              notes: lorem ipsum dolor sit amet
+              effectiveDate: '2024-11-14T00:00:00.000Z'
+              expirationDate: '2025-11-14T23:59:59.999Z'
+              latestExpirationDate: '2025-12-19T23:59:59.999Z'
+              latestValidEffectiveDate: '2024-11-14T00:00:00.000Z'
+              latestValidExpirationDate: '2025-11-14T23:59:59.999Z'
+              documents:
+              - id: 6877a0b2d7a1998eeb7f7f2f
+                origin: upload
+                complianceStatus: compliant
+              documentsCount: 1
+              resetOn: '2025-06-02T00:00:00.000Z'
+              requirements:
+              - id: evidenceOfInsurance.commercialGeneralLiability.evidenceOfInsuranceCommercialGeneralLiabilityGeneralAggregate
+                label: 'Evidence of Insurance : Commercial General Liability : General Aggregate'
+                moduleId: evidenceOfInsurance
+                moduleLabel: Evidence of Insurance
+                subjectId: commercialGeneralLiability
+                subjectLabel: Commercial General Liability
+                attributeId: evidenceOfInsuranceCommercialGeneralLiabilityGeneralAggregate
+                attributeLabel: General Aggregate
+                matchingCriteria: matchOnce
+                operator: must be greater or equal to
+                targetValue: '1000000'
+                value: '2000000'
+                status: compliant
+                invalidatedBy:
+                - evidenceOfInsuranceCommercialGeneralLiabilityAMBestRating
+                notes: lorem ipsum dolor sit amet
+                publicNotes: lorem ipsum dolor sit amet
+                documents:
+                - id: 6877a0b2d7a1998eeb7f7f2f
+                  origin: upload
+                  complianceStatus: compliant
+                documentsCount: 1
+                resetOn: '2025-06-02T00:00:00.000Z'
+                custom: false
+          subjects:
+          - id: commercialGeneralLiability
+            effectiveDate: '2024-11-14T00:00:00.000Z'
+            expirationDate: '2025-11-14T23:59:59.999Z'
+            latestValidEffectiveDate: '2024-11-14T00:00:00.000Z'
+            latestValidExpirationDate: '2025-11-14T23:59:59.999Z'
+            latestExpirationDate: '2025-12-19T23:59:59.999Z'
+            notes: lorem ipsum dolor sit amet
+            requirementsStatus: compliant
+            resetRequirementsOn: '2025-06-02T00:00:00.000Z'
+          requirements:
+          - id: evidenceOfInsurance.commercialGeneralLiability.evidenceOfInsuranceCommercialGeneralLiabilityGeneralAggregate
+            label: 'Evidence of Insurance : Commercial General Liability : General Aggregate'
+            operator: must be greater or equal to
+            targetValue: '1000000'
+            actualValue: '2000000'
+            status: compliant
+            waiverOrOverrideNotes: lorem ipsum dolor sit amet
+            waiverOrOverrideExpirationDate: '2025-06-02T00:00:00.000Z'
+          status: compliant
+          lastChangedAt: '2025-07-16T17:55:00.000Z'
+    custom-field:
+      title: Custom Field
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          default: custom-fields
+        name:
+          type: string
+          description: Custom field label
+        'description ':
+          type: string
+          description: Optional description
+        color:
+          type: string
+          pattern: ^#[a-f0-9]{6}$
+          description: 'Field color in #rrggbb format'
+        fieldType:
+          type: string
+          default: text
+          enum:
+          - text
+          - number
+          - dropdown
+        options:
+          type: array
+          description: List of options for the dropdown
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+                description: Unique identifier for the option
+              value:
+                type: string
+                description: Option label
+        complianceProfile:
+          oneOf:
+          - $ref: '#/components/schemas/reference'
+          - $ref: '#/components/schemas/compliance-profile'
+        associatedEntities:
+          type: array
+          enum:
+          - party
+          - project
+          description: List of entity types that can use this custom field
+          items:
+            type: string
+    party-type:
+      title: Party Type
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          default: party-types
+        name:
+          type: string
+        pluralName:
+          type: string
+        defaultComplianceProfile:
+          oneOf:
+          - $ref: '#/components/schemas/reference'
+          - $ref: '#/components/schemas/compliance-profile'
+      x-examples:
+        Vendor:
+          id: 60a27c51fcd891823568ed28
+          type: party-types
+          name: Vendor
+          pluralName: Vendors
+          defaultComplianceProfile:
+            id: 60a27c51fcd891823568ed27
+            type: compliance-profiles
+    compliance-document:
+      x-internal: true
+      title: Compliance Document
+      type: object
+      properties:
+        id:
+          type: string
+        origin:
+          type: string
+          enum:
+          - upload
+          - makeCompliant
+          - connectedDocument
+          - fillableForm
+          - webForm
+        complianceStatus:
+          type: string
+          enum:
+          - compliant
+          - non_compliant
     taggging:
       title: Tagging
       type: object
@@ -1498,21 +1477,32 @@ components:
           x-stoplight:
             id: 8xpna1blern8o
           format: date
-    collection-meta:
-      title: collection-meta
+    response-status:
+      type: string
+      title: Response Status
+      enum:
+      - success
+      - fail
+      - error
+      readOnly: true
+      x-examples:
+        Success: success
+      description: The possible values are "success", "fail", and "error".
+      x-internal: true
+    reference:
+      title: Reference
       type: object
       properties:
-        count:
-          type: number
-          description: The number of documents according to the specified filters
-        pages:
-          type: number
-        totalCount:
-          type: number
-          description: The total number of documents in the collection
-        totalPages:
-          type: number
-      x-internal: true
+        id:
+          type: string
+        type:
+          type: string
+      description: Generic object reference
+      x-internal: false
+      x-examples:
+        Generic reference example:
+          id: 60896067dd86e01e90199f43
+          type: widgets
   parameters:
     scope-id:
       name: scope[id]

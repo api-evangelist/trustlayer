@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: TrustLayer Platform Auth party-types API
+  title: TrustLayer Platform Party Types API
   version: '1.0'
   contact:
     name: TrustLayer Support
@@ -9,37 +9,7 @@ info:
   externalDocs:
     description: OpenAPI specification
     url: /v1/platform-api.yaml
-  description: '3rd-party API for the TrustLayer platform.
-
-
-    **Deprecated.** Platform API v1 is deprecated as of 01 June 2026 and is
-
-    scheduled for sunset (end-of-life) on 31 March 2027. It remains fully
-
-    available until the sunset date but will not receive new features. Please
-
-    migrate to Platform API v2 for new integrations.
-
-
-    All v1 responses carry the standard deprecation response headers
-
-    ([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)):
-
-
-    ```http
-
-    Deprecation: @1780272000
-
-    Sunset: Wed, 31 Mar 2027 23:59:59 GMT
-
-    Link: <https://developers.trustlayer.io/>; rel="deprecation", <https://developers.trustlayer.io/>; rel="sunset"
-
-    ```
-
-
-    `Deprecation: @1780272000` is the Unix timestamp for 2026-06-01T00:00:00Z;
-
-    sunset (end-of-life) is 2027-03-31T23:59:59 GMT.'
+  description: 3rd-party API for the TrustLayer platform.
   x-deprecated: true
   x-deprecation-date: '2026-06-01'
   x-sunset: '2027-03-31'
@@ -111,6 +81,105 @@ paths:
               - partyType
 components:
   schemas:
+    collection-meta:
+      title: collection-meta
+      type: object
+      properties:
+        count:
+          type: number
+          description: The number of documents according to the specified filters
+        pages:
+          type: number
+        totalCount:
+          type: number
+          description: The total number of documents in the collection
+        totalPages:
+          type: number
+      x-internal: true
+    reference-input:
+      title: reference-input
+      type: object
+      properties:
+        id:
+          type: string
+          minLength: 24
+          maxLength: 24
+          pattern: ^[a-z0-9]{24}$
+      required:
+      - id
+      x-internal: true
+      x-tags:
+      - input
+    response-status:
+      type: string
+      title: Response Status
+      enum:
+      - success
+      - fail
+      - error
+      readOnly: true
+      x-examples:
+        Success: success
+      description: The possible values are "success", "fail", and "error".
+      x-internal: true
+    party-type-input:
+      title: party-type-input
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+        pluralName:
+          type: string
+          minLength: 1
+        defaultComplianceProfile:
+          $ref: '#/components/schemas/reference-input'
+      required:
+      - name
+      - pluralName
+      x-internal: true
+      x-tags:
+      - input
+    reference:
+      title: Reference
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+      description: Generic object reference
+      x-internal: false
+      x-examples:
+        Generic reference example:
+          id: 60896067dd86e01e90199f43
+          type: widgets
+    party-type:
+      title: Party Type
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          default: party-types
+        name:
+          type: string
+        pluralName:
+          type: string
+        defaultComplianceProfile:
+          oneOf:
+          - $ref: '#/components/schemas/reference'
+          - $ref: '#/components/schemas/compliance-profile'
+      x-examples:
+        Vendor:
+          id: 60a27c51fcd891823568ed28
+          type: party-types
+          name: Vendor
+          pluralName: Vendors
+          defaultComplianceProfile:
+            id: 60a27c51fcd891823568ed27
+            type: compliance-profiles
     compliance-profile:
       title: Compliance Profile
       type: object
@@ -205,105 +274,6 @@ components:
                 type: string
               active:
                 type: boolean
-    party-type-input:
-      title: party-type-input
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 1
-        pluralName:
-          type: string
-          minLength: 1
-        defaultComplianceProfile:
-          $ref: '#/components/schemas/reference-input'
-      required:
-      - name
-      - pluralName
-      x-internal: true
-      x-tags:
-      - input
-    reference-input:
-      title: reference-input
-      type: object
-      properties:
-        id:
-          type: string
-          minLength: 24
-          maxLength: 24
-          pattern: ^[a-z0-9]{24}$
-      required:
-      - id
-      x-internal: true
-      x-tags:
-      - input
-    response-status:
-      type: string
-      title: Response Status
-      enum:
-      - success
-      - fail
-      - error
-      readOnly: true
-      x-examples:
-        Success: success
-      description: The possible values are "success", "fail", and "error".
-      x-internal: true
-    party-type:
-      title: Party Type
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          default: party-types
-        name:
-          type: string
-        pluralName:
-          type: string
-        defaultComplianceProfile:
-          oneOf:
-          - $ref: '#/components/schemas/reference'
-          - $ref: '#/components/schemas/compliance-profile'
-      x-examples:
-        Vendor:
-          id: 60a27c51fcd891823568ed28
-          type: party-types
-          name: Vendor
-          pluralName: Vendors
-          defaultComplianceProfile:
-            id: 60a27c51fcd891823568ed27
-            type: compliance-profiles
-    collection-meta:
-      title: collection-meta
-      type: object
-      properties:
-        count:
-          type: number
-          description: The number of documents according to the specified filters
-        pages:
-          type: number
-        totalCount:
-          type: number
-          description: The total number of documents in the collection
-        totalPages:
-          type: number
-      x-internal: true
-    reference:
-      title: Reference
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-      description: Generic object reference
-      x-internal: false
-      x-examples:
-        Generic reference example:
-          id: 60896067dd86e01e90199f43
-          type: widgets
   securitySchemes:
     Token:
       name: Authorization

@@ -1,58 +1,24 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: TrustLayer Platform Auth Context Records API
-  version: '1.0'
+  title: TrustLayer Platform API V2 (Early Access) Context Records…
+  description: The following documentation sets out to provide everything you need to build your solutions using the TrustLayer API.
+  termsOfService: https://trustlayer.io/terms-of-use/
+  version: 2.0.0-beta
   contact:
-    name: TrustLayer Support
-    email: support@trustlayer.io
-  termsOfService: https://trustlayer.io/terms-of-service
-  externalDocs:
-    description: OpenAPI specification
-    url: /v1/platform-api.yaml
-  description: '3rd-party API for the TrustLayer platform.
-
-
-    **Deprecated.** Platform API v1 is deprecated as of 01 June 2026 and is
-
-    scheduled for sunset (end-of-life) on 31 March 2027. It remains fully
-
-    available until the sunset date but will not receive new features. Please
-
-    migrate to Platform API v2 for new integrations.
-
-
-    All v1 responses carry the standard deprecation response headers
-
-    ([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)):
-
-
-    ```http
-
-    Deprecation: @1780272000
-
-    Sunset: Wed, 31 Mar 2027 23:59:59 GMT
-
-    Link: <https://developers.trustlayer.io/>; rel="deprecation", <https://developers.trustlayer.io/>; rel="sunset"
-
-    ```
-
-
-    `Deprecation: @1780272000` is the Unix timestamp for 2026-06-01T00:00:00Z;
-
-    sunset (end-of-life) is 2027-03-31T23:59:59 GMT.'
-  x-deprecated: true
-  x-deprecation-date: '2026-06-01'
-  x-sunset: '2027-03-31'
+    name: TrustLayer API Services
+    email: api@trustlayer.io
   license:
     name: Apache 2.0
     url: https://apache.org/licenses/LICENSE-2.0
 servers:
-- url: http://localhost:4000/v1
-  description: Local
-- url: https://api.trustlayer.io/v1
-  description: Production
+- url: https://api.trustlayer.io/v2
+  description: Production Server
+- url: https://api.integration.trustlayer.dev/v2
+  description: Integration Server
+- url: https://api.demo.trustlayer.dev/v2
+  description: Demo Server
 security:
-- API Key: []
+- Bearer Auth: []
 tags:
 - name: Context Records
 paths:
@@ -246,13 +212,14 @@ paths:
                 - message
                 additionalProperties: false
                 description: The server encountered an unexpected failure while processing the request.
+      summary: Create context records
+      x-summary-source: derived
+      operationId: postContextRecords
+      x-operation-id-source: derived
     get:
       tags:
       - Context Records
       description: 'List context records in the caller''s organization. Results are always scoped to the caller''s organization. Supports pagination via `limit` and `skip`.
-
-
-        <!-- qs2mongo:list-summary -->
 
 
         **Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `contextObjectId` (objectId), `name` (string), `status` (string), `externalCodes` (string), `startDate` (date), `endDate` (date), `archivedAt` (date). See "List Endpoints" in the API overview for operator syntax and combining rules.
@@ -266,9 +233,8 @@ paths:
       - schema:
           default: 20
           type: integer
-          minimum: 0
-          exclusiveMinimum: true
           maximum: 100
+          exclusiveMinimum: 0
         in: query
         name: limit
         required: false
@@ -564,6 +530,10 @@ paths:
                 - message
                 additionalProperties: false
                 description: The server encountered an unexpected failure while processing the request.
+      summary: Get context records
+      x-summary-source: derived
+      operationId: getContextRecords
+      x-operation-id-source: derived
   /context-records/{id}:
     delete:
       tags:
@@ -718,6 +688,10 @@ paths:
                 - message
                 additionalProperties: false
                 description: The server encountered an unexpected failure while processing the request.
+      summary: Delete context records by id
+      x-summary-source: derived
+      operationId: deleteContextRecordsById
+      x-operation-id-source: derived
     get:
       tags:
       - Context Records
@@ -923,6 +897,10 @@ paths:
                 - message
                 additionalProperties: false
                 description: The server encountered an unexpected failure while processing the request.
+      summary: Get context records by id
+      x-summary-source: derived
+      operationId: getContextRecordsById
+      x-operation-id-source: derived
     patch:
       tags:
       - Context Records
@@ -1172,6 +1150,10 @@ paths:
                 - message
                 additionalProperties: false
                 description: The server encountered an unexpected failure while processing the request.
+      summary: Update context records by id
+      x-summary-source: derived
+      operationId: patchContextRecordsById
+      x-operation-id-source: derived
   /context-records/{id}/attributes/{attributeId}:
     delete:
       tags:
@@ -1332,6 +1314,10 @@ paths:
                 - message
                 additionalProperties: false
                 description: The server encountered an unexpected failure while processing the request.
+      summary: Delete context records by id attributes by attribute id
+      x-summary-source: derived
+      operationId: deleteContextRecordsByIdAttributesByAttributeId
+      x-operation-id-source: derived
     get:
       tags:
       - Context Records
@@ -1498,6 +1484,10 @@ paths:
                 - message
                 additionalProperties: false
                 description: The server encountered an unexpected failure while processing the request.
+      summary: Get context records by id attributes by attribute id
+      x-summary-source: derived
+      operationId: getContextRecordsByIdAttributesByAttributeId
+      x-operation-id-source: derived
     put:
       tags:
       - Context Records
@@ -1681,6 +1671,10 @@ paths:
                 - message
                 additionalProperties: false
                 description: The server encountered an unexpected failure while processing the request.
+      summary: Replace context records by id attributes by attribute id
+      x-summary-source: derived
+      operationId: putContextRecordsByIdAttributesByAttributeId
+      x-operation-id-source: derived
   /context-records/{id}/attributes:
     get:
       tags:
@@ -1690,9 +1684,8 @@ paths:
       - schema:
           default: 20
           type: integer
-          minimum: 0
-          exclusiveMinimum: true
           maximum: 100
+          exclusiveMinimum: 0
         in: query
         name: limit
         required: false
@@ -1882,14 +1875,15 @@ paths:
                 - message
                 additionalProperties: false
                 description: The server encountered an unexpected failure while processing the request.
+      summary: Get context records by id attributes
+      x-summary-source: derived
+      operationId: getContextRecordsByIdAttributes
+      x-operation-id-source: derived
   /context-records/{id}/request-records:
     get:
       tags:
       - Context Records
       description: 'List request records scoped to a specific context record. The `contextRecordId` filter is always fixed to the `:id` path parameter and cannot be overridden by the caller. Supports pagination via `limit` and `skip`.
-
-
-        <!-- qs2mongo:list-summary -->
 
 
         **Filtering**: `_id` (objectId), `createdAt` (date), `updatedAt` (date), `primaryRecordId` (objectId), `name` (string), `status` (string), `complianceTracking` (string), `complianceStatus` (string), `complianceProfile.complianceProfileId` (objectId). See "List Endpoints" in the API overview for operator syntax and combining rules.
@@ -1903,9 +1897,8 @@ paths:
       - schema:
           default: 20
           type: integer
-          minimum: 0
-          exclusiveMinimum: true
           maximum: 100
+          exclusiveMinimum: 0
         in: query
         name: limit
         required: false
@@ -2542,6 +2535,10 @@ paths:
                 - message
                 additionalProperties: false
                 description: The server encountered an unexpected failure while processing the request.
+      summary: Get context records by id request records
+      x-summary-source: derived
+      operationId: getContextRecordsByIdRequestRecords
+      x-operation-id-source: derived
     post:
       tags:
       - Context Records
@@ -2725,6 +2722,10 @@ paths:
                 - message
                 additionalProperties: false
                 description: The server encountered an unexpected failure while processing the request.
+      summary: Create context records by id request records
+      x-summary-source: derived
+      operationId: postContextRecordsByIdRequestRecords
+      x-operation-id-source: derived
   /context-records/{id}/request-records/{recordId}:
     get:
       tags:
@@ -3278,6 +3279,10 @@ paths:
                 - message
                 additionalProperties: false
                 description: The server encountered an unexpected failure while processing the request.
+      summary: Get context records by id request records by record id
+      x-summary-source: derived
+      operationId: getContextRecordsByIdRequestRecordsByRecordId
+      x-operation-id-source: derived
     patch:
       tags:
       - Context Records
@@ -3867,6 +3872,10 @@ paths:
                 - message
                 additionalProperties: false
                 description: The server encountered an unexpected failure while processing the request.
+      summary: Update context records by id request records by record id
+      x-summary-source: derived
+      operationId: patchContextRecordsByIdRequestRecordsByRecordId
+      x-operation-id-source: derived
     delete:
       tags:
       - Context Records
@@ -4025,6 +4034,10 @@ paths:
                 - message
                 additionalProperties: false
                 description: The server encountered an unexpected failure while processing the request.
+      summary: Delete context records by id request records by record id
+      x-summary-source: derived
+      operationId: deleteContextRecordsByIdRequestRecordsByRecordId
+      x-operation-id-source: derived
   /context-records/{id}/request-records/{recordId}/compliance-certificate:
     get:
       tags:
@@ -4064,36 +4077,43 @@ paths:
                     type: string
                     description: Human-readable name of the document, derived from its source.
                   processing:
-                    nullable: true
                     description: Whether the document is still being processed (data extraction, classification). When `true`, extracted fields may not yet be populated.
-                    type: boolean
+                    type:
+                    - boolean
+                    - 'null'
                   url:
                     description: Signed URL to download the document file. Time-limited; regenerated on each read.
-                    nullable: true
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   flag:
-                    nullable: true
                     description: Compliance flag attached to the document, if any. `null` when the document is not flagged.
-                    type: object
+                    type:
+                    - object
+                    - 'null'
                     properties:
                       addedOn:
-                        nullable: true
                         description: Timestamp at which the flag was added to the document.
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                         format: date-time
                       level:
-                        nullable: true
                         description: Severity of the flag (e.g. warning, error).
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                       subjects:
-                        nullable: true
                         description: Compliance subjects affected by this flag.
-                        type: array
+                        type:
+                        - array
+                        - 'null'
                         items: {}
                       notes:
-                        nullable: true
                         description: Free-form notes attached to the flag.
-                        type: string
+                        type:
+                        - string
+                        - 'null'
                     required:
                     - addedOn
                     - level
@@ -4105,42 +4125,47 @@ paths:
                     allOf:
                     - $ref: '#/components/schemas/objectId'
                   reviewedAt:
-                    nullable: true
                     description: Timestamp at which the document was reviewed, if it has been reviewed.
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     format: date-time
                   archivedAt:
-                    nullable: true
                     description: Timestamp at which the document was archived, if archived. `null` for active documents.
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     format: date-time
                   notes:
-                    nullable: true
                     description: Free-form notes attached to the document.
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   status:
-                    nullable: true
                     description: Lifecycle status of the document.
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   expirationDate:
-                    nullable: true
                     description: Expiration date extracted from the document, if applicable.
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     format: date-time
                   appliesToAllProjects:
-                    nullable: true
                     description: Whether the document applies to all projects (context records) for the owning primary record, rather than a specific one.
-                    type: boolean
+                    type:
+                    - boolean
+                    - 'null'
                   data:
                     description: Structured data extracted from the document during processing.
-                    nullable: true
                   metadata:
                     description: Document metadata (e.g. originating upload source, file properties).
-                    nullable: true
                   issueDate:
-                    nullable: true
                     description: Issue date extracted from the document, if applicable.
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     format: date-time
                   createdAt:
                     description: Timestamp at which the document was created.
@@ -4278,6 +4303,10 @@ paths:
                 - message
                 additionalProperties: false
                 description: The server encountered an unexpected failure while processing the request.
+      summary: Get context records by id request records by record id compliance certificate
+      x-summary-source: derived
+      operationId: getContextRecordsByIdRequestRecordsByRecordIdComplianceCertificate
+      x-operation-id-source: derived
     post:
       tags:
       - Context Records
@@ -4285,7 +4314,7 @@ paths:
       requestBody:
         required: true
         content:
-          application/json: &id001
+          application/json:
             schema:
               type: object
               properties:
@@ -4295,7 +4324,16 @@ paths:
                   description: ISO date-time for certificate expiration date. It will default to the earliest expiration date found in currently active documents; if no document is present, it will default to 1 year from the effective date
                 document:
                   description: The document to upload, only with multipart/form-data
-          multipart/form-data: *id001
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                effectiveDate:
+                  description: ISO date-time for certificate effective date. It will default to today if not provided
+                expirationDate:
+                  description: ISO date-time for certificate expiration date. It will default to the earliest expiration date found in currently active documents; if no document is present, it will default to 1 year from the effective date
+                document:
+                  description: The document to upload, only with multipart/form-data
       parameters:
       - schema:
           $ref: '#/components/schemas/objectIdInput'
@@ -4445,23 +4483,26 @@ paths:
                 - message
                 additionalProperties: false
                 description: The server encountered an unexpected failure while processing the request.
+      summary: Create context records by id request records by record id compliance certificate
+      x-summary-source: derived
+      operationId: postContextRecordsByIdRequestRecordsByRecordIdComplianceCertificate
+      x-operation-id-source: derived
 components:
   schemas:
-    objectId:
-      title: ObjectId
-      type: string
-      format: ObjectId
-      examples:
-      - 507f1f77bcf86cd799439011
     objectIdInput:
       title: ObjectId
       type: string
       format: ObjectId
       examples:
       - 507f1f77bcf86cd799439011
+    objectId:
+      title: ObjectId
+      type: string
+      format: ObjectId
+      examples:
+      - 507f1f77bcf86cd799439011
   securitySchemes:
-    Token:
-      name: Authorization
-      type: apiKey
-      in: header
-      description: ''
+    Bearer_Auth:
+      type: http
+      scheme: bearer
+      description: 'Enter your API token:'

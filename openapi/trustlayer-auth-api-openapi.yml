@@ -1,58 +1,24 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: TrustLayer Platform Auth API
-  version: '1.0'
+  title: TrustLayer Platform API V2 (Early Access) Auth API
+  description: The following documentation sets out to provide everything you need to build your solutions using the TrustLayer API.
+  termsOfService: https://trustlayer.io/terms-of-use/
+  version: 2.0.0-beta
   contact:
-    name: TrustLayer Support
-    email: support@trustlayer.io
-  termsOfService: https://trustlayer.io/terms-of-service
-  externalDocs:
-    description: OpenAPI specification
-    url: /v1/platform-api.yaml
-  description: '3rd-party API for the TrustLayer platform.
-
-
-    **Deprecated.** Platform API v1 is deprecated as of 01 June 2026 and is
-
-    scheduled for sunset (end-of-life) on 31 March 2027. It remains fully
-
-    available until the sunset date but will not receive new features. Please
-
-    migrate to Platform API v2 for new integrations.
-
-
-    All v1 responses carry the standard deprecation response headers
-
-    ([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)):
-
-
-    ```http
-
-    Deprecation: @1780272000
-
-    Sunset: Wed, 31 Mar 2027 23:59:59 GMT
-
-    Link: <https://developers.trustlayer.io/>; rel="deprecation", <https://developers.trustlayer.io/>; rel="sunset"
-
-    ```
-
-
-    `Deprecation: @1780272000` is the Unix timestamp for 2026-06-01T00:00:00Z;
-
-    sunset (end-of-life) is 2027-03-31T23:59:59 GMT.'
-  x-deprecated: true
-  x-deprecation-date: '2026-06-01'
-  x-sunset: '2027-03-31'
+    name: TrustLayer API Services
+    email: api@trustlayer.io
   license:
     name: Apache 2.0
     url: https://apache.org/licenses/LICENSE-2.0
 servers:
-- url: http://localhost:4000/v1
-  description: Local
-- url: https://api.trustlayer.io/v1
-  description: Production
+- url: https://api.trustlayer.io/v2
+  description: Production Server
+- url: https://api.integration.trustlayer.dev/v2
+  description: Integration Server
+- url: https://api.demo.trustlayer.dev/v2
+  description: Demo Server
 security:
-- API Key: []
+- Bearer Auth: []
 tags:
 - name: Auth
   description: ''
@@ -220,10 +186,13 @@ paths:
                 - message
                 additionalProperties: false
                 description: The server encountered an unexpected failure while processing the request.
+      summary: Create auth sessions
+      x-summary-source: derived
+      operationId: postAuthSessions
+      x-operation-id-source: derived
 components:
   securitySchemes:
-    Token:
-      name: Authorization
-      type: apiKey
-      in: header
-      description: ''
+    Bearer_Auth:
+      type: http
+      scheme: bearer
+      description: 'Enter your API token:'

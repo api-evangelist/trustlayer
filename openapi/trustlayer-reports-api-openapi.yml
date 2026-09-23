@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: TrustLayer Platform Auth reports API
+  title: TrustLayer Platform Reports API
   version: '1.0'
   contact:
     name: TrustLayer Support
@@ -9,37 +9,7 @@ info:
   externalDocs:
     description: OpenAPI specification
     url: /v1/platform-api.yaml
-  description: '3rd-party API for the TrustLayer platform.
-
-
-    **Deprecated.** Platform API v1 is deprecated as of 01 June 2026 and is
-
-    scheduled for sunset (end-of-life) on 31 March 2027. It remains fully
-
-    available until the sunset date but will not receive new features. Please
-
-    migrate to Platform API v2 for new integrations.
-
-
-    All v1 responses carry the standard deprecation response headers
-
-    ([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)):
-
-
-    ```http
-
-    Deprecation: @1780272000
-
-    Sunset: Wed, 31 Mar 2027 23:59:59 GMT
-
-    Link: <https://developers.trustlayer.io/>; rel="deprecation", <https://developers.trustlayer.io/>; rel="sunset"
-
-    ```
-
-
-    `Deprecation: @1780272000` is the Unix timestamp for 2026-06-01T00:00:00Z;
-
-    sunset (end-of-life) is 2027-03-31T23:59:59 GMT.'
+  description: 3rd-party API for the TrustLayer platform.
   x-deprecated: true
   x-deprecation-date: '2026-06-01'
   x-sunset: '2027-03-31'
@@ -54,13 +24,13 @@ servers:
 security:
 - API Key: []
 tags:
-- name: reports
+- name: Reports
 paths:
   /reports:
     get:
       summary: List public reports
       tags:
-      - reports
+      - Reports
       responses:
         '200':
           description: OK
@@ -91,9 +61,7 @@ paths:
 
         - `name`
 
-        - `createdAt`
-
-        '
+        - `createdAt`'
       x-internal: false
     post:
       summary: Create a new report
@@ -113,7 +81,7 @@ paths:
                     $ref: '#/components/schemas/report'
       description: TBD
       tags:
-      - reports
+      - Reports
       requestBody:
         content:
           application/json:
@@ -134,7 +102,7 @@ paths:
     get:
       summary: Fetch a public report
       tags:
-      - reports
+      - Reports
       responses:
         '200':
           description: OK
@@ -169,7 +137,7 @@ paths:
                     $ref: '#/components/schemas/report'
       description: TBD
       tags:
-      - reports
+      - Reports
       requestBody:
         content:
           application/json:
@@ -196,46 +164,57 @@ paths:
                   data:
                     $ref: '#/components/schemas/report'
       tags:
-      - reports
+      - Reports
       description: TBD
       x-internal: false
 components:
-  parameters:
-    filter:
-      name: filter
-      in: query
-      required: false
-      schema:
-        type: object
-        example:
-          title: foo
-      style: deepObject
-      description: Key-value pair, e.g. filter[key]=value
-    sort:
-      name: sort
-      in: query
-      required: false
-      schema:
-        type: string
-        example: name,-age
-      description: List of comma-separated keys used to sort. Reversing is done by prepending "-" to the key name.
-      allowReserved: true
   schemas:
-    report-update:
-      description: ''
+    collection-meta:
+      title: collection-meta
       type: object
-      x-examples: {}
       properties:
+        count:
+          type: number
+          description: The number of documents according to the specified filters
+        pages:
+          type: number
+        totalCount:
+          type: number
+          description: The total number of documents in the collection
+        totalPages:
+          type: number
+      x-internal: true
+    report:
+      title: Report
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          default: reports
         name:
           type: string
-          minLength: 1
         filters:
           type: object
-          minProperties: 1
-      title: report-update
-      x-tags:
-      - input
-      x-internal: true
+        updatedAt:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+      x-examples:
+        Example report:
+          id: 60be22526a69195b1941d77e
+          type: reports
+          name: Interesting projects
+          filters:
+            name: interesting
+            view: table
+            sortField: name
+            sortDirection: asc
+          updatedAt: '2019-08-24T14:15:22Z'
+          createdAt: '2019-08-24T14:15:22Z'
     response-status:
       type: string
       title: Response Status
@@ -271,52 +250,41 @@ components:
       - reportType
       x-tags:
       - input
-    report:
-      title: Report
+    report-update:
+      description: ''
       type: object
+      x-examples: {}
       properties:
-        id:
-          type: string
-        type:
-          type: string
-          default: reports
         name:
           type: string
+          minLength: 1
         filters:
           type: object
-        updatedAt:
-          type: string
-          format: date-time
-        createdAt:
-          type: string
-          format: date-time
-      x-examples:
-        Example report:
-          id: 60be22526a69195b1941d77e
-          type: reports
-          name: Interesting projects
-          filters:
-            name: interesting
-            view: table
-            sortField: name
-            sortDirection: asc
-          updatedAt: '2019-08-24T14:15:22Z'
-          createdAt: '2019-08-24T14:15:22Z'
-    collection-meta:
-      title: collection-meta
-      type: object
-      properties:
-        count:
-          type: number
-          description: The number of documents according to the specified filters
-        pages:
-          type: number
-        totalCount:
-          type: number
-          description: The total number of documents in the collection
-        totalPages:
-          type: number
+          minProperties: 1
+      title: report-update
+      x-tags:
+      - input
       x-internal: true
+  parameters:
+    sort:
+      name: sort
+      in: query
+      required: false
+      schema:
+        type: string
+        example: name,-age
+      description: List of comma-separated keys used to sort. Reversing is done by prepending "-" to the key name.
+      allowReserved: true
+    filter:
+      name: filter
+      in: query
+      required: false
+      schema:
+        type: object
+        example:
+          title: foo
+      style: deepObject
+      description: Key-value pair, e.g. filter[key]=value
   securitySchemes:
     Token:
       name: Authorization

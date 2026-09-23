@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: TrustLayer Platform Auth branding API
+  title: TrustLayer Platform Branding API
   version: '1.0'
   contact:
     name: TrustLayer Support
@@ -9,37 +9,7 @@ info:
   externalDocs:
     description: OpenAPI specification
     url: /v1/platform-api.yaml
-  description: '3rd-party API for the TrustLayer platform.
-
-
-    **Deprecated.** Platform API v1 is deprecated as of 01 June 2026 and is
-
-    scheduled for sunset (end-of-life) on 31 March 2027. It remains fully
-
-    available until the sunset date but will not receive new features. Please
-
-    migrate to Platform API v2 for new integrations.
-
-
-    All v1 responses carry the standard deprecation response headers
-
-    ([RFC 8594](https://www.rfc-editor.org/rfc/rfc8594)):
-
-
-    ```http
-
-    Deprecation: @1780272000
-
-    Sunset: Wed, 31 Mar 2027 23:59:59 GMT
-
-    Link: <https://developers.trustlayer.io/>; rel="deprecation", <https://developers.trustlayer.io/>; rel="sunset"
-
-    ```
-
-
-    `Deprecation: @1780272000` is the Unix timestamp for 2026-06-01T00:00:00Z;
-
-    sunset (end-of-life) is 2027-03-31T23:59:59 GMT.'
+  description: 3rd-party API for the TrustLayer platform.
   x-deprecated: true
   x-deprecation-date: '2026-06-01'
   x-sunset: '2027-03-31'
@@ -54,13 +24,13 @@ servers:
 security:
 - API Key: []
 tags:
-- name: branding
+- name: Branding
 paths:
   /branding:
     get:
       summary: List Branding
       tags:
-      - branding
+      - Branding
       responses:
         '200':
           description: OK
@@ -94,9 +64,7 @@ paths:
 
         * `createdAt`
 
-        * `updatedAt`
-
-        '
+        * `updatedAt`'
       parameters:
       - $ref: '#/components/parameters/page-number'
       - $ref: '#/components/parameters/page-size'
@@ -119,7 +87,7 @@ paths:
                   data:
                     $ref: '#/components/schemas/branding'
       tags:
-      - branding
+      - Branding
       requestBody:
         content:
           application/json:
@@ -137,7 +105,7 @@ paths:
     get:
       summary: Fetch a Branding
       tags:
-      - branding
+      - Branding
       responses:
         '200':
           description: OK
@@ -155,7 +123,7 @@ paths:
     put:
       summary: Update branding
       tags:
-      - branding
+      - Branding
       operationId: update-branding
       deprecated: true
       responses:
@@ -195,35 +163,24 @@ paths:
                         type: string
       x-internal: false
       tags:
-      - branding
+      - Branding
 components:
   schemas:
-    branding-create:
-      title: branding-create
+    collection-meta:
+      title: collection-meta
       type: object
-      x-internal: true
-      x-tags:
-      - input
-      x-examples: {}
       properties:
-        name:
-          type: string
-          minLength: 1
-        logo:
-          type: object
-          properties:
-            url:
-              type: string
-              minLength: 1
-            friendlyName:
-              type: string
-              minLength: 1
-          required:
-          - url
-          - friendlyName
-      required:
-      - name
-      - logo
+        count:
+          type: number
+          description: The number of documents according to the specified filters
+        pages:
+          type: number
+        totalCount:
+          type: number
+          description: The total number of documents in the collection
+        totalPages:
+          type: number
+      x-internal: true
     branding:
       title: Branding
       type: object
@@ -257,6 +214,32 @@ components:
               type: string
             uploadedAt:
               type: string
+    branding-create:
+      title: branding-create
+      type: object
+      x-internal: true
+      x-tags:
+      - input
+      x-examples: {}
+      properties:
+        name:
+          type: string
+          minLength: 1
+        logo:
+          type: object
+          properties:
+            url:
+              type: string
+              minLength: 1
+            friendlyName:
+              type: string
+              minLength: 1
+          required:
+          - url
+          - friendlyName
+      required:
+      - name
+      - logo
     response-status:
       type: string
       title: Response Status
@@ -268,21 +251,6 @@ components:
       x-examples:
         Success: success
       description: The possible values are "success", "fail", and "error".
-      x-internal: true
-    collection-meta:
-      title: collection-meta
-      type: object
-      properties:
-        count:
-          type: number
-          description: The number of documents according to the specified filters
-        pages:
-          type: number
-        totalCount:
-          type: number
-          description: The total number of documents in the collection
-        totalPages:
-          type: number
       x-internal: true
     branding-update:
       title: branding-update
@@ -304,16 +272,6 @@ components:
             uploadedAt:
               type: string
   parameters:
-    filter:
-      name: filter
-      in: query
-      required: false
-      schema:
-        type: object
-        example:
-          title: foo
-      style: deepObject
-      description: Key-value pair, e.g. filter[key]=value
     page-size:
       name: page[size]
       in: query
@@ -344,6 +302,16 @@ components:
         example: 1
         default: 1
       description: Page number, starting from 1
+    filter:
+      name: filter
+      in: query
+      required: false
+      schema:
+        type: object
+        example:
+          title: foo
+      style: deepObject
+      description: Key-value pair, e.g. filter[key]=value
   securitySchemes:
     Token:
       name: Authorization
