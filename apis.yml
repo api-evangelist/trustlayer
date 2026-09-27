@@ -79,7 +79,7 @@ apis:
   - type: Documentation
     url: https://developers.trustlayer.io/v1/
 - aid: trustlayer:trustlayer-branding-api
-  name: TrustLayer branding API
+  name: TrustLayer Branding API
   description: The branding API from TrustLayer — 2 operation(s) for branding.
   humanURL: https://developers.trustlayer.io/v2
   baseURL: https://api.trustlayer.io/v2
@@ -95,7 +95,7 @@ apis:
   - type: Documentation
     url: https://developers.trustlayer.io/v1/
 - aid: trustlayer:trustlayer-compliance-profiles-api
-  name: TrustLayer compliance-profiles API
+  name: TrustLayer Compliance Profiles API
   description: The compliance-profiles API from TrustLayer — 8 operation(s) for compliance-profiles.
   humanURL: https://developers.trustlayer.io/v2
   baseURL: https://api.trustlayer.io/v2
@@ -109,7 +109,7 @@ apis:
   - type: Documentation
     url: https://developers.trustlayer.io/v1/
 - aid: trustlayer:trustlayer-contacts-api
-  name: TrustLayer contacts API
+  name: TrustLayer Contacts API
   description: The contacts API from TrustLayer — 4 operation(s) for contacts.
   humanURL: https://developers.trustlayer.io/v2
   baseURL: https://api.trustlayer.io/v2
@@ -153,7 +153,7 @@ apis:
   - type: Documentation
     url: https://developers.trustlayer.io/v1/
 - aid: trustlayer:trustlayer-custom-fields-api
-  name: TrustLayer custom-fields API
+  name: TrustLayer Custom Fields API
   description: The custom-fields API from TrustLayer — 4 operation(s) for custom-fields.
   humanURL: https://developers.trustlayer.io/v2
   baseURL: https://api.trustlayer.io/v2
@@ -183,7 +183,7 @@ apis:
   - type: Documentation
     url: https://developers.trustlayer.io/v1/
 - aid: trustlayer:trustlayer-documents-api
-  name: TrustLayer documents API
+  name: TrustLayer Documents API
   description: The documents API from TrustLayer — 15 operation(s) for documents.
   humanURL: https://developers.trustlayer.io/v2
   baseURL: https://api.trustlayer.io/v2
@@ -213,7 +213,7 @@ apis:
   - type: Documentation
     url: https://developers.trustlayer.io/v1/
 - aid: trustlayer:trustlayer-party-types-api
-  name: TrustLayer party-types API
+  name: TrustLayer Party Types API
   description: The party-types API from TrustLayer — 1 operation(s) for party-types.
   humanURL: https://developers.trustlayer.io/v2
   baseURL: https://api.trustlayer.io/v2
@@ -285,7 +285,7 @@ apis:
   - type: Documentation
     url: https://developers.trustlayer.io/v1/
 - aid: trustlayer:trustlayer-reports-api
-  name: TrustLayer reports API
+  name: TrustLayer Reports API
   description: The reports API from TrustLayer — 2 operation(s) for reports.
   humanURL: https://developers.trustlayer.io/v2
   baseURL: https://api.trustlayer.io/v2
@@ -329,7 +329,7 @@ apis:
   - type: Documentation
     url: https://developers.trustlayer.io/v1/
 - aid: trustlayer:trustlayer-tags-api
-  name: TrustLayer tags API
+  name: TrustLayer Tags API
   description: The tags API from TrustLayer — 4 operation(s) for tags.
   humanURL: https://developers.trustlayer.io/v2
   baseURL: https://api.trustlayer.io/v2
