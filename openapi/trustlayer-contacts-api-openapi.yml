@@ -1326,564 +1326,7 @@ paths:
     - url: https://api.demo.trustlayer.dev/v2
       description: Demo Server
 components:
-  parameters:
-    include:
-      name: include
-      in: query
-      required: false
-      schema:
-        type: string
-        example: parties,projects
-      description: List of comma-separated relationships to include in the result
-      allowReserved: true
   schemas:
-    taggging-full:
-      title: Tagging (full data)
-      type: object
-      properties:
-        type:
-          type: string
-          default: tags
-        id:
-          type: string
-        name:
-          type: string
-        color:
-          type: string
-        addedAt:
-          type: string
-          format: date
-        addedBy:
-          type: string
-    document:
-      type: object
-      title: Document
-      x-examples:
-        Example document:
-          type: documents
-          id: 60a27c51fcd891823568ed35
-          issuedBy:
-            name: ''
-            address: ''
-            contactName: ''
-            phone: ''
-            email: ''
-          reviewedAt: '2019-08-24T14:15:22Z'
-          archivedAt: '2019-08-24T14:15:22Z'
-          notes: ''
-          status: processed
-          types:
-          - type: document-types
-            id: 60a27c517fd4e152a9642347
-          flag:
-            addedOn: '2019-08-24T14:15:22Z'
-            severityLevel: low
-            affectedSubjects:
-            - string
-            notes: ''
-            user:
-              id: 60a27c51fcd891823568ed24
-              type: users
-          appliesToAllProjects: true
-          expirationDate: '2019-08-24'
-          friendlyName: Acord25.pdf
-          data: {}
-          metadata: {}
-          updatedAt: '2019-08-24T14:15:22Z'
-          createdAt: '2019-08-24T14:15:22Z'
-          archivedBy:
-            id: 60a27c51fcd891823568ed24
-            type: users
-          reviewedBy: null
-          url: https://trustlayer-documents.s3.us-west-1.amazonaws.com/...
-          issueDate: '2019-01-22'
-      properties:
-        type:
-          type: string
-          default: documents
-          readOnly: true
-        id:
-          type: string
-          readOnly: true
-        issuedBy:
-          type: object
-          properties:
-            name:
-              type: string
-            address:
-              type: string
-            contactName:
-              type: string
-            phone:
-              type: string
-            email:
-              type: string
-        reviewedAt:
-          type: string
-          format: date-time
-          readOnly: true
-        archivedAt:
-          type: string
-          format: date-time
-          readOnly: true
-        notes:
-          type: string
-        status:
-          type: string
-          minLength: 1
-          readOnly: true
-        types:
-          type: array
-          uniqueItems: true
-          minItems: 0
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/reference'
-            - $ref: '#/components/schemas/document-type'
-        flag:
-          type: object
-          properties:
-            addedOn:
-              type: string
-              format: date-time
-            severityLevel:
-              type: string
-              minLength: 1
-              enum:
-              - low
-              - medium
-              - high
-            affectedSubjects:
-              type: array
-              uniqueItems: true
-              items:
-                type: string
-            notes:
-              type: string
-            user:
-              oneOf:
-              - $ref: '#/components/schemas/reference'
-              - $ref: '#/components/schemas/user'
-        appliesToAllProjects:
-          type: boolean
-        expirationDate:
-          type: string
-          format: date
-        name:
-          type: string
-          minLength: 1
-        data:
-          type: object
-        metadata:
-          type: object
-        updatedAt:
-          type: string
-          format: date-time
-          readOnly: true
-        createdAt:
-          type: string
-          format: date-time
-          readOnly: true
-        archivedBy:
-          oneOf:
-          - $ref: '#/components/schemas/reference'
-          - $ref: '#/components/schemas/user'
-          - {}
-        reviewedBy:
-          oneOf:
-          - $ref: '#/components/schemas/reference'
-          - $ref: '#/components/schemas/user'
-          - {}
-        url:
-          type: string
-        insurers:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              naic:
-                type: string
-              rating:
-                type: string
-              ratingEffectiveDate:
-                type: string
-                format: date-time
-              financialSizeCategory:
-                type: string
-              ratingModifier:
-                type: string
-              ratingAction:
-                type: string
-              ratingImplication:
-                type: string
-              extractedName:
-                type: string
-              canonicalName:
-                type: string
-            required:
-            - id
-            - naic
-        deletedAt:
-          type: string
-          format: date-time
-        deletedBy:
-          oneOf:
-          - $ref: '#/components/schemas/reference'
-          - $ref: '#/components/schemas/user'
-        issueDate:
-          type: string
-          format: date
-          readOnly: true
-    contact-update:
-      description: ''
-      type: object
-      title: contact-update
-      x-internal: true
-      x-examples:
-        New primary contact:
-          value:
-            primary: true
-      x-tags:
-      - input
-      properties:
-        name:
-          type: string
-          minLength: 1
-        email:
-          type: string
-        phone:
-          type: string
-        fax:
-          type: string
-        company:
-          type: string
-        title:
-          type: string
-        avatar:
-          type: string
-        primary:
-          type: boolean
-        defaultRequestRecipient:
-          type: boolean
-        externalId:
-          type: string
-          x-stoplight:
-            id: rqfr3clb0btce
-    taggging:
-      title: Tagging
-      type: object
-      properties:
-        type:
-          type: string
-          default: tags
-        id:
-          type: string
-        addedAt:
-          type: string
-          format: date
-        addedBy:
-          type: string
-        expiresAt:
-          type: string
-          x-stoplight:
-            id: 8xpna1blern8o
-          format: date
-    collection-meta:
-      title: collection-meta
-      type: object
-      properties:
-        count:
-          type: number
-          description: The number of documents according to the specified filters
-        pages:
-          type: number
-        totalCount:
-          type: number
-          description: The total number of documents in the collection
-        totalPages:
-          type: number
-      x-internal: true
-    user:
-      description: ''
-      type: object
-      properties:
-        id:
-          type: string
-        profile:
-          type: object
-          properties:
-            name:
-              type: string
-              minLength: 1
-            phone:
-              type: string
-            title:
-              type: string
-            avatar:
-              type: string
-            role:
-              type: string
-            department:
-              type: string
-            timezone:
-              type: string
-        email:
-          type: string
-          minLength: 1
-        isActive:
-          type: boolean
-        type:
-          type: string
-          default: users
-          readOnly: true
-      title: User
-    project:
-      title: Project
-      type: object
-      x-examples:
-        Example project:
-          type: projects
-          id: 60a3dc67cba60c04739e8e46
-          name: Test Project
-          parties:
-          - id: 60896067dd86e01e90199f42
-            type: parties
-          customData:
-          - value: '123'
-            customField:
-              type: customFields
-              id: 60896067dd86e01e90199f42
-          externalIds:
-            procore:
-            - id: '49843945'
-      properties:
-        type:
-          type: string
-          default: projects
-          readOnly: true
-        id:
-          type: string
-        name:
-          type: string
-        description:
-          type:
-          - string
-          - 'null'
-        startDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        endDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        active:
-          type: boolean
-        parties:
-          type: array
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/reference'
-            - $ref: '#/components/schemas/party'
-            - type: string
-        customData:
-          type: array
-          items:
-            type: object
-            properties:
-              value:
-                type: string
-              customField:
-                oneOf:
-                - $ref: '#/components/schemas/reference'
-                - $ref: '#/components/schemas/custom-field'
-        complianceStatus:
-          type: object
-          properties:
-            status:
-              type: string
-              enum:
-              - compliant
-              - non_compliant
-            compliantPartiesCount:
-              type: number
-            totalPartiesCount:
-              type: number
-            complianceScore:
-              type: number
-        deletedAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        deletedBy:
-          oneOf:
-          - {}
-          - $ref: '#/components/schemas/reference'
-        externalIds:
-          type: object
-          x-stoplight:
-            id: uw5iuj9nds4en
-    response-status:
-      type: string
-      title: Response Status
-      enum:
-      - success
-      - fail
-      - error
-      readOnly: true
-      x-examples:
-        Success: success
-      description: The possible values are "success", "fail", and "error".
-      x-internal: true
-    compliance-profile:
-      title: Compliance Profile
-      type: object
-      x-examples:
-        Example compliance profile:
-          id: 60a27c51fcd891823568ed27
-          type: compliance-profiles
-          name: Default compliance profile
-          rules:
-          - moduleId: evidenceOfInsurance
-            moduleLabel: Evidence of Insurance
-            subjectId: commercialGeneralLiability
-            subjectLabel: Commercial General Liability
-            attributeId: evidenceOfInsuranceCommercialGeneralLiabilityEachOccurrence
-            attributeLabel: Each Occurrence
-            attributeType: number
-            attributeDescription: ''
-            masterDocumentAttributeId: commercialGeneralLiabilityLimitsGeneralAggregate
-            operator: must be greater or equal to
-            targetValue: '2000000'
-          context: global
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          default: compliance-profiles
-        name:
-          type: string
-          example: Default compliance profile
-        rules:
-          type: array
-          items:
-            type: object
-            properties:
-              moduleId:
-                type: string
-                minLength: 1
-                example: evidenceOfInsurance
-              moduleLabel:
-                type: string
-                minLength: 1
-                example: Evidence of Insurance
-              subjectId:
-                type: string
-                minLength: 1
-                example: commercialGeneralLiability
-              subjectLabel:
-                type: string
-                minLength: 1
-                example: Commercial General Liability
-              attributeId:
-                type: string
-                minLength: 1
-                example: evidenceOfInsuranceCommercialGeneralLiabilityEachOccurrence
-              attributeLabel:
-                type: string
-                minLength: 1
-                example: Each Occurrence
-              attributeType:
-                type: string
-                minLength: 1
-                example: number
-              attributeDescription:
-                type: string
-              masterDocumentAttributeId:
-                type: string
-                minLength: 1
-                example: commercialGeneralLiabilityLimitsGeneralAggregate
-              operator:
-                type: string
-                minLength: 1
-                example: must be greater or equal to
-              targetValue:
-                type: string
-                minLength: 1
-                example: '2000000'
-        context:
-          type: string
-          enum:
-          - global
-          - project
-          - custom-field
-        documentChecklists:
-          type: array
-          items:
-            type: object
-            properties:
-              attributeId:
-                type: string
-              attributeLabel:
-                type: string
-              active:
-                type: boolean
-    custom-field:
-      title: Custom Field
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          default: custom-fields
-        name:
-          type: string
-          description: Custom field label
-        'description ':
-          type: string
-          description: Optional description
-        color:
-          type: string
-          pattern: ^#[a-f0-9]{6}$
-          description: 'Field color in #rrggbb format'
-        fieldType:
-          type: string
-          default: text
-          enum:
-          - text
-          - number
-          - dropdown
-        options:
-          type: array
-          description: List of options for the dropdown
-          items:
-            type: object
-            properties:
-              key:
-                type: string
-                description: Unique identifier for the option
-              value:
-                type: string
-                description: Option label
-        complianceProfile:
-          oneOf:
-          - $ref: '#/components/schemas/reference'
-          - $ref: '#/components/schemas/compliance-profile'
-        associatedEntities:
-          type: array
-          enum:
-          - party
-          - project
-          description: List of entity types that can use this custom field
-          items:
-            type: string
     party-type:
       title: Party Type
       type: object
@@ -1965,158 +1408,6 @@ components:
           type: string
           x-stoplight:
             id: 07yyrzkup5tdk
-    party:
-      title: Party
-      type: object
-      x-examples:
-        Example Party:
-          id: 60896067dd86e01e90199f42
-          name: Test Party
-          address:
-            line1: 123 Main Street
-            line2: ''
-            city: Pleasantville
-            postalCode: '10200'
-            region: NY
-            country: US
-          type: Vendor
-          status: new
-          customData:
-          - value: '123'
-            customField:
-              type: customFields
-              id: 60896067dd86e01e90199f42
-          externalIds:
-            procore:
-            - id: '49843945'
-      properties:
-        type:
-          type: string
-          default: parties
-          readOnly: true
-        id:
-          type: string
-          readOnly: true
-        name:
-          type: string
-        address:
-          $ref: '#/components/schemas/address'
-        status:
-          type: string
-          enum:
-          - new
-          - compliant
-          - non_compliant
-          - inactive
-          readOnly: true
-        contacts:
-          type: array
-          items:
-            $ref: '#/components/schemas/contact'
-        website:
-          type:
-          - string
-          - 'null'
-        active:
-          type: boolean
-        notes:
-          type:
-          - string
-          - 'null'
-        complianceStatus:
-          $ref: '#/components/schemas/compliance-status'
-        projects:
-          type: array
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/reference'
-            - $ref: '#/components/schemas/project'
-        projectStats:
-          type: object
-          properties:
-            compliantProjectsCount:
-              type: number
-            totalProjectsCount:
-              type: number
-        documents:
-          type: array
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/reference'
-            - $ref: '#/components/schemas/document'
-        partyType:
-          oneOf:
-          - $ref: '#/components/schemas/reference'
-          - $ref: '#/components/schemas/party-type'
-        tags:
-          type: array
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/taggging'
-            - $ref: '#/components/schemas/taggging-full'
-        complianceProfile:
-          oneOf:
-          - $ref: '#/components/schemas/reference'
-          - $ref: '#/components/schemas/compliance-profile'
-          - {}
-        customData:
-          type: array
-          items:
-            type: object
-            properties:
-              value:
-                type: string
-              customField:
-                oneOf:
-                - $ref: '#/components/schemas/reference'
-                - $ref: '#/components/schemas/custom-field'
-        deletedAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        deletedBy:
-          oneOf:
-          - {}
-          - $ref: '#/components/schemas/reference'
-        externalIds:
-          type: object
-          x-stoplight:
-            id: zk87opteuie3w
-    reference:
-      title: Reference
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-      description: Generic object reference
-      x-internal: false
-      x-examples:
-        Generic reference example:
-          id: 60896067dd86e01e90199f43
-          type: widgets
-    compliance-document:
-      x-internal: true
-      title: Compliance Document
-      type: object
-      properties:
-        id:
-          type: string
-        origin:
-          type: string
-          enum:
-          - upload
-          - makeCompliant
-          - connectedDocument
-          - fillableForm
-          - webForm
-        complianceStatus:
-          type: string
-          enum:
-          - compliant
-          - non_compliant
     compliance-status:
       type: object
       title: Compliance Status
@@ -2469,6 +1760,41 @@ components:
             waiverOrOverrideExpirationDate: '2025-06-02T00:00:00.000Z'
           status: compliant
           lastChangedAt: '2025-07-16T17:55:00.000Z'
+    contact-update:
+      description: ''
+      type: object
+      title: contact-update
+      x-internal: true
+      x-examples:
+        New primary contact:
+          value:
+            primary: true
+      x-tags:
+      - input
+      properties:
+        name:
+          type: string
+          minLength: 1
+        email:
+          type: string
+        phone:
+          type: string
+        fax:
+          type: string
+        company:
+          type: string
+        title:
+          type: string
+        avatar:
+          type: string
+        primary:
+          type: boolean
+        defaultRequestRecipient:
+          type: boolean
+        externalId:
+          type: string
+          x-stoplight:
+            id: rqfr3clb0btce
     contact-create:
       type: object
       x-examples:
@@ -2506,6 +1832,94 @@ components:
             id: fj78rangs2n3d
       required:
       - name
+    taggging-full:
+      title: Tagging (full data)
+      type: object
+      properties:
+        type:
+          type: string
+          default: tags
+        id:
+          type: string
+        name:
+          type: string
+        color:
+          type: string
+        addedAt:
+          type: string
+          format: date
+        addedBy:
+          type: string
+    compliance-document:
+      x-internal: true
+      title: Compliance Document
+      type: object
+      properties:
+        id:
+          type: string
+        origin:
+          type: string
+          enum:
+          - upload
+          - makeCompliant
+          - connectedDocument
+          - fillableForm
+          - webForm
+        complianceStatus:
+          type: string
+          enum:
+          - compliant
+          - non_compliant
+    custom-field:
+      title: Custom Field
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          default: custom-fields
+        name:
+          type: string
+          description: Custom field label
+        'description ':
+          type: string
+          description: Optional description
+        color:
+          type: string
+          pattern: ^#[a-f0-9]{6}$
+          description: 'Field color in #rrggbb format'
+        fieldType:
+          type: string
+          default: text
+          enum:
+          - text
+          - number
+          - dropdown
+        options:
+          type: array
+          description: List of options for the dropdown
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+                description: Unique identifier for the option
+              value:
+                type: string
+                description: Option label
+        complianceProfile:
+          oneOf:
+          - $ref: '#/components/schemas/reference'
+          - $ref: '#/components/schemas/compliance-profile'
+        associatedEntities:
+          type: array
+          enum:
+          - party
+          - project
+          description: List of entity types that can use this custom field
+          items:
+            type: string
     document-type:
       description: ''
       type: object
@@ -2537,18 +1951,604 @@ components:
       - name
       - system
       - pluralName
-    objectId:
-      title: ObjectId
+    collection-meta:
+      title: collection-meta
+      type: object
+      properties:
+        count:
+          type: number
+          description: The number of documents according to the specified filters
+        pages:
+          type: number
+        totalCount:
+          type: number
+          description: The total number of documents in the collection
+        totalPages:
+          type: number
+      x-internal: true
+    party:
+      title: Party
+      type: object
+      x-examples:
+        Example Party:
+          id: 60896067dd86e01e90199f42
+          name: Test Party
+          address:
+            line1: 123 Main Street
+            line2: ''
+            city: Pleasantville
+            postalCode: '10200'
+            region: NY
+            country: US
+          type: Vendor
+          status: new
+          customData:
+          - value: '123'
+            customField:
+              type: customFields
+              id: 60896067dd86e01e90199f42
+          externalIds:
+            procore:
+            - id: '49843945'
+      properties:
+        type:
+          type: string
+          default: parties
+          readOnly: true
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+        address:
+          $ref: '#/components/schemas/address'
+        status:
+          type: string
+          enum:
+          - new
+          - compliant
+          - non_compliant
+          - inactive
+          readOnly: true
+        contacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/contact'
+        website:
+          type:
+          - string
+          - 'null'
+        active:
+          type: boolean
+        notes:
+          type:
+          - string
+          - 'null'
+        complianceStatus:
+          $ref: '#/components/schemas/compliance-status'
+        projects:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/reference'
+            - $ref: '#/components/schemas/project'
+        projectStats:
+          type: object
+          properties:
+            compliantProjectsCount:
+              type: number
+            totalProjectsCount:
+              type: number
+        documents:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/reference'
+            - $ref: '#/components/schemas/document'
+        partyType:
+          oneOf:
+          - $ref: '#/components/schemas/reference'
+          - $ref: '#/components/schemas/party-type'
+        tags:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/taggging'
+            - $ref: '#/components/schemas/taggging-full'
+        complianceProfile:
+          oneOf:
+          - $ref: '#/components/schemas/reference'
+          - $ref: '#/components/schemas/compliance-profile'
+          - {}
+        customData:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+              customField:
+                oneOf:
+                - $ref: '#/components/schemas/reference'
+                - $ref: '#/components/schemas/custom-field'
+        deletedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        deletedBy:
+          oneOf:
+          - {}
+          - $ref: '#/components/schemas/reference'
+        externalIds:
+          type: object
+          x-stoplight:
+            id: zk87opteuie3w
+    compliance-profile:
+      title: Compliance Profile
+      type: object
+      x-examples:
+        Example compliance profile:
+          id: 60a27c51fcd891823568ed27
+          type: compliance-profiles
+          name: Default compliance profile
+          rules:
+          - moduleId: evidenceOfInsurance
+            moduleLabel: Evidence of Insurance
+            subjectId: commercialGeneralLiability
+            subjectLabel: Commercial General Liability
+            attributeId: evidenceOfInsuranceCommercialGeneralLiabilityEachOccurrence
+            attributeLabel: Each Occurrence
+            attributeType: number
+            attributeDescription: ''
+            masterDocumentAttributeId: commercialGeneralLiabilityLimitsGeneralAggregate
+            operator: must be greater or equal to
+            targetValue: '2000000'
+          context: global
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          default: compliance-profiles
+        name:
+          type: string
+          example: Default compliance profile
+        rules:
+          type: array
+          items:
+            type: object
+            properties:
+              moduleId:
+                type: string
+                minLength: 1
+                example: evidenceOfInsurance
+              moduleLabel:
+                type: string
+                minLength: 1
+                example: Evidence of Insurance
+              subjectId:
+                type: string
+                minLength: 1
+                example: commercialGeneralLiability
+              subjectLabel:
+                type: string
+                minLength: 1
+                example: Commercial General Liability
+              attributeId:
+                type: string
+                minLength: 1
+                example: evidenceOfInsuranceCommercialGeneralLiabilityEachOccurrence
+              attributeLabel:
+                type: string
+                minLength: 1
+                example: Each Occurrence
+              attributeType:
+                type: string
+                minLength: 1
+                example: number
+              attributeDescription:
+                type: string
+              masterDocumentAttributeId:
+                type: string
+                minLength: 1
+                example: commercialGeneralLiabilityLimitsGeneralAggregate
+              operator:
+                type: string
+                minLength: 1
+                example: must be greater or equal to
+              targetValue:
+                type: string
+                minLength: 1
+                example: '2000000'
+        context:
+          type: string
+          enum:
+          - global
+          - project
+          - custom-field
+        documentChecklists:
+          type: array
+          items:
+            type: object
+            properties:
+              attributeId:
+                type: string
+              attributeLabel:
+                type: string
+              active:
+                type: boolean
+    document:
+      type: object
+      title: Document
+      x-examples:
+        Example document:
+          type: documents
+          id: 60a27c51fcd891823568ed35
+          issuedBy:
+            name: ''
+            address: ''
+            contactName: ''
+            phone: ''
+            email: ''
+          reviewedAt: '2019-08-24T14:15:22Z'
+          archivedAt: '2019-08-24T14:15:22Z'
+          notes: ''
+          status: processed
+          types:
+          - type: document-types
+            id: 60a27c517fd4e152a9642347
+          flag:
+            addedOn: '2019-08-24T14:15:22Z'
+            severityLevel: low
+            affectedSubjects:
+            - string
+            notes: ''
+            user:
+              id: 60a27c51fcd891823568ed24
+              type: users
+          appliesToAllProjects: true
+          expirationDate: '2019-08-24'
+          friendlyName: Acord25.pdf
+          data: {}
+          metadata: {}
+          updatedAt: '2019-08-24T14:15:22Z'
+          createdAt: '2019-08-24T14:15:22Z'
+          archivedBy:
+            id: 60a27c51fcd891823568ed24
+            type: users
+          reviewedBy: null
+          url: https://trustlayer-documents.s3.us-west-1.amazonaws.com/...
+          issueDate: '2019-01-22'
+      properties:
+        type:
+          type: string
+          default: documents
+          readOnly: true
+        id:
+          type: string
+          readOnly: true
+        issuedBy:
+          type: object
+          properties:
+            name:
+              type: string
+            address:
+              type: string
+            contactName:
+              type: string
+            phone:
+              type: string
+            email:
+              type: string
+        reviewedAt:
+          type: string
+          format: date-time
+          readOnly: true
+        archivedAt:
+          type: string
+          format: date-time
+          readOnly: true
+        notes:
+          type: string
+        status:
+          type: string
+          minLength: 1
+          readOnly: true
+        types:
+          type: array
+          uniqueItems: true
+          minItems: 0
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/reference'
+            - $ref: '#/components/schemas/document-type'
+        flag:
+          type: object
+          properties:
+            addedOn:
+              type: string
+              format: date-time
+            severityLevel:
+              type: string
+              minLength: 1
+              enum:
+              - low
+              - medium
+              - high
+            affectedSubjects:
+              type: array
+              uniqueItems: true
+              items:
+                type: string
+            notes:
+              type: string
+            user:
+              oneOf:
+              - $ref: '#/components/schemas/reference'
+              - $ref: '#/components/schemas/user'
+        appliesToAllProjects:
+          type: boolean
+        expirationDate:
+          type: string
+          format: date
+        name:
+          type: string
+          minLength: 1
+        data:
+          type: object
+        metadata:
+          type: object
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        archivedBy:
+          oneOf:
+          - $ref: '#/components/schemas/reference'
+          - $ref: '#/components/schemas/user'
+          - {}
+        reviewedBy:
+          oneOf:
+          - $ref: '#/components/schemas/reference'
+          - $ref: '#/components/schemas/user'
+          - {}
+        url:
+          type: string
+        insurers:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              naic:
+                type: string
+              rating:
+                type: string
+              ratingEffectiveDate:
+                type: string
+                format: date-time
+              financialSizeCategory:
+                type: string
+              ratingModifier:
+                type: string
+              ratingAction:
+                type: string
+              ratingImplication:
+                type: string
+              extractedName:
+                type: string
+              canonicalName:
+                type: string
+            required:
+            - id
+            - naic
+        deletedAt:
+          type: string
+          format: date-time
+        deletedBy:
+          oneOf:
+          - $ref: '#/components/schemas/reference'
+          - $ref: '#/components/schemas/user'
+        issueDate:
+          type: string
+          format: date
+          readOnly: true
+    reference:
+      title: Reference
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+      description: Generic object reference
+      x-internal: false
+      x-examples:
+        Generic reference example:
+          id: 60896067dd86e01e90199f43
+          type: widgets
+    project:
+      title: Project
+      type: object
+      x-examples:
+        Example project:
+          type: projects
+          id: 60a3dc67cba60c04739e8e46
+          name: Test Project
+          parties:
+          - id: 60896067dd86e01e90199f42
+            type: parties
+          customData:
+          - value: '123'
+            customField:
+              type: customFields
+              id: 60896067dd86e01e90199f42
+          externalIds:
+            procore:
+            - id: '49843945'
+      properties:
+        type:
+          type: string
+          default: projects
+          readOnly: true
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type:
+          - string
+          - 'null'
+        startDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        endDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        active:
+          type: boolean
+        parties:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/reference'
+            - $ref: '#/components/schemas/party'
+            - type: string
+        customData:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+              customField:
+                oneOf:
+                - $ref: '#/components/schemas/reference'
+                - $ref: '#/components/schemas/custom-field'
+        complianceStatus:
+          type: object
+          properties:
+            status:
+              type: string
+              enum:
+              - compliant
+              - non_compliant
+            compliantPartiesCount:
+              type: number
+            totalPartiesCount:
+              type: number
+            complianceScore:
+              type: number
+        deletedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        deletedBy:
+          oneOf:
+          - {}
+          - $ref: '#/components/schemas/reference'
+        externalIds:
+          type: object
+          x-stoplight:
+            id: uw5iuj9nds4en
+    user:
+      description: ''
+      type: object
+      properties:
+        id:
+          type: string
+        profile:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 1
+            phone:
+              type: string
+            title:
+              type: string
+            avatar:
+              type: string
+            role:
+              type: string
+            department:
+              type: string
+            timezone:
+              type: string
+        email:
+          type: string
+          minLength: 1
+        isActive:
+          type: boolean
+        type:
+          type: string
+          default: users
+          readOnly: true
+      title: User
+    response-status:
       type: string
-      format: ObjectId
-      examples:
-      - 507f1f77bcf86cd799439011
+      title: Response Status
+      enum:
+      - success
+      - fail
+      - error
+      readOnly: true
+      x-examples:
+        Success: success
+      description: The possible values are "success", "fail", and "error".
+      x-internal: true
+    taggging:
+      title: Tagging
+      type: object
+      properties:
+        type:
+          type: string
+          default: tags
+        id:
+          type: string
+        addedAt:
+          type: string
+          format: date
+        addedBy:
+          type: string
+        expiresAt:
+          type: string
+          x-stoplight:
+            id: 8xpna1blern8o
+          format: date
     objectIdInput:
       title: ObjectId
       type: string
       format: ObjectId
       examples:
       - 507f1f77bcf86cd799439011
+    objectId:
+      title: ObjectId
+      type: string
+      format: ObjectId
+      examples:
+      - 507f1f77bcf86cd799439011
+  parameters:
+    include:
+      name: include
+      in: query
+      required: false
+      schema:
+        type: string
+        example: parties,projects
+      description: List of comma-separated relationships to include in the result
+      allowReserved: true
   securitySchemes:
     Token:
       name: Authorization

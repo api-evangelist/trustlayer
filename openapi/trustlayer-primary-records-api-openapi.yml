@@ -6780,13 +6780,13 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    objectId:
+    objectIdInput:
       title: ObjectId
       type: string
       format: ObjectId
       examples:
       - 507f1f77bcf86cd799439011
-    objectIdInput:
+    objectId:
       title: ObjectId
       type: string
       format: ObjectId

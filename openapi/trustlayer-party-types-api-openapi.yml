@@ -81,6 +81,20 @@ paths:
               - partyType
 components:
   schemas:
+    reference:
+      title: Reference
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+      description: Generic object reference
+      x-internal: false
+      x-examples:
+        Generic reference example:
+          id: 60896067dd86e01e90199f43
+          type: widgets
     party-type:
       title: Party Type
       type: object
@@ -107,34 +121,21 @@ components:
           defaultComplianceProfile:
             id: 60a27c51fcd891823568ed27
             type: compliance-profiles
-    reference:
-      title: Reference
+    collection-meta:
+      title: collection-meta
       type: object
       properties:
-        id:
-          type: string
-        type:
-          type: string
-      description: Generic object reference
-      x-internal: false
-      x-examples:
-        Generic reference example:
-          id: 60896067dd86e01e90199f43
-          type: widgets
-    reference-input:
-      title: reference-input
-      type: object
-      properties:
-        id:
-          type: string
-          minLength: 24
-          maxLength: 24
-          pattern: ^[a-z0-9]{24}$
-      required:
-      - id
+        count:
+          type: number
+          description: The number of documents according to the specified filters
+        pages:
+          type: number
+        totalCount:
+          type: number
+          description: The total number of documents in the collection
+        totalPages:
+          type: number
       x-internal: true
-      x-tags:
-      - input
     party-type-input:
       title: party-type-input
       type: object
@@ -153,21 +154,20 @@ components:
       x-internal: true
       x-tags:
       - input
-    collection-meta:
-      title: collection-meta
+    reference-input:
+      title: reference-input
       type: object
       properties:
-        count:
-          type: number
-          description: The number of documents according to the specified filters
-        pages:
-          type: number
-        totalCount:
-          type: number
-          description: The total number of documents in the collection
-        totalPages:
-          type: number
+        id:
+          type: string
+          minLength: 24
+          maxLength: 24
+          pattern: ^[a-z0-9]{24}$
+      required:
+      - id
       x-internal: true
+      x-tags:
+      - input
     response-status:
       type: string
       title: Response Status

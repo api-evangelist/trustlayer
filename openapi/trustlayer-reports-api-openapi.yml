@@ -169,29 +169,21 @@ paths:
       x-internal: false
 components:
   schemas:
-    report-create:
+    collection-meta:
+      title: collection-meta
       type: object
-      title: report-create
-      x-examples: {}
-      x-internal: true
-      additionalProperties: false
       properties:
-        name:
-          type: string
-        filters:
-          type: object
-          minProperties: 1
-        reportType:
-          type: string
-          enum:
-          - parties
-          - projects
-      required:
-      - name
-      - filters
-      - reportType
-      x-tags:
-      - input
+        count:
+          type: number
+          description: The number of documents according to the specified filters
+        pages:
+          type: number
+        totalCount:
+          type: number
+          description: The total number of documents in the collection
+        totalPages:
+          type: number
+      x-internal: true
     report:
       title: Report
       type: object
@@ -223,6 +215,41 @@ components:
             sortDirection: asc
           updatedAt: '2019-08-24T14:15:22Z'
           createdAt: '2019-08-24T14:15:22Z'
+    report-create:
+      type: object
+      title: report-create
+      x-examples: {}
+      x-internal: true
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+        filters:
+          type: object
+          minProperties: 1
+        reportType:
+          type: string
+          enum:
+          - parties
+          - projects
+      required:
+      - name
+      - filters
+      - reportType
+      x-tags:
+      - input
+    response-status:
+      type: string
+      title: Response Status
+      enum:
+      - success
+      - fail
+      - error
+      readOnly: true
+      x-examples:
+        Success: success
+      description: The possible values are "success", "fail", and "error".
+      x-internal: true
     report-update:
       description: ''
       type: object
@@ -238,34 +265,16 @@ components:
       x-tags:
       - input
       x-internal: true
-    collection-meta:
-      title: collection-meta
-      type: object
-      properties:
-        count:
-          type: number
-          description: The number of documents according to the specified filters
-        pages:
-          type: number
-        totalCount:
-          type: number
-          description: The total number of documents in the collection
-        totalPages:
-          type: number
-      x-internal: true
-    response-status:
-      type: string
-      title: Response Status
-      enum:
-      - success
-      - fail
-      - error
-      readOnly: true
-      x-examples:
-        Success: success
-      description: The possible values are "success", "fail", and "error".
-      x-internal: true
   parameters:
+    sort:
+      name: sort
+      in: query
+      required: false
+      schema:
+        type: string
+        example: name,-age
+      description: List of comma-separated keys used to sort. Reversing is done by prepending "-" to the key name.
+      allowReserved: true
     filter:
       name: filter
       in: query
@@ -276,15 +285,6 @@ components:
           title: foo
       style: deepObject
       description: Key-value pair, e.g. filter[key]=value
-    sort:
-      name: sort
-      in: query
-      required: false
-      schema:
-        type: string
-        example: name,-age
-      description: List of comma-separated keys used to sort. Reversing is done by prepending "-" to the key name.
-      allowReserved: true
   securitySchemes:
     Token:
       name: Authorization
