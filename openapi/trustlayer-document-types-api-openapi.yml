@@ -117,18 +117,6 @@ components:
         totalPages:
           type: number
       x-internal: true
-    response-status:
-      type: string
-      title: Response Status
-      enum:
-      - success
-      - fail
-      - error
-      readOnly: true
-      x-examples:
-        Success: success
-      description: The possible values are "success", "fail", and "error".
-      x-internal: true
     document-type:
       description: ''
       type: object
@@ -160,6 +148,18 @@ components:
       - name
       - system
       - pluralName
+    response-status:
+      type: string
+      title: Response Status
+      enum:
+      - success
+      - fail
+      - error
+      readOnly: true
+      x-examples:
+        Success: success
+      description: The possible values are "success", "fail", and "error".
+      x-internal: true
     objectId:
       title: ObjectId
       type: string

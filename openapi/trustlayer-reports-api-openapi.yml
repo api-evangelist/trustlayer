@@ -169,6 +169,21 @@ paths:
       x-internal: false
 components:
   schemas:
+    report-update:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        name:
+          type: string
+          minLength: 1
+        filters:
+          type: object
+          minProperties: 1
+      title: report-update
+      x-tags:
+      - input
+      x-internal: true
     collection-meta:
       title: collection-meta
       type: object
@@ -183,6 +198,18 @@ components:
           description: The total number of documents in the collection
         totalPages:
           type: number
+      x-internal: true
+    response-status:
+      type: string
+      title: Response Status
+      enum:
+      - success
+      - fail
+      - error
+      readOnly: true
+      x-examples:
+        Success: success
+      description: The possible values are "success", "fail", and "error".
       x-internal: true
     report:
       title: Report
@@ -238,33 +265,6 @@ components:
       - reportType
       x-tags:
       - input
-    response-status:
-      type: string
-      title: Response Status
-      enum:
-      - success
-      - fail
-      - error
-      readOnly: true
-      x-examples:
-        Success: success
-      description: The possible values are "success", "fail", and "error".
-      x-internal: true
-    report-update:
-      description: ''
-      type: object
-      x-examples: {}
-      properties:
-        name:
-          type: string
-          minLength: 1
-        filters:
-          type: object
-          minProperties: 1
-      title: report-update
-      x-tags:
-      - input
-      x-internal: true
   parameters:
     sort:
       name: sort
