@@ -375,6 +375,9 @@ apis:
   - type: Documentation
     url: https://developers.trustlayer.io/v1/
 common:
+- type: CapabilityMap
+  url: capabilities/trustlayer-capability-edges.yml
+  name: TrustLayer Business Capability Map
 - type: Overlay
   url: overlays/trustlayer-platform-v1-overlay.yaml
 - type: DeveloperPortal

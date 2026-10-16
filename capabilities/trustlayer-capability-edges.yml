@@ -1,0 +1,27 @@
+slug: trustlayer
+provider: TrustLayer
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Parties
+  spec_file: trustlayer-parties-api-openapi.yml
+  capability_id: BC-510
+  capability_id_l1: BC-510
+  capability_name: Supplier Management
+  confidence: 0.75
+  evidence: POST /parties/{id}/waive-requirement  Waive or override a requirement; POST /parties/{partyId}/compliance-certificate  Create
+    a party compliance certificate
+  reason: Parties are the vendors/third parties tracked by this vendor-risk platform; operations create
+    party records, contacts, compliance certificates and waive compliance requirements — supplier record-keeping
+    plus compliance qualification. L1 Supplier Management; evidence spans onboarding/due-diligence and
+    ongoing risk monitoring so no single L2 is asserted.
