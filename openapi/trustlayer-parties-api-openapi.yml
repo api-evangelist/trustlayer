@@ -1205,6 +1205,120 @@ paths:
                       id: string
 components:
   schemas:
+    reference:
+      title: Reference
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+      description: Generic object reference
+      x-internal: false
+      x-examples:
+        Generic reference example:
+          id: 60896067dd86e01e90199f43
+          type: widgets
+    compliance-document:
+      x-internal: true
+      title: Compliance Document
+      type: object
+      properties:
+        id:
+          type: string
+        origin:
+          type: string
+          enum:
+          - upload
+          - makeCompliant
+          - connectedDocument
+          - fillableForm
+          - webForm
+        complianceStatus:
+          type: string
+          enum:
+          - compliant
+          - non_compliant
+    taggging:
+      title: Tagging
+      type: object
+      properties:
+        type:
+          type: string
+          default: tags
+        id:
+          type: string
+        addedAt:
+          type: string
+          format: date
+        addedBy:
+          type: string
+        expiresAt:
+          type: string
+          x-stoplight:
+            id: 8xpna1blern8o
+          format: date
+    party-type:
+      title: Party Type
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          default: party-types
+        name:
+          type: string
+        pluralName:
+          type: string
+        defaultComplianceProfile:
+          oneOf:
+          - $ref: '#/components/schemas/reference'
+          - $ref: '#/components/schemas/compliance-profile'
+      x-examples:
+        Vendor:
+          id: 60a27c51fcd891823568ed28
+          type: party-types
+          name: Vendor
+          pluralName: Vendors
+          defaultComplianceProfile:
+            id: 60a27c51fcd891823568ed27
+            type: compliance-profiles
+    waive-requirement:
+      title: waive-requirement
+      x-stoplight:
+        id: zhacnj2f3vbb8
+      type: object
+      x-tags:
+      - input
+      x-internal: true
+      properties:
+        attributeId:
+          type: string
+          x-stoplight:
+            id: epvtk6zfv7css
+        override:
+          type: boolean
+          x-stoplight:
+            id: iw9ka6brcyyy9
+          default: false
+        notes:
+          type: string
+          x-stoplight:
+            id: srq0rl5ijlrck
+        resetRequirementOn:
+          type: string
+          x-stoplight:
+            id: 3n1hrs3l6955r
+          format: date-time
+        applyToAllProjects:
+          type: boolean
+          x-stoplight:
+            id: upyv8wit1wzkn
+          default: false
+          description: Can only be set to true if no scope is specified
+      required:
+      - attributeId
     document:
       type: object
       title: Document
@@ -1386,40 +1500,37 @@ components:
           type: string
           format: date
           readOnly: true
-    user:
+    document-type:
       description: ''
       type: object
+      title: Document Type
+      x-examples:
+        Certificate of insurance:
+          type: document-types
+          id: 60a27c517fd4e152a9642347
+          name: Certificate of Insurance
+          system: true
+          pluralName: Certificates of Insurance
       properties:
-        id:
-          type: string
-        profile:
-          type: object
-          properties:
-            name:
-              type: string
-              minLength: 1
-            phone:
-              type: string
-            title:
-              type: string
-            avatar:
-              type: string
-            role:
-              type: string
-            department:
-              type: string
-            timezone:
-              type: string
-        email:
-          type: string
-          minLength: 1
-        isActive:
-          type: boolean
         type:
           type: string
-          default: users
+          default: document-types
           readOnly: true
-      title: User
+        id:
+          type: string
+        name:
+          type: string
+          minLength: 1
+        system:
+          type: boolean
+        pluralName:
+          type: string
+          minLength: 1
+      required:
+      - id
+      - name
+      - system
+      - pluralName
     compliance-status:
       type: object
       title: Compliance Status
@@ -1772,109 +1883,97 @@ components:
             waiverOrOverrideExpirationDate: '2025-06-02T00:00:00.000Z'
           status: compliant
           lastChangedAt: '2025-07-16T17:55:00.000Z'
-    project:
-      title: Project
+    party-comment:
+      title: party-comment
+      x-stoplight:
+        id: 70nmqlak0hsle
       type: object
-      x-examples:
-        Example project:
-          type: projects
-          id: 60a3dc67cba60c04739e8e46
-          name: Test Project
-          parties:
-          - id: 60896067dd86e01e90199f42
-            type: parties
-          customData:
-          - value: '123'
-            customField:
-              type: customFields
-              id: 60896067dd86e01e90199f42
-          externalIds:
-            procore:
-            - id: '49843945'
       properties:
-        type:
-          type: string
-          default: projects
-          readOnly: true
         id:
           type: string
+        message:
+          type: string
+          x-stoplight:
+            id: zfphl946x55vc
+        userId:
+          type: string
+          x-stoplight:
+            id: yalet13rujxrq
+        userName:
+          type: string
+          x-stoplight:
+            id: xiimazsm03jp8
+        userEmail:
+          type: string
+          x-stoplight:
+            id: mh6h9a7vzp72g
+        createdAt:
+          type: string
+          x-stoplight:
+            id: k530jdhulydrj
+          format: date-time
+    custom-field:
+      title: Custom Field
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          default: custom-fields
         name:
           type: string
-        description:
-          type:
-          - string
-          - 'null'
-        startDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        endDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        active:
-          type: boolean
-        parties:
+          description: Custom field label
+        'description ':
+          type: string
+          description: Optional description
+        color:
+          type: string
+          pattern: ^#[a-f0-9]{6}$
+          description: 'Field color in #rrggbb format'
+        fieldType:
+          type: string
+          default: text
+          enum:
+          - text
+          - number
+          - dropdown
+        options:
           type: array
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/reference'
-            - $ref: '#/components/schemas/party'
-            - type: string
-        customData:
-          type: array
+          description: List of options for the dropdown
           items:
             type: object
             properties:
+              key:
+                type: string
+                description: Unique identifier for the option
               value:
                 type: string
-              customField:
-                oneOf:
-                - $ref: '#/components/schemas/reference'
-                - $ref: '#/components/schemas/custom-field'
-        complianceStatus:
-          type: object
-          properties:
-            status:
-              type: string
-              enum:
-              - compliant
-              - non_compliant
-            compliantPartiesCount:
-              type: number
-            totalPartiesCount:
-              type: number
-            complianceScore:
-              type: number
-        deletedAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        deletedBy:
+                description: Option label
+        complianceProfile:
           oneOf:
-          - {}
           - $ref: '#/components/schemas/reference'
-        externalIds:
-          type: object
-          x-stoplight:
-            id: uw5iuj9nds4en
-    reference:
-      title: Reference
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-      description: Generic object reference
-      x-internal: false
+          - $ref: '#/components/schemas/compliance-profile'
+        associatedEntities:
+          type: array
+          enum:
+          - party
+          - project
+          description: List of entity types that can use this custom field
+          items:
+            type: string
+    response-status:
+      type: string
+      title: Response Status
+      enum:
+      - success
+      - fail
+      - error
+      readOnly: true
       x-examples:
-        Generic reference example:
-          id: 60896067dd86e01e90199f43
-          type: widgets
+        Success: success
+      description: The possible values are "success", "fail", and "error".
+      x-internal: true
     party:
       title: Party
       type: object
@@ -1993,61 +2092,23 @@ components:
           type: object
           x-stoplight:
             id: zk87opteuie3w
-    compliance-document:
-      x-internal: true
-      title: Compliance Document
+    party-comment-input:
+      title: party-comment-input
+      x-stoplight:
+        id: h6c1ndrftwgam
       type: object
       properties:
-        id:
+        message:
           type: string
-        origin:
-          type: string
-          enum:
-          - upload
-          - makeCompliant
-          - connectedDocument
-          - fillableForm
-          - webForm
-        complianceStatus:
-          type: string
-          enum:
-          - compliant
-          - non_compliant
-    waive-subject:
-      title: waive-subject
-      x-stoplight:
-        id: j35ah9xf264cd
-      type: object
+          x-stoplight:
+            id: a6exz10tihnkj
+          minLength: 1
+          maxLength: 4000
+      required:
+      - message
       x-tags:
       - input
       x-internal: true
-      properties:
-        subjectId:
-          type: string
-          x-stoplight:
-            id: xq88kdfmj2jfb
-        override:
-          type: boolean
-          x-stoplight:
-            id: 35ngz068df4oh
-          default: false
-        notes:
-          type: string
-          x-stoplight:
-            id: dm5zes8cwf3wh
-        resetSubjectOn:
-          type: string
-          x-stoplight:
-            id: fn1wyi8e46x09
-          format: date-time
-        applyToAllProjects:
-          type: boolean
-          x-stoplight:
-            id: 0o8pws9g6qsr9
-          default: false
-          description: Can only be set to true if no scope is specified
-      required:
-      - subjectId
     compliance-profile:
       title: Compliance Profile
       type: object
@@ -2142,168 +2203,6 @@ components:
                 type: string
               active:
                 type: boolean
-    response-status:
-      type: string
-      title: Response Status
-      enum:
-      - success
-      - fail
-      - error
-      readOnly: true
-      x-examples:
-        Success: success
-      description: The possible values are "success", "fail", and "error".
-      x-internal: true
-    custom-field:
-      title: Custom Field
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          default: custom-fields
-        name:
-          type: string
-          description: Custom field label
-        'description ':
-          type: string
-          description: Optional description
-        color:
-          type: string
-          pattern: ^#[a-f0-9]{6}$
-          description: 'Field color in #rrggbb format'
-        fieldType:
-          type: string
-          default: text
-          enum:
-          - text
-          - number
-          - dropdown
-        options:
-          type: array
-          description: List of options for the dropdown
-          items:
-            type: object
-            properties:
-              key:
-                type: string
-                description: Unique identifier for the option
-              value:
-                type: string
-                description: Option label
-        complianceProfile:
-          oneOf:
-          - $ref: '#/components/schemas/reference'
-          - $ref: '#/components/schemas/compliance-profile'
-        associatedEntities:
-          type: array
-          enum:
-          - party
-          - project
-          description: List of entity types that can use this custom field
-          items:
-            type: string
-    taggging:
-      title: Tagging
-      type: object
-      properties:
-        type:
-          type: string
-          default: tags
-        id:
-          type: string
-        addedAt:
-          type: string
-          format: date
-        addedBy:
-          type: string
-        expiresAt:
-          type: string
-          x-stoplight:
-            id: 8xpna1blern8o
-          format: date
-    party-comment:
-      title: party-comment
-      x-stoplight:
-        id: 70nmqlak0hsle
-      type: object
-      properties:
-        id:
-          type: string
-        message:
-          type: string
-          x-stoplight:
-            id: zfphl946x55vc
-        userId:
-          type: string
-          x-stoplight:
-            id: yalet13rujxrq
-        userName:
-          type: string
-          x-stoplight:
-            id: xiimazsm03jp8
-        userEmail:
-          type: string
-          x-stoplight:
-            id: mh6h9a7vzp72g
-        createdAt:
-          type: string
-          x-stoplight:
-            id: k530jdhulydrj
-          format: date-time
-    waive-requirement:
-      title: waive-requirement
-      x-stoplight:
-        id: zhacnj2f3vbb8
-      type: object
-      x-tags:
-      - input
-      x-internal: true
-      properties:
-        attributeId:
-          type: string
-          x-stoplight:
-            id: epvtk6zfv7css
-        override:
-          type: boolean
-          x-stoplight:
-            id: iw9ka6brcyyy9
-          default: false
-        notes:
-          type: string
-          x-stoplight:
-            id: srq0rl5ijlrck
-        resetRequirementOn:
-          type: string
-          x-stoplight:
-            id: 3n1hrs3l6955r
-          format: date-time
-        applyToAllProjects:
-          type: boolean
-          x-stoplight:
-            id: upyv8wit1wzkn
-          default: false
-          description: Can only be set to true if no scope is specified
-      required:
-      - attributeId
-    party-comment-input:
-      title: party-comment-input
-      x-stoplight:
-        id: h6c1ndrftwgam
-      type: object
-      properties:
-        message:
-          type: string
-          x-stoplight:
-            id: a6exz10tihnkj
-          minLength: 1
-          maxLength: 4000
-      required:
-      - message
-      x-tags:
-      - input
-      x-internal: true
     taggging-full:
       title: Tagging (full data)
       type: object
@@ -2377,94 +2276,164 @@ components:
           type: string
           x-stoplight:
             id: 07yyrzkup5tdk
-    party-type:
-      title: Party Type
+    user:
+      description: ''
       type: object
       properties:
         id:
           type: string
+        profile:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 1
+            phone:
+              type: string
+            title:
+              type: string
+            avatar:
+              type: string
+            role:
+              type: string
+            department:
+              type: string
+            timezone:
+              type: string
+        email:
+          type: string
+          minLength: 1
+        isActive:
+          type: boolean
         type:
           type: string
-          default: party-types
-        name:
-          type: string
-        pluralName:
-          type: string
-        defaultComplianceProfile:
-          oneOf:
-          - $ref: '#/components/schemas/reference'
-          - $ref: '#/components/schemas/compliance-profile'
-      x-examples:
-        Vendor:
-          id: 60a27c51fcd891823568ed28
-          type: party-types
-          name: Vendor
-          pluralName: Vendors
-          defaultComplianceProfile:
-            id: 60a27c51fcd891823568ed27
-            type: compliance-profiles
-    document-type:
-      description: ''
+          default: users
+          readOnly: true
+      title: User
+    project:
+      title: Project
       type: object
-      title: Document Type
       x-examples:
-        Certificate of insurance:
-          type: document-types
-          id: 60a27c517fd4e152a9642347
-          name: Certificate of Insurance
-          system: true
-          pluralName: Certificates of Insurance
+        Example project:
+          type: projects
+          id: 60a3dc67cba60c04739e8e46
+          name: Test Project
+          parties:
+          - id: 60896067dd86e01e90199f42
+            type: parties
+          customData:
+          - value: '123'
+            customField:
+              type: customFields
+              id: 60896067dd86e01e90199f42
+          externalIds:
+            procore:
+            - id: '49843945'
       properties:
         type:
           type: string
-          default: document-types
+          default: projects
           readOnly: true
         id:
           type: string
         name:
           type: string
-          minLength: 1
-        system:
+        description:
+          type:
+          - string
+          - 'null'
+        startDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        endDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        active:
           type: boolean
-        pluralName:
-          type: string
-          minLength: 1
-      required:
-      - id
-      - name
-      - system
-      - pluralName
-    address-input:
-      description: ''
+        parties:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/reference'
+            - $ref: '#/components/schemas/party'
+            - type: string
+        customData:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+              customField:
+                oneOf:
+                - $ref: '#/components/schemas/reference'
+                - $ref: '#/components/schemas/custom-field'
+        complianceStatus:
+          type: object
+          properties:
+            status:
+              type: string
+              enum:
+              - compliant
+              - non_compliant
+            compliantPartiesCount:
+              type: number
+            totalPartiesCount:
+              type: number
+            complianceScore:
+              type: number
+        deletedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        deletedBy:
+          oneOf:
+          - {}
+          - $ref: '#/components/schemas/reference'
+        externalIds:
+          type: object
+          x-stoplight:
+            id: uw5iuj9nds4en
+    waive-subject:
+      title: waive-subject
+      x-stoplight:
+        id: j35ah9xf264cd
       type: object
       x-tags:
       - input
-      x-examples: {}
+      x-internal: true
       properties:
-        city:
+        subjectId:
           type: string
-          minLength: 1
-        country:
+          x-stoplight:
+            id: xq88kdfmj2jfb
+        override:
+          type: boolean
+          x-stoplight:
+            id: 35ngz068df4oh
+          default: false
+        notes:
           type: string
-          minLength: 1
-        line1:
+          x-stoplight:
+            id: dm5zes8cwf3wh
+        resetSubjectOn:
           type: string
-          minLength: 1
-        line2:
-          type: string
-        postalCode:
-          type: string
-          minLength: 1
-        region:
-          type: string
-          minLength: 1
+          x-stoplight:
+            id: fn1wyi8e46x09
+          format: date-time
+        applyToAllProjects:
+          type: boolean
+          x-stoplight:
+            id: 0o8pws9g6qsr9
+          default: false
+          description: Can only be set to true if no scope is specified
       required:
-      - city
-      - country
-      - line1
-      - postalCode
-      - region
-      title: address-input
+      - subjectId
     party-create:
       title: party-create
       type: object
@@ -2512,122 +2481,6 @@ components:
       required:
       - name
       - partyType
-    document-request:
-      title: Document Request
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          default: document-requests
-        party:
-          $ref: '#/components/schemas/reference'
-        message:
-          type: string
-        sentOn:
-          type: string
-          format: date
-        dueDate:
-          type: string
-          format: date-time
-        forwardedAt:
-          type: string
-          format: date-time
-        forwardedTo:
-          type: string
-    collection-meta:
-      title: collection-meta
-      type: object
-      properties:
-        count:
-          type: number
-          description: The number of documents according to the specified filters
-        pages:
-          type: number
-        totalCount:
-          type: number
-          description: The total number of documents in the collection
-        totalPages:
-          type: number
-      x-internal: true
-    custom-data-update:
-      type: array
-      x-examples:
-        example-1:
-        - value: string
-          customField:
-            id: striangstringstringstring
-      x-internal: true
-      x-tags:
-      - input
-      items:
-        type: object
-        properties:
-          customField:
-            $ref: '#/components/schemas/reference-input'
-          value:
-            type:
-            - string
-            - number
-        required:
-        - customField
-        - value
-    party-update:
-      title: party-update
-      type: object
-      x-internal: true
-      x-examples: {}
-      x-tags:
-      - input
-      properties:
-        name:
-          type: string
-          minLength: 1
-          description: The party name
-        partyType:
-          $ref: '#/components/schemas/reference-input'
-        website:
-          type: string
-        notes:
-          type: string
-        address:
-          $ref: '#/components/schemas/address-input'
-        active:
-          type: boolean
-        customData:
-          type: array
-          items:
-            type: object
-            properties:
-              customField:
-                $ref: '#/components/schemas/reference-input'
-              value:
-                type: string
-            required:
-            - customField
-            - value
-        complianceProfile:
-          oneOf:
-          - $ref: '#/components/schemas/reference-input'
-          - type: boolean
-    reference-list-input:
-      type: array
-      title: reference-list-input
-      x-tags:
-      - input
-      minItems: 1
-      items:
-        type: object
-        properties:
-          id:
-            type: string
-            pattern: ^[a-z0-9]{24}$
-            minLength: 24
-            maxLength: 24
-        required:
-        - id
-      x-internal: true
     contact-create:
       type: object
       x-examples:
@@ -2665,6 +2518,37 @@ components:
             id: fj78rangs2n3d
       required:
       - name
+    address-input:
+      description: ''
+      type: object
+      x-tags:
+      - input
+      x-examples: {}
+      properties:
+        city:
+          type: string
+          minLength: 1
+        country:
+          type: string
+          minLength: 1
+        line1:
+          type: string
+          minLength: 1
+        line2:
+          type: string
+        postalCode:
+          type: string
+          minLength: 1
+        region:
+          type: string
+          minLength: 1
+      required:
+      - city
+      - country
+      - line1
+      - postalCode
+      - region
+      title: address-input
     primary-contact-create:
       type: object
       x-stoplight:
@@ -2748,20 +2632,6 @@ components:
             required:
             - id
             - expirationDate
-    reference-input:
-      title: reference-input
-      type: object
-      properties:
-        id:
-          type: string
-          minLength: 24
-          maxLength: 24
-          pattern: ^[a-z0-9]{24}$
-      required:
-      - id
-      x-internal: true
-      x-tags:
-      - input
     document-request-input:
       type: object
       title: document-request-input
@@ -2785,14 +2655,137 @@ components:
           $ref: '#/components/schemas/reference-input'
       required:
       - recipients
+    document-request:
+      title: Document Request
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          default: document-requests
+        party:
+          $ref: '#/components/schemas/reference'
+        message:
+          type: string
+        sentOn:
+          type: string
+          format: date
+        dueDate:
+          type: string
+          format: date-time
+        forwardedAt:
+          type: string
+          format: date-time
+        forwardedTo:
+          type: string
+    collection-meta:
+      title: collection-meta
+      type: object
+      properties:
+        count:
+          type: number
+          description: The number of documents according to the specified filters
+        pages:
+          type: number
+        totalCount:
+          type: number
+          description: The total number of documents in the collection
+        totalPages:
+          type: number
+      x-internal: true
+    reference-list-input:
+      type: array
+      title: reference-list-input
+      x-tags:
+      - input
+      minItems: 1
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+            pattern: ^[a-z0-9]{24}$
+            minLength: 24
+            maxLength: 24
+        required:
+        - id
+      x-internal: true
+    party-update:
+      title: party-update
+      type: object
+      x-internal: true
+      x-examples: {}
+      x-tags:
+      - input
+      properties:
+        name:
+          type: string
+          minLength: 1
+          description: The party name
+        partyType:
+          $ref: '#/components/schemas/reference-input'
+        website:
+          type: string
+        notes:
+          type: string
+        address:
+          $ref: '#/components/schemas/address-input'
+        active:
+          type: boolean
+        customData:
+          type: array
+          items:
+            type: object
+            properties:
+              customField:
+                $ref: '#/components/schemas/reference-input'
+              value:
+                type: string
+            required:
+            - customField
+            - value
+        complianceProfile:
+          oneOf:
+          - $ref: '#/components/schemas/reference-input'
+          - type: boolean
+    reference-input:
+      title: reference-input
+      type: object
+      properties:
+        id:
+          type: string
+          minLength: 24
+          maxLength: 24
+          pattern: ^[a-z0-9]{24}$
+      required:
+      - id
+      x-internal: true
+      x-tags:
+      - input
+    custom-data-update:
+      type: array
+      x-examples:
+        example-1:
+        - value: string
+          customField:
+            id: striangstringstringstring
+      x-internal: true
+      x-tags:
+      - input
+      items:
+        type: object
+        properties:
+          customField:
+            $ref: '#/components/schemas/reference-input'
+          value:
+            type:
+            - string
+            - number
+        required:
+        - customField
+        - value
   parameters:
-    scope-id:
-      name: scope[id]
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Id of the resource to be used as scope
     scope-type:
       name: scope[type]
       in: query
@@ -2800,25 +2793,13 @@ components:
       schema:
         type: string
       description: Type of the resource to be used as scope
-    include:
-      name: include
+    scope-id:
+      name: scope[id]
       in: query
       required: false
       schema:
         type: string
-        example: parties,projects
-      description: List of comma-separated relationships to include in the result
-      allowReserved: true
-    page-number:
-      name: page[number]
-      in: query
-      required: false
-      schema:
-        type: number
-        minimum: 1
-        example: 1
-        default: 1
-      description: Page number, starting from 1
+      description: Id of the resource to be used as scope
     page-size:
       name: page[size]
       in: query
@@ -2830,6 +2811,34 @@ components:
         example: 20
         default: 20
       description: Number of items per page. Defaults to 20. Maximum is 100
+    page-number:
+      name: page[number]
+      in: query
+      required: false
+      schema:
+        type: number
+        minimum: 1
+        example: 1
+        default: 1
+      description: Page number, starting from 1
+    sort:
+      name: sort
+      in: query
+      required: false
+      schema:
+        type: string
+        example: name,-age
+      description: List of comma-separated keys used to sort. Reversing is done by prepending "-" to the key name.
+      allowReserved: true
+    include:
+      name: include
+      in: query
+      required: false
+      schema:
+        type: string
+        example: parties,projects
+      description: List of comma-separated relationships to include in the result
+      allowReserved: true
     filter:
       name: filter
       in: query
@@ -2840,15 +2849,6 @@ components:
           title: foo
       style: deepObject
       description: Key-value pair, e.g. filter[key]=value
-    sort:
-      name: sort
-      in: query
-      required: false
-      schema:
-        type: string
-        example: name,-age
-      description: List of comma-separated keys used to sort. Reversing is done by prepending "-" to the key name.
-      allowReserved: true
   securitySchemes:
     Token:
       name: Authorization

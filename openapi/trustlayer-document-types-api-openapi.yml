@@ -102,6 +102,18 @@ paths:
       description: Production
 components:
   schemas:
+    response-status:
+      type: string
+      title: Response Status
+      enum:
+      - success
+      - fail
+      - error
+      readOnly: true
+      x-examples:
+        Success: success
+      description: The possible values are "success", "fail", and "error".
+      x-internal: true
     collection-meta:
       title: collection-meta
       type: object
@@ -148,18 +160,6 @@ components:
       - name
       - system
       - pluralName
-    response-status:
-      type: string
-      title: Response Status
-      enum:
-      - success
-      - fail
-      - error
-      readOnly: true
-      x-examples:
-        Success: success
-      description: The possible values are "success", "fail", and "error".
-      x-internal: true
     objectId:
       title: ObjectId
       type: string

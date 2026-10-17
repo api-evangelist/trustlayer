@@ -81,6 +81,46 @@ paths:
               - partyType
 components:
   schemas:
+    party-type:
+      title: Party Type
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          default: party-types
+        name:
+          type: string
+        pluralName:
+          type: string
+        defaultComplianceProfile:
+          oneOf:
+          - $ref: '#/components/schemas/reference'
+          - $ref: '#/components/schemas/compliance-profile'
+      x-examples:
+        Vendor:
+          id: 60a27c51fcd891823568ed28
+          type: party-types
+          name: Vendor
+          pluralName: Vendors
+          defaultComplianceProfile:
+            id: 60a27c51fcd891823568ed27
+            type: compliance-profiles
+    reference:
+      title: Reference
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+      description: Generic object reference
+      x-internal: false
+      x-examples:
+        Generic reference example:
+          id: 60896067dd86e01e90199f43
+          type: widgets
     collection-meta:
       title: collection-meta
       type: object
@@ -96,6 +136,32 @@ components:
         totalPages:
           type: number
       x-internal: true
+    response-status:
+      type: string
+      title: Response Status
+      enum:
+      - success
+      - fail
+      - error
+      readOnly: true
+      x-examples:
+        Success: success
+      description: The possible values are "success", "fail", and "error".
+      x-internal: true
+    reference-input:
+      title: reference-input
+      type: object
+      properties:
+        id:
+          type: string
+          minLength: 24
+          maxLength: 24
+          pattern: ^[a-z0-9]{24}$
+      required:
+      - id
+      x-internal: true
+      x-tags:
+      - input
     compliance-profile:
       title: Compliance Profile
       type: object
@@ -190,60 +256,6 @@ components:
                 type: string
               active:
                 type: boolean
-    reference-input:
-      title: reference-input
-      type: object
-      properties:
-        id:
-          type: string
-          minLength: 24
-          maxLength: 24
-          pattern: ^[a-z0-9]{24}$
-      required:
-      - id
-      x-internal: true
-      x-tags:
-      - input
-    reference:
-      title: Reference
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-      description: Generic object reference
-      x-internal: false
-      x-examples:
-        Generic reference example:
-          id: 60896067dd86e01e90199f43
-          type: widgets
-    party-type:
-      title: Party Type
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          default: party-types
-        name:
-          type: string
-        pluralName:
-          type: string
-        defaultComplianceProfile:
-          oneOf:
-          - $ref: '#/components/schemas/reference'
-          - $ref: '#/components/schemas/compliance-profile'
-      x-examples:
-        Vendor:
-          id: 60a27c51fcd891823568ed28
-          type: party-types
-          name: Vendor
-          pluralName: Vendors
-          defaultComplianceProfile:
-            id: 60a27c51fcd891823568ed27
-            type: compliance-profiles
     party-type-input:
       title: party-type-input
       type: object
@@ -262,18 +274,6 @@ components:
       x-internal: true
       x-tags:
       - input
-    response-status:
-      type: string
-      title: Response Status
-      enum:
-      - success
-      - fail
-      - error
-      readOnly: true
-      x-examples:
-        Success: success
-      description: The possible values are "success", "fail", and "error".
-      x-internal: true
   securitySchemes:
     Token:
       name: Authorization

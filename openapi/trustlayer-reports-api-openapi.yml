@@ -169,21 +169,6 @@ paths:
       x-internal: false
 components:
   schemas:
-    report-update:
-      description: ''
-      type: object
-      x-examples: {}
-      properties:
-        name:
-          type: string
-          minLength: 1
-        filters:
-          type: object
-          minProperties: 1
-      title: report-update
-      x-tags:
-      - input
-      x-internal: true
     collection-meta:
       title: collection-meta
       type: object
@@ -210,6 +195,44 @@ components:
       x-examples:
         Success: success
       description: The possible values are "success", "fail", and "error".
+      x-internal: true
+    report-create:
+      type: object
+      title: report-create
+      x-examples: {}
+      x-internal: true
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+        filters:
+          type: object
+          minProperties: 1
+        reportType:
+          type: string
+          enum:
+          - parties
+          - projects
+      required:
+      - name
+      - filters
+      - reportType
+      x-tags:
+      - input
+    report-update:
+      description: ''
+      type: object
+      x-examples: {}
+      properties:
+        name:
+          type: string
+          minLength: 1
+        filters:
+          type: object
+          minProperties: 1
+      title: report-update
+      x-tags:
+      - input
       x-internal: true
     report:
       title: Report
@@ -242,39 +265,7 @@ components:
             sortDirection: asc
           updatedAt: '2019-08-24T14:15:22Z'
           createdAt: '2019-08-24T14:15:22Z'
-    report-create:
-      type: object
-      title: report-create
-      x-examples: {}
-      x-internal: true
-      additionalProperties: false
-      properties:
-        name:
-          type: string
-        filters:
-          type: object
-          minProperties: 1
-        reportType:
-          type: string
-          enum:
-          - parties
-          - projects
-      required:
-      - name
-      - filters
-      - reportType
-      x-tags:
-      - input
   parameters:
-    sort:
-      name: sort
-      in: query
-      required: false
-      schema:
-        type: string
-        example: name,-age
-      description: List of comma-separated keys used to sort. Reversing is done by prepending "-" to the key name.
-      allowReserved: true
     filter:
       name: filter
       in: query
@@ -285,6 +276,15 @@ components:
           title: foo
       style: deepObject
       description: Key-value pair, e.g. filter[key]=value
+    sort:
+      name: sort
+      in: query
+      required: false
+      schema:
+        type: string
+        example: name,-age
+      description: List of comma-separated keys used to sort. Reversing is done by prepending "-" to the key name.
+      allowReserved: true
   securitySchemes:
     Token:
       name: Authorization

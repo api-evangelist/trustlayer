@@ -210,6 +210,105 @@ paths:
       description: If you need to remove multiple tags at once you can use the alternative endpoint `DELETE /parties/{partyId}/relationships/tags`
 components:
   schemas:
+    reference:
+      title: Reference
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+      description: Generic object reference
+      x-internal: false
+      x-examples:
+        Generic reference example:
+          id: 60896067dd86e01e90199f43
+          type: widgets
+    compliance-document:
+      x-internal: true
+      title: Compliance Document
+      type: object
+      properties:
+        id:
+          type: string
+        origin:
+          type: string
+          enum:
+          - upload
+          - makeCompliant
+          - connectedDocument
+          - fillableForm
+          - webForm
+        complianceStatus:
+          type: string
+          enum:
+          - compliant
+          - non_compliant
+    tag-input:
+      title: tag-input
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 3
+          description: Tag name
+        color:
+          type: string
+          pattern: ^#[0-9a-f]{6}$
+          example: '#ff0000'
+          description: Color of the tag in hex format
+          minLength: 7
+          maxLength: 7
+      required:
+      - name
+      x-internal: true
+      x-tags:
+      - input
+    taggging:
+      title: Tagging
+      type: object
+      properties:
+        type:
+          type: string
+          default: tags
+        id:
+          type: string
+        addedAt:
+          type: string
+          format: date
+        addedBy:
+          type: string
+        expiresAt:
+          type: string
+          x-stoplight:
+            id: 8xpna1blern8o
+          format: date
+    party-type:
+      title: Party Type
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          default: party-types
+        name:
+          type: string
+        pluralName:
+          type: string
+        defaultComplianceProfile:
+          oneOf:
+          - $ref: '#/components/schemas/reference'
+          - $ref: '#/components/schemas/compliance-profile'
+      x-examples:
+        Vendor:
+          id: 60a27c51fcd891823568ed28
+          type: party-types
+          name: Vendor
+          pluralName: Vendors
+          defaultComplianceProfile:
+            id: 60a27c51fcd891823568ed27
+            type: compliance-profiles
     document:
       type: object
       title: Document
@@ -391,53 +490,37 @@ components:
           type: string
           format: date
           readOnly: true
-    tag:
-      title: Tag
+    document-type:
+      description: ''
       type: object
+      title: Document Type
+      x-examples:
+        Certificate of insurance:
+          type: document-types
+          id: 60a27c517fd4e152a9642347
+          name: Certificate of Insurance
+          system: true
+          pluralName: Certificates of Insurance
       properties:
         type:
           type: string
-          default: tags
+          default: document-types
+          readOnly: true
         id:
           type: string
         name:
           type: string
-        color:
-          type: string
-    user:
-      description: ''
-      type: object
-      properties:
-        id:
-          type: string
-        profile:
-          type: object
-          properties:
-            name:
-              type: string
-              minLength: 1
-            phone:
-              type: string
-            title:
-              type: string
-            avatar:
-              type: string
-            role:
-              type: string
-            department:
-              type: string
-            timezone:
-              type: string
-        email:
+          minLength: 1
+        system:
+          type: boolean
+        pluralName:
           type: string
           minLength: 1
-        isActive:
-          type: boolean
-        type:
-          type: string
-          default: users
-          readOnly: true
-      title: User
+      required:
+      - id
+      - name
+      - system
+      - pluralName
     compliance-status:
       type: object
       title: Compliance Status
@@ -790,109 +873,68 @@ components:
             waiverOrOverrideExpirationDate: '2025-06-02T00:00:00.000Z'
           status: compliant
           lastChangedAt: '2025-07-16T17:55:00.000Z'
-    project:
-      title: Project
+    custom-field:
+      title: Custom Field
       type: object
-      x-examples:
-        Example project:
-          type: projects
-          id: 60a3dc67cba60c04739e8e46
-          name: Test Project
-          parties:
-          - id: 60896067dd86e01e90199f42
-            type: parties
-          customData:
-          - value: '123'
-            customField:
-              type: customFields
-              id: 60896067dd86e01e90199f42
-          externalIds:
-            procore:
-            - id: '49843945'
       properties:
-        type:
-          type: string
-          default: projects
-          readOnly: true
         id:
           type: string
+        type:
+          type: string
+          default: custom-fields
         name:
           type: string
-        description:
-          type:
-          - string
-          - 'null'
-        startDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        endDate:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        active:
-          type: boolean
-        parties:
+          description: Custom field label
+        'description ':
+          type: string
+          description: Optional description
+        color:
+          type: string
+          pattern: ^#[a-f0-9]{6}$
+          description: 'Field color in #rrggbb format'
+        fieldType:
+          type: string
+          default: text
+          enum:
+          - text
+          - number
+          - dropdown
+        options:
           type: array
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/reference'
-            - $ref: '#/components/schemas/party'
-            - type: string
-        customData:
-          type: array
+          description: List of options for the dropdown
           items:
             type: object
             properties:
+              key:
+                type: string
+                description: Unique identifier for the option
               value:
                 type: string
-              customField:
-                oneOf:
-                - $ref: '#/components/schemas/reference'
-                - $ref: '#/components/schemas/custom-field'
-        complianceStatus:
-          type: object
-          properties:
-            status:
-              type: string
-              enum:
-              - compliant
-              - non_compliant
-            compliantPartiesCount:
-              type: number
-            totalPartiesCount:
-              type: number
-            complianceScore:
-              type: number
-        deletedAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        deletedBy:
+                description: Option label
+        complianceProfile:
           oneOf:
-          - {}
           - $ref: '#/components/schemas/reference'
-        externalIds:
-          type: object
-          x-stoplight:
-            id: uw5iuj9nds4en
-    reference:
-      title: Reference
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-      description: Generic object reference
-      x-internal: false
+          - $ref: '#/components/schemas/compliance-profile'
+        associatedEntities:
+          type: array
+          enum:
+          - party
+          - project
+          description: List of entity types that can use this custom field
+          items:
+            type: string
+    response-status:
+      type: string
+      title: Response Status
+      enum:
+      - success
+      - fail
+      - error
+      readOnly: true
       x-examples:
-        Generic reference example:
-          id: 60896067dd86e01e90199f43
-          type: widgets
+        Success: success
+      description: The possible values are "success", "fail", and "error".
+      x-internal: true
     party:
       title: Party
       type: object
@@ -1011,61 +1053,19 @@ components:
           type: object
           x-stoplight:
             id: zk87opteuie3w
-    compliance-document:
-      x-internal: true
-      title: Compliance Document
+    tag:
+      title: Tag
       type: object
       properties:
+        type:
+          type: string
+          default: tags
         id:
           type: string
-        origin:
-          type: string
-          enum:
-          - upload
-          - makeCompliant
-          - connectedDocument
-          - fillableForm
-          - webForm
-        complianceStatus:
-          type: string
-          enum:
-          - compliant
-          - non_compliant
-    tag-input:
-      title: tag-input
-      type: object
-      properties:
         name:
           type: string
-          minLength: 3
-          description: Tag name
         color:
           type: string
-          pattern: ^#[0-9a-f]{6}$
-          example: '#ff0000'
-          description: Color of the tag in hex format
-          minLength: 7
-          maxLength: 7
-      required:
-      - name
-      x-internal: true
-      x-tags:
-      - input
-    collection-meta:
-      title: collection-meta
-      type: object
-      properties:
-        count:
-          type: number
-          description: The number of documents according to the specified filters
-        pages:
-          type: number
-        totalCount:
-          type: number
-          description: The total number of documents in the collection
-        totalPages:
-          type: number
-      x-internal: true
     compliance-profile:
       title: Compliance Profile
       type: object
@@ -1160,104 +1160,6 @@ components:
                 type: string
               active:
                 type: boolean
-    response-status:
-      type: string
-      title: Response Status
-      enum:
-      - success
-      - fail
-      - error
-      readOnly: true
-      x-examples:
-        Success: success
-      description: The possible values are "success", "fail", and "error".
-      x-internal: true
-    custom-field:
-      title: Custom Field
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          default: custom-fields
-        name:
-          type: string
-          description: Custom field label
-        'description ':
-          type: string
-          description: Optional description
-        color:
-          type: string
-          pattern: ^#[a-f0-9]{6}$
-          description: 'Field color in #rrggbb format'
-        fieldType:
-          type: string
-          default: text
-          enum:
-          - text
-          - number
-          - dropdown
-        options:
-          type: array
-          description: List of options for the dropdown
-          items:
-            type: object
-            properties:
-              key:
-                type: string
-                description: Unique identifier for the option
-              value:
-                type: string
-                description: Option label
-        complianceProfile:
-          oneOf:
-          - $ref: '#/components/schemas/reference'
-          - $ref: '#/components/schemas/compliance-profile'
-        associatedEntities:
-          type: array
-          enum:
-          - party
-          - project
-          description: List of entity types that can use this custom field
-          items:
-            type: string
-    taggging:
-      title: Tagging
-      type: object
-      properties:
-        type:
-          type: string
-          default: tags
-        id:
-          type: string
-        addedAt:
-          type: string
-          format: date
-        addedBy:
-          type: string
-        expiresAt:
-          type: string
-          x-stoplight:
-            id: 8xpna1blern8o
-          format: date
-    reference-list-input:
-      type: array
-      title: reference-list-input
-      x-tags:
-      - input
-      minItems: 1
-      items:
-        type: object
-        properties:
-          id:
-            type: string
-            pattern: ^[a-z0-9]{24}$
-            minLength: 24
-            maxLength: 24
-        required:
-        - id
-      x-internal: true
     taggging-full:
       title: Tagging (full data)
       type: object
@@ -1331,63 +1233,161 @@ components:
           type: string
           x-stoplight:
             id: 07yyrzkup5tdk
-    party-type:
-      title: Party Type
+    collection-meta:
+      title: collection-meta
+      type: object
+      properties:
+        count:
+          type: number
+          description: The number of documents according to the specified filters
+        pages:
+          type: number
+        totalCount:
+          type: number
+          description: The total number of documents in the collection
+        totalPages:
+          type: number
+      x-internal: true
+    user:
+      description: ''
       type: object
       properties:
         id:
           type: string
+        profile:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 1
+            phone:
+              type: string
+            title:
+              type: string
+            avatar:
+              type: string
+            role:
+              type: string
+            department:
+              type: string
+            timezone:
+              type: string
+        email:
+          type: string
+          minLength: 1
+        isActive:
+          type: boolean
         type:
           type: string
-          default: party-types
-        name:
-          type: string
-        pluralName:
-          type: string
-        defaultComplianceProfile:
-          oneOf:
-          - $ref: '#/components/schemas/reference'
-          - $ref: '#/components/schemas/compliance-profile'
-      x-examples:
-        Vendor:
-          id: 60a27c51fcd891823568ed28
-          type: party-types
-          name: Vendor
-          pluralName: Vendors
-          defaultComplianceProfile:
-            id: 60a27c51fcd891823568ed27
-            type: compliance-profiles
-    document-type:
-      description: ''
+          default: users
+          readOnly: true
+      title: User
+    reference-list-input:
+      type: array
+      title: reference-list-input
+      x-tags:
+      - input
+      minItems: 1
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+            pattern: ^[a-z0-9]{24}$
+            minLength: 24
+            maxLength: 24
+        required:
+        - id
+      x-internal: true
+    project:
+      title: Project
       type: object
-      title: Document Type
       x-examples:
-        Certificate of insurance:
-          type: document-types
-          id: 60a27c517fd4e152a9642347
-          name: Certificate of Insurance
-          system: true
-          pluralName: Certificates of Insurance
+        Example project:
+          type: projects
+          id: 60a3dc67cba60c04739e8e46
+          name: Test Project
+          parties:
+          - id: 60896067dd86e01e90199f42
+            type: parties
+          customData:
+          - value: '123'
+            customField:
+              type: customFields
+              id: 60896067dd86e01e90199f42
+          externalIds:
+            procore:
+            - id: '49843945'
       properties:
         type:
           type: string
-          default: document-types
+          default: projects
           readOnly: true
         id:
           type: string
         name:
           type: string
-          minLength: 1
-        system:
+        description:
+          type:
+          - string
+          - 'null'
+        startDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        endDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        active:
           type: boolean
-        pluralName:
-          type: string
-          minLength: 1
-      required:
-      - id
-      - name
-      - system
-      - pluralName
+        parties:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/reference'
+            - $ref: '#/components/schemas/party'
+            - type: string
+        customData:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+              customField:
+                oneOf:
+                - $ref: '#/components/schemas/reference'
+                - $ref: '#/components/schemas/custom-field'
+        complianceStatus:
+          type: object
+          properties:
+            status:
+              type: string
+              enum:
+              - compliant
+              - non_compliant
+            compliantPartiesCount:
+              type: number
+            totalPartiesCount:
+              type: number
+            complianceScore:
+              type: number
+        deletedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        deletedBy:
+          oneOf:
+          - {}
+          - $ref: '#/components/schemas/reference'
+        externalIds:
+          type: object
+          x-stoplight:
+            id: uw5iuj9nds4en
   securitySchemes:
     Token:
       name: Authorization

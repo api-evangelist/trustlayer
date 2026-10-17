@@ -166,6 +166,33 @@ paths:
       - Branding
 components:
   schemas:
+    collection-meta:
+      title: collection-meta
+      type: object
+      properties:
+        count:
+          type: number
+          description: The number of documents according to the specified filters
+        pages:
+          type: number
+        totalCount:
+          type: number
+          description: The total number of documents in the collection
+        totalPages:
+          type: number
+      x-internal: true
+    response-status:
+      type: string
+      title: Response Status
+      enum:
+      - success
+      - fail
+      - error
+      readOnly: true
+      x-examples:
+        Success: success
+      description: The possible values are "success", "fail", and "error".
+      x-internal: true
     branding:
       title: Branding
       type: object
@@ -189,25 +216,6 @@ components:
         createdAt:
           type: string
         updatedAt:
-          type: string
-        logo:
-          type: object
-          properties:
-            url:
-              type: string
-            friendlyName:
-              type: string
-            uploadedAt:
-              type: string
-    branding-update:
-      title: branding-update
-      type: object
-      x-internal: true
-      x-tags:
-      - input
-      x-examples: {}
-      properties:
-        name:
           type: string
         logo:
           type: object
@@ -244,53 +252,36 @@ components:
       required:
       - name
       - logo
-    collection-meta:
-      title: collection-meta
+    branding-update:
+      title: branding-update
       type: object
+      x-internal: true
+      x-tags:
+      - input
+      x-examples: {}
       properties:
-        count:
-          type: number
-          description: The number of documents according to the specified filters
-        pages:
-          type: number
-        totalCount:
-          type: number
-          description: The total number of documents in the collection
-        totalPages:
-          type: number
-      x-internal: true
-    response-status:
-      type: string
-      title: Response Status
-      enum:
-      - success
-      - fail
-      - error
-      readOnly: true
-      x-examples:
-        Success: success
-      description: The possible values are "success", "fail", and "error".
-      x-internal: true
+        name:
+          type: string
+        logo:
+          type: object
+          properties:
+            url:
+              type: string
+            friendlyName:
+              type: string
+            uploadedAt:
+              type: string
   parameters:
-    page-number:
-      name: page[number]
+    filter:
+      name: filter
       in: query
       required: false
       schema:
-        type: number
-        minimum: 1
-        example: 1
-        default: 1
-      description: Page number, starting from 1
-    sort:
-      name: sort
-      in: query
-      required: false
-      schema:
-        type: string
-        example: name,-age
-      description: List of comma-separated keys used to sort. Reversing is done by prepending "-" to the key name.
-      allowReserved: true
+        type: object
+        example:
+          title: foo
+      style: deepObject
+      description: Key-value pair, e.g. filter[key]=value
     page-size:
       name: page[size]
       in: query
@@ -302,16 +293,25 @@ components:
         example: 20
         default: 20
       description: Number of items per page. Defaults to 20. Maximum is 100
-    filter:
-      name: filter
+    sort:
+      name: sort
       in: query
       required: false
       schema:
-        type: object
-        example:
-          title: foo
-      style: deepObject
-      description: Key-value pair, e.g. filter[key]=value
+        type: string
+        example: name,-age
+      description: List of comma-separated keys used to sort. Reversing is done by prepending "-" to the key name.
+      allowReserved: true
+    page-number:
+      name: page[number]
+      in: query
+      required: false
+      schema:
+        type: number
+        minimum: 1
+        example: 1
+        default: 1
+      description: Page number, starting from 1
   securitySchemes:
     Token:
       name: Authorization

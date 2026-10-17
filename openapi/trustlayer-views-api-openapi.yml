@@ -567,13 +567,13 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    objectIdInput:
+    objectId:
       title: ObjectId
       type: string
       format: ObjectId
       examples:
       - 507f1f77bcf86cd799439011
-    objectId:
+    objectIdInput:
       title: ObjectId
       type: string
       format: ObjectId
